@@ -1,0 +1,14 @@
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
+ <mailingAddress/>
+ <lastname></lastname>
+ <firstname></firstname>
+  <birth>2013-09-10T10:54:57+0200</birth>
+ <address>
+  <street>BACDEF</street>
+  <block>11</block>
+ </address>
+ <address></address>
+ <address></address>
+ <age>0</age>
+ <middlename>Mr.</middlename>
+</customer>

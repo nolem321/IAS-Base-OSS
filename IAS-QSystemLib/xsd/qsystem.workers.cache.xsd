@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/cache"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:cache="http://www.invenireaude.org/qsystem/workers/cache"
+ >
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"    schemaLocation="qsystem.workers.xsd"/> 
+   	
+ <xsi:complexType name="Exception">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType> 		
+ 
+  <xsi:complexType name="NotFoundException">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="cache:Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType>  	
+   	
+  <!-- Some types used in external interfaces -->
+  <xsi:complexType name="Item">  		
+  	<xsi:sequence>
+  	  <xsi:element name="key"   type="xsi:string" minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="value" type="xsi:anyType" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+
+ <xsi:complexType name="Bucket">  		
+  	<xsi:sequence>
+  	  <xsi:element name="id"      type="xsi:string" minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="version" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="items"   type="cache:Item" minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+  
+   	
+  <xsi:complexType name="Cache">  		
+  	<xsi:sequence>
+  	  <xsi:element name="size" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="name" type="xsi:string" use="required"/>
+ </xsi:complexType>
+    
+  <xsi:complexType name="LocalCache">  		
+	<xsi:complexContent>
+	  <xsi:extension base="cache:Cache">
+	  </xsi:extension>
+	</xsi:complexContent>
+ </xsi:complexType>   
+    
+ <xsi:complexType name="PersistentCache">  		
+	<xsi:complexContent>
+	  <xsi:extension base="cache:Cache">
+	    <xsi:sequence>
+	       <xsi:element name="package" type="xsi:string" minOccurs="1" maxOccurs="1"/>
+	    </xsi:sequence>
+	  </xsi:extension>
+	</xsi:complexContent>
+ </xsi:complexType>
+ 
+  <xsi:complexType name="Specification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="caches" type="cache:Cache" minOccurs="1" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="default" type="xsi:string" use="optional"/>
+ </xsi:complexType>
+       
+ <xsi:element name="caches" type="cache:Specification" />
+ 
+</xsi:schema>

@@ -1,0 +1,16 @@
+#Fri Nov 29 08:18:10 CET 2013
+FILES+=ds/Impl/SQLite/Connection
+FILES+=ds/Impl/SQLite/exception/SQLiteException
+FILES+=ds/Impl/SQLite/Input
+FILES+=ds/Impl/SQLite/log/LogLevel
+FILES+=ds/Impl/SQLite/Output
+FILES+=ds/Impl/SQLite/ResultSetOutput
+FILES+=ds/Impl/SQLite/Session
+FILES+=ds/Impl/SQLite/SessionAutoCommit
+FILES+=ds/Impl/SQLite/SessionTransacted
+FILES+=ds/Impl/SQLite/Statement
+FILES+=ds/Impl/SQLite/StatementDelete
+FILES+=ds/Impl/SQLite/StatementInsert
+FILES+=ds/Impl/SQLite/StatementSelect
+FILES+=ds/Impl/SQLite/StatementUpdate
+FILES+=ds/Impl/SQLite/System

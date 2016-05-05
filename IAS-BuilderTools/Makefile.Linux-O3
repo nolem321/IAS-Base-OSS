@@ -1,0 +1,33 @@
+CCPP=g++
+CCPPDEPSCMD=g++ -MM -MG 
+#
+# Use += here since global settings are already set.
+CPPFLAGS+= -std=c++0x `pkg-config --cflags gtkmm-2.4 gtkglextmm-1.2 libcurl`
+CPPFLAGS+= -O3 
+LNFLAGS+=-O3
+LNLIBS+=`pkg-config --libs gtkmm-2.4 gtkglextmm-1.2 libcurl freetype2` -lxml2
+
+#Library creator
+
+TARGET=out/bin/$(TARGETFILE)
+
+TARGETFILE=lib$(ARTIFACT).so
+TARGET=out/lib/$(TARGETFILE)
+
+$(TARGET) : $(CPPOBJS) 
+	@echo Creating project artifact: $(TARGET)
+	@gcc $(LNFLAGS)  -shared -o $@ $^ -lpthread $(LNLIBS)
+
+#Executable creator
+
+$(CPPEXES) : out/bin/% : $(CPPOBJSNONEXE) out/obj/%.o
+	@echo Creating project artifact: $@
+	@g++ $(LNFLAGS) -o $@ $^ $(DEP_PROJECTS_LINK) $(LNLIBS)
+
+# the third line creates the dependence files
+
+$(CPPOBJS): out/obj/%.o: src/%.cpp 
+	@echo "Compiling: " $<
+	@$(CCPP) -c $(CPPFLAGS) $< -o $@
+	@$(CCPPDEPSCMD) -MT $@ $(CPPFLAGS) $< >> $(@:%.o=%.depend)
+

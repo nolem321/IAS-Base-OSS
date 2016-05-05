@@ -1,0 +1,2123 @@
+// A Bison parser, made by GNU Bison 3.0.2.
+
+// Skeleton implementation for Bison LALR(1) parsers in C++
+
+// Copyright (C) 2002-2013 Free Software Foundation, Inc.
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+// As a special exception, you may create a larger work that contains
+// part or all of the Bison parser skeleton and distribute that work
+// under terms of your choice, so long as that work isn't itself a
+// parser generator using the skeleton or a modified version thereof
+// as a parser skeleton.  Alternatively, if you modify or redistribute
+// the parser skeleton itself, you may (at your option) remove this
+// special exception, which will cause the skeleton and the resulting
+// Bison output files to be licensed under the GNU General Public
+// License without this special exception.
+
+// This special exception was added by the Free Software Foundation in
+// version 2.2 of Bison.
+
+
+// First part of user declarations.
+
+#line 37 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:399
+
+# ifndef YY_NULLPTR
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULLPTR nullptr
+#  else
+#   define YY_NULLPTR 0
+#  endif
+# endif
+
+#include "AutoGenParser.hpp"
+
+// User implementation prologue.
+
+#line 51 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:407
+// Unqualified %code blocks.
+#line 63 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:408
+
+#include "Parser.h"
+#include "Lexer.h"
+#include "yylex_function.h"
+
+using namespace IAS;
+using namespace Lang;
+using namespace Model;
+using namespace Script;
+using namespace Parser;
+
+
+#line 66 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:408
+
+
+#ifndef YY_
+# if defined YYENABLE_NLS && YYENABLE_NLS
+#  if ENABLE_NLS
+#   include <libintl.h> // FIXME: INFRINGES ON USER NAME SPACE.
+#   define YY_(msgid) dgettext ("bison-runtime", msgid)
+#  endif
+# endif
+# ifndef YY_
+#  define YY_(msgid) msgid
+# endif
+#endif
+
+#define YYRHSLOC(Rhs, K) ((Rhs)[K].location)
+/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
+   If N is 0, then set CURRENT to the empty location which ends
+   the previous symbol: RHS[0] (always defined).  */
+
+# ifndef YYLLOC_DEFAULT
+#  define YYLLOC_DEFAULT(Current, Rhs, N)                               \
+    do                                                                  \
+      if (N)                                                            \
+        {                                                               \
+          (Current).begin  = YYRHSLOC (Rhs, 1).begin;                   \
+          (Current).end    = YYRHSLOC (Rhs, N).end;                     \
+        }                                                               \
+      else                                                              \
+        {                                                               \
+          (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;      \
+        }                                                               \
+    while (/*CONSTCOND*/ false)
+# endif
+
+
+// Suppress unused-variable warnings by "using" E.
+#define YYUSE(E) ((void) (E))
+
+// Enable debugging if requested.
+#if YYDEBUG
+
+// A pseudo ostream that takes yydebug_ into account.
+# define YYCDEBUG if (yydebug_) (*yycdebug_)
+
+# define YY_SYMBOL_PRINT(Title, Symbol)         \
+  do {                                          \
+    if (yydebug_)                               \
+    {                                           \
+      *yycdebug_ << Title << ' ';               \
+      yy_print_ (*yycdebug_, Symbol);           \
+      *yycdebug_ << std::endl;                  \
+    }                                           \
+  } while (false)
+
+# define YY_REDUCE_PRINT(Rule)          \
+  do {                                  \
+    if (yydebug_)                       \
+      yy_reduce_print_ (Rule);          \
+  } while (false)
+
+# define YY_STACK_PRINT()               \
+  do {                                  \
+    if (yydebug_)                       \
+      yystack_print_ ();                \
+  } while (false)
+
+#else // !YYDEBUG
+
+# define YYCDEBUG if (false) std::cerr
+# define YY_SYMBOL_PRINT(Title, Symbol)  YYUSE(Symbol)
+# define YY_REDUCE_PRINT(Rule)           static_cast<void>(0)
+# define YY_STACK_PRINT()                static_cast<void>(0)
+
+#endif // !YYDEBUG
+
+#define yyerrok         (yyerrstatus_ = 0)
+#define yyclearin       (yyempty = true)
+
+#define YYACCEPT        goto yyacceptlab
+#define YYABORT         goto yyabortlab
+#define YYERROR         goto yyerrorlab
+#define YYRECOVERING()  (!!yyerrstatus_)
+
+
+namespace yy {
+#line 152 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:474
+
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
+  std::string
+   AutoGenParser ::yytnamerr_ (const char *yystr)
+  {
+    if (*yystr == '"')
+      {
+        std::string yyr = "";
+        char const *yyp = yystr;
+
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              // Fall through.
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+
+  /// Build a parser object.
+   AutoGenParser :: AutoGenParser  (::IAS::Lang::Script::Parser::Parser& myParser_yyarg)
+    :
+#if YYDEBUG
+      yydebug_ (false),
+      yycdebug_ (&std::cerr),
+#endif
+      myParser (myParser_yyarg)
+  {}
+
+   AutoGenParser ::~ AutoGenParser  ()
+  {}
+
+
+  /*---------------.
+  | Symbol types.  |
+  `---------------*/
+
+  inline
+   AutoGenParser ::syntax_error::syntax_error (const location_type& l, const std::string& m)
+    : std::runtime_error (m)
+    , location (l)
+  {}
+
+  // basic_symbol.
+  template <typename Base>
+  inline
+   AutoGenParser ::basic_symbol<Base>::basic_symbol ()
+    : value ()
+  {}
+
+  template <typename Base>
+  inline
+   AutoGenParser ::basic_symbol<Base>::basic_symbol (const basic_symbol& other)
+    : Base (other)
+    , value ()
+    , location (other.location)
+  {
+    value = other.value;
+  }
+
+
+  template <typename Base>
+  inline
+   AutoGenParser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const semantic_type& v, const location_type& l)
+    : Base (t)
+    , value (v)
+    , location (l)
+  {}
+
+
+  /// Constructor for valueless symbols.
+  template <typename Base>
+  inline
+   AutoGenParser ::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const location_type& l)
+    : Base (t)
+    , value ()
+    , location (l)
+  {}
+
+  template <typename Base>
+  inline
+   AutoGenParser ::basic_symbol<Base>::~basic_symbol ()
+  {
+  }
+
+  template <typename Base>
+  inline
+  void
+   AutoGenParser ::basic_symbol<Base>::move (basic_symbol& s)
+  {
+    super_type::move(s);
+    value = s.value;
+    location = s.location;
+  }
+
+  // by_type.
+  inline
+   AutoGenParser ::by_type::by_type ()
+     : type (empty)
+  {}
+
+  inline
+   AutoGenParser ::by_type::by_type (const by_type& other)
+    : type (other.type)
+  {}
+
+  inline
+   AutoGenParser ::by_type::by_type (token_type t)
+    : type (yytranslate_ (t))
+  {}
+
+  inline
+  void
+   AutoGenParser ::by_type::move (by_type& that)
+  {
+    type = that.type;
+    that.type = empty;
+  }
+
+  inline
+  int
+   AutoGenParser ::by_type::type_get () const
+  {
+    return type;
+  }
+
+
+  // by_state.
+  inline
+   AutoGenParser ::by_state::by_state ()
+    : state (empty)
+  {}
+
+  inline
+   AutoGenParser ::by_state::by_state (const by_state& other)
+    : state (other.state)
+  {}
+
+  inline
+  void
+   AutoGenParser ::by_state::move (by_state& that)
+  {
+    state = that.state;
+    that.state = empty;
+  }
+
+  inline
+   AutoGenParser ::by_state::by_state (state_type s)
+    : state (s)
+  {}
+
+  inline
+   AutoGenParser ::symbol_number_type
+   AutoGenParser ::by_state::type_get () const
+  {
+    return state == empty ? 0 : yystos_[state];
+  }
+
+  inline
+   AutoGenParser ::stack_symbol_type::stack_symbol_type ()
+  {}
+
+
+  inline
+   AutoGenParser ::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
+    : super_type (s, that.location)
+  {
+    value = that.value;
+    // that is emptied.
+    that.type = empty;
+  }
+
+  inline
+   AutoGenParser ::stack_symbol_type&
+   AutoGenParser ::stack_symbol_type::operator= (const stack_symbol_type& that)
+  {
+    state = that.state;
+    value = that.value;
+    location = that.location;
+    return *this;
+  }
+
+
+  template <typename Base>
+  inline
+  void
+   AutoGenParser ::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
+  {
+    if (yymsg)
+      YY_SYMBOL_PRINT (yymsg, yysym);
+
+    // User destructor.
+    switch (yysym.type_get ())
+    {
+            case 66: // T_SYMBOL
+
+#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 371 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+      case 67: // T_STRING
+
+#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 378 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+      case 68: // T_INTEGER
+
+#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 385 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+      case 69: // T_BOOLEAN
+
+#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 392 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+      case 70: // T_NULL
+
+#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 399 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+
+      default:
+        break;
+    }
+  }
+
+#if YYDEBUG
+  template <typename Base>
+  void
+   AutoGenParser ::yy_print_ (std::ostream& yyo,
+                                     const basic_symbol<Base>& yysym) const
+  {
+    std::ostream& yyoutput = yyo;
+    YYUSE (yyoutput);
+    symbol_number_type yytype = yysym.type_get ();
+    yyo << (yytype < yyntokens_ ? "token" : "nterm")
+        << ' ' << yytname_[yytype] << " ("
+        << yysym.location << ": ";
+    YYUSE (yytype);
+    yyo << ')';
+  }
+#endif
+
+  inline
+  void
+   AutoGenParser ::yypush_ (const char* m, state_type s, symbol_type& sym)
+  {
+    stack_symbol_type t (s, sym);
+    yypush_ (m, t);
+  }
+
+  inline
+  void
+   AutoGenParser ::yypush_ (const char* m, stack_symbol_type& s)
+  {
+    if (m)
+      YY_SYMBOL_PRINT (m, s);
+    yystack_.push (s);
+  }
+
+  inline
+  void
+   AutoGenParser ::yypop_ (unsigned int n)
+  {
+    yystack_.pop (n);
+  }
+
+#if YYDEBUG
+  std::ostream&
+   AutoGenParser ::debug_stream () const
+  {
+    return *yycdebug_;
+  }
+
+  void
+   AutoGenParser ::set_debug_stream (std::ostream& o)
+  {
+    yycdebug_ = &o;
+  }
+
+
+   AutoGenParser ::debug_level_type
+   AutoGenParser ::debug_level () const
+  {
+    return yydebug_;
+  }
+
+  void
+   AutoGenParser ::set_debug_level (debug_level_type l)
+  {
+    yydebug_ = l;
+  }
+#endif // YYDEBUG
+
+  inline  AutoGenParser ::state_type
+   AutoGenParser ::yy_lr_goto_state_ (state_type yystate, int yysym)
+  {
+    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
+      return yytable_[yyr];
+    else
+      return yydefgoto_[yysym - yyntokens_];
+  }
+
+  inline bool
+   AutoGenParser ::yy_pact_value_is_default_ (int yyvalue)
+  {
+    return yyvalue == yypact_ninf_;
+  }
+
+  inline bool
+   AutoGenParser ::yy_table_value_is_error_ (int yyvalue)
+  {
+    return yyvalue == yytable_ninf_;
+  }
+
+  int
+   AutoGenParser ::parse ()
+  {
+    /// Whether yyla contains a lookahead.
+    bool yyempty = true;
+
+    // State.
+    int yyn;
+    /// Length of the RHS of the rule being reduced.
+    int yylen = 0;
+
+    // Error handling.
+    int yynerrs_ = 0;
+    int yyerrstatus_ = 0;
+
+    /// The lookahead symbol.
+    symbol_type yyla;
+
+    /// The locations where the error started and ended.
+    stack_symbol_type yyerror_range[3];
+
+    /// The return value of parse ().
+    int yyresult;
+
+    // FIXME: This shoud be completely indented.  It is not yet to
+    // avoid gratuitous conflicts when merging into the master branch.
+    try
+      {
+    YYCDEBUG << "Starting parse" << std::endl;
+
+
+    // User initialization code.
+    #line 24 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:725
+{
+  // Initialize the initial location.
+  yyla.location.begin.filename = yyla.location.end.filename = new std::string("waisted");
+}
+
+#line 536 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:725
+
+    /* Initialize the stack.  The initial state will be set in
+       yynewstate, since the latter expects the semantical and the
+       location values to have been already stored, initialize these
+       stacks with a primary value.  */
+    yystack_.clear ();
+    yypush_ (YY_NULLPTR, 0, yyla);
+
+    // A new symbol was pushed on the stack.
+  yynewstate:
+    YYCDEBUG << "Entering state " << yystack_[0].state << std::endl;
+
+    // Accept?
+    if (yystack_[0].state == yyfinal_)
+      goto yyacceptlab;
+
+    goto yybackup;
+
+    // Backup.
+  yybackup:
+
+    // Try to take a decision without lookahead.
+    yyn = yypact_[yystack_[0].state];
+    if (yy_pact_value_is_default_ (yyn))
+      goto yydefault;
+
+    // Read a lookahead token.
+    if (yyempty)
+      {
+        YYCDEBUG << "Reading a token: ";
+        try
+          {
+            yyla.type = yytranslate_ (yylex (&yyla.value, &yyla.location, myParser));
+          }
+        catch (const syntax_error& yyexc)
+          {
+            error (yyexc);
+            goto yyerrlab1;
+          }
+        yyempty = false;
+      }
+    YY_SYMBOL_PRINT ("Next token is", yyla);
+
+    /* If the proper action on seeing token YYLA.TYPE is to reduce or
+       to detect an error, take that action.  */
+    yyn += yyla.type_get ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+      goto yydefault;
+
+    // Reduce or error.
+    yyn = yytable_[yyn];
+    if (yyn <= 0)
+      {
+        if (yy_table_value_is_error_ (yyn))
+          goto yyerrlab;
+        yyn = -yyn;
+        goto yyreduce;
+      }
+
+    // Discard the token being shifted.
+    yyempty = true;
+
+    // Count tokens shifted since error; after three, turn off error status.
+    if (yyerrstatus_)
+      --yyerrstatus_;
+
+    // Shift the lookahead token.
+    yypush_ ("Shifting", yyn, yyla);
+    goto yynewstate;
+
+  /*-----------------------------------------------------------.
+  | yydefault -- do the default action for the current state.  |
+  `-----------------------------------------------------------*/
+  yydefault:
+    yyn = yydefact_[yystack_[0].state];
+    if (yyn == 0)
+      goto yyerrlab;
+    goto yyreduce;
+
+  /*-----------------------------.
+  | yyreduce -- Do a reduction.  |
+  `-----------------------------*/
+  yyreduce:
+    yylen = yyr2_[yyn];
+    {
+      stack_symbol_type yylhs;
+      yylhs.state = yy_lr_goto_state_(yystack_[yylen].state, yyr1_[yyn]);
+      /* If YYLEN is nonzero, implement the default value of the
+         action: '$$ = $1'.  Otherwise, use the top of the stack.
+
+         Otherwise, the following line sets YYLHS.VALUE to garbage.
+         This behavior is undocumented and Bison users should not rely
+         upon it.  */
+      if (yylen)
+        yylhs.value = yystack_[yylen - 1].value;
+      else
+        yylhs.value = yystack_[0].value;
+
+      // Compute the default @$.
+      {
+        slice<stack_symbol_type, stack_type> slice (yystack_, yylen);
+        YYLLOC_DEFAULT (yylhs.location, slice, yylen);
+      }
+
+      // Perform the reduction.
+      YY_REDUCE_PRINT (yyn);
+      try
+        {
+          switch (yyn)
+            {
+  case 5:
+#line 225 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { myParser.addTypeDefinition((yystack_[0].value.pTypeDefinitionNode)); }
+#line 650 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 6:
+#line 226 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    {
+    (yystack_[0].value.pProgramNode)->setSourceLocation(myParser.getLexer()->getCachedLocation()); 
+	myParser.addProgram((yystack_[0].value.pProgramNode)); 
+}
+#line 659 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 7:
+#line 232 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    {  myParser.open((yystack_[1].value.pQualifiedNameNode)->getQualifiedName()); 
+           	 IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Free((yystack_[1].value.pQualifiedNameNode)); 
+           	 }
+#line 667 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 8:
+#line 237 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
+				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[5].value.sval)); _SVAL_DELETE((yystack_[5].value.sval)); 
+				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); }
+#line 675 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 9:
+#line 242 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
+				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[2].value.pTypeInfo));
+				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[8].value.sval)); _SVAL_DELETE((yystack_[8].value.sval)); 
+				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[6].value.sval)); _SVAL_DELETE((yystack_[6].value.sval)); }
+#line 684 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 10:
+#line 248 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 				  
+				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); 
+				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[1].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
+#line 692 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 11:
+#line 253 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 
+				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[1].value.pTypeInfo));
+				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[7].value.sval)); _SVAL_DELETE((yystack_[7].value.sval)); 
+				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[5].value.sval)); _SVAL_DELETE((yystack_[5].value.sval)); }
+#line 701 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 12:
+#line 260 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 707 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 13:
+#line 263 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 713 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 14:
+#line 265 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode); }
+#line 719 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 15:
+#line 266 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();  }
+#line 725 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 16:
+#line 268 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = (yystack_[2].value.pTypeDefinitionNode); (yylhs.value.pTypeDefinitionNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
+#line 731 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 17:
+#line 269 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();}
+#line 737 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 18:
+#line 271 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 743 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 19:
+#line 272 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
+												                _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 750 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 20:
+#line 274 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval)); 
+												 (yylhs.value.pDeclarationNode)->setIsArray(true); 
+												 _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 758 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 21:
+#line 277 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
+																  (yylhs.value.pDeclarationNode)->setIsArray(true); 
+												                  _SVAL_DELETE((yystack_[6].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 766 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 22:
+#line 283 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[3].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[2].value.pParametersNode)); }
+#line 772 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 23:
+#line 286 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[4].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[3].value.pParametersNode),(yystack_[2].value.pDeclarationNode)); }
+#line 778 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 24:
+#line 289 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[5].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[4].value.pParametersNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
+#line 784 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 25:
+#line 292 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[6].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[5].value.pParametersNode),(yystack_[4].value.pDeclarationNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
+#line 790 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 26:
+#line 294 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 796 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 27:
+#line 295 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 802 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 28:
+#line 296 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 808 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 29:
+#line 297 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 814 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 30:
+#line 299 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pParametersNode) = (yystack_[1].value.pParametersNode); }
+#line 820 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 31:
+#line 300 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create();  }
+#line 826 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 32:
+#line 302 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pParametersNode) = (yystack_[2].value.pParametersNode); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
+#line 832 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 33:
+#line 303 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create(); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
+#line 838 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 34:
+#line 305 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementsListNode) = (yystack_[1].value.pStatementsListNode); }
+#line 844 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 35:
+#line 307 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { 
+(yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); 
+(yystack_[1].value.pStatementNode)->setSourceLocation(myParser.getLexer()->getCachedLocation());
+(yylhs.value.pStatementsListNode)->addStatement((yystack_[1].value.pStatementNode));
+ }
+#line 854 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 36:
+#line 312 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); (yylhs.value.pStatementsListNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
+#line 860 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 37:
+#line 313 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementsListNode) = IAS_DFT_FACTORY<Stmt::StatementsListNode>::Create(); }
+#line 866 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 38:
+#line 315 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 872 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 39:
+#line 316 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 878 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 40:
+#line 318 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval));     (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[4].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 884 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 41:
+#line 320 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[6].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 890 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 42:
+#line 323 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementsListNode); }
+#line 896 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 43:
+#line 324 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 902 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 44:
+#line 325 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 908 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 45:
+#line 326 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 914 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 46:
+#line 327 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 920 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 47:
+#line 328 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 926 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 48:
+#line 329 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 932 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 49:
+#line 330 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 938 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 50:
+#line 331 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 944 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 51:
+#line 332 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 950 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 52:
+#line 333 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 956 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 53:
+#line 334 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
+#line 962 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 54:
+#line 336 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::AssignmentNode>::Create((yystack_[2].value.pLeftSideNode),(yystack_[0].value.pExprNode)); }
+#line 968 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 55:
+#line 338 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLeftSideNode) = IAS_DFT_FACTORY<Stmt::LeftSideNode>::Create((yystack_[0].value.pXPathAccessNode)); }
+#line 974 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 56:
+#line 345 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
+#line 980 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 57:
+#line 346 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::AdditionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 986 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 58:
+#line 347 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SubtractionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 992 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 59:
+#line 349 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
+#line 998 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 60:
+#line 350 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::MultiplyNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1004 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 61:
+#line 351 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DivisionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1010 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 62:
+#line 352 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ModuloNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1016 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 63:
+#line 354 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
+#line 1022 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 64:
+#line 356 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
+#line 1028 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 65:
+#line 357 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::XPath::XPathExprNode>::Create((yystack_[0].value.pXPathAccessNode)); }
+#line 1034 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 66:
+#line 359 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = (yystack_[1].value.pExprNode); }
+#line 1040 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 67:
+#line 360 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_INTEGER,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1046 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 68:
+#line 361 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_STRING,*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1052 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 69:
+#line 362 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_BOOLEAN,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1058 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 70:
+#line 363 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_NULL,*(yystack_[0].value.sval));    _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1064 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 71:
+#line 365 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1070 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 72:
+#line 367 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[3].value.sval),*(yystack_[1].value.sval), (yystack_[0].value.pStatementsListNode)); _SVAL_DELETE((yystack_[3].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
+#line 1076 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 73:
+#line 370 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CastNode>::Create((yystack_[3].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1082 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 74:
+#line 372 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::FunCallNode>::Create((yystack_[1].value.pQualifiedNameNode), (yystack_[0].value.pExprListNode)); }
+#line 1088 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 75:
+#line 373 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CopyOfNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1094 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 76:
+#line 374 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DetachNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1100 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 77:
+#line 375 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::NegativeNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1106 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 78:
+#line 376 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SizeOfNode>::Create((yystack_[1].value.pXPathAccessNode));}
+#line 1112 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 79:
+#line 377 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNode>::Create((yystack_[1].value.pExprNode));}
+#line 1118 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 80:
+#line 378 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNSNode>::Create((yystack_[1].value.pExprNode));}
+#line 1124 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 81:
+#line 379 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::StrLenNode>::Create((yystack_[1].value.pExprNode));}
+#line 1130 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 82:
+#line 381 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1136 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 83:
+#line 383 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalDiffNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1142 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 84:
+#line 384 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1148 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 85:
+#line 385 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1154 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 86:
+#line 386 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1160 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 87:
+#line 387 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1166 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 88:
+#line 390 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsTypeNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1172 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 89:
+#line 393 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsInstanceNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1178 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 90:
+#line 395 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1184 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 91:
+#line 396 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[1].value.pLogicalExprNode); }
+#line 1190 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 92:
+#line 397 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalNotNode>::Create((yystack_[0].value.pLogicalExprNode)); }
+#line 1196 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 93:
+#line 398 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsSetNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1202 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 94:
+#line 399 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsNullNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1208 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 95:
+#line 401 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1214 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 96:
+#line 402 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalAndNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
+#line 1220 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 97:
+#line 404 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1226 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 98:
+#line 405 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalOrNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
+#line 1232 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 99:
+#line 407 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1238 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 100:
+#line 410 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
+								IAS_DFT_FACTORY<Expr::XPath::XPathVariableAccessNode>::Create(
+										(*((yystack_[0].value.pXPathNode)->getElements().begin()))->getName()),(yystack_[0].value.pXPathNode));}
+#line 1246 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 101:
+#line 414 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
+						IAS_DFT_FACTORY<Expr::XPath::XPathExprAccessNode>::Create((yystack_[2].value.pExprNode)),(yystack_[0].value.pXPathNode)); }
+#line 1253 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 102:
+#line 417 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = (yystack_[2].value.pXPathNode); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1259 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 103:
+#line 419 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = (yystack_[5].value.pXPathNode); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
+#line 1265 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 104:
+#line 421 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1271 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 105:
+#line 423 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
+#line 1277 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 106:
+#line 426 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create("",(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); }
+#line 1283 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 107:
+#line 427 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create(*(yystack_[4].value.sval),(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); _SVAL_DELETE((yystack_[4].value.sval)); }
+#line 1289 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 108:
+#line 429 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WhileLoopNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
+#line 1295 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 109:
+#line 432 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[6].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
+#line 1301 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 110:
+#line 435 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[8].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[6].value.pExprNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
+#line 1307 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 111:
+#line 437 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
+#line 1313 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 112:
+#line 440 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[4].value.pLogicalExprNode),(yystack_[2].value.pStatementNode),(yystack_[0].value.pStatementNode)); }
+#line 1319 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 113:
+#line 443 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
+#line 1325 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 114:
+#line 445 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
+#line 1331 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 115:
+#line 446 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::DeleteNode>::Create((yystack_[0].value.pXPathAccessNode)); }
+#line 1337 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 116:
+#line 448 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create(); }
+#line 1343 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 117:
+#line 449 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1349 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 118:
+#line 452 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1355 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 119:
+#line 455 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create((yystack_[1].value.pStatementsListNode),(yystack_[0].value.pCatchListNode));  }
+#line 1361 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 120:
+#line 456 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pCatchListNode) = (yystack_[1].value.pCatchListNode); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode));           }
+#line 1367 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 121:
+#line 457 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pCatchListNode) = IAS_DFT_FACTORY<Stmt::CatchListNode>::Create(); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode)); }
+#line 1373 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 122:
+#line 460 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pCatchNode) = IAS_DFT_FACTORY<Stmt::CatchNode>::Create((yystack_[2].value.pDeclarationNode),(yystack_[0].value.pStatementsListNode)); }
+#line 1379 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 123:
+#line 462 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create(); }
+#line 1385 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 124:
+#line 463 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode)=(yystack_[1].value.pExprListNode); }
+#line 1391 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 125:
+#line 465 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode)=(yystack_[2].value.pExprListNode); (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
+#line 1397 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 126:
+#line 466 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create();  (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
+#line 1403 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 127:
+#line 468 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList) = new StringList; }
+#line 1409 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 128:
+#line 469 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList)=(yystack_[1].value.pStringList); }
+#line 1415 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 129:
+#line 471 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList)=(yystack_[2].value.pStringList); (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 1421 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 130:
+#line 472 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList) = new StringList;  (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 1427 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 131:
+#line 475 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pQualifiedNameNode)= IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1433 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 132:
+#line 476 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pQualifiedNameNode)=(yystack_[2].value.pQualifiedNameNode); (yylhs.value.pQualifiedNameNode)->addNextSymbol(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1439 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+
+#line 1443 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+            default:
+              break;
+            }
+        }
+      catch (const syntax_error& yyexc)
+        {
+          error (yyexc);
+          YYERROR;
+        }
+      YY_SYMBOL_PRINT ("-> $$ =", yylhs);
+      yypop_ (yylen);
+      yylen = 0;
+      YY_STACK_PRINT ();
+
+      // Shift the result of the reduction.
+      yypush_ (YY_NULLPTR, yylhs);
+    }
+    goto yynewstate;
+
+  /*--------------------------------------.
+  | yyerrlab -- here on detecting error.  |
+  `--------------------------------------*/
+  yyerrlab:
+    // If not already recovering from an error, report this error.
+    if (!yyerrstatus_)
+      {
+        ++yynerrs_;
+        error (yyla.location, yysyntax_error_ (yystack_[0].state,
+                                           yyempty ? yyempty_ : yyla.type_get ()));
+      }
+
+
+    yyerror_range[1].location = yyla.location;
+    if (yyerrstatus_ == 3)
+      {
+        /* If just tried and failed to reuse lookahead token after an
+           error, discard it.  */
+
+        // Return failure if at end of input.
+        if (yyla.type_get () == yyeof_)
+          YYABORT;
+        else if (!yyempty)
+          {
+            yy_destroy_ ("Error: discarding", yyla);
+            yyempty = true;
+          }
+      }
+
+    // Else will try to reuse lookahead token after shifting the error token.
+    goto yyerrlab1;
+
+
+  /*---------------------------------------------------.
+  | yyerrorlab -- error raised explicitly by YYERROR.  |
+  `---------------------------------------------------*/
+  yyerrorlab:
+
+    /* Pacify compilers like GCC when the user code never invokes
+       YYERROR and the label yyerrorlab therefore never appears in user
+       code.  */
+    if (false)
+      goto yyerrorlab;
+    yyerror_range[1].location = yystack_[yylen - 1].location;
+    /* Do not reclaim the symbols of the rule whose action triggered
+       this YYERROR.  */
+    yypop_ (yylen);
+    yylen = 0;
+    goto yyerrlab1;
+
+  /*-------------------------------------------------------------.
+  | yyerrlab1 -- common code for both syntax error and YYERROR.  |
+  `-------------------------------------------------------------*/
+  yyerrlab1:
+    yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    {
+      stack_symbol_type error_token;
+      for (;;)
+        {
+          yyn = yypact_[yystack_[0].state];
+          if (!yy_pact_value_is_default_ (yyn))
+            {
+              yyn += yyterror_;
+              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yyterror_)
+                {
+                  yyn = yytable_[yyn];
+                  if (0 < yyn)
+                    break;
+                }
+            }
+
+          // Pop the current state because it cannot handle the error token.
+          if (yystack_.size () == 1)
+            YYABORT;
+
+          yyerror_range[1].location = yystack_[0].location;
+          yy_destroy_ ("Error: popping", yystack_[0]);
+          yypop_ ();
+          YY_STACK_PRINT ();
+        }
+
+      yyerror_range[2].location = yyla.location;
+      YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
+
+      // Shift the error token.
+      error_token.state = yyn;
+      yypush_ ("Shifting", error_token);
+    }
+    goto yynewstate;
+
+    // Accept.
+  yyacceptlab:
+    yyresult = 0;
+    goto yyreturn;
+
+    // Abort.
+  yyabortlab:
+    yyresult = 1;
+    goto yyreturn;
+
+  yyreturn:
+    if (!yyempty)
+      yy_destroy_ ("Cleanup: discarding lookahead", yyla);
+
+    /* Do not reclaim the symbols of the rule whose action triggered
+       this YYABORT or YYACCEPT.  */
+    yypop_ (yylen);
+    while (1 < yystack_.size ())
+      {
+        yy_destroy_ ("Cleanup: popping", yystack_[0]);
+        yypop_ ();
+      }
+
+    return yyresult;
+  }
+    catch (...)
+      {
+        YYCDEBUG << "Exception caught: cleaning lookahead and stack"
+                 << std::endl;
+        // Do not try to display the values of the reclaimed symbols,
+        // as their printer might throw an exception.
+        if (!yyempty)
+          yy_destroy_ (YY_NULLPTR, yyla);
+
+        while (1 < yystack_.size ())
+          {
+            yy_destroy_ (YY_NULLPTR, yystack_[0]);
+            yypop_ ();
+          }
+        throw;
+      }
+  }
+
+  void
+   AutoGenParser ::error (const syntax_error& yyexc)
+  {
+    error (yyexc.location, yyexc.what());
+  }
+
+  // Generate an error message.
+  std::string
+   AutoGenParser ::yysyntax_error_ (state_type yystate, symbol_number_type yytoken) const
+  {
+    std::string yyres;
+    // Number of reported tokens (one for the "unexpected", one per
+    // "expected").
+    size_t yycount = 0;
+    // Its maximum.
+    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
+    // Arguments of yyformat.
+    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+
+    /* There are many possibilities here to consider:
+       - If this state is a consistent state with a default action, then
+         the only way this function was invoked is if the default action
+         is an error action.  In that case, don't check for expected
+         tokens because there are none.
+       - The only way there can be no lookahead present (in yytoken) is
+         if this state is a consistent state with a default action.
+         Thus, detecting the absence of a lookahead is sufficient to
+         determine that there is no unexpected or expected token to
+         report.  In that case, just report a simple "syntax error".
+       - Don't assume there isn't a lookahead just because this state is
+         a consistent state with a default action.  There might have
+         been a previous inconsistent state, consistent state with a
+         non-default action, or user semantic action that manipulated
+         yyla.  (However, yyla is currently not documented for users.)
+       - Of course, the expected token list depends on states to have
+         correct lookahead information, and it depends on the parser not
+         to perform extra reductions after fetching a lookahead from the
+         scanner and before detecting a syntax error.  Thus, state
+         merging (from LALR or IELR) and default reductions corrupt the
+         expected token list.  However, the list is correct for
+         canonical LR with one exception: it will still contain any
+         token that will not be accepted due to an error action in a
+         later state.
+    */
+    if (yytoken != yyempty_)
+      {
+        yyarg[yycount++] = yytname_[yytoken];
+        int yyn = yypact_[yystate];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            /* Start YYX at -YYN if negative to avoid negative indexes in
+               YYCHECK.  In other words, skip the first -YYN actions for
+               this state because they are default actions.  */
+            int yyxbegin = yyn < 0 ? -yyn : 0;
+            // Stay within bounds of both yycheck and yytname.
+            int yychecklim = yylast_ - yyn + 1;
+            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
+            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+              if (yycheck_[yyx + yyn] == yyx && yyx != yyterror_
+                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+                {
+                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
+                    {
+                      yycount = 1;
+                      break;
+                    }
+                  else
+                    yyarg[yycount++] = yytname_[yyx];
+                }
+          }
+      }
+
+    char const* yyformat = YY_NULLPTR;
+    switch (yycount)
+      {
+#define YYCASE_(N, S)                         \
+        case N:                               \
+          yyformat = S;                       \
+        break
+        YYCASE_(0, YY_("syntax error"));
+        YYCASE_(1, YY_("syntax error, unexpected %s"));
+        YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
+        YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+        YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+        YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+#undef YYCASE_
+      }
+
+    // Argument number.
+    size_t yyi = 0;
+    for (char const* yyp = yyformat; *yyp; ++yyp)
+      if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
+        {
+          yyres += yytnamerr_ (yyarg[yyi++]);
+          ++yyp;
+        }
+      else
+        yyres += *yyp;
+    return yyres;
+  }
+
+
+  const short int  AutoGenParser ::yypact_ninf_ = -160;
+
+  const short int  AutoGenParser ::yytable_ninf_ = -132;
+
+  const short int
+   AutoGenParser ::yypact_[] =
+  {
+    -160,   172,  -160,   -46,   -46,   -39,  -160,  -160,  -160,  -160,
+    -160,   -18,    -6,   -21,   -14,  -160,    13,    30,     7,  -160,
+      24,  -160,    39,  -160,  -160,   -13,    22,    31,    34,    -9,
+      77,  -160,    78,   280,    79,    54,    88,    56,    63,  -160,
+      82,  -160,   -12,  -160,  -160,   360,    76,    76,   360,   360,
+     118,   399,   360,    61,    96,   109,   117,   360,   -46,   122,
+     128,   130,   438,    -8,  -160,  -160,  -160,  -160,  -160,   105,
+     107,  -160,   101,   113,  -160,   114,  -160,  -160,  -160,  -160,
+    -160,  -160,  -160,  -160,  -160,  -160,    15,   112,   108,   -22,
+     123,    88,  -160,   182,   165,   139,   173,   144,   135,    15,
+      76,    76,   169,   170,   124,    65,    84,  -160,   113,  -160,
+    -160,   174,   183,   189,  -160,   188,  -160,  -160,   192,    19,
+     202,   185,   195,   167,   360,   360,   360,  -160,    15,   360,
+     360,   360,  -160,   360,  -160,  -160,   360,   154,   158,   175,
+     171,   176,  -160,  -160,  -160,    40,  -160,   168,  -160,    -4,
+     161,  -160,   163,   179,   360,  -160,  -160,    23,   197,   360,
+     360,   200,   205,   360,   360,   360,   360,   360,   360,   360,
+     360,   360,   360,   360,    76,    76,   321,   321,   207,   192,
+    -160,   360,   321,  -160,   161,   180,   201,   215,   216,  -160,
+     217,   218,   219,   206,  -160,   193,   114,   209,  -160,  -160,
+      48,   186,  -160,   190,  -160,  -160,   236,   208,   212,     2,
+     213,  -160,   252,  -160,   237,   238,   161,   161,  -160,  -160,
+    -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,
+    -160,  -160,   251,    78,  -160,   257,  -160,   240,   118,  -160,
+    -160,  -160,  -160,  -160,  -160,  -160,   360,  -160,   360,  -160,
+    -160,    -5,  -160,   210,  -160,   220,   222,   360,  -160,  -160,
+     242,   246,   321,   247,   321,  -160,  -160,   234,  -160,   258,
+     229,  -160,  -160,  -160,    29,  -160,  -160,  -160,   118,  -160,
+    -160,   224,   225,   360,   321,  -160,   243,  -160,   278,  -160,
+     228,   321,  -160,  -160
+  };
+
+  const unsigned char
+   AutoGenParser ::yydefact_[] =
+  {
+       2,     0,     1,     0,     0,     0,     3,     4,     5,     6,
+     131,     0,     0,     0,     0,     7,     0,     0,     0,   132,
+       0,    31,     0,    33,    37,     0,     0,     0,     0,     0,
+       0,    30,     0,     0,     0,    26,     0,     0,     0,    22,
+       0,    10,     0,    32,    34,     0,     0,     0,   116,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,   104,    68,    67,    69,    70,    42,     0,
+       0,    43,     0,     0,    55,   100,    46,    45,    44,    47,
+      48,    49,    50,    51,    52,    53,     0,     0,     0,     0,
+       0,     0,    23,    17,     0,     0,     0,    38,     0,     0,
+       0,     0,     0,     0,     0,    56,    59,    63,    64,    90,
+      95,    97,    99,     0,    65,     0,   117,   118,     0,   104,
+       0,     0,    63,     0,     0,     0,     0,   115,     0,     0,
+       0,     0,    77,     0,    36,    35,     0,     0,     0,     0,
+     113,    28,    27,   127,   130,     0,    24,     0,    15,     0,
+       0,     8,     0,     0,     0,    74,    92,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   119,
+     121,     0,     0,    66,     0,     0,     0,     0,     0,   114,
+       0,     0,     0,     0,    54,   104,   101,   102,   123,   126,
+       0,     0,   128,     0,    25,    14,     0,     0,    12,     0,
+      40,    39,     0,    91,     0,     0,     0,     0,    82,    86,
+      84,    87,    85,    83,    57,    58,    60,    61,    62,    96,
+      98,   108,   111,     0,   120,     0,   106,     0,    71,    78,
+      75,    76,    79,    80,    81,   105,     0,   124,     0,    29,
+     129,     0,    16,     0,    11,     0,     0,     0,    93,    94,
+       0,     0,     0,     0,     0,    73,    72,     0,   125,     0,
+      18,    13,     9,    41,     0,    88,    89,   112,     0,   107,
+     103,     0,     0,     0,     0,   122,    20,    19,     0,   109,
+       0,     0,    21,   110
+  };
+
+  const short int
+   AutoGenParser ::yypgoto_[] =
+  {
+    -160,  -160,  -160,  -160,  -160,  -152,    93,  -160,  -160,  -160,
+    -160,  -160,  -160,   -15,  -160,   -27,  -159,  -160,  -160,    28,
+     -91,   -33,   -42,   -29,  -160,   204,   131,   132,   -38,   -26,
+     160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,
+    -160,  -160,   127,   -70,  -160,   231,  -160,    -3
+  };
+
+  const short int
+   AutoGenParser ::yydefgoto_[] =
+  {
+      -1,     1,     6,     7,     8,   209,    95,   149,   207,     9,
+      27,    17,    22,    68,    33,    23,    70,    71,    72,   104,
+     105,   106,   107,   108,   109,   110,   111,   112,   113,   114,
+      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
+      85,   179,   180,   140,   200,    90,   145,    99
+  };
+
+  const short int
+   AutoGenParser ::yytable_[] =
+  {
+      11,    12,    28,   205,    73,    43,    69,    74,    93,   115,
+     122,   143,    38,    34,    96,    40,    73,   231,   232,    98,
+      10,   269,    73,   236,  -131,   120,    16,    13,    73,   155,
+      86,   127,   237,   132,    18,   118,    24,    24,    14,   133,
+      15,    20,   283,   181,   284,   144,    21,   139,  -131,    41,
+      14,  -131,    19,    35,    97,   128,   183,    25,   189,   122,
+     254,   270,   206,   158,   260,   261,   133,   161,   162,    26,
+      37,    14,    31,   202,    29,  -131,   116,   117,   224,   225,
+     121,   247,   163,   164,   165,   166,   167,   168,    93,    36,
+      30,    94,    39,    32,   203,    73,    73,    73,   186,   187,
+     188,    42,   248,   277,    87,   279,    20,   100,   101,    88,
+      53,    54,    55,    56,   169,   170,    59,    60,   102,   103,
+      89,    92,    61,    91,    24,   289,    62,   123,   124,   157,
+      73,    73,   293,   214,   215,   171,   172,   173,   226,   227,
+     228,   125,    63,    64,    65,    66,    67,    73,    73,   126,
+      74,    74,    73,    73,   129,   235,    74,   190,   191,   192,
+     130,   193,   131,   134,   194,   135,   136,   199,   161,   162,
+     137,   138,     2,    86,    86,   142,     3,     4,   141,    86,
+       5,   146,   212,   163,   164,   165,   166,   167,   168,   148,
+     150,   218,   219,   220,   221,   222,   223,   151,   152,   153,
+     154,   159,   160,   174,   176,   177,   263,    52,   198,    53,
+      54,    55,    56,   175,   178,    59,    60,   182,   183,   184,
+     195,    61,   185,   266,   197,    62,   204,   208,   -74,   210,
+     213,   201,   216,    73,   239,    73,    74,   217,    74,   233,
+     133,    63,    64,    65,    66,    67,   211,   238,   240,   241,
+     242,   243,   244,   249,   245,    73,   246,   250,    74,    86,
+     251,    86,    73,   285,   257,    74,   252,   253,   256,   262,
+     258,   259,   264,   265,   267,   275,   268,   271,   272,   276,
+     278,    86,   280,   281,   282,   274,    24,    44,    86,   273,
+     286,    45,   287,   291,    46,   292,    47,   196,   290,    48,
+      49,    50,   255,    51,   156,   229,   234,   230,    20,     0,
+       0,   288,    52,     0,    53,    54,    55,    56,    57,    58,
+      59,    60,   147,     0,     0,     0,    61,    24,     0,     0,
+      62,     0,    45,     0,     0,    46,     0,    47,     0,     0,
+      48,    49,    50,     0,    51,     0,    63,    64,    65,    66,
+      67,     0,     0,    52,     0,    53,    54,    55,    56,    57,
+      58,    59,    60,     0,     0,     0,     0,    61,     0,     0,
+       0,    62,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    63,    64,    65,
+      66,    67,    52,     0,    53,    54,    55,    56,     0,     0,
+      59,    60,     0,     0,     0,     0,    61,     0,     0,     0,
+      62,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    63,    64,    65,    66,
+      67,    52,     0,    53,    54,    55,    56,     0,     0,    59,
+      60,     0,     0,     0,     0,    61,     0,     0,     0,    62,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,   119,    64,    65,    66,    67,
+      52,     0,    53,    54,    55,    56,     0,     0,    59,    60,
+       0,     0,     0,     0,    61,     0,     0,     0,    62,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    10,    64,    65,    66,    67
+  };
+
+  const short int
+   AutoGenParser ::yycheck_[] =
+  {
+       3,     4,    17,     7,    33,    32,    33,    33,     6,    47,
+      52,    33,    27,    26,    26,    24,    45,   176,   177,    45,
+      66,    26,    51,   182,    32,    51,    32,    66,    57,    99,
+      33,    57,   184,    62,    55,    50,     6,     6,    56,    47,
+      58,    28,    13,    24,    15,    67,    33,    32,    56,    58,
+      56,    32,    66,    66,    66,    58,    33,    27,   128,   101,
+      58,    66,    66,   101,   216,   217,    47,    44,    45,    39,
+      39,    56,    33,    33,    67,    56,    48,    49,   169,   170,
+      52,    33,    59,    60,    61,    62,    63,    64,     6,    67,
+      66,     9,    58,    54,    54,   124,   125,   126,   124,   125,
+     126,    24,    54,   262,    25,   264,    28,    31,    32,    55,
+      34,    35,    36,    37,    49,    50,    40,    41,    42,    43,
+      32,    58,    46,    67,     6,   284,    50,    66,    32,   101,
+     159,   160,   291,   159,   160,    51,    52,    53,   171,   172,
+     173,    32,    66,    67,    68,    69,    70,   176,   177,    32,
+     176,   177,   181,   182,    32,   181,   182,   129,   130,   131,
+      32,   133,    32,    58,   136,    58,    65,   139,    44,    45,
+      57,    57,     0,   176,   177,    67,     4,     5,    66,   182,
+       8,    58,   154,    59,    60,    61,    62,    63,    64,     7,
+      25,   163,   164,   165,   166,   167,   168,    58,    25,    55,
+      65,    32,    32,    29,    15,    17,   233,    32,    33,    34,
+      35,    36,    37,    30,    22,    40,    41,    15,    33,    24,
+      66,    46,    55,   238,    66,    50,    58,    66,    57,    66,
+      33,    55,    32,   262,    33,   264,   262,    32,   264,    32,
+      47,    66,    67,    68,    69,    70,    67,    67,    33,    33,
+      33,    33,    33,    67,    48,   284,    47,    67,   284,   262,
+      24,   264,   291,   278,    12,   291,    58,    55,    55,    18,
+      33,    33,    15,    33,   246,    33,   248,    67,    58,    33,
+      33,   284,    48,    25,    55,   257,     6,     7,   291,    67,
+      66,    11,    67,    15,    14,    67,    16,   137,    55,    19,
+      20,    21,   209,    23,   100,   174,   179,   175,    28,    -1,
+      -1,   283,    32,    -1,    34,    35,    36,    37,    38,    39,
+      40,    41,    91,    -1,    -1,    -1,    46,     6,    -1,    -1,
+      50,    -1,    11,    -1,    -1,    14,    -1,    16,    -1,    -1,
+      19,    20,    21,    -1,    23,    -1,    66,    67,    68,    69,
+      70,    -1,    -1,    32,    -1,    34,    35,    36,    37,    38,
+      39,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,    -1,
+      -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,
+      69,    70,    32,    -1,    34,    35,    36,    37,    -1,    -1,
+      40,    41,    -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,
+      50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,    69,
+      70,    32,    -1,    34,    35,    36,    37,    -1,    -1,    40,
+      41,    -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,    50,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    66,    67,    68,    69,    70,
+      32,    -1,    34,    35,    36,    37,    -1,    -1,    40,    41,
+      -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,    50,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    66,    67,    68,    69,    70
+  };
+
+  const unsigned char
+   AutoGenParser ::yystos_[] =
+  {
+       0,    72,     0,     4,     5,     8,    73,    74,    75,    80,
+      66,   118,   118,    66,    56,    58,    32,    82,    55,    66,
+      28,    33,    83,    86,     6,    27,    39,    81,    84,    67,
+      66,    33,    54,    85,    26,    66,    67,    39,    84,    58,
+      24,    58,    24,    86,     7,    11,    14,    16,    19,    20,
+      21,    23,    32,    34,    35,    36,    37,    38,    39,    40,
+      41,    46,    50,    66,    67,    68,    69,    70,    84,    86,
+      87,    88,    89,    94,   100,   101,   102,   103,   104,   105,
+     106,   107,   108,   109,   110,   111,   118,    25,    55,    32,
+     116,    67,    58,     6,     9,    77,    26,    66,   100,   118,
+      31,    32,    42,    43,    90,    91,    92,    93,    94,    95,
+      96,    97,    98,    99,   100,    99,    90,    90,    84,    66,
+     100,    90,    93,    66,    32,    32,    32,   100,   118,    32,
+      32,    32,    94,    47,    58,    58,    65,    57,    57,    32,
+     114,    66,    67,    33,    67,   117,    58,   116,     7,    78,
+      25,    58,    25,    55,    65,   114,    96,    90,    99,    32,
+      32,    44,    45,    59,    60,    61,    62,    63,    64,    49,
+      50,    51,    52,    53,    29,    30,    15,    17,    22,   112,
+     113,    24,    15,    33,    24,    55,   100,   100,   100,   114,
+      90,    90,    90,    90,    90,    66,   101,    66,    33,    90,
+     115,    55,    33,    54,    58,     7,    66,    79,    66,    76,
+      66,    67,    90,    33,   100,   100,    32,    32,    90,    90,
+      90,    90,    90,    90,    91,    91,    92,    92,    92,    97,
+      98,    87,    87,    32,   113,   100,    87,    76,    67,    33,
+      33,    33,    33,    33,    33,    48,    47,    33,    54,    67,
+      67,    24,    58,    55,    58,    77,    55,    12,    33,    33,
+      76,    76,    18,    86,    15,    33,    84,    90,    90,    26,
+      66,    67,    58,    67,    90,    33,    33,    87,    33,    87,
+      48,    25,    55,    13,    15,    84,    66,    67,    90,    87,
+      55,    15,    67,    87
+  };
+
+  const unsigned char
+   AutoGenParser ::yyr1_[] =
+  {
+       0,    71,    72,    72,    73,    73,    73,    74,    75,    75,
+      75,    75,    76,    76,    77,    77,    78,    78,    79,    79,
+      79,    79,    80,    80,    80,    80,    81,    81,    81,    81,
+      82,    82,    83,    83,    84,    85,    85,    85,    86,    86,
+      86,    86,    87,    87,    87,    87,    87,    87,    87,    87,
+      87,    87,    87,    87,    88,    89,    90,    91,    91,    91,
+      92,    92,    92,    92,    93,    93,    94,    94,    94,    94,
+      94,    94,    94,    94,    94,    94,    94,    94,    94,    94,
+      94,    94,    95,    95,    95,    95,    95,    95,    95,    95,
+      96,    96,    96,    96,    96,    97,    97,    98,    98,    99,
+     100,   100,   101,   101,   101,   101,   102,   102,   103,   104,
+     104,   105,   105,   106,   107,   108,   109,   109,   110,   111,
+     112,   112,   113,   114,   114,   115,   115,   116,   116,   117,
+     117,   118,   118
+  };
+
+  const unsigned char
+   AutoGenParser ::yyr2_[] =
+  {
+       0,     2,     0,     2,     1,     1,     1,     3,     7,    10,
+       5,     9,     1,     3,     3,     2,     3,     0,     3,     5,
+       5,     7,     5,     6,     7,     8,     2,     4,     4,     6,
+       3,     2,     3,     1,     3,     3,     3,     0,     4,     6,
+       6,     8,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     3,     1,     1,     3,     3,     1,
+       3,     3,     3,     1,     1,     1,     3,     1,     1,     1,
+       1,     4,     5,     5,     2,     4,     4,     2,     4,     4,
+       4,     4,     3,     3,     3,     3,     3,     3,     5,     5,
+       1,     3,     2,     4,     4,     1,     3,     1,     3,     1,
+       1,     3,     3,     6,     1,     4,     4,     6,     4,     8,
+      10,     4,     6,     2,     3,     2,     1,     2,     2,     3,
+       2,     1,     5,     2,     3,     3,     1,     2,     3,     3,
+       1,     1,     3
+  };
+
+
+
+  // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
+  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  const char*
+  const  AutoGenParser ::yytname_[] =
+  {
+  "\"end of file\"", "error", "$undefined", "T_NONE", "\"IMPORT\"",
+  "\"PROGRAM\"", "\"BEGIN\"", "\"END\"", "\"DEFINE\"", "\"EXTENSION\"",
+  "\"CALL\"", "\"FOR\"", "\"TO\"", "\"STEP\"", "\"WHILE\"", "\"DO\"",
+  "\"IF\"", "\"THEN\"", "\"ELSE\"", "\"RETURN\"", "\"THROW\"", "\"TRY\"",
+  "\"CATCH\"", "\"WITH\"", "\"AS\"", "\"OF\"", "\"ARRAY\"", "\"RETURNS\"",
+  "\"VAR\"", "\"AND\"", "\"OR\"", "\"NOT\"", "\"(\"", "\")\"", "\"NEW\"",
+  "\"SIZEOF\"", "\"COPYOF\"", "\"DETACH\"", "\"DELETE\"", "\"EXTERNAL\"",
+  "\"TYPE\"", "\"TYPENS\"", "\"ISSET\"", "\"ISNULL\"", "\"ISTYPE\"",
+  "\"ISINSTANCE\"", "\"STRLEN\"", "\"[\"", "\"]\"", "\"+\"", "\"-\"",
+  "\"*\"", "\"/\"", "\"%\"", "\",\"", "\":\"", "\"::\"", "\".\"", "\";\"",
+  "\"==\"", "\"<\"", "\"<=\"", "\">\"", "\">=\"", "\"<>\"",
+  "\"= (assignment)\"", "T_SYMBOL", "T_STRING", "T_INTEGER", "T_BOOLEAN",
+  "T_NULL", "$accept", "globals", "global", "import", "typeDefinition",
+  "baseType", "typeDefinitionPropertiesEnclosed",
+  "typeDefinitionProperties", "property", "program", "programResult",
+  "parametersListPar", "parametersList", "statementsListBeginEnd",
+  "statementsList", "declaration", "statement", "assignment", "lvalue",
+  "expr", "exprTerm", "exprFactor", "exprPrimaryOrXPath", "exprPrimary",
+  "relationalOper", "logicalExprPrimary", "logicalExprFactor",
+  "logicalExprTerm", "logicalExpr", "xpathAccess", "xpath", "with",
+  "whileLoop", "forLoop", "ifThenElse", "call", "external", "delete",
+  "return", "throw", "tryCatch", "catchList", "catch", "exprListPar",
+  "exprList", "externalParametersPar", "externalParameters", "qname", YY_NULLPTR
+  };
+
+#if YYDEBUG
+  const unsigned short int
+   AutoGenParser ::yyrline_[] =
+  {
+       0,   222,   222,   222,   224,   225,   226,   231,   236,   241,
+     247,   252,   259,   262,   265,   266,   268,   269,   271,   272,
+     274,   277,   282,   285,   288,   291,   294,   295,   296,   297,
+     299,   300,   302,   303,   305,   307,   312,   313,   315,   316,
+     317,   319,   323,   324,   325,   326,   327,   328,   329,   330,
+     331,   332,   333,   334,   336,   338,   345,   346,   347,   349,
+     350,   351,   352,   354,   356,   357,   359,   360,   361,   362,
+     363,   365,   366,   369,   372,   373,   374,   375,   376,   377,
+     378,   379,   381,   383,   384,   385,   386,   387,   389,   392,
+     395,   396,   397,   398,   399,   401,   402,   404,   405,   407,
+     410,   413,   417,   418,   421,   422,   426,   427,   429,   431,
+     434,   437,   439,   443,   445,   446,   448,   449,   452,   455,
+     456,   457,   459,   462,   463,   465,   466,   468,   469,   471,
+     472,   475,   476
+  };
+
+  // Print the state stack on the debug stream.
+  void
+   AutoGenParser ::yystack_print_ ()
+  {
+    *yycdebug_ << "Stack now";
+    for (stack_type::const_iterator
+           i = yystack_.begin (),
+           i_end = yystack_.end ();
+         i != i_end; ++i)
+      *yycdebug_ << ' ' << i->state;
+    *yycdebug_ << std::endl;
+  }
+
+  // Report on the debug stream that the rule \a yyrule is going to be reduced.
+  void
+   AutoGenParser ::yy_reduce_print_ (int yyrule)
+  {
+    unsigned int yylno = yyrline_[yyrule];
+    int yynrhs = yyr2_[yyrule];
+    // Print the symbols being reduced, and their result.
+    *yycdebug_ << "Reducing stack by rule " << yyrule - 1
+               << " (line " << yylno << "):" << std::endl;
+    // The symbols being reduced.
+    for (int yyi = 0; yyi < yynrhs; yyi++)
+      YY_SYMBOL_PRINT ("   $" << yyi + 1 << " =",
+                       yystack_[(yynrhs) - (yyi + 1)]);
+  }
+#endif // YYDEBUG
+
+  // Symbol number corresponding to token number t.
+  inline
+   AutoGenParser ::token_number_type
+   AutoGenParser ::yytranslate_ (int t)
+  {
+    static
+    const token_number_type
+    translate_table[] =
+    {
+     0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,    66,    67,    68,    69,    70
+    };
+    const unsigned int user_token_number_max_ = 325;
+    const token_number_type undef_token_ = 2;
+
+    if (static_cast<int>(t) <= yyeof_)
+      return yyeof_;
+    else if (static_cast<unsigned int> (t) <= user_token_number_max_)
+      return translate_table[t];
+    else
+      return undef_token_;
+  }
+
+
+} // yy
+#line 2114 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:1155
+#line 478 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:1156
+
+
+
+void yy::AutoGenParser::error (const location_type& l,
+                               const std::string& m)
+{
+  myParser.onAutoGenParserError(l, m);
+}
+

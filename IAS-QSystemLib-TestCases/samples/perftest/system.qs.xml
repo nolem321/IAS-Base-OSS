@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:system 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns0="http://www.invenireaude.org/qsystem"
+  xsi:type="ns0:System" 
+  name="QS.Perf.Test">
+
+  <memory>
+	<heap  value="10000000"/>      
+	<queue value="40000000"/>
+	<data  value="200000000"/>
+  </memory>     
+  
+  <sessions>
+    <maxSessions>100</maxSessions>    
+  </sessions>
+  
+  <queues>      
+     <maxQueues>100</maxQueues>
+     <dftSize>100</dftSize>
+  </queues>
+ 
+ <content>
+  <maxEntries>200000</maxEntries>
+ </content>
+ 
+ <actions xsi:type="ns0:ActionCreateQueue">
+   <queueDefinition name="Q.BIG">
+     <size>100000</size>
+     <overwriteWhenFull>true</overwriteWhenFull>
+   </queueDefinition>
+ </actions> 
+ 
+ <actions xsi:type="ns0:ActionCreateQueue">
+   <queueDefinition name="Q.SMALL">
+     <size>100</size>
+     <overwriteWhenFull>true</overwriteWhenFull>
+   </queueDefinition>
+ </actions>
+</ns0:system>

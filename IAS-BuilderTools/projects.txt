@@ -1,0 +1,15 @@
+IAS-BuilderTools
+IAS-CommonLib
+IAS-DataModelLib
+IAS-DataModelLib-CodeGen
+IAS-LangLib
+IAS-QSystemLib
+IAS-QSystemMod-SQLite
+IAS-QSystemMod-FCGI
+IAS-QSystemExe
+IAS-ServiceManagerLib
+IAS-ServiceManagerExe
+IAS-QSystemMod-ServiceManager
+IAS-QSystemMod-DB2
+IAS-QSystemMod-Oracle
+IAS-QSystemMod-WMQ

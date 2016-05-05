@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:system 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns0="http://www.invenireaude.org/qsystem/workers"
+  xsi:type="ns0:InputSpecification" 
+  xsi:schemaLocation="http://www.invenireaude.org/qsystem/workers ../../../../IAS-QSystemLib/xsd/qsystem.workers.xsd"
+  >
+
+  <inputs xsi:type="ns0:ConsumerInput" inputName="input" transacted="true" >
+      <protocol>fcgi</protocol>
+      <connection>localhost</connection>
+      <destination>anything</destination>
+      <attrUpdates name="IAS_FCGI_INPUT_TS" value="@timestamp@" override="false"/>       
+ </inputs>
+  
+ <inputs xsi:type="ns0:BrowserInput" 
+ 			inputName="sample" transacted="true" 
+ 			autoRecycle="true">
+      <protocol>shm</protocol>
+      <connection>sample</connection>
+      <destination>Q.SAMPLE</destination>
+      <attrUpdates name="IAS_INPUT_TS" value="@timestamp@" override="false"/> 
+      <attrUpdates name="IAS_INPUT" value="Hello !" override="false"/>      
+ </inputs>
+ 
+ <inputs xsi:type="ns0:BrowserInput" 
+ 			inputName="mq" transacted="true" 
+ 			autoRecycle="true">
+      <protocol>mqm</protocol>
+      <connection>MQTSTBRK</connection>
+      <destination>TEST</destination>
+      <attrUpdates name="IAS_INPUT_TS" value="@timestamp@" override="false"/>       
+ </inputs>
+ 
+</ns0:system>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+ xmlns:akc="http://www.examples.org/akc" 
+ xmlns:akcf="http://www.examples.org/akcf"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.examples.org/akc">
+
+  <xsd:include schemaLocation="address.xsd"/>
+  <xsd:import  schemaLocation="addressf.xsd" namespace="http://www.examples.org/akcf"/>
+  
+  <xsd:complexType name="Customer">
+      <xsd:sequence>
+      <xsd:element name="id" type="xsd:string"/>
+      <xsd:element name="pesel" type="xsd:string"/>
+      <xsd:element name="firstname" type="xsd:string"/>
+      <xsd:element name="middlename" type="xsd:string"/>
+      <xsd:element name="lastname" type="xsd:string"/>
+      <xsd:element name="age" type="xsd:integer"/>
+      <xsd:element name="age1" type="xsd:integer"/>    
+      <xsd:element name="birth" type="xsd:dateTime"/>
+      <xsd:element minOccurs="1" maxOccurs="unbounded" name="address" type="akc:Address"/>
+<!--      <xsd:element name="address" type="akc:Address"/> -->
+      <xsd:element name="mailingAddress" type="akcf:Address"/>
+<!--  <xsd:element name="photo"  type="xsd:base64Binary"/> --> 
+    </xsd:sequence>
+    <xsd:attribute name="attr" type="xsd:string" />
+    <xsd:attribute name="extra" type="xsd:string" />   
+  </xsd:complexType>
+    
+    <xsd:element name="msgNewCustomer" type="akc:Customer"/>
+    
+</xsd:schema>

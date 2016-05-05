@@ -1,0 +1,6 @@
+
+
+* Why the StreamMemoryBuffer class not just a std::stream_buf derivate ?
+	- the content may be put into shared memory so virtual functions are not allowed.
+	- there are some bugs in glibc++: 251. basic_stringbuf missing allocator_type
+	  regarding allocator

@@ -1,0 +1,29 @@
+
+						 	 
+O3,bad1,noprofile		20s   
+O3,bad1-3,noprofile		32s
+O3,bad1-4,noprofile		??
+
+-PO2					-T4	 -T1
+O3,bad1,noprofile		21s   20s
+O3,bad1-3,noprofile		33s   32s
+O3,bad1-4,noprofile		48s	  47s
+
+-PO2 - IAS_REGION       	-T4  -T2  -T1   -T4(no ias_trace)   -T1
+O3,bad1,noprofile	    	19s  18s  18s   14s                   
+O3,bad1-3,noprofile			34s  30s  30s      
+O3,bad1-4,noprofile			42s  41s  43s   35s     
+O3,bad1-4,noprofile 5xParse  114s   
+O3,bad1-4,noprofile 10xParse 197s
+O3,bad1-4,noprofile 10xdup    65s
+
+JSON - IAS_REGION       	-T4  -T1   			-T4(no ias_trace)   
+O3,bad1,noprofile	    	14s  13s    		9s                 
+O3,bad1-3,noprofile			22s  22s      
+O3,bad1-4,noprofile			33s  33s   	23s
+
+O0,bad1,noprofile		2min
+O0,bad1-4,noprofile		5:50
+
+-T1/P4 1:34
+-T4    1:46

@@ -1,0 +1,24 @@
+#Sat Apr  4 17:10:34 CEST 2015
+FILES+=Impl/DataFactory
+FILES+=Impl/org/invenireaude/qsystem/workers/sps/DataObjects
+FILES+=org/invenireaude/qsystem/workers/sps/DataFactory
+FILES+=qs/lang/sps/GetDocument
+FILES+=qs/lang/sps/ModuleProxy
+FILES+=qs/lang/sps/SendAsyncRequest
+FILES+=qs/lang/sps/SetDocument
+FILES+=qs/lang/sps/SetNextActivity
+FILES+=qs/lang/sps/SetVersion
+FILES+=qs/lang/sps/Terminate
+FILES+=qs/log/sps/LogLevel
+FILES+=qs/workers/proc/logic/LogicFactory
+FILES+=qs/workers/proc/logic/SPSActionExecute
+FILES+=qs/workers/proc/logic/sps/CacheBase
+FILES+=qs/workers/proc/logic/SPSCleaner
+FILES+=qs/workers/proc/logic/SPSExecute
+FILES+=qs/workers/proc/logic/sps/Helper
+FILES+=qs/workers/proc/logic/sps/ProcessCache
+FILES+=qs/workers/proc/logic/sps/ProcessCacheEntry
+FILES+=qs/workers/proc/logic/sps/ProcessDataStore
+FILES+=qs/workers/proc/logic/SPSScheduler
+FILES+=qs/workers/proc/logic/SPSStartExecute
+FILES+=qs/workers/proc/logic/sps/WrappedStatement

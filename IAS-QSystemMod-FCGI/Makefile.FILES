@@ -1,0 +1,18 @@
+#Wed Mar 25 16:24:47 CET 2015
+FILES+=qs/Impl/fcgi/Browser
+FILES+=qs/Impl/fcgi/Connection
+FILES+=qs/Impl/fcgi/Consumer
+FILES+=qs/Impl/fcgi/Content
+FILES+=qs/Impl/fcgi/ContentManager
+FILES+=qs/Impl/fcgi/Manageable
+FILES+=qs/Impl/fcgi/Message
+FILES+=qs/Impl/fcgi/Producer
+FILES+=qs/Impl/fcgi/Publisher
+FILES+=qs/Impl/fcgi/Receiver
+FILES+=qs/Impl/fcgi/Responder
+FILES+=qs/Impl/fcgi/Sender
+FILES+=qs/Impl/fcgi/Session
+FILES+=qs/Impl/fcgi/SessionAutoCommit
+FILES+=qs/Impl/fcgi/SessionTransacted
+FILES+=qs/Impl/fcgi/Subscriber
+FILES+=qs/Impl/fcgi/System

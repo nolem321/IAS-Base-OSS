@@ -1,0 +1,156 @@
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+ xmlns="http://www.invenireaude.org/qsystem" 
+ targetNamespace="http://www.invenireaude.org/qsystem">
+ 
+ 	<xsi:complexType name="QueueSettings">
+		<xsi:sequence>
+			<xsi:element name="maxQueues" type="xsi:integer" minOccurs="1" maxOccurs="1" />
+			<xsi:element name="dftSize"   type="xsi:integer" minOccurs="1" maxOccurs="1" />
+		</xsi:sequence>
+	</xsi:complexType>
+
+   <xsi:complexType name="SessionSettings">
+		<xsi:sequence>
+			<xsi:element name="maxSessions"        type="xsi:integer" minOccurs="1" maxOccurs="1" />
+			<xsi:element name="maxOpenQueues"      type="xsi:integer" minOccurs="0" maxOccurs="1" />
+			<xsi:element name="maxRollbackSegment" type="xsi:integer" minOccurs="0" maxOccurs="1" />
+		</xsi:sequence>
+	</xsi:complexType>
+
+
+	<xsi:complexType name="ContentSettings">
+		<xsi:sequence>
+			<xsi:element name="maxEntries"   type="xsi:integer" minOccurs="1" maxOccurs="1" />
+		</xsi:sequence>
+	</xsi:complexType>
+
+  <xsi:complexType name="MemorySize">
+  		<xsi:attribute name="value" type="xsi:integer" use="required" />
+  		<xsi:attribute name="metric" type="xsi:string" use="optional" />
+ </xsi:complexType>
+
+  <xsi:complexType name="MemorySettings">
+		<xsi:sequence>
+			<xsi:element name="heap"   type="MemorySize" minOccurs="1" maxOccurs="1" />
+			<xsi:element name="queue"  type="MemorySize" minOccurs="1" maxOccurs="1" />
+			<xsi:element name="data"   type="MemorySize" minOccurs="1" maxOccurs="1" />
+		</xsi:sequence>
+ </xsi:complexType>
+
+   <xsi:complexType name="Action">
+   </xsi:complexType>
+
+ <xsi:simpleType name="ObjectName">
+    <xsi:restriction base="xsi:string">				
+	</xsi:restriction>			
+ </xsi:simpleType>
+  
+  <xsi:complexType name="ObjectDefinition">
+		<xsi:sequence>
+			<xsi:element name="size"              type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+			<xsi:element name="overwriteWhenFull" type="xsi:boolean" minOccurs="0" maxOccurs="1"/>			
+		</xsi:sequence>
+		<xsi:attribute name="name" type="ObjectName" use="required"/>				
+ </xsi:complexType>
+
+ <xsi:complexType name="LinkDefinition">
+		<xsi:sequence>
+		    <xsi:element name="target"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+		</xsi:sequence>
+		<xsi:attribute name="name" type="ObjectName" use="required"/>				
+ </xsi:complexType>
+ 
+   <xsi:complexType name="ActionCreateQueue">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="queueDefinition"  type="ObjectDefinition" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+ <xsi:complexType name="ActionDeleteQueue">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="queueName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+   <xsi:complexType name="ActionCreateLink">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+               <xsi:element name="linkDefinition"  type="LinkDefinition" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+   <xsi:complexType name="ActionCreateTopic">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="topicDefinition"  type="ObjectDefinition" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+ <xsi:complexType name="ActionDeleteTopic">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="topicName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+ <xsi:complexType name="ActionCreateSubscription">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="topicName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+			   <xsi:element name="queueName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+<xsi:complexType name="ActionRemoveSubscription">
+      <xsi:complexContent>
+         <xsi:extension base="Action">
+            <xsi:sequence>
+			   <xsi:element name="topicName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+			   <xsi:element name="queueName"  type="ObjectName" minOccurs="1" maxOccurs="1"/>
+            </xsi:sequence>
+         </xsi:extension>
+      </xsi:complexContent>
+   </xsi:complexType>
+
+  <xsi:complexType name="System">
+	 	<xsi:sequence>
+			<xsi:element name="memory"   type="MemorySettings"   minOccurs="1" maxOccurs="1" />
+			<xsi:element name="sessions" type="SessionSettings"  minOccurs="1" maxOccurs="1" />
+			<xsi:element name="queues"   type="QueueSettings"    minOccurs="1" maxOccurs="1" />
+			<xsi:element name="content"  type="ContentSettings"  minOccurs="1" maxOccurs="1" />
+			<xsi:element name="actions"  type="Action"           minOccurs="0" maxOccurs="unbounded" />
+		</xsi:sequence>
+		<xsi:attribute name="name" type="xsi:string" use="required" />
+	</xsi:complexType>
+
+ <xsi:complexType name="SystemChange">
+	 	<xsi:sequence>
+			<xsi:element name="actions"  type="Action"          minOccurs="0" maxOccurs="unbounded" />
+		</xsi:sequence>
+  </xsi:complexType>
+
+ <xsi:element name="system" type="System" />
+ <xsi:element name="systemChange" type="SystemChange" />
+ 
+</xsi:schema>

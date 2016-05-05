@@ -1,0 +1,55 @@
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
+ <mailingAddress/>
+ <lastname>Kowalski Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</lastname>
+ <firstname>Jan</firstname>
+ <address>
+  <street> Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Kwiatkowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Balonowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>33</block>
+ </address>
+  <address>
+  <street>Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Kwiatkowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Balonowa</street>
+  <block>33</block>
+ </address>
+  <address>
+  <street>Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Kwiatkowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Balonowa</street>
+  <block>33</block>
+ </address>
+  <address>
+  <street>Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Kwiatkowa</street>
+  <block>11</block>
+ </address>
+  <address>
+  <street>Balonowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</street>
+  <block>33</block>
+ </address>
+ <age>102</age>
+ <middlename>Johny Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa</middlename>
+</customer>

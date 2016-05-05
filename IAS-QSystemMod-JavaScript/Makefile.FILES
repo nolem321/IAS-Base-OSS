@@ -1,0 +1,6 @@
+#Mon Feb  2 20:10:28 CET 2015
+FILES+=qs/workers/proc/logic/js/Context
+FILES+=qs/workers/proc/logic/js/exception/JavaScriptException
+FILES+=qs/workers/proc/logic/js/Execution
+FILES+=qs/workers/proc/logic/js/ExplicitExecute
+FILES+=qs/workers/proc/logic/js/JSString

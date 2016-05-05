@@ -1,0 +1,7 @@
+#Sat Apr  4 16:34:01 CEST 2015
+FILES+=tc/dm/Customer01
+FILES+=tc/dm/CustomerJSON
+FILES+=tc/dm/CustomerXML
+FILES+=tc/dm/CustomerXPathWrapper
+FILES+=tc/dm/CustomerXSD
+MAINFILES+=ias_dm_tests

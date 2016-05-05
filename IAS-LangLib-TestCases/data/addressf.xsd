@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:akc="http://www.examples.org/akc"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ackf="http://www.examples.org/akcf"
+	xmlns:ack="http://www.examples.org/akc"
+	targetNamespace="http://www.examples.org/akcf">
+
+	<xsd:import schemaLocation="address.xsd" namespace="http://www.examples.org/akc"/>
+
+	<xsd:complexType name="Address">
+		<xsd:complexContent>
+			<xsd:extension base="ack:Address">
+				<xsd:sequence>
+					<xsd:element name="country" type="xsd:string" />
+					<xsd:element name="backup"  type="ackf:Backup" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Backup">		
+				<xsd:sequence>
+					<xsd:element name="info" type="xsd:string" />
+				</xsd:sequence>				
+	</xsd:complexType>
+	
+</xsd:schema>

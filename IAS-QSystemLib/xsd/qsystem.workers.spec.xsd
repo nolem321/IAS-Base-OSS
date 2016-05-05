@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/spec"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:io="http://www.invenireaude.org/qsystem/workers/io"
+ xmlns:ds="http://www.invenireaude.org/qsystem/workers/ds"
+ xmlns:logic="http://www.invenireaude.org/qsystem/workers/logic"
+ xmlns:txm="http://www.invenireaude.org/qsystem/workers/txm"
+ xmlns:cache="http://www.invenireaude.org/qsystem/workers/cache"
+ xmlns:ec="http://www.invenireaude.org/qsystem/workers/ec"
+ xmlns:stats="http://www.invenireaude.org/qsystem/workers/stats"
+ xmlns:spec="http://www.invenireaude.org/qsystem/workers/spec"
+ >
+ 
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"       schemaLocation="qsystem.workers.xsd"/>
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/io"    schemaLocation="qsystem.workers.io.xsd"/> 
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/ds"    schemaLocation="qsystem.workers.ds.xsd"/>
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/txm"   schemaLocation="qsystem.workers.txm.xsd"/>   
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/logic" schemaLocation="qsystem.workers.logic.xsd"/>   
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/cache" schemaLocation="qsystem.workers.cache.xsd"/>
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/ec"    schemaLocation="qsystem.workers.ec.xsd"/>
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/stats" schemaLocation="qsystem.workers.stats.xsd"/>
+
+  <xsi:complexType name="Specification">  		 
+ 	<xsi:sequence>    		     		 
+ 	
+		<xsi:element name="inputSpec"       type="io:InputSpecification"   minOccurs="0" maxOccurs="1"/>
+ 		<xsi:element name="outputSpec"      type="io:OutputSpecification"  minOccurs="0" maxOccurs="1"/>
+ 	    <xsi:element name="txmSpec"         type="txm:Specification"       minOccurs="0" maxOccurs="1"/>
+		<xsi:element name="datasourceSpec"  type="ds:Specification"        minOccurs="0" maxOccurs="1"/>
+ 		<xsi:element name="cacheSpec"       type="cache:Specification"     minOccurs="0" maxOccurs="1"/>
+ 		<xsi:element name="ecSpec"          type="ec:Specification"     minOccurs="0" maxOccurs="1"/>		
+		<xsi:element name="logicSpec"       type="logic:LogicSpecification"   minOccurs="1" maxOccurs="1"/>
+		
+		<xsi:element name="stats"           type="stats:Specification"   minOccurs="0" maxOccurs="1"/>
+		
+		<xsi:element name="mode"        type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+				
+	</xsi:sequence>	 
+  </xsi:complexType>
+  
+  <xsi:complexType name="Registry">  		 
+ 	<xsi:sequence>    		     		  
+		<xsi:element name="io"     type="io:Registry"   minOccurs="0" maxOccurs="1"/>
+ 		<xsi:element name="ds"     type="ds:Registry"   minOccurs="0" maxOccurs="1"/>	
+ 		<xsi:element name="ec"     type="ec:Registry"   minOccurs="0" maxOccurs="1"/>				
+	</xsi:sequence>	 
+  </xsi:complexType>
+    
+ <xsi:element name="specs" type="spec:Specification" />
+ 
+</xsi:schema>

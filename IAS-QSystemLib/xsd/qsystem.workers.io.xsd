@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/io"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:io="http://www.invenireaude.org/qsystem/workers/io">
+ 
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers" 
+ 		schemaLocation="qsystem.workers.xsd"/> 
+ 		
+  <xsi:complexType name="Exception">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType> 		
+ 
+  <xsi:complexType name="NothingReceivedException">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="io:Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType> 
+ 		 		
+  <xsi:complexType name="Parameters">  		 
+    	<xsi:sequence>
+   			<xsi:element name="connection"  type="Connection"  minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="destination" type="xsi:string"  minOccurs="0" maxOccurs="1" />
+  			<xsi:element name="txnMode"     type="TransactionMode"  minOccurs="0" maxOccurs="1" />
+  			<xsi:element name="timeout"     type="xsi:integer" minOccurs="0" maxOccurs="1" />  		
+  			<xsi:element name="attrUpdates" type="AttributeUpdate" minOccurs="0" maxOccurs="unbounded"  />
+  			<xsi:element name="onRecievie"  type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
+  		   	<xsi:element name="onSend"      type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
+  		   	<xsi:element name="onNoData"    type="Callback"  minOccurs="0" maxOccurs="unbounded"/>  		   	
+  		</xsi:sequence>	 	  		
+  		<xsi:attribute name="controllable" type="xsi:boolean" use="optional" />
+  </xsi:complexType>
+
+
+   <xsi:complexType name="Input">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Parameters">
+  		     <xsi:attribute name="inputName"     type="xsi:string"  use="required" />   
+  		     <xsi:attribute name="responderName" type="xsi:string"  use="optional" />
+  		   </xsi:extension>   		    
+  		</xsi:complexContent>
+   </xsi:complexType>
+
+   <xsi:complexType name="Output">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Parameters">  		   
+  		   	<xsi:attribute name="outputName" type="xsi:string"  use="required" />   		        		   	
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+        
+   <xsi:complexType name="ConsumerInput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Input">   	
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+   
+   	<xsi:simpleType name="BrowserRecycle">
+		<xsi:restriction base="xsi:string">
+			<xsi:enumeration value="never"/>			
+			<xsi:enumeration value="next"/>
+			<xsi:enumeration value="immediate"/>
+		</xsi:restriction>
+	</xsi:simpleType>
+	
+   <xsi:complexType name="BrowserInput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Input">   	
+  		   		<xsi:attribute name="autoRecycle" type="io:BrowserRecycle" use="optional" />
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+     
+ <xsi:complexType name="SharedBrowserInput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Input">   
+  		   	<!-- TODO update to  BrowserRecycle-->	
+  		   		<xsi:attribute name="autoRecycle" type="xsi:boolean" use="optional" />
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+          
+ <xsi:complexType name="SubscriberInput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Input">   	
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+   
+   <xsi:complexType name="ProducerOutput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Output">
+  			   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+   
+   <xsi:complexType name="PublisherOutput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Output">
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+  
+   <xsi:complexType name="RequesterOutput">  		
+  		<xsi:complexContent>
+  		   <xsi:extension base="io:Output">
+  		   	<xsi:sequence>
+  		   		<xsi:element name="inputDestination" type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  			</xsi:sequence>
+  		   </xsi:extension>
+  		</xsi:complexContent>
+   </xsi:complexType>
+    
+ <xsi:complexType name="OutputSpecification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="outputs" type="io:Output" minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="default"      type="xsi:string" use="optional"/>
+  	<xsi:attribute name="defaultError" type="xsi:string" use="optional"/>
+ </xsi:complexType>
+
+ <xsi:complexType name="InputSpecification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="offset"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="numMsgs" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="inputs" type="io:Input" minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="default" type="xsi:string" use="optional"/>
+ </xsi:complexType>
+  
+  <xsi:complexType name="Registry">
+    <xsi:complexContent>
+      <xsi:extension base="Registry">
+	  </xsi:extension>
+   </xsi:complexContent>
+  </xsi:complexType>
+  
+ <xsi:element name="inputs"  type="io:InputSpecification" />
+ <xsi:element name="outputs" type="io:OutputSpecification" />
+</xsi:schema>

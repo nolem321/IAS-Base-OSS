@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns="http://www.examples.org/akc" xsi:type="Customer">
+ <firstname>Jan</firstname>
+ <middlename>Johny</middlename>
+ <lastname>Kowalski</lastname>
+ <age>10004</age>
+ <age1 xsi:nil="true"/>
+ <address>
+  <street>Pierwsza tura.</street>
+  <block>0</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Pierwsza tura.</street>
+  <block>1</block>
+ </address>
+ <address>
+  <street>Pierwsza tura.</street>
+  <block>102</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>testowa</street>
+  <block>111</block>
+ </address>
+ <address>
+  <street>Pierwsza tura.</street>
+  <block>4</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Pierwsza tura.</street>
+  <block>5</block>
+ </address>
+ <address>
+  <street>Pierwsza tura.</street>
+  <block>6</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Pierwsza tura.</street>
+  <block>7</block>
+ </address>
+ <address>
+  <street>Druga tura.</street>
+  <block>14</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Druga tura.</street>
+  <block>15</block>
+ </address>
+ <address>
+  <street>Pierwsza tura.</street>
+  <block>10</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Pierwsza tura.</street>
+  <block>11</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>Druga tura.</street>
+  <block>15</block>
+ </address>
+ <mailingAddress/>
+</customer>

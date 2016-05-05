@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns="http://www.examples.org/akc" xsi:type="Customer">
+ <firstname xsi:nil="true"/>
+ <middlename>Johny</middlename>
+ <lastname>Kowalski true false</lastname>
+ <age>102</age>
+ <age1 xsi:nil="true"/>
+ <address>
+  <street>Miodowa</street>
+  <block>11</block>
+ </address>
+ <address/>
+ <address xsi:nil="true"/>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_0</street>
+  <block>-72</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_1</street>
+  <block>-61</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_2</street>
+  <block>-50</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_3</street>
+  <block>-39</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_4</street>
+  <block>-28</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_5</street>
+  <block>-17</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_6</street>
+  <block>-6</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_7</street>
+  <block>5</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_8</street>
+  <block>16</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>_Nowa_9</street>
+  <block>27</block>
+ </address>
+ <mailingAddress/>
+</customer>

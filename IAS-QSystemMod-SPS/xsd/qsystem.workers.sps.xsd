@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/sps"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:logic="http://www.invenireaude.org/qsystem/workers/logic"
+ xmlns:sps="http://www.invenireaude.org/qsystem/workers/sps">
+ 
+ <xsi:import namespace="http://www.invenireaude.org/qsystem/workers" 
+ 		schemaLocation="../../IAS-QSystemLib/xsd/qsystem.workers.xsd"/>
+ 
+ <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/logic" 
+ 		schemaLocation="../../IAS-QSystemLib/xsd/qsystem.workers.logic.xsd"/>
+ 
+  <xsi:complexType name="SPSExecute">  		 
+  	<xsi:complexContent>
+  		 <xsi:extension base="logic:Execute">
+  		 	<xsi:sequence>
+  		 	  <xsi:element name="maxSteps" type="xsi:integer" minOccurs="0" maxOccurs="1"/>  		 	  
+  		 	</xsi:sequence>
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+
+ <xsi:complexType name="SPSStartExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="sps:SPSExecute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+
+ <xsi:complexType name="SPSActionExecute">  		 
+  	<xsi:complexContent>
+  	   <xsi:extension base="sps:SPSExecute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+   
+ <xsi:complexType name="SPSScheduler">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+   
+ <xsi:complexType name="SPSCleaner">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+ 
+ 
+  <xsi:complexType name="ProcessInstance">
+ 	
+ 	<xsi:sequence>
+ 	   
+ 	   <xsi:element name="oldVersion"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+ 	   <xsi:element name="newVersion"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+ 	   
+ 	   <xsi:element name="updated"    type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
+ 	   <xsi:element name="created"    type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
+ 	   
+ 	   <xsi:element name="info" type="xsi:string" minOccurs="0" maxOccurs="1"/>
+ 	</xsi:sequence>
+ 	
+  	<xsi:attribute name="id"       type="xsi:string"  use="required"/>
+  	<xsi:attribute name="activity" type="xsi:string"  use="required"/>
+  	<xsi:attribute name="name"     type="xsi:string"  use="required"/>
+  	<xsi:attribute name="ver"      type="xsi:string"  use="required"/>
+  	<xsi:attribute name="seq"      type="xsi:integer" use="required"/>
+  	<xsi:attribute name="pending"  type="xsi:integer" use="required"/>
+  	<xsi:attribute name="state"    type="xsi:string"  use="required"/>
+  	
+ </xsi:complexType>
+ 
+  <xsi:complexType name="ProcessDocument">
+        <xsi:sequence> 
+            <xsi:element name="data" type="xsi:anyType"/>             
+        </xsi:sequence>
+      <xsi:attribute name="pid"   type="xsi:string" use="required"/>
+      <xsi:attribute name="name" type="xsi:string" use="required"/>      
+  </xsi:complexType>
+  
+  <xsi:complexType name="DocumentsArray">
+        <xsi:sequence> 
+           <xsi:element name="documents" type="sps:ProcessDocument" minOccurs="0" maxOccurs="unbounded"/>
+        </xsi:sequence>
+       <xsi:attribute name="pid"   type="xsi:string" use="required"/>
+  </xsi:complexType>
+  
+  <xsi:complexType name="ProcessArray">
+        <xsi:sequence> 
+           <xsi:element name="instances" type="sps:ProcessInstance" minOccurs="0" maxOccurs="unbounded"/>
+        </xsi:sequence>
+        <xsi:attribute name="pageSize"   type="xsi:integer" use="required"/>
+  </xsi:complexType>
+  
+</xsi:schema>

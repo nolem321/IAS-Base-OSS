@@ -1,0 +1,12 @@
+ *********************************************************************
+ **
+ **  Invenire Aude : QSystem
+ **   
+ **  Copyright 2015 Albert Krzymowski
+ **
+ *********************************************************************
+   
+   This product includes software developed by:
+   
+   Albert Krzymowski (http://www.invenireaude.org/)
+   

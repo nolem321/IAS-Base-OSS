@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns="http://www.examples.org/akc" xsi:type="Customer">
+ <firstname>100100</firstname>
+ <lastname>1979-12-30</lastname>
+ <birth>2023-09-06T12:46:39</birth>
+ <someDate>1979-12-30</someDate>
+ <someTime>12:46:39</someTime>
+ <address xsi:type="ns1:Address">
+  <street>Street#Street% Street!</street>
+  <block>1</block>
+  <country>Far, far away</country>
+ </address>
+</customer>

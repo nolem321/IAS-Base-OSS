@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/txm"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:txm="http://www.invenireaude.org/qsystem/workers/txm"
+ >
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"    schemaLocation="qsystem.workers.xsd"/> 
+   	
+  <xsi:complexType name="Parameter">  		 
+ 	<xsi:sequence> 
+ 		<xsi:element name="connection" type="Connection"/>
+  	</xsi:sequence>
+ 	<xsi:attribute name="name" type="xsi:string"/>	 
+  </xsi:complexType>
+
+  <xsi:complexType name="Specification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="transactionManagers" type="txm:Parameter" minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="default" type="xsi:string" use="optional"/>
+ </xsi:complexType>
+    
+ <xsi:element name="txms" type="txm:Specification" />
+ 
+</xsi:schema>

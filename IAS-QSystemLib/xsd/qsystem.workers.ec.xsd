@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/ec"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:ec="http://www.invenireaude.org/qsystem/workers/ec"
+ >
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"    schemaLocation="qsystem.workers.xsd"/> 
+   	
+ <xsi:complexType name="Exception">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType> 		
+ 
+  <xsi:complexType name="NotFoundException">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="ec:Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType>  	
+   	
+  <!-- Some types used in external interfaces -->
+  <xsi:complexType name="Record">  		
+  	<xsi:sequence>
+  	  <xsi:element name="key"   type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="count" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="avg"   type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="min"   type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="max"   type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="total" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+  
+   	
+  <xsi:complexType name="EventCounter">  		
+  	<xsi:sequence>
+  	   <xsi:element name="connection"     type="Connection"  minOccurs="1" maxOccurs="1"/>
+  	   <xsi:element name="size"           type="xsi:integer" minOccurs="1" maxOccurs="1"/>
+   	   <xsi:element name="avgKeyLen"      type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="name" type="xsi:string" use="required"/>
+ </xsi:complexType>
+    
+  <xsi:complexType name="SimpleEventCounter">  		
+	<xsi:complexContent>
+	  <xsi:extension base="ec:EventCounter">
+	     <xsi:sequence>
+	   	   <xsi:element name="resetInterval"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+	   	   </xsi:sequence>
+	  </xsi:extension>
+	</xsi:complexContent>
+ </xsi:complexType>   
+     
+  <xsi:complexType name="Specification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="ecs" type="ec:EventCounter" minOccurs="1" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="default" type="xsi:string" use="optional"/>
+ </xsi:complexType>
+       
+   <xsi:complexType name="Registry">
+    <xsi:complexContent>
+      <xsi:extension base="Registry">
+	  </xsi:extension>
+   </xsi:complexContent>
+  </xsi:complexType>
+        
+ <xsi:element name="ecs" type="ec:Specification" />
+ 
+</xsi:schema>

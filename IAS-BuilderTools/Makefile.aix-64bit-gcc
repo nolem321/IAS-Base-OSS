@@ -1,0 +1,39 @@
+CCPP=g++
+CCPPDEPSCMD=g++ -MM -MG 
+#
+# Use += here since global settings are already set.
+
+CPPFLAGS+= -maix64 -fPIC -g -std=c++0x
+CPPFLAGS+=-I/usr/local/include/libxml2 -I /opt/freeware/include
+LNFLAGS+=-maix64 -fPIC
+LNLIBS+=-L /opt/freeware/lib64 -lxml2  -lpthread
+
+INSTALL=install -Dm755
+
+#Library creator
+
+ifdef ARTIFACT
+TARGETFILE=lib$(ARTIFACT).so
+endif
+
+TARGET=$(addprefix out/lib/, $(TARGETFILE))
+
+$(TARGET) : $(CPPOBJS) 
+	@echo Creating project artifact: $(TARGET)
+	@g++ $(LNFLAGS) -shared -o $@ $^  $(LNLIBS)
+	
+#Executable creator
+
+$(CPPEXES) : out/bin/% : $(CPPOBJSNONEXE) out/obj/%.o
+	@echo Creating project artifact: $@
+	@g++ $(LNFLAGS) -o $@ $^ $(DEP_PROJECTS_LINK) $(LNLIBS)
+
+# the third line creates the dependence files
+
+$(CPPOBJS): out/obj/%.o: src/%.cpp 
+	@echo "Compiling: " $<
+	@$(CCPP) -c $(CPPFLAGS) $< -o $@
+	@$(CCPPDEPSCMD) -MT $@ $(CPPFLAGS) $< >> $(@:%.o=%.depend)
+
+	
+	

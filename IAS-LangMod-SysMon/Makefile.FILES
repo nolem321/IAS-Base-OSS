@@ -1,0 +1,11 @@
+#Mon Jun 22 18:32:43 CEST 2015
+FILES+=lang/mod/monitor/sys/cpu/GetOverall
+FILES+=lang/mod/monitor/sys/cpu/ModuleProxy
+FILES+=lang/mod/monitor/sys/fs/GetUsage
+FILES+=lang/mod/monitor/sys/fs/ModuleProxy
+FILES+=lang/mod/monitor/sys/mem/GetUsage
+FILES+=lang/mod/monitor/sys/mem/ModuleProxy
+FILES+=lang/mod/monitor/sys/net/GetUsage
+FILES+=lang/mod/monitor/sys/net/ModuleProxy
+FILES+=lang/mod/monitor/tools/GetHostName
+FILES+=lang/mod/monitor/tools/ModuleProxy

@@ -1,0 +1,12 @@
+#Tue Apr 21 15:10:52 CEST 2015
+FILES+=perfcases/Base
+FILES+=perfcases/DataObjects
+FILES+=perfcases/Get
+FILES+=perfcases/Output
+FILES+=perfcases/Put
+FILES+=testcases/TCConnect
+FILES+=testcases/TCEventCounter
+FILES+=testcases/TCStorage
+FILES+=testcases/TCSubscription
+MAINFILES+=ias_qs_performance
+MAINFILES+=ias_qs_testcases

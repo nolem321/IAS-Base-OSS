@@ -1,0 +1,47 @@
+{
+   "firstname" : "Jan",
+   "middlename" : "Johny Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+   "lastname" : "Kowalski Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+   "age" : 102,
+   "address" : [ {
+      "street" : " Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Kwiatkowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Balonowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 33
+   } ,{
+      "street" : "Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Kwiatkowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Balonowa",
+      "block" : 33
+   } ,{
+      "street" : "Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Kwiatkowa",
+      "block" : 11
+   } ,{
+      "street" : "Balonowa",
+      "block" : 33
+   } ,{
+      "street" : "Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 11
+   } ,{
+      "street" : "Kwiatkowa",
+      "block" : 11
+   } ,{
+      "street" : "Balonowa Miodowa Miodowa Miodowa Miodowa Miodowa Miodowa",
+      "block" : 33
+   }],
+   "mailingAddress" : {
+   
+   },
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

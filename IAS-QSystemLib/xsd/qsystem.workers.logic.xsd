@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/logic"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:logic="http://www.invenireaude.org/qsystem/workers/logic">
+ 
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers" 
+ 	schemaLocation="qsystem.workers.xsd"/> 
+ 		  
+  <xsi:complexType name="Logic">  		 
+  	<xsi:sequence>
+  		<xsi:element name="onError"  type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+  	<xsi:attribute name="name"         type="xsi:string" use="optional"/>
+  	<xsi:attribute name="instances"    type="xsi:integer" use="optional"/>
+  	<xsi:attribute name="input"        type="xsi:string"  use="optional"/>
+  	<xsi:attribute name="output"       type="xsi:string"  use="optional"/>
+  	<xsi:attribute name="error"        type="xsi:string"  use="optional"/>
+  	<xsi:attribute name="parseDM"      type="xsi:boolean" default="true"/>
+  	<xsi:attribute name="commitCount"  type="xsi:integer" use="optional"/>
+  </xsi:complexType>
+
+  <xsi:simpleType name="Path">  	
+ 	 	<xsi:restriction base="xsi:string" />
+  </xsi:simpleType>
+
+  <xsi:simpleType name="ExeName">  	
+ 	 	<xsi:restriction base="xsi:string" />
+  </xsi:simpleType>
+
+  <xsi:complexType name="Execute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+	    	<xsi:sequence>
+    		 	<xsi:element name="searchPaths"     type="logic:Path"     minOccurs="0" maxOccurs="unbounded"/>    		 	
+  				<xsi:element name="load"   			type="logic:ExeName"  minOccurs="0" maxOccurs="unbounded"/>
+  			</xsi:sequence>	 	
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+ 
+   <xsi:complexType name="ExplicitExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+	    	<xsi:sequence>    		     		 
+  				<xsi:element name="run" type="logic:ExeName"  minOccurs="0" maxOccurs="unbounded"/>
+  			</xsi:sequence>	 	
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+ 
+  <xsi:complexType name="MatchExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+
+  <xsi:complexType name="AttrExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+  	    	<xsi:sequence>    		     		 
+  				<xsi:element name="attrName" type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  			</xsi:sequence>	 	  		   
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+   
+   <xsi:complexType name="DaemonExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+	    	<xsi:sequence>    		     		 
+  				<xsi:element name="run" type="logic:ExeName"  minOccurs="0" maxOccurs="unbounded"/>
+  			</xsi:sequence>
+  			<xsi:attribute name="batchSize"      type="xsi:integer" use="optional"/>	 	
+  			<xsi:attribute name="wakeUpInterval" type="xsi:integer" use="optional"/>
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>   
+   
+ <xsi:complexType name="SPSExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+
+ <xsi:complexType name="SPSStartExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:SPSExecute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+
+ <xsi:complexType name="SPSActionExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:SPSExecute">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+   
+ <xsi:complexType name="SPSScheduler">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+   
+ <xsi:complexType name="SPSCleaner">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+ </xsi:complexType>
+  
+   <xsi:complexType name="Forwarder">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+   <xsi:complexType name="Proxy">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+
+   <xsi:complexType name="AsyncProxy">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Proxy">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+  <xsi:complexType name="AsyncProxyInput">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:AsyncProxy">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+ 
+  <xsi:complexType name="AsyncProxyOutput">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:AsyncProxy">
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+  <xsi:complexType name="Grabber">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Logic">
+  		   <xsi:sequence>    		     		 
+  				<xsi:element name="grabberInput" type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  			</xsi:sequence>	 	  		     		   
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+  <xsi:complexType name="StatsProducer">  		 
+  	<xsi:complexContent>
+  		 <xsi:extension base="logic:Execute">
+  		 	<xsi:sequence>    		     		 
+  				<xsi:element name="connection"  type="Connection"     minOccurs="0" maxOccurs="1"/>
+  				<xsi:element name="run"         type="logic:ExeName"  minOccurs="0" maxOccurs="unbounded"/>
+  			</xsi:sequence>	 
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+    
+  <xsi:complexType name="MessagePreview">  		 
+  	<xsi:complexContent>
+  		 <xsi:extension base="logic:Logic">
+  		 	<xsi:sequence>    		     		 
+  				<xsi:element name="connection"  type="Connection"  minOccurs="0" maxOccurs="1"/>  	
+  			</xsi:sequence>	 
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+    
+  <xsi:complexType name="DistributionAgent">  		 
+  	<xsi:complexContent>
+  		 <xsi:extension base="logic:Logic">
+  		 	<xsi:sequence>    		     		 
+  				<xsi:element name="connection" type="Connection"  minOccurs="0" maxOccurs="1"/>  	
+  				<xsi:element name="attribute"  type="xsi:string"  minOccurs="0" maxOccurs="1"/>
+  			</xsi:sequence>	 
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+ <xsi:complexType name="External">  		 
+  	<xsi:complexContent>
+  		 <xsi:extension base="logic:Logic">
+  		 	<xsi:sequence>    		     		 
+  				<xsi:element name="module"  type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  				<xsi:element name="factory" type="xsi:string"  minOccurs="0" maxOccurs="1"/>
+  				<xsi:element name="args"    type="xsi:string"  minOccurs="0" maxOccurs="unbounded"/>  	
+  			</xsi:sequence>	 
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
+  
+
+ <xsi:complexType name="LogicSpecification">  		
+  	<xsi:sequence>
+  	  <xsi:element name="logics" type="logic:Logic" minOccurs="1" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+ 
+ 
+ 
+ <xsi:element name="logic"   type="logic:Logic" />
+ <xsi:element name="logics"  type="logic:LogicSpecification" />
+ 
+ </xsi:schema>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.examples.org/akcf" xmlns="http://www.examples.org/akc" xsi:type="Customer">
+ <firstname>Jan</firstname>
+ <middlename>Johny</middlename>
+ <lastname>Kowalski</lastname>
+ <age>102</age>
+ <age1 xsi:nil="true"/>
+ <address>
+  <street>Miodowa</street>
+  <block>11</block>
+ </address>
+ <address>
+  <block>300</block>
+ </address>
+ <address xsi:nil="true"/>
+ <address xsi:type="ns1:Address">
+  <street>jakas ulica</street>
+  <block>1300</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>jakas ulica</street>
+  <block>100</block>
+ </address>
+ <mailingAddress/>
+ <misc xsi:type="Customer">
+  <firstname>Jan</firstname>
+  <middlename>Johny</middlename>
+  <lastname>Kowalski</lastname>
+  <age>102</age>
+  <age1 xsi:nil="true"/>
+  <address>
+   <street>Miodowa</street>
+   <block>11</block>
+  </address>
+  <address/>
+  <address xsi:nil="true"/>
+  <mailingAddress/>
+ </misc>
+</customer>

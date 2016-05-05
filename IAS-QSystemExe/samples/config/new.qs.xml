@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:system 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns0="http://www.invenireaude.org/qsystem"
+  xsi:type="ns0:System" 
+  xsi:schemaLocation="http://www.invenireaude.org/qsystem ../../../IAS-QSystemLib/xsd/qsystem.xsd"
+  name="sample">
+
+  <memory>
+	<heap  value="100000"/>      
+	<queue value="1000000"/>
+	<data  value="20000000"/>
+  </memory>     
+
+  <queues>      
+     <maxQueues>20</maxQueues>
+     <dftSize>1000</dftSize>
+  </queues>
+ 
+  <content>
+     <maxEntries>4000</maxEntries>
+  </content> 
+  
+  <actions xsi:type="ns0:ActionCreateQueue">
+     <queueDefinition name="Q.DEFAULT">       
+     </queueDefinition>
+  </actions>
+</ns0:system>

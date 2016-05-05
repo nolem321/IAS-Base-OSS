@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:system 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns0="http://www.invenireaude.org/qsystem/workers"
+  xsi:type="ns0:OutputSpecification" 
+  xsi:schemaLocation="http://www.invenireaude.org/qsystem/workers ../../../IAS-QSystemLib/xsd/qsystem.workers.xsd"
+  >
+
+  <outputs xsi:type="ns0:ProducerOutput" outputName="output" transacted="true" >
+      <protocol>file</protocol>
+      <connection></connection>
+      <destination>stdout</destination>
+ </outputs>
+ 
+ <outputs xsi:type="ns0:ProducerOutput" outputName="error" transacted="true" >
+      <protocol>file</protocol>
+      <connection></connection>
+      <destination>/tmp/errors.txt</destination>
+ </outputs>
+ 
+ 
+</ns0:system>

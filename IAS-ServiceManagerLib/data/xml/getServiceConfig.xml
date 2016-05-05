@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<tn:getServiceConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tn="http://www.invenireaude.org/sm/api"
+	xsi:type="tn:ServiceConfigCall" 
+	xsi:schemaLocation="http://www.invenireaude.org/sm/api ../../xsd/smapi.xsd">	
+	
+	<request><nice>1</nice></request>
+	
+</tn:getServiceConfig>
+	
+	

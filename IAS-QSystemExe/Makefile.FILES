@@ -1,0 +1,16 @@
+#Sat Apr  4 17:05:36 CEST 2015
+FILES+=parameters/ChangeParameters
+FILES+=parameters/CleanerParameters
+FILES+=parameters/CreateParameters
+FILES+=parameters/DistributorParameters
+FILES+=parameters/ParameterException
+FILES+=parameters/ProcessorParameters
+FILES+=parameters/ProgramParameters
+FILES+=parameters/StartParameters
+FILES+=parameters/StatusParameters
+MAINFILES+=ias_qs_change
+MAINFILES+=ias_qs_cleaner
+MAINFILES+=ias_qs_create
+MAINFILES+=ias_qs_distributor
+MAINFILES+=ias_qs_processor
+MAINFILES+=ias_qs_status

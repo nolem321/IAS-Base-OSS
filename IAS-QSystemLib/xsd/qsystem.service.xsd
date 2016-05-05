@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/service" 
+ xmlns:tns="http://www.invenireaude.org/qsystem/service"
+ xmlns:qsw="http://www.invenireaude.org/qsystem/workers">
+		
+ <import namespace="http://www.invenireaude.org/qsystem/workers" 
+ 		  schemaLocation="qsystem.workers.xsd"/>
+ 
+   <!--  TODO Binary content -->
+   
+  <complexType name="Message">
+  	<sequence>
+  	   <element name="context"    type="qsw:Context" minOccurs="1" maxOccurs="1" />
+  	   <element name="rawContent" type="string"      minOccurs="1" maxOccurs="1" />
+  	   
+  	   <!-- TODO Anytype support for auto generated
+  	   		  <element name="content"    type="anyType"     minOccurs="0" maxOccurs="1" /> -->
+  	   		  
+  	</sequence>
+  </complexType>
+  
+  <complexType name="PreviewMessagesWindow">
+	<attribute name="pageOffset" type="integer" use="optional"/>
+  	<attribute name="pageSize"   type="integer" use="optional"/>
+  </complexType>
+  	
+  <complexType name="PreviewMessagesMode">
+  	<attribute name="parse" type="boolean" use="optional"/>
+  </complexType>
+  	
+  <complexType name="PreviewMessagesSelection">
+	<sequence>
+	   <element name="connectionAlias" type="string"                      minOccurs="0" maxOccurs="1" />
+  	   <element name="destination"     type="string"                      minOccurs="1" maxOccurs="1" />
+  	   <element name="window"          type="tns:PreviewMessagesWindow"   minOccurs="1" maxOccurs="1" />
+  	   <element name="mode"            type="tns:PreviewMessagesMode"     minOccurs="1" maxOccurs="1" />
+  	   <element name="msgSizeLimit"    type="integer"                     minOccurs="0" maxOccurs="1" />
+  	</sequence>
+  </complexType>
+  
+  <complexType name="ServiceRequestStatus">
+	<sequence>
+  	   <element name="code"   type="integer"   minOccurs="0" maxOccurs="1" />
+  	   <element name="error"  type="boolean"   minOccurs="1" maxOccurs="1" />
+  	   <element name="info"   type="string"    minOccurs="0" maxOccurs="1" />
+  	</sequence>
+  </complexType>
+  
+  <complexType name="PreviewMessagesStatus">
+  	<complexContent>
+  		<extension base="tns:ServiceRequestStatus">
+  			<sequence>
+  				<element name="numMessages" type="integer"   minOccurs="0" maxOccurs="1" />
+  			</sequence>
+  		</extension>
+  	</complexContent>  	
+  </complexType>
+  
+  <complexType name="PreviewMessages">
+ 	<sequence>
+ 	  <element name="selection" type="tns:PreviewMessagesSelection" minOccurs="1" maxOccurs="1"/>
+ 	  <element name="status"    type="tns:PreviewMessagesStatus"    minOccurs="0" maxOccurs="1"/>
+ 	  <element name="messages"  type="tns:Message"                  minOccurs="0" maxOccurs="unbounded"/>
+ 	</sequence> 
+  </complexType>
+  
+</schema>

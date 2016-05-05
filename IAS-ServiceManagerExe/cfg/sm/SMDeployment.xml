@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ns0:deploymentConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.invenireaude.org/sm/cfg"
+	xsi:type="ns0:DeploymentConfig" xsi:schemaLocation="http://www.invenireaude.org/sm/cfg ../../xsd/smcfg.xsd">
+
+	<lckDir>/var/tmp/sm</lckDir>
+
+	<refreshMS>1000</refreshMS>
+
+	<resources name="RGTEST1">
+		<logDir>/var/tmp/sm/logs</logDir>
+		<count>2</count>
+		<exe xsi:type="ns0:ResourceGroupExeSudo">
+			<user>alojzy</user>
+		</exe>
+	</resources>
+	<resources name="RGTEST2">
+		<logDir>/var/tmp/sm/logs</logDir>
+		<count>6</count>
+		<exe xsi:type="ns0:ResourceGroupExeSudo">
+			<user>test</user>
+		</exe>
+	</resources>
+	<resources name="RGTEST3">
+		<logDir>/var/tmp/sm/logs</logDir>
+		<count>6</count>
+		<exe />
+	</resources>
+</ns0:deploymentConfig>

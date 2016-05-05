@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spec:specification 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:spec="http://www.invenireaude.org/qsystem/workers/spec"
+  xmlns:io="http://www.invenireaude.org/qsystem/workers/io"
+  xmlns:logic="http://www.invenireaude.org/qsystem/workers/logic"
+  xsi:type="spec:Specification">
+
+ 
+  <outputSpec>
+     <outputs xsi:type="io:ProducerOutput" outputName="output">
+       <connection>
+         <protocol>shm</protocol>
+         <host>QS.Perf.Test</host>
+       </connection>
+       <destination>Q.BIG</destination>
+       <txnMode>NONTXN</txnMode>
+       <attrUpdates name="IAS_NET_SAMPLES_TS" value="@timestamp@" override="true"/>       
+	 </outputs>
+  </outputSpec>  
+  
+   <inputSpec>
+     <inputs xsi:type="io:ConsumerInput" inputName="input">
+       <connection>
+         <protocol>shm</protocol>
+         <host>QS.Perf.Test</host>
+       </connection>
+       <destination>Q.BIG</destination>
+       <timeout>0</timeout>
+       <txnMode>NONTXN</txnMode>
+       <attrUpdates name="IAS_NET_SAMPLES_TS" value="@timestamp@" override="true"/>       
+	 </inputs>
+  </inputSpec> 
+   
+  <logicSpec> 
+  </logicSpec> 
+</spec:specification>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/stats"
+ xmlns="http://www.invenireaude.org/qsystem/stats"
+ xmlns:stats="http://www.invenireaude.org/qsystem/workers/stats"
+ >
+
+  <xsi:import namespace="http://www.invenireaude.org/qsystem/stats"    schemaLocation="qsystem.stats.xsd"/> 
+   	
+  <!-- Some types used in external interfaces -->
+  <xsi:complexType name="LogicSample">  		
+  	<xsi:sequence>
+  	  <xsi:element name="success"  type="Sample" minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="failure"  type="Sample" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+  	 <xsi:attribute name="name" type="xsi:string" use="required"/>
+ </xsi:complexType>
+
+ <!-- Some types used in external interfaces -->
+  <xsi:complexType name="Process">  		
+  	<xsi:sequence>
+  	  <xsi:element name="name"  type="xsi:string" minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="pid"   type="xsi:string" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+
+  <xsi:complexType name="LogicSamplesSet">  		
+  	<xsi:sequence>
+  	  <xsi:element name="process"      type="stats:Process"     minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="ts"           type="Sample"            minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="LogicSample"  type="stats:LogicSample" minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>  	 
+ </xsi:complexType>
+ 
+ 
+   <!-- Some types used in external interfaces -->
+  <xsi:complexType name="Publisher">  		
+  	<xsi:sequence>
+  	</xsi:sequence>  	
+ </xsi:complexType>
+       
+  <xsi:complexType name="Sender">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="stats:Publisher">
+  	    	<xsi:sequence>    		     		 
+  			</xsi:sequence>	 	  		   
+  			<xsi:attribute name="output" type="xsi:string" use="required"/>
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>       
+       
+  <xsi:complexType name="Console">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="stats:Publisher">
+  	    	<xsi:sequence>    		     		 
+  			</xsi:sequence>	 	  		   
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>  
+  
+  
+  <xsi:complexType name="Specification">  		
+  	<xsi:sequence>  	
+  		<xsi:element name="publishers" type="stats:Publisher"  minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>  	
+  	 <xsi:attribute name="refresh" type="xsi:integer" use="optional"/>
+ </xsi:complexType>
+      
+</xsi:schema>

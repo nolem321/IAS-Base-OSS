@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ns0:serviceConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ns0="http://www.invenireaude.org/sm/cfg" xsi:type="ns0:ServiceConfig"
+	xsi:schemaLocation="http://www.invenireaude.org/sm/cfg ../../xsd/smcfg.xsd">
+	<services name="flow1">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="testing" />
+		<grpAttrs name="group" value="shadow" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>arg1alfa</args>
+			<args>arg2beta</args>
+			<args>arg3beta</args>
+			<args>arg4beta</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>		
+		<resGrp>RGTEST2</resGrp>
+		<resGrp>RGTEST3</resGrp>
+	</services>
+	<services name="flow2">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="testing" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>arg1</args>
+			<args>arg2</args>
+			<args>shadow</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>		
+		<resGrp>RGTEST2</resGrp>
+		<resGrp>RGTEST1</resGrp>
+	</services>
+	<services name="flow3">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="production" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>arg1alfa</args>
+			<args>arg2beta</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>		
+		<resGrp>RGTEST2</resGrp>
+		<resGrp>RGTEST3</resGrp>
+	</services>
+	<services name="flower">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="animal" />
+		<grpAttrs name="group" value="alfa" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>arg1alfa</args>
+			<args>arg2beta</args>
+			<args>arg3beta</args>
+			<args>arg4beta</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>		
+		<resGrp>RGTEST2</resGrp>
+		<resGrp>RGTEST3</resGrp>
+	</services>
+	<services name="animal">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="animal" />
+		<grpAttrs name="group" value="beta" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>arg1alfa</args>
+			<args>arg2beta</args>
+			<args>arg3beta</args>
+			<args>arg4beta</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>		
+		<resGrp>RGTEST2</resGrp>
+		<resGrp>RGTEST3</resGrp>
+	</services>
+	<services name="issues">
+		<grpAttrs name="type" value="flow" />
+		<grpAttrs name="group" value="testing" />
+		<grpAttrs name="group" value="issues" />
+		<startCmd>
+			<exe>cfg/bin/monitor_me.sh</exe>
+			<args>ala</args>
+			<args>ma</args>
+			<args>kota</args>
+			<args>notka</args>
+		</startCmd>
+		<stopCmd>
+			<exe>cfg/bin/stop_me.sh</exe>
+		</stopCmd>
+		<resGrp>RGTEST3</resGrp>
+		<resGrp>RGTEST2</resGrp>
+	</services>
+</ns0:serviceConfig>
+

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers">
+ 
+ 		
+	<xsi:complexType name="Attribute">
+		<xsi:attribute name="name"  type="xsi:string" use="required" />	
+		<xsi:attribute name="value" type="xsi:string" use="required" />
+	</xsi:complexType>
+	
+	<xsi:complexType name="Exception">
+		<xsi:attribute name="name"   type="xsi:string" use="required" />	
+		<xsi:attribute name="info"   type="xsi:string" use="required" />
+	</xsi:complexType>
+	
+	<xsi:complexType name="Context">
+	    <xsi:sequence>
+	        <xsi:element name="origin" type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	
+	        <xsi:element name="MID" type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="CID" type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="FMT" type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	        
+	        <xsi:element name="REPLY_TO"    type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="PERSISTANCE" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="EXPIRATION"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="PRIORITY"    type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+	
+	     	<xsi:element name="attributes" type="Attribute"  minOccurs="0" maxOccurs="unbounded"/>
+	     	<xsi:element name="exception"  type="xsi:anyType"  minOccurs="0" maxOccurs="1"/>
+	    </xsi:sequence>
+			<xsi:attribute name="startDateTime" type="xsi:dateTime" use="required" />	
+	</xsi:complexType>
+
+	<xsi:complexType name="Routing">
+	    <xsi:sequence>
+	     	<xsi:element name="target"  type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+	     	<xsi:element name="targets" type="xsi:string"   minOccurs="0" maxOccurs="unbounded"/>
+	     	<xsi:element name="valid"   type="xsi:boolean"  minOccurs="1" maxOccurs="1"/>
+	     	<xsi:element name="error"   type="xsi:string"   minOccurs="1" maxOccurs="1"/>
+	    </xsi:sequence>	
+	</xsi:complexType>
+
+  <xsi:complexType name="DaemonControl">
+	    <xsi:sequence>
+	     	<xsi:element name="active"          type="xsi:boolean"   minOccurs="1" maxOccurs="1"/>
+	     	<xsi:element name="defaultInterval" type="xsi:integer"   minOccurs="1" maxOccurs="1"/>
+	     	<xsi:element name="nextInterval"    type="xsi:integer"   minOccurs="0" maxOccurs="1"/>
+	     	<xsi:element name="batchSize"       type="xsi:integer"   minOccurs="0" maxOccurs="1"/>
+	     	<xsi:element name="error"           type="xsi:string"    minOccurs="1" maxOccurs="1"/>
+	    </xsi:sequence>	
+	</xsi:complexType>
+
+	<xsi:simpleType name="ErrorAction">
+		<xsi:restriction base="xsi:string">
+			<xsi:enumeration value="IGNORE_ALL"/>			
+			<xsi:enumeration value="IGNORE_PROGRAM"/>
+			<xsi:enumeration value="IGNORE_NONE"/>
+		</xsi:restriction>
+	</xsi:simpleType>
+	
+	<xsi:complexType name="Callback">
+	    <xsi:sequence>
+	     	<xsi:element name="program"     type="xsi:string"            minOccurs="1" maxOccurs="1"/>
+	     	<xsi:element name="errorAction" type="ErrorAction" minOccurs="1" maxOccurs="1"/>
+	    </xsi:sequence>	
+	</xsi:complexType>
+
+  <xsi:complexType name="AttributeUpdate">    		
+  		<xsi:complexContent>
+  		   <xsi:extension base="Attribute">
+  		     <xsi:attribute name="override" type="xsi:boolean" use="required" />
+  		   </xsi:extension>   		    
+  		</xsi:complexContent>		 
+  </xsi:complexType>
+
+  <xsi:complexType name="SSLCertificate">
+  </xsi:complexType>  		 
+
+  <xsi:complexType name="SSLCertificateFile">
+  		<xsi:complexContent>
+  		   <xsi:extension base="SSLCertificate">
+  		   	<xsi:sequence>
+  		   	  	<xsi:element name="fileName"  type="xsi:string"  minOccurs="1" maxOccurs="1"/>  			  		   	
+  		   	  	<xsi:element name="password"  type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  		   	</xsi:sequence>
+  		   </xsi:extension>   		    
+  		</xsi:complexContent>     
+  </xsi:complexType>  		 
+
+  <xsi:complexType name="SecureLayer">
+    	<xsi:sequence>
+    	    <xsi:element name="verifyPeerCert"  type="xsi:boolean"     minOccurs="0" maxOccurs="1"/>
+    	    <xsi:element name="verifyPeerIP"    type="xsi:boolean"     minOccurs="0" maxOccurs="1"/>
+    	 	<xsi:element name="cert"        type="SSLCertificate"  minOccurs="0" maxOccurs="1"/>
+  		</xsi:sequence>
+  </xsi:complexType>  		 
+
+  <xsi:complexType name="ClientIP">  		 
+    	<xsi:sequence>
+    	 	<xsi:element name="interface" type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  			<xsi:element name="port"      type="xsi:integer"  minOccurs="0" maxOccurs="1"/>
+		</xsi:sequence>
+  </xsi:complexType>
+  
+  <xsi:complexType name="Connection">  		 
+    	<xsi:sequence>
+    	 	<xsi:element name="protocol"  type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="host"      type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="port"      type="xsi:integer"  minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="user"      type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="password"  type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="location"  type="xsi:string"   minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="client"    type="ClientIP"     minOccurs="0" maxOccurs="1"/>
+  			<xsi:element name="ssl"       type="SecureLayer"  minOccurs="0" maxOccurs="1"/>
+  		</xsi:sequence>
+  		<xsi:attribute name="alias" type="xsi:string"/>
+   </xsi:complexType>
+   
+ <xsi:complexType name="Registry">
+	<xsi:sequence>    		     		  	
+		<xsi:element name="connections" type="Connection"   minOccurs="0" maxOccurs="unbounded"/>
+   </xsi:sequence>
+  </xsi:complexType>
+   
+  <!-- TODO correct xsi:simpleContent in XSDParser -->
+  
+  <xsi:complexType name="TransactionMode">
+    <xsi:simpleContent>
+       <xsi:extension base="xsi:string">
+       </xsi:extension>
+    </xsi:simpleContent>
+  </xsi:complexType>
+
+</xsi:schema>
