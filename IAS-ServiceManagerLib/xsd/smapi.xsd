@@ -10,18 +10,10 @@
 	</complexType>
 	
 	
-	 <complexType name="InstanceStatus"> 
-          <simpleContent>
-             <extension base="string"/>                        
-          </simpleContent>
-      </complexType>
+	 <simpleType name="InstanceStatus">
+             <restriction base="string"/>
+      </simpleType>
       
-	 <complexType name="InstanceStatus2">
-          <simpleContent>
-             <extension base="string"/>                        
-          </simpleContent>
-      </complexType>
-	
 	<complexType name="GrpAttrPair">
 		<sequence>
 			<element name="name"     type="string" minOccurs="1" maxOccurs="1" />
