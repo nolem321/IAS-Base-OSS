@@ -1,0 +1,4 @@
+#Fri Nov 27 12:34:14 CET 2015
+FILES+=qs/fmt/Parser
+FILES+=qs/fmt/Serializer
+FILES+=qs/fmt/SOAPFormatter
