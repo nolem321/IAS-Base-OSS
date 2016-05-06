@@ -206,7 +206,7 @@ void XMLParser::parse_xml_element(DataObject* pParent){
 
 			const char* sValue = ptrLibXMLLexer->getValue();
 
-			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo()||true,strName<<" : createFrom: ["<<sValue<<"]");
+			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),strName<<" : createFrom: ["<<sValue<<"]");
 			ptrCurrent->setString(XMLHelper::XMLPayloadElement,sValue);
 			ptrLibXMLLexer->nextElement();
 		}
