@@ -56,7 +56,7 @@ XMLSerializer::~XMLSerializer() throw(){
 void XMLSerializer::addURI(const String& strURI){
 	IAS_TRACER;
 
-	IAS_LOG(true,pXMLHelper->isEmptyFirstNS());
+	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),pXMLHelper->isEmptyFirstNS());
 
 	if(hmURI.count(strURI) == 0){
 		char s[10];
