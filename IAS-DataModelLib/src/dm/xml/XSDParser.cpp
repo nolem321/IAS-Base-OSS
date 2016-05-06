@@ -579,7 +579,7 @@ void XSDParser::parse_xsd_extension(bool bComplexType){
 
 		lookupURI(strTypePrefix, ptrPropertyInfo->strTypeURI);
 
-		IAS_LOG(true,"Check simpleContent: "<<strTargetNamespace<<"#"<<pCurrentTypeInfo->strName);
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Check simpleContent: "<<strTargetNamespace<<"#"<<pCurrentTypeInfo->strName);
 
 		pCurrentTypeInfo->lstPropertyInfo.push_back(ptrPropertyInfo.pass());
 	}
