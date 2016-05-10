@@ -1,4 +1,4 @@
-#Tue May  3 10:32:39 CEST 2016
+#Sat May  7 15:22:44 CEST 2016
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -200,6 +200,7 @@ FILES+=lang/interpreter/extern/std/Save
 FILES+=lang/interpreter/extern/std/StandardModuleProxy
 FILES+=lang/interpreter/extern/std/StrLen
 FILES+=lang/interpreter/extern/std/StrToLower
+FILES+=lang/interpreter/extern/std/StrToSHA256
 FILES+=lang/interpreter/extern/std/StrToUpper
 FILES+=lang/interpreter/extern/std/SubString2
 FILES+=lang/interpreter/extern/std/SubString3

@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/extern/std/Find.cpp
+ * File: IAS-LangLib/src/lang/interpreter/extern/std/StrToSHA256.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,10 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Find.h"
+#include "StrToSHA256.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
+#include <commonlib/net/ssl/Tools.h>
+
 #include <lang/interpreter/exe/Context.h>
 #include <lang/model/dec/ResultDeclarationNode.h>
 
@@ -31,26 +33,24 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Find::Find(const StringList& lstParamaters){
+StrToSHA256::StrToSHA256(const StringList& lstParamaters){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Find::~Find() throw(){
+StrToSHA256::~StrToSHA256() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void Find::executeExternal(Exe::Context *pCtx) const{
+void StrToSHA256::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 	const String strArgument = pParameters->getString("strArgument");
-	const String strPattern  = pParameters->getString("strPattern");
-	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,
-				strArgument.find(strPattern.c_str(),0));
+	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, Net::SSL::Tools::ComputeSHA256(strArgument));
 }
 /*************************************************************************/
-Statement* Find::Create(const StringList& lstParamaters){
+Statement* StrToSHA256::Create(const StringList& lstParamaters){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Find>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<StrToSHA256>::Create(lstParamaters);
 }
 /*************************************************************************/
 }

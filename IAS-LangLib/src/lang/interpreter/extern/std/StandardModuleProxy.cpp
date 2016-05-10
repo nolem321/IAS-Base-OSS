@@ -40,8 +40,10 @@
 #include "GetHash.h"
 #include "StrToLower.h"
 #include "StrToUpper.h"
+#include "StrToSHA256.h"
 #include "StrLen.h"
 #include "SysLog.h"
+
 
 namespace IAS {
 namespace Lang {
@@ -82,6 +84,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("GetHash",&(GetHash::Create));
 	registerSymbol("StrToLower",&(StrToLower::Create));
 	registerSymbol("StrToUpper",&(StrToUpper::Create));
+	registerSymbol("StrToSHA256",&(StrToSHA256::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 
