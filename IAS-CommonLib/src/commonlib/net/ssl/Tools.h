@@ -1,5 +1,5 @@
 /*
- * File: IAS-CommonLib/src/commonlib/net/ssl/ssl.h
+ * File: IAS-CommonLib/src/commonlib/net/ssl/Tools.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,15 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_Net_SSL_ssl_H_
-#define _IAS_Net_SSL_ssl_H_
+#ifndef _IAS_Net_SSL_Tools_H_
+#define _IAS_Net_SSL_Tools_H_
 
-#include "BlockIO.h"
-#include "CertificateX509.h"
-#include "Environment.h"
-#include "Context.h"
-#include "SecureLayer.h"
-#include "SSLException.h"
-#include "Tools.h"
+#include <commonlib/misc/InstanceFeature.h>
 
-#endif /* _IAS_Net_SSL_ssl_H_ */
+#include <openssl/ssl.h>
+
+namespace IAS {
+namespace Net {
+namespace SSL {
+
+/*************************************************************************/
+/** The Tools class.
+ *
+ */
+class Tools {
+public:
+
+	static String ComputeSHA256(const String& strValue);
+
+};
+
+/*************************************************************************/
+}
+}
+}
+
+#endif /* _IAS_Net_SSL_Tools_H_ */
