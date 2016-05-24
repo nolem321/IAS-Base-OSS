@@ -78,7 +78,7 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode,
 	for(StringList::const_iterator it=lstParameters.begin(); it != lstParameters.end(); it++){
 		if(it !=lstParameters.begin())
 			aResult.ssOutput<<",";
-		aResult.ssOutput<<'"'<<(*it)<<'"';
+		aResult.ssOutput<<"\n\""<<(*it)<<'"';
 	}
 	aResult.ssOutput<<");"<<std::endl;
 
