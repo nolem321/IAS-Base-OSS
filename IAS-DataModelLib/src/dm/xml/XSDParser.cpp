@@ -953,7 +953,8 @@ void XSDParser::defineTargetNSElements(){
 
 			pComplexType->defineProperty(pPropertyInfo->strName,
 										 pPropertyType,
-										 pPropertyInfo->bIsMulti);
+										 false,false,
+										 pPropertyInfo->strDocumentation);
 
 		}
 }

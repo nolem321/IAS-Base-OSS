@@ -25,7 +25,7 @@ namespace DM {
 namespace Impl {
 
 /*************************************************************************/
-DataObjectInteger::DataObjectInteger(const Type *pType):DataObjectBasic(pType){
+DataObjectInteger::DataObjectInteger(const Type *pType):DataObjectBasic(pType),iValue(0){
 	IAS_TRACER;
 }
 /*************************************************************************/
