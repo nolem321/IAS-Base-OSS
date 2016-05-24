@@ -190,8 +190,14 @@ void Process::startRunnable() {
 	setupStream(2,iFDError);
 
 	for (StringPairList::const_iterator it=lstEnvironment.begin(); it != lstEnvironment.end(); ++it) {
+
 		if(setenv(it->first.c_str(),it->second.c_str(),1) != 0)
 			IAS_THROW(SystemException("setenv():"))
+
+		if(it->first.compare("PWD") == 0)
+			if(chdir(it->second.c_str()) == -1)
+				IAS_THROW(SystemException("chdir("+it->second+")"));
+
 	}
 
 	pRunnable->run();
@@ -210,7 +216,7 @@ void Process::setOutputStream(const String& strPath) {
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"open="<<ifdNo);
 
 	if (ifdNo < 0)
-		IAS_THROW(SystemException("strPathOutputStream",errno));
+		IAS_THROW(SystemException("strPathOutputStream["+strPath+"]",errno));
 
 	iFDOutput=ifdNo;
 }
@@ -223,7 +229,7 @@ void Process::setErrorStream(const String& strPath) {
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"open="<<ifdNo);
 
 	if (ifdNo < 0)
-		IAS_THROW(SystemException("strPathOutputStream",errno));
+		IAS_THROW(SystemException("strPathOutputStream["+strPath+"]",errno));
 
 	iFDError=ifdNo;
 }
@@ -236,7 +242,7 @@ void Process::setInputStream(const String& strPath) {
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"open="<<ifdNo);
 
 	if (ifdNo < 0)
-		IAS_THROW(SystemException("strPathOutputStream",errno));
+		IAS_THROW(SystemException("strPathOutputStream["+strPath+"]",errno));
 
 	iFDInput=ifdNo;
 }

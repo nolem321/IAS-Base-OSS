@@ -33,6 +33,7 @@ public:
 	static String GetEnv(const String& strName);
 	static void GetEnvTokenized(const String& strName, StringList& lstValues, char cDelimiter = ':');
 
+	static String Substitute(const String& strPattern, bool bFailIfMissing = true);
 };
 
 /*************************************************************************/

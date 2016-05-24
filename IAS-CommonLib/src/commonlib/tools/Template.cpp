@@ -104,7 +104,7 @@ void Template::evaluate(const Arguments& args, std::ostream& os)const{
 						iState=ST_Special;
 						break;
 					case ST_Special:
-						iState=ST_Special;
+						iState=ST_Outside;
 						os<<'$';
 						break;
 					case ST_Template:
