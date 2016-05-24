@@ -53,6 +53,11 @@ Message* InputBase::receiveImpl(int iTimeWait,bool bRemoveInputTimer){
 
 	long iSinceLastAction = tsLastAction.getSample();
 
+	if(strFileName.substr(0,6).compare("/never")==0){
+
+		IAS_THROW(EndOfDataException("Never say never."));
+	}
+
 	if(!bFirst && iTimeWait - iSinceLastAction > 0){
 		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Sleeping: "<<(iTimeWait - iSinceLastAction)<<"micro sec!, timeout="<<iTimeWait<<", opetime="<<iSinceLastAction);
 		Thread::Cancellation tc(true);

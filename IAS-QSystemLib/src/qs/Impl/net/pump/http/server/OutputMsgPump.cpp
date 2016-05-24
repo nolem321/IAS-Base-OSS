@@ -33,7 +33,14 @@ OutputMsgPump::OutputMsgPump(::IAS::Net::IBlockIO* pBlockIO, Message* pMessage):
 
 	ptrResponse   = IAS_DFT_FACTORY< ::IAS::Net::HTTP::Response>::Create();
 
-	ptrResponse->setStatus(::IAS::Net::HTTP::Response::HS_OK);
+	const API::Attributes* pAttributes = pMessage->getAttributes();
+
+	if(pAttributes->isSet("IAS_HTTP_STATUS"))
+			ptrResponse->setStatus(static_cast<IAS::Net::HTTP::Response::Status>(
+				TypeTools::StringToInt(pAttributes->getValue("IAS_HTTP_STATUS"))));
+		else
+			ptrResponse->setStatus(::IAS::Net::HTTP::Response::HS_OK);
+
 	//ptrResponse->setTransferEncoding("chunked");
 
 	size_t iDataLength = pMessage->getContent()->tellp();
@@ -48,9 +55,6 @@ OutputMsgPump::OutputMsgPump(::IAS::Net::IBlockIO* pBlockIO, Message* pMessage):
 	}else{
 		ptrResponse->setContentType("application/text; charset=UTF-8");
 	}
-
-
-	const API::Attributes* pAttributes = pMessage->getAttributes();
 
 	if(pAttributes->isSet("IAS_HTTP_SET_COOKIE")){
 		ptrResponse->addCookieSpecification(pAttributes->getValue("IAS_HTTP_SET_COOKIE"));

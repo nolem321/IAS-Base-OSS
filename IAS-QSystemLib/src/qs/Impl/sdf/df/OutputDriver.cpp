@@ -28,7 +28,7 @@ namespace DF {
 
 /*************************************************************************/
 OutputDriver::OutputDriver(const API::Destination& destination):
-		strFileName(String("/")+destination.getName()),
+		strFileName(String("/")+EnvTools::Substitute(destination.getName())),
 		outFile(strFileName),
 		osp(0),
 		iCount(0){

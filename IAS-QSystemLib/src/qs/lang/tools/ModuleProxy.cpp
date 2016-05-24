@@ -24,6 +24,7 @@
 #include "MatchRegExps.h"
 #include "ExecuteSystemCmd.h"
 #include "ExecuteSystemCmdArray.h"
+#include "ApplyTemplate.h"
 
 namespace IAS {
 namespace QS {
@@ -45,6 +46,7 @@ void ModuleProxy::setupImpl(){
 	registerSymbol("MatchRegExps",      &(MatchRegExps::Create));
 	registerSymbol("ExecuteSystemCmd",  &(ExecuteSystemCmd::Create));
 	registerSymbol("ExecuteSystemCmdArray",  &(ExecuteSystemCmdArray::Create));
+	registerSymbol("ApplyTemplate",     &(ApplyTemplate::Create));
 }
 /*************************************************************************/
 void ModuleProxy::cleanUpImpl(){

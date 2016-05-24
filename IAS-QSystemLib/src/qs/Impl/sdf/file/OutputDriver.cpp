@@ -30,7 +30,7 @@ static String getDestinationFile(const API::Destination& destination){
 
 	IAS_TRACER;
 
-	String strName(destination.getName());
+	String strName(EnvTools::Substitute(destination.getName()));
 
 	if(strName[0] == '/')
 		return strName;

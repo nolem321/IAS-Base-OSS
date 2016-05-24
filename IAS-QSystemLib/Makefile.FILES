@@ -1,4 +1,4 @@
-#Tue May  3 10:35:57 CEST 2016
+#Fri May 13 11:25:49 CEST 2016
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -200,6 +200,7 @@ FILES+=qs/lang/msgs/MessagePreview
 FILES+=qs/lang/msgs/ModuleProxy
 FILES+=qs/lang/msgs/Receive
 FILES+=qs/lang/msgs/Send
+FILES+=qs/lang/tools/ApplyTemplate
 FILES+=qs/lang/tools/ExecuteSystemCmd
 FILES+=qs/lang/tools/ExecuteSystemCmdArray
 FILES+=qs/lang/tools/LogFileExtractor

@@ -140,9 +140,8 @@ void ProcessorWorker::iterate(){
 
 	bool bStop(false);
 
-	while(pGlobalContext->allDone() &&
-		  !SYS::Signal::GetInstance()->isStopping() &&
-		  !bStop){
+	while(!SYS::Signal::GetInstance()->isStopping() &&
+		  !bStop && pGlobalContext->allDone()){
 
 		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"** Iteration: ");
 

@@ -30,7 +30,7 @@ namespace Dir {
 
 /*************************************************************************/
 InputBase::InputBase(const API::Destination& destination):
-		strDirName(String("/")+destination.getName()),
+		strDirName(EnvTools::Substitute(String("/")+destination.getName())),
 		dirReader(strDirName),
 		iCount(0){
 	IAS_TRACER;

@@ -100,8 +100,7 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
     ts.start();
 
 
-	const String& strTemplateName(pAttributes->getValue(CStrAttr));
-	const Template* pTemplate(getTemplate(strTemplateName));
+	const Template* pTemplate(getTemplate(pAttributes, dmData));
 
 	Arguments args(dmData);
 	pTemplate->evaluate(args,ostream);
@@ -109,29 +108,61 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
 	tsrSerialization.addSample(ts);
 
 }
+
 /*************************************************************************/
-const Template* TemplateFormatter::getTemplate(const String& strTemplateName){
+const Template* TemplateFormatter::tryTemplate(const String& strName) {
+
 	IAS_TRACER;
 
-	if(hmTemplates.count(strTemplateName) == 0){
+	if(hmTemplates.count(strName) == 0){
 
-		bool bFound = false;
-		for(StringList::const_iterator it=lstTemplateDirectories.begin();!bFound && it != lstTemplateDirectories.end(); it++){
+	bool bFound = false;
 
-			try{
-				String strValue;
-				InputFile::LoadString(*it+"/"+strTemplateName,strValue);
-				hmTemplates[strTemplateName]=IAS_DFT_FACTORY<Template>::Create(strValue);
-				bFound=true;
-			}catch(SystemException& e){	}
+	for (StringList::const_iterator it = lstTemplateDirectories.begin();
+			!bFound && it != lstTemplateDirectories.end(); it++) {
 
+		IAS_LOG(::IAS::QS::LogLevel::INSTANCE.isInfo(),
+				"Loading template: "<<strName<<" from "<<(*it));
+
+		try {
+			String strValue;
+			InputFile::LoadString(*it + "/" + strName, strValue);
+			hmTemplates[strName] = IAS_DFT_FACTORY<Template>::Create(strValue);
+			bFound = true;
+		} catch (SystemException& e) {
+			IAS_THROW(ItemNotFoundException("Template: "+strName))
 		}
 
-		if(!bFound)
-			IAS_THROW(ItemNotFoundException()<<"Template: "<<strTemplateName);
 	}
 
-	return hmTemplates[strTemplateName];
+	}
+
+	return hmTemplates[strName];
+}
+
+/*************************************************************************/
+const Template* TemplateFormatter::getTemplate(QS::API::Attributes *pAttributes,
+												const DM::DataObject* dmData){
+	IAS_TRACER;
+
+
+	const Template* pTemplate = NULL;
+
+	if(pAttributes->isSet(CStrAttr)){
+
+			const String& strTemplateName(pAttributes->getValue(CStrAttr));
+			pTemplate = tryTemplate(strTemplateName);
+
+	}else{
+
+		URI uri(dmData->getType()->getURI());
+		String strTemplateName(uri.getHost()+"/"+uri.getPath()+"/"+dmData->getType()->getName()+".temp");
+
+		pTemplate = tryTemplate(strTemplateName);
+
+	}
+
+	return pTemplate;
 }
 /*************************************************************************/
 }

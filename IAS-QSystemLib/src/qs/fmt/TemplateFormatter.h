@@ -59,7 +59,10 @@ protected:
 
 	HashMapStringToPointer<Template> hmTemplates;
 
-	const Template* getTemplate(const String& strTemplateName);
+	const Template* getTemplate(QS::API::Attributes *pAttributes,
+								const DM::DataObject* dmData);
+
+	const Template* tryTemplate(const String& strName);
 
 	StringList lstTemplateDirectories;
 
