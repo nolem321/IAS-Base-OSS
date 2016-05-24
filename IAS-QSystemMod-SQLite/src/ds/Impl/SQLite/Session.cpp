@@ -43,7 +43,7 @@ Session::Session(Connection* pConnection):
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pConnection);
 
-	String strConnection(pConnection->getParameter()->getConnection()->getLocation());
+	String strConnection(EnvTools::Substitute(pConnection->getParameter()->getConnection()->getLocation()));
 
 	String strFormatter("JSON");
 
