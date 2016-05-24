@@ -258,6 +258,24 @@ void Config::loadDM() {
 
 		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strURL));
 		dmDeploymentConfig = DataFactory::GetInstance()->getDeploymentConfigType()->cast(ptrDoc->getRootObject());
+
+		dmDeploymentConfig->setLckDir(EnvTools::Substitute(dmDeploymentConfig->getLckDir()));
+
+		Ext::ResourceGroupList& lstRGList(dmDeploymentConfig->getResourcesList());
+
+		for(int iIdx = 0; iIdx< lstRGList.size(); iIdx++){
+
+			lstRGList.at(iIdx)->setLogDir(EnvTools::Substitute(lstRGList.at(iIdx)->getLogDir()));
+
+			Ext::VariableList& lstVarList(lstRGList.at(iIdx)->getEnv()->getVarsList());
+
+			for(int iIdxVar = 0; iIdxVar < lstVarList.size(); iIdxVar++){
+				Ext::VariablePtr dmVariable = lstVarList.at(iIdxVar);
+				dmVariable->setValue(EnvTools::Substitute(dmVariable->getValue()));
+			}
+
+		}
+
 	}
 }
 /*************************************************************************/
