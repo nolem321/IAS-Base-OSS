@@ -53,6 +53,18 @@ void TCMisc::caseALL(){
 	std::cout<<TypeTools::Replace("abc1234abc56789abc","abc","XYZ")<<'\n';
 	std::cout<<TypeTools::Replace("1234abc56789","abc","XYZ")<<'\n';
 
+	{
+
+		String strPattern("${home} sweet ${HOME}");
+		String strValue = EnvTools::Substitute(strPattern);
+
+		if(strValue.compare(" sweet "+EnvTools::GetEnv("HOME")) != 0)
+			IAS_THROW(InternalException("Test case failed for  EnvTools::Substitute"));
+
+		std::cout<<"Value: "<<strValue<<std::endl;
+
+	}
+
 	TimeSamplesResults tsr;
 	TimeSample ts(true);
 	std::cout<<"Wait !"<<std::endl;
