@@ -39,6 +39,7 @@ public:
 	DateTime(const Time& other);
 	DateTime(const String& strValue);
 	DateTime(const String& strValue, const String& strFmt);
+	DateTime(const String& strValue, const String& strFmt, bool toLocalTime);
 	DateTime(const char* sValue);
 
 	~DateTime()throw();

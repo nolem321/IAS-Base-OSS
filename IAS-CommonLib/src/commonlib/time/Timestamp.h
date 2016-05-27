@@ -31,6 +31,7 @@ public:
 
 	Timestamp(bool bCurrentSystemDate=false);
 	Timestamp(const Timestamp& other);
+	Timestamp(const String& strValue);
 
 	~Timestamp()throw();
 
@@ -47,6 +48,7 @@ public:
 	void fromTimeString(const String& strValue);
 
 	void fromString(const String& strValue, const String& strFormat);
+	void fromString(const String& strValue, const String& strFormat, bool toLocalTime);
 
 	void toPosixTime(time_t& aValue)const;
 	void toPosixTime(struct tm& aValue)const;
@@ -104,6 +106,7 @@ private:
 	short readUSec(std::istream& is, bool bOptionalDecimal);
 	short readZone(std::istream& is, bool bOptionalDecimal);
 	short readAbbreviatedMonth(std::istream& is);
+	time_t gmtToLocal(struct tm* timeinfo);
 
 	static const String& CDftDateTimeFormat;
 	static const String& CDftTimeFormat;
@@ -112,6 +115,7 @@ private:
 	static const int CFPrec  = 3;
 	static const int CFRound = 1000;
 
+	static const int UFPrec  = 6;
 };
 
 
