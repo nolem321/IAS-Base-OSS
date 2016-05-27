@@ -51,6 +51,10 @@ protected:
 
 	IAS_DFT_FACTORY<ProcessLockFile>::PtrHolder ptrLockFile;
 
+	static String           MyServiceName;
+	static ProcessLockFile *MyProcessLockFile;
+
+	String strServiceName;
 	friend class ::IAS::Factory<ServiceInstanceObserver>;
 };
 

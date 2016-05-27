@@ -34,10 +34,13 @@ const String& Config::StrConfigLockFile = "Config.lck";
 const String& Config::StrConfigFile = "SMServices.xml";
 const String& Config::StrDeploymentFile = "SMDeployment.xml";
 /*************************************************************************/
-Config::Config(const String& strCfgDir): bVerbose(true), osLog(std::cerr) {
+Config::Config(const String& strCfgDirs):
+		bVerbose(true),
+		osLog(std::cerr){
 
 	IAS_TRACER;
-	this->strCfgDir = strCfgDir;
+
+	IAS::TypeTools::Tokenize(strCfgDirs, lstCfgDirs, ':');
 
 	ptrXMLHelper = IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(DataFactory::GetInstance()->getContaingDataFactory());
 
@@ -82,7 +85,7 @@ const String& Config::getLckDir()const{
 	IAS_TRACER;
 
 	if (ptrConfigLock.isNull()) {
-		String strFile = strCfgDir + "/" + StrConfigLockFile;
+		String strFile = String("/tmp") + "/" + StrConfigLockFile; //TODO for many configs
 		std::cerr<<"test: "<<strFile<<std::endl;
 		ptrConfigLock = IAS_DFT_FACTORY<SYS::FS::FileLock>::Create(strFile);
 	}
@@ -224,7 +227,7 @@ void Config::indexItems() {
 /*************************************************************************/
 void Config::saveDM() {
 	IAS_TRACER;
-
+/*
 	{
 		String strURL = strCfgDir + "/" + StrConfigFile;
 		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Services to: "<<strURL);
@@ -238,43 +241,75 @@ void Config::saveDM() {
 
 		ptrXMLHelper->save((const String) strURL, dmDeploymentConfig, "deploymentConfig", "");
 	}
+	*/
 }
 /*************************************************************************/
 void Config::loadDM() {
 	IAS_TRACER;
 
-	{
-		String strURL = strCfgDir + "/" + StrConfigFile;
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Services from: "<<strURL);
+	bool bFirst = true;
 
-		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strURL));
-		dmServiceConfig = DataFactory::GetInstance()->getServiceConfigType()->cast(ptrDoc->getRootObject());
+	if(lstCfgDirs.size() == 0)
+		IAS_THROW(ConfigException("Empty service list."));
 
-	}
+	for(StringList::const_iterator it = lstCfgDirs.begin(); it != lstCfgDirs.end(); it++) {
 
-	{
-		String strURL = strCfgDir + "/" + StrDeploymentFile;
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Deployment from: "<<strURL);
+		String strCfgDir(*it);
 
-		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strURL));
-		dmDeploymentConfig = DataFactory::GetInstance()->getDeploymentConfigType()->cast(ptrDoc->getRootObject());
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Loading from: "<<strCfgDir);
+
+		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocS(ptrXMLHelper->readFile(strCfgDir + "/" + StrConfigFile));
+		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocD(ptrXMLHelper->readFile(strCfgDir + "/" + StrDeploymentFile));
+
+		Ext::ServiceConfigPtr  dmServiceConfig;
+		Ext::DeploymentConfigPtr  dmDeploymentConfig;
+
+		dmServiceConfig = DataFactory::GetInstance()->getServiceConfigType()->cast(ptrDocS->getRootObject());
+		dmDeploymentConfig = DataFactory::GetInstance()->getDeploymentConfigType()->cast(ptrDocD->getRootObject());
 
 		dmDeploymentConfig->setLckDir(EnvTools::Substitute(dmDeploymentConfig->getLckDir()));
 
+		/* substitute in deployment */
 		Ext::ResourceGroupList& lstRGList(dmDeploymentConfig->getResourcesList());
 
-		for(int iIdx = 0; iIdx< lstRGList.size(); iIdx++){
+		for(int iIdx = 0; iIdx< lstRGList.size(); iIdx++) {
 
 			lstRGList.at(iIdx)->setLogDir(EnvTools::Substitute(lstRGList.at(iIdx)->getLogDir()));
-
 			Ext::VariableList& lstVarList(lstRGList.at(iIdx)->getEnv()->getVarsList());
 
-			for(int iIdxVar = 0; iIdxVar < lstVarList.size(); iIdxVar++){
+			for(int iIdxVar = 0; iIdxVar < lstVarList.size(); iIdxVar++) {
 				Ext::VariablePtr dmVariable = lstVarList.at(iIdxVar);
 				dmVariable->setValue(EnvTools::Substitute(dmVariable->getValue()));
 			}
+		}
+
+		if(bFirst){
+
+			this->dmServiceConfig=dmServiceConfig;
+			this->dmDeploymentConfig=dmDeploymentConfig;
+			bFirst=false;
+
+		}else{
+
+			Ext::ServiceList& lstServices(dmServiceConfig->getServicesList());
+			Ext::ServiceList& lstTargetServices(this->dmServiceConfig->getServicesList());
+
+			for(int iIdx=0;iIdx<lstServices.size();iIdx++){
+				lstTargetServices.add(lstServices.at(iIdx)->duplicateService());
+			}
+
+			Ext::ResourceGroupList& lstResGroups(dmDeploymentConfig->getResourcesList());
+			Ext::ResourceGroupList& lstTargetResGroups(this->dmDeploymentConfig->getResourcesList());
+
+			for(int iIdx=0;iIdx<lstResGroups.size();iIdx++){
+				lstTargetResGroups.add(lstResGroups.at(iIdx)->duplicateResourceGroup());
+			}
 
 		}
+
+
+
+
 
 	}
 }

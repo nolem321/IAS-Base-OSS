@@ -68,13 +68,13 @@ public:
 	void copyDeploymentConfig(::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr& ptrDeploymentConfig)const;
 
 protected:
-	Config(const String& strCfgDir);
+	Config(const String& strCfgDirs);
 
 	static const String& StrConfigFile;
 	static const String& StrDeploymentFile;
 	static const String& StrConfigLockFile;
 
-	String strCfgDir;
+	StringList lstCfgDirs;
 
 	::org::invenireaude::sm::cfg::Ext::ServiceConfigPtr     dmServiceConfig;
 	::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr  dmDeploymentConfig;
