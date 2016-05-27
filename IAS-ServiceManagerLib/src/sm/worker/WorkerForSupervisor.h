@@ -53,7 +53,7 @@ protected:
 	const ::IAS::SM::Cfg::Config *pConfig;
 	const ::IAS::SM::Mon::Monitor* pMonitor;
 
-	typedef std::map<const ::org::invenireaude::sm::cfg::Service*, unsigned int> FailedServicesMap;
+	typedef std::map<const ::org::invenireaude::sm::cfg::Service*, time_t> FailedServicesMap;
 
 	FailedServicesMap hmFailedServices;
 
