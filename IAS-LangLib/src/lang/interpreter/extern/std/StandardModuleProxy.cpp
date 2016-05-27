@@ -20,6 +20,9 @@
 
 #include <commonlib/commonlib.h>
 
+#include "FormatDateTime.h"
+#include "FormatDateTimeString.h"
+#include "DateTimeToString.h"
 #include "SubString2.h"
 #include "SubString3.h"
 #include "Find.h"
@@ -27,6 +30,7 @@
 #include "Replace.h"
 #include "GetTime.h"
 #include "GetTimeFormated.h"
+#include "GetLocalTimeFormated.h"
 #include "GetYear.h"
 #include "GetMonth.h"
 #include "GetDay.h"
@@ -64,6 +68,9 @@ void StandardModuleProxy::setupImpl(){
 
 	IAS_TRACER;
 
+	registerSymbol("FormatDateTime",&(FormatDateTime::Create));
+	registerSymbol("FormatDateTimeString",&(FormatDateTimeString::Create));
+	registerSymbol("DateTimeToString",&(DateTimeToString::Create));
 	registerSymbol("SubString2",&(SubString2::Create));
 	registerSymbol("SubString3",&(SubString3::Create));
 	registerSymbol("Find",&(Find::Create));
@@ -71,6 +78,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("Replace",&(Replace::Create));
 	registerSymbol("GetTime",&(GetTime::Create));
 	registerSymbol("GetTimeFormated",&(GetTimeFormated::Create));
+	registerSymbol("GetLocalTimeFormated",&(GetLocalTimeFormated::Create));
 	registerSymbol("GetYear",&(GetYear::Create));
 	registerSymbol("GetMonth",&(GetMonth::Create));
 	registerSymbol("GetDay",&(GetDay::Create));

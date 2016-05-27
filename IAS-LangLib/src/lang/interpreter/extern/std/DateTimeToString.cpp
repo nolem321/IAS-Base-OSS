@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/extern/std/Find.cpp
+ * File: IAS-LangLib/src/lang/interpreter/extern/std/DataTimeToString.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Find.h"
+#include "DateTimeToString.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
@@ -31,26 +31,30 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Find::Find(const StringList& lstParamaters){
+DateTimeToString::DateTimeToString(const StringList& lstParamaters){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Find::~Find() throw(){
+DateTimeToString::~DateTimeToString() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void Find::executeExternal(Exe::Context *pCtx) const{
+void DateTimeToString::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
+
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
-	const String strArgument = pParameters->getString("strArgument");
-	const String strPattern  = pParameters->getString("strPattern");
-	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,
-				strArgument.find(strPattern.c_str(),String::npos));
+
+	const String strFmt = pParameters->getString("strFmt");
+
+	pParameters->setString(String(Model::Dec::ResultDeclarationNode::CStrResultVariable),
+				 	 	   Timestamp(true).toString(strFmt));
+
+
 }
 /*************************************************************************/
-Statement* Find::Create(const StringList& lstParamaters){
+Statement* DateTimeToString::Create(const StringList& lstParamaters){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Find>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<DateTimeToString>::Create(lstParamaters);
 }
 /*************************************************************************/
 }

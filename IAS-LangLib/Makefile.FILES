@@ -1,4 +1,4 @@
-#Sat May  7 15:22:44 CEST 2016
+#Fri May 27 09:56:00 CEST 2016
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -181,10 +181,14 @@ FILES+=lang/interpreter/extern/Module
 FILES+=lang/interpreter/extern/ModuleProxy
 FILES+=lang/interpreter/extern/ModuleStore
 FILES+=lang/interpreter/extern/Statement
+FILES+=lang/interpreter/extern/std/DateTimeToString
 FILES+=lang/interpreter/extern/std/Find
 FILES+=lang/interpreter/extern/std/Find3
+FILES+=lang/interpreter/extern/std/FormatDateTime
+FILES+=lang/interpreter/extern/std/FormatDateTimeString
 FILES+=lang/interpreter/extern/std/GetDay
 FILES+=lang/interpreter/extern/std/GetHash
+FILES+=lang/interpreter/extern/std/GetLocalTimeFormated
 FILES+=lang/interpreter/extern/std/GetMonth
 FILES+=lang/interpreter/extern/std/GetRandom
 FILES+=lang/interpreter/extern/std/GetRandomString
