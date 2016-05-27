@@ -105,7 +105,9 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 
 		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Loading: "<<(*it));
 
-		if((*it)[0] == '/'){
+		String strFile(*it);
+
+		if(strFile.substr(strFile.length()-3).compare("xsd") == 0){
 			ptrXSDHelper->defineTypesFromFile(*it);
 		}else{
 			//Keep forever ?
