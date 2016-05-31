@@ -41,6 +41,7 @@ SOAPFormatter::SOAPFormatter(const DM::DataFactory* pDataFactory):pDataFactory(p
 
 	IAS_CHECK_IF_NULL(pDataFactory);
 	ptrXMLHelper=IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory);
+	ptrXMLHelper->setEmptyFirstNS(true);
 
 }
 /*************************************************************************/
@@ -84,6 +85,7 @@ void SOAPFormatter::write(const DM::DataObject* dmData,
     ts.start();
 
 	String strValue;
+
 
 	IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocument(
 		IAS_DFT_FACTORY<DM::XML::XMLDocument>::Create(const_cast< ::IAS::DM::DataObject*>(dmData)));

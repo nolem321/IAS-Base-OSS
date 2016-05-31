@@ -68,6 +68,11 @@ public:
 	void getAuthoriation(String& strMethod, String& strParameter)const;
 	void setAuthorization(const String& strMethod, const String& strParameter);
 
+	bool 	isSetSOAPAction()const;
+
+	void getSOAPAction(String& strParameter)const;
+	void setSOAPAction(const String& strParameter);
+
 	virtual void parse(std::istream& is);
 	virtual void serialize(std::ostream& os);
 
@@ -89,6 +94,8 @@ protected:
 
 	String        strAuthorizationMethod;
 	String        strAuthorizationParameter;
+
+	String        strSOAPAction;
 
 	CookiesList   lstCookies;
 

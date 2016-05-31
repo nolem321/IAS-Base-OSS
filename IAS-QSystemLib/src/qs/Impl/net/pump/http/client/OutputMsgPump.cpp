@@ -97,6 +97,11 @@ OutputMsgPump::OutputMsgPump(::IAS::Net::IBlockIO* pBlockIO, Message* pMessage):
 		ptrRequest->setAuthorization("Bearer",pAttributes->getValue("IAS_HTTP_AUTH_BEARER"));
 	}
 
+
+	if(pAttributes->isSet("IAS_SOAP_ACTION")){
+		ptrRequest->setSOAPAction(pAttributes->getValue("IAS_SOAP_ACTION"));
+	}
+
 	ptrOutputPump = IAS_DFT_FACTORY< ::IAS::Net::HTTP::HeaderOutputPump>::Create< ::IAS::Net::HTTP::Request*, IAS::Net::IBlockIO* >(ptrRequest,pBlockIO);
 }
 /*************************************************************************/

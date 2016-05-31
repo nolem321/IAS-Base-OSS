@@ -78,6 +78,8 @@ public:
 		return bEmptyFirstNS;
 	}
 
+	void setEmptyFirstNS(bool bEmptyFirstNS);
+
 	static const String XMLPayloadElement;
 
 protected:

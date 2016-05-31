@@ -25,19 +25,24 @@
 #include "../threads/Thread.h"
 #include "../memory/memory.h"
 
+#include <iomanip>
+
 #include "LoggerFileLock.h"
 
 #include "StackTrace.h"
 #include "StackTraceContainer.h"
 #include <commonlib/tools/TypeTools.h>
 #include <unistd.h>
+#include <time.h>
 
 namespace IAS{
 
 static LOGGER::LoggerFileLock _fileLock;
 
-static bool  _bPrintPID(getenv("IAS_DBG_PRT_PID"));
-static bool  _bPrintLoc(getenv("IAS_DBG_PRT_LOC"));
+static bool  _bPrintPID(getenv("IAS_DBG_PRT_PID") && getenv("IAS_DBG_PRT_PID")[0] == 'Y');
+static bool  _bPrintLoc(getenv("IAS_DBG_PRT_LOC") && getenv("IAS_DBG_PRT_LOC")[0] == 'Y');
+static bool  _bPrintRTS(getenv("IAS_DBG_PRT_RTS") && getenv("IAS_DBG_PRT_RTS")[0] == 'Y');
+
 Logger* Logger::TheInstance = NULL;
 
 /*************************************************************************/
@@ -54,12 +59,34 @@ inline void Logger::addEntryPrefix(const char* sFun,
 					   			   const char* sFile,
 					   			   int         iLine){
 
+	if (_bPrintRTS) {
+
+		std::stringstream ss;
+		char buf[32];
+		time_t tTime=time(0);
+		struct tm tmpTime;
+		localtime_r(&tTime,&tmpTime);
+
+		ss<<std::setfill('0');
+		ss<<std::setw(2)<<(tmpTime.tm_hour)<<":";
+		ss<<std::setw(2)<<(tmpTime.tm_min)<<":";
+		ss<<std::setw(2)<<(tmpTime.tm_sec)<<" ";
+
+		ss<<std::setw(2)<<(tmpTime.tm_mday)<<"-";
+		ss<<std::setw(2)<<(tmpTime.tm_mon)+1<<"-";
+		ss<<std::setw(2)<<1900+(tmpTime.tm_year)<<" ";
+		(*pos)<<ss.str();
+
+	}
+
+
 	if(_bPrintLoc){
 
 		if(_bPrintPID){
 
 			struct timespec ts;
 		   ::clock_gettime(CLOCK_MONOTONIC, &ts);
+
 		   (*pos).width(10);
 		   (*pos)<<ts.tv_sec<<".";
 		   (*pos).width(10);

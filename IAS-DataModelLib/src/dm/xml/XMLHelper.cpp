@@ -181,6 +181,11 @@ String XMLHelper::Stringify(const ::IAS::DM::DataFactory *pDataFactory,
 	return strResult;
 }
 /*************************************************************************/
+void XMLHelper::setEmptyFirstNS(bool bEmptyFirstNS){
+	IAS_TRACER;
+	this->bEmptyFirstNS=bEmptyFirstNS;
+}
+
 }
 }
 }

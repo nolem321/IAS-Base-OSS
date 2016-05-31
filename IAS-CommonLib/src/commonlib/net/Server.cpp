@@ -73,7 +73,7 @@ void Server::bind(){
 
 		if(::bind(iSocket, (*it)->ai_addr, (*it)->ai_addrlen) == 0){
 
-			if(listen(iSocket, 10)  == -1)
+			if(listen(iSocket, 128)  == -1)
 				IAS_THROW(SystemException("listen: ")<<peerLocal);
 
 			IAS_LOG(LogLevel::INSTANCE.isInfo(),"Server started: "<<peerLocal<<", fd="<<(int)iSocket);
