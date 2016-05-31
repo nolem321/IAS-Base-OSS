@@ -45,7 +45,7 @@ void Find::executeExternal(Exe::Context *pCtx) const{
 	const String strArgument = pParameters->getString("strArgument");
 	const String strPattern  = pParameters->getString("strPattern");
 	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,
-				strArgument.find(strPattern.c_str(),String::npos));
+				strArgument.find(strPattern.c_str(), 0));
 }
 /*************************************************************************/
 Statement* Find::Create(const StringList& lstParamaters){
