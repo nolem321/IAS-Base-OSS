@@ -107,7 +107,7 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 
 		String strFile(*it);
 
-		if(strFile.substr(strFile.length()-3).compare("xsd") == 0){
+		if(strFile.length() > 4 && strFile.substr(strFile.length()-4).compare(".xsd") == 0){
 			ptrXSDHelper->defineTypesFromFile(*it);
 		}else{
 			//Keep forever ?
