@@ -67,14 +67,16 @@ inline void Logger::addEntryPrefix(const char* sFun,
 		struct tm tmpTime;
 		localtime_r(&tTime,&tmpTime);
 
+
 		ss<<std::setfill('0');
+		ss<<std::setw(2)<<1900+(tmpTime.tm_year)<<"-";
+		ss<<std::setw(2)<<(tmpTime.tm_mon)+1<<"-";
+		ss<<std::setw(2)<<(tmpTime.tm_mday)<<" ";
+
 		ss<<std::setw(2)<<(tmpTime.tm_hour)<<":";
 		ss<<std::setw(2)<<(tmpTime.tm_min)<<":";
 		ss<<std::setw(2)<<(tmpTime.tm_sec)<<" ";
 
-		ss<<std::setw(2)<<(tmpTime.tm_mday)<<"-";
-		ss<<std::setw(2)<<(tmpTime.tm_mon)+1<<"-";
-		ss<<std::setw(2)<<1900+(tmpTime.tm_year)<<" ";
 		(*pos)<<ss.str();
 
 	}
