@@ -56,6 +56,13 @@ protected:
 	IAS_DFT_FACTORY<Cfg::Config>::PtrHolder ptrConfig;
 
 	friend class ::IAS::Factory<ServiceManager>;
+
+	class SigChildIgnore{
+		public:
+		SigChildIgnore();
+	};
+
+	static SigChildIgnore TheSigChildIgnore;
 };
 
 /*************************************************************************/

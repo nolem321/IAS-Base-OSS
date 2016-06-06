@@ -30,6 +30,7 @@
 #include "sm/mon/ServiceStatus.h"
 #include "sm/cfg/dataobjects.h"
 #include <unistd.h>
+#include "signal.h"
 
 using namespace ::org::invenireaude::sm::cfg;
 
@@ -37,6 +38,15 @@ namespace IAS {
 namespace SM {
 namespace API {
 
+ServiceManager::SigChildIgnore ServiceManager::TheSigChildIgnore;
+/*************************************************************************/
+ServiceManager::SigChildIgnore::SigChildIgnore(){
+	IAS_TRACER;
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(), "sigignore(SIGCHLD)");
+
+	sigignore(SIGCHLD);
+}
 /*************************************************************************/
 ServiceManager::ServiceManager(){
 	IAS_TRACER;
