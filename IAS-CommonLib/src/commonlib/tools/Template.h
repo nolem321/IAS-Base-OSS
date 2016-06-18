@@ -24,42 +24,73 @@
 #include <map>
 #include <vector>
 
+#include "../containers/HashMapStringToPointer.h"
+#include "../containers/HashMapOfPointers.h"
+
 namespace IAS {
 /*************************************************************************/
 class Template {
 public:
 
-	class Arguments {
+	class IArguments {
 
 		public:
-			Arguments();
+			virtual ~IArguments(){};
+
+			virtual const String& get(const String& strKey) = 0;
+			virtual size_t getNestedCount(const String& strKey) = 0;
+			virtual IArguments* getNested(const String& strKey, size_t iIdx) = 0;
+
+	};
+
+	class Arguments : public IArguments{
+
+		public:
+			virtual ~Arguments() throw();
+			Arguments(Arguments* pParentArguments = NULL);
 
 			void add(const String& strKey, const String& Value);
-			virtual const String& get(const String& strKey) const;
+		    Arguments* createNested(const String& strKey);
+
+			// non const as we allow caching
+			virtual const String& get(const String& strKey);
+
+			virtual size_t getNestedCount(const String& strKey);
+			virtual IArguments* getNested(const String& strKey, size_t iIdx);
 
 		protected:
 
-			typedef std::map<String, String> ValuesMap;
+			struct NestedEntry {
+				virtual ~NestedEntry(){};
+
+				typedef std::vector<Arguments*> ArgumentsTab;
+				ArgumentsTab tabArguments;
+
+				IAS_DFT_FACTORY<Arguments>::PtrHoldersCollection phcArguments;
+
+				void push(Arguments* pArguments){
+					tabArguments.push_back(pArguments);
+					phcArguments.addPointer(pArguments);
+				}
+			};
+
+			typedef HashMapWithStringKey<String> ValuesMap;
+			typedef HashMapStringToPointer<NestedEntry> NestedMap;
+
 			ValuesMap hmValues;
+			NestedMap hmNested;
+
+			Arguments* pParentArguments;
+
+			//Override those in subclasses ...
+			virtual Arguments* createNestedImpl(const String& strKey);
+			virtual bool getImpl(const String& strKey, String& strValue);
+
 	};
-
-	class ChildArguments : public Arguments{
-
-		public:
-
-			ChildArguments(const Arguments& parent);
-
-			virtual const String& get(const String& strKey) const;
-
-		protected:
-			const Arguments& parent;
-	};
-
 
 	virtual ~Template() throw();
 
-	bool hasKey(const String& strKey) const;
-	void evaluate(const Arguments& args, std::ostream& os)const;
+	void evaluate(IArguments& args, std::ostream& os)const;
 
 protected:
 	enum State{
@@ -70,10 +101,7 @@ protected:
 
 	Template(const String& strTemplateText);
 
-	std::vector<String> lstKeys;
 	String strTemplateText;
-
-	void buildKeysList();
 
 	friend class ::IAS::Factory<Template>;
 };

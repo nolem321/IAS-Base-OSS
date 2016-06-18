@@ -1,4 +1,4 @@
-#Wed Jan 14 09:44:07 CET 2015
+#Wed Jun  8 07:19:00 CEST 2016
 FILES+=testcases/TCBackgroundJobs
 FILES+=testcases/TCBitMap
 FILES+=testcases/TCBlockIOBuffer
@@ -25,6 +25,7 @@ FILES+=testcases/TCShareable
 FILES+=testcases/TCSimpleMemoryManager
 FILES+=testcases/TCSockets
 FILES+=testcases/TCStreamMemoryBuffer
+FILES+=testcases/TCTemplates
 FILES+=testcases/TCThreads
 FILES+=testcases/TCTime
 FILES+=testcases/TCUrl
