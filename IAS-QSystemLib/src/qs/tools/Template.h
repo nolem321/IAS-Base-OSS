@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/workers/proc/ds/wrapper/Update.h
+ * File: Template.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,52 +15,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_QS_Proc_Workers_DS_Wrapper_Update_H_
-#define _IAS_QS_Proc_Workers_DS_Wrapper_Update_H_
+
+
+#ifndef _IAS_QS_Tools_Template_H_
+#define _IAS_QS_Tools_Template_H_
 
 #include <commonlib/commonlib.h>
-
-#include "Wrapper.h"
+#include <dm/datamodel.h>
 
 namespace IAS {
 namespace QS {
-namespace Workers {
-namespace Proc {
-namespace DS {
-namespace Wrapper {
-class Lexer;
+namespace Tools {
+
 /*************************************************************************/
-/** The Update class.
+/** The Template class.
  *
  */
-class Update : public Wrapper{
+class Template : public IAS::Template{
 public:
 
-	virtual ~Update() throw();
+	virtual ~Template() throw();
 
-	virtual void execute(::IAS::DM::DataObjectPtr& dm);
+	class Arguments : public IAS::Template::Arguments{
 
-protected:
-	Update(::IAS::DS::API::Session* pSession,
-		   Lexer *pLexer,
-		   const ::IAS::DM::DataFactory* pDataFactory,
-		   ::IAS::DM::DataObject* dm);
+		public:
 
+		Arguments(const DM::DataObject* dmData, Arguments* pParentArguments = NULL, size_t iIdx = 0);
+		virtual ~Arguments()throw();
 
-	::IAS::DS::API::StatementUpdate::PtrHolder ptrUpdate;
-	SettersTable 	                           tabInputSetters;
+		virtual bool getImpl(const String& strKey, String& strValue);
+		virtual Template::Arguments* createNestedImpl(const String& strKey);
+		virtual size_t getNestedCount(const String& strKey);
 
-	int iCountSql;
+		const DM::DataObject* dmData;
+		size_t iIdx;
+	};
 
-	friend class Factory<Update>;
+	protected:
+
+	   Template(const String& strPattern);
+
+	friend class Factory<Template>;
 };
 
 /*************************************************************************/
 }
 }
 }
-}
-}
-}
 
-#endif /* _IAS_QS_Proc_Workers_DS_Wrapper_Update_H_ */
+#endif /* _IAS_QS_Tools_Template_H_ */

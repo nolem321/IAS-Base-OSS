@@ -49,8 +49,6 @@ protected:
 
 	String strSpecs;
 
-	IAS_DFT_FACTORY<Template>::PtrHolder ptrTemplate;
-
 	friend class ::IAS::Factory<ApplyTemplate>;
 };
 

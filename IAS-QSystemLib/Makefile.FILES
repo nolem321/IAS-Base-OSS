@@ -1,4 +1,4 @@
-#Tue May 31 15:25:14 CEST 2016
+#Wed Jun  8 13:25:26 CEST 2016
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -213,6 +213,7 @@ FILES+=qs/lang/tools/regexp/RegExpMatchContainer
 FILES+=qs/log/LogLevel
 FILES+=qs/net/StateMachineWorker
 FILES+=qs/net/StateMachineWorkManager
+FILES+=qs/tools/Template
 FILES+=qs/ui/Messages
 FILES+=qs/workers/proc/cache/CacheFactory
 FILES+=qs/workers/proc/cache/CacheStore

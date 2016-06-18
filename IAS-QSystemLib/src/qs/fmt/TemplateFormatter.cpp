@@ -56,37 +56,6 @@ void TemplateFormatter::read( DM::DataObjectPtr& dmData,
 
 	IAS_THROW(BadUsageException("Cannot read from the template formatter."))
 }
-/*************************************************************************/
-class Arguments : public Template::Arguments{
-
-	public:
-
-	Arguments(const DM::DataObject* dmData):dmData(dmData){
-		IAS_TRACER;
-		IAS_CHECK_IF_NULL(dmData);
-	};
-
-	virtual ~Arguments(){};
-
-	virtual const String& get(const String& strKey) const{
-		IAS_TRACER;
-
-		//TODO revise API, however single instance will not be called by more than one thread
-		//and the Template class does not preserve value, so it is safe for now.
-
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"key: "<<strKey);
-
-		if(hmValues.count(strKey)==0)
-			const_cast<Arguments*>(this)->hmValues[strKey] = dmData->getString(strKey);
-
-
-		return hmValues.at(strKey);
-	}
-
-	protected:
-	  const DM::DataObject* dmData;
-	  HashMapWithStringKey<String> hmValues;
-};
 /****************************************************************q*********/
 void TemplateFormatter::write(const DM::DataObject* dmData,
 		 	 	 	 	  std::ostream&       ostream,
@@ -102,7 +71,7 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
 
 	const Template* pTemplate(getTemplate(pAttributes, dmData));
 
-	Arguments args(dmData);
+	Tools::Template::Arguments args(dmData);
 	pTemplate->evaluate(args,ostream);
 
 	tsrSerialization.addSample(ts);
@@ -110,7 +79,7 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
 }
 
 /*************************************************************************/
-const Template* TemplateFormatter::tryTemplate(const String& strName) {
+const Tools::Template* TemplateFormatter::tryTemplate(const String& strName) {
 
 	IAS_TRACER;
 
@@ -127,7 +96,7 @@ const Template* TemplateFormatter::tryTemplate(const String& strName) {
 		try {
 			String strValue;
 			InputFile::LoadString(*it + "/" + strName, strValue);
-			hmTemplates[strName] = IAS_DFT_FACTORY<Template>::Create(strValue);
+			hmTemplates[strName] = IAS_DFT_FACTORY<Tools::Template>::Create(strValue);
 			bFound = true;
 		} catch (SystemException& e) {
 			IAS_THROW(ItemNotFoundException("Template: "+strName))
@@ -141,12 +110,12 @@ const Template* TemplateFormatter::tryTemplate(const String& strName) {
 }
 
 /*************************************************************************/
-const Template* TemplateFormatter::getTemplate(QS::API::Attributes *pAttributes,
+const Tools::Template* TemplateFormatter::getTemplate(QS::API::Attributes *pAttributes,
 												const DM::DataObject* dmData){
 	IAS_TRACER;
 
 
-	const Template* pTemplate = NULL;
+	const Tools::Template* pTemplate = NULL;
 
 	if(pAttributes->isSet(CStrAttr)){
 

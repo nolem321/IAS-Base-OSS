@@ -21,6 +21,7 @@
 #include <commonlib/commonlib.h>
 
 #include "Formatter.h"
+#include <qs/tools/Template.h>
 
 #include <org/invenireaude/qsystem/workers/Context.h>
 
@@ -57,12 +58,12 @@ protected:
 
 	TimeSamplesResults tsrSerialization;
 
-	HashMapStringToPointer<Template> hmTemplates;
+	HashMapStringToPointer<Tools::Template> hmTemplates;
 
-	const Template* getTemplate(QS::API::Attributes *pAttributes,
+	const Tools::Template* getTemplate(QS::API::Attributes *pAttributes,
 								const DM::DataObject* dmData);
 
-	const Template* tryTemplate(const String& strName);
+	const Tools::Template* tryTemplate(const String& strName);
 
 	StringList lstTemplateDirectories;
 

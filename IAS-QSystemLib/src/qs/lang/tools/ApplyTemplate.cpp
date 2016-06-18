@@ -35,6 +35,8 @@
 
 #include "regexp/RegExpMatchContainer.h"
 
+#include <qs/tools/Template.h>
+
 using namespace ::IAS::Lang::Interpreter;
 using namespace ::org::invenireaude::qsystem;
 
@@ -47,58 +49,27 @@ namespace Tools {
 ApplyTemplate::ApplyTemplate(const StringList& lstParamaters){
 	IAS_TRACER;
 
-	if(lstParamaters.size() < 1)
-		IAS_THROW(ConfigException("Missing specification for the ApplyTemplate."));
-
-	StringList::const_iterator it=lstParamaters.begin();
-
-	strSpecs=*it;
-
-	ptrTemplate = IAS_DFT_FACTORY<Template>::Create(strSpecs);
 }
 /*************************************************************************/
 ApplyTemplate::~ApplyTemplate() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-class Arguments : public Template::Arguments{
-
-	public:
-
-	Arguments(const DM::DataObject* dmData):dmData(dmData){
-		IAS_TRACER;
-		IAS_CHECK_IF_NULL(dmData);
-	};
-
-	virtual ~Arguments(){};
-
-	virtual const String& get(const String& strKey) const{
-		IAS_TRACER;
-
-		IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"key: "<<strKey);
-
-		if(hmValues.count(strKey)==0)
-			const_cast<Arguments*>(this)->hmValues[strKey] = dmData->getString(strKey);
-
-		return hmValues.at(strKey);
-	}
-
-	protected:
-	  const DM::DataObject* dmData;
-	  HashMapWithStringKey<String> hmValues;
-};
-/*************************************************************************/
 void ApplyTemplate::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
+
+	IAS_DFT_FACTORY<QS::Tools::Template>::PtrHolder ptrTemplate(
+			IAS_DFT_FACTORY<QS::Tools::Template>::Create(pParameters->getString("pattern")));
+
 	DM::DataObject* dmArgs = pParameters->getDataObject("args");
 
 	try{
 
 		StringStream ssResult;
 
-		Arguments args(dmArgs);
+		QS::Tools::Template::Arguments args(dmArgs);
 		ptrTemplate->evaluate(args,ssResult);
 
 		pParameters->setString(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
@@ -118,7 +89,6 @@ void ApplyTemplate::executeExternal(Exe::Context *pCtx) const{
 		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
 
 	}
-
 
 }
 /*************************************************************************/
