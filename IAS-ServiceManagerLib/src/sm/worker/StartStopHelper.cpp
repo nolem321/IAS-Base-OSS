@@ -144,7 +144,7 @@ void StartStopHelper::kill(const ResourceGroup* dmResourceGrp, int iSignal, int 
 	ptrProcess->disableAllStreams();
 	ptrProcess->start();
 
-	sleep(1);
+	usleep(100000);
 
 }
 /*************************************************************************/
@@ -196,9 +196,12 @@ void StartStopHelper::stopInstance(const ::org::invenireaude::sm::cfg::Service* 
 			ptrProcess->resetPGid(true);
 			ptrProcess->updateEnvironment(lstVariables);
 			ptrProcess->start();
+
+			usleep(3*1000000);
+
 		}
 
-		sleep(3);
+
 
 		if (bKillGroups && ptrProcessLockfile->isLocked()) {
 			kill(dmResourceGrp, 1, -iPid, "terminate group") ;

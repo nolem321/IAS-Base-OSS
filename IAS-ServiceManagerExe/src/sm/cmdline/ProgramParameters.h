@@ -35,6 +35,8 @@ public:
 
 	virtual bool checkAndShowHelp(std::ostream& os);
 
+	virtual bool isDisplayOnEnd()const;
+
 protected:
 	ProgramParameters()throw();
 	void init(int argc, char* argv[], const String& strArgSpec);
