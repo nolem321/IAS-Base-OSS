@@ -90,7 +90,7 @@ Common::Common(const ::org::invenireaude::qsystem::workers::io::Parameters* dmPa
 
 	ProgramProvider *pProgramProvider=pWorkContextManager->getGlobalContext()->getProgramProvider();
 
-	Prog::CallbackSet::Build(ptrOnReceive, pProgramProvider, dmParameters->getOnRecievieList());
+	Prog::CallbackSet::Build(ptrOnReceive, pProgramProvider, dmParameters->getOnReceiveList());
 	Prog::CallbackSet::Build(ptrOnSend,    pProgramProvider, dmParameters->getOnSendList());
 	Prog::CallbackSet::Build(ptrOnNoData,  pProgramProvider, dmParameters->getOnNoDataList());
 

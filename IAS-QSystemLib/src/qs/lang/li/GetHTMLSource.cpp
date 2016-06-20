@@ -49,6 +49,9 @@ namespace LI {
 GetHTMLSource::GetHTMLSource(const StringList& lstParamaters){
 	IAS_TRACER;
 
+	ptrProgramProvider =
+			IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::Create(pWorkContext->getGlobalContext()->getDataFactory());
+
 }
 /*************************************************************************/
 GetHTMLSource::~GetHTMLSource() throw(){
@@ -64,8 +67,7 @@ void GetHTMLSource::executeExternal(Exe::Context *pCtx) const{
 
 	try{
 
-
-		pWorkContext->getGlobalContext()->getProgramProvider()->getSources(strName,
+		ptrProgramProvider->getSources(strName,
 				pParameters->getList(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable)
 			);
 

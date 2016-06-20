@@ -67,7 +67,7 @@ ProgramSet::~ProgramSet() throw(){
 	}
 }
 /*************************************************************************/
-void ProgramSet::addProgram(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+void ProgramSet::addProgram(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 							const String& strName){
 	IAS_TRACER;
 
@@ -75,7 +75,7 @@ void ProgramSet::addProgram(::IAS::Lang::Interpreter::Exe::Program *pProgram,
 	hmProgramByName[strName]=pProgram;
 }
 /*************************************************************************/
-bool ProgramSet::match(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+bool ProgramSet::match(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 		   	   	   	   const ::IAS::DM::Type* pCtxType,
 		   	   	   	   const ::IAS::DM::Type* pDataType){
 	IAS_TRACER;
@@ -100,7 +100,7 @@ bool ProgramSet::match(::IAS::Lang::Interpreter::Exe::Program *pProgram,
 	return true;
 }
 /*************************************************************************/
-void ProgramSet::execute(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+void ProgramSet::execute(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 						 ::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
 						  DM::DataObject* dmData){
 		IAS_TRACER;
@@ -151,7 +151,7 @@ void ProgramSet::execute(::IAS::Lang::Interpreter::Exe::Program *pProgram,
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"DONE!");
 }
 /*************************************************************************/
-::IAS::Lang::Interpreter::Exe::Program *ProgramSet::getProgram(const String& strProgramName)const{
+const ::IAS::Lang::Interpreter::Exe::Program *ProgramSet::getProgram(const String& strProgramName)const{
 	IAS_TRACER;
 
 	if(hmProgramByName.count(strProgramName)==0)
@@ -182,7 +182,7 @@ void ProgramSet::execute(const String& strProgramName,
 						  DM::DataObject* dmData){
 		IAS_TRACER;
 
-	::IAS::Lang::Interpreter::Exe::Program *pProgram=getProgram(strProgramName);
+	const ::IAS::Lang::Interpreter::Exe::Program *pProgram=getProgram(strProgramName);
 	if(match(pProgram, dmContext->getType(), dmData->getType()))
 		execute(pProgram,dmContext,dmData);
 }

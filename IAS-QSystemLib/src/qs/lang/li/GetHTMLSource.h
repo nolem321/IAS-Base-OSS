@@ -22,6 +22,7 @@
 #include <lang/interpreter/exe/Context.h>
 
 #include <qs/workers/proc/wcm/WorkContextManager.h>
+#include <qs/workers/proc/ProgramProvider.h>
 
 namespace IAS {
 namespace QS {
@@ -46,6 +47,8 @@ protected:
 	GetHTMLSource(const StringList& lstParamaters);
 
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
+
+	IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::PtrHolder ptrProgramProvider;
 
 	friend class ::IAS::Factory<GetHTMLSource>;
 };

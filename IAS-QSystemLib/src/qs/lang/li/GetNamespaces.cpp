@@ -63,8 +63,7 @@ static void buildInfo(DM::DataObjectList& lstResult, const DM::DataFactory* pDat
 	for(int iIdx=0; iIdx<lstTypes.getSize(); iIdx++){
 		String strNS(lstTypes.at(iIdx)->getURI());
 
-		if(strNS.substr(0,10).compare("IAS/Script"))
-			setNamespaces.insert(strNS);
+		setNamespaces.insert(strNS);
 	}
 
 	for(std::set<String>::const_iterator it=setNamespaces.begin(); it != setNamespaces.end(); it++)

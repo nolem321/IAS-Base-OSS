@@ -31,6 +31,8 @@
 #include <org/invenireaude/qsystem/typeinfo/DataFactory.h>
 #include <lang/model/allmodel.h>
 
+#include <dm/Impl/DataFactory.h>
+
 using namespace org::invenireaude::qsystem;
 
 
@@ -46,19 +48,19 @@ const String CEnv_LANG_XSD="IAS_LANG_XSD";
 const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
 
 /*************************************************************************/
-ProgramProvider::ProgramProvider(::IAS::DM::DataFactory *pDataFactory):
-		pDataFactory(pDataFactory){
+ProgramProvider::ProgramProvider(const::IAS::DM::DataFactory *pDataFactory){
 	IAS_TRACER;
 
 	StringList lstSrcPath;
 	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
 
+	ptrDataFactory = IAS_DFT_FACTORY<::IAS::DM::Impl::DataFactory>::Create(pDataFactory);
+
 	IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
 	ptrLexerIStreamFactory = IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::Create();
 	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
 
-	ptrLoader = IAS_DFT_FACTORY<Interpreter::ProgramLoader>::Create(pDataFactory,ptrLexerIStreamFactory.pass());
-
+	ptrLoader = IAS_DFT_FACTORY<Interpreter::ProgramLoader>::Create(ptrDataFactory,ptrLexerIStreamFactory.pass());
 
 }
 /*************************************************************************/
@@ -66,7 +68,7 @@ ProgramProvider::~ProgramProvider() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-IAS::Lang::Interpreter::Exe::Program* ProgramProvider::loadProgram(const String& strProgramName){
+const IAS::Lang::Interpreter::Exe::Program* ProgramProvider::loadProgram(const String& strProgramName){
 	IAS_TRACER;
 
 	//TODO Repeated loads ?

@@ -19,6 +19,8 @@
 
 #include <qs/workers/proc/ProgramProvider.h>
 
+#include "DefaultResultHandler.h"
+
 using namespace ::org::invenireaude::qsystem::workers;
 namespace IAS{
 using namespace Lang;
@@ -32,6 +34,11 @@ namespace Prog {
 // exact/match calls.
 // copy ctx/data on input (exit cannot modify).
 
+/*************************************************************************/
+CallbackSet::CallbackSet(const ::IAS::DM::DataFactory *pDataFactory):
+	ProgramSet(pDataFactory, IAS_DFT_FACTORY<DefaultResultHandler>::Create(pDataFactory)){
+
+}
 /*************************************************************************/
 void CallbackSet::Build(ProgramSet      *pProgramSet,
 		  	  	  	    ProgramProvider *pProgramProvider,

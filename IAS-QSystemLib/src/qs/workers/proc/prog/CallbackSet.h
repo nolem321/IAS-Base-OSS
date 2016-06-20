@@ -39,8 +39,6 @@ namespace Prog {
 class CallbackSet : public ProgramSet {
 public:
 
-	CallbackSet(const ::IAS::DM::DataFactory *pDataFactory):
-		ProgramSet(pDataFactory){};
 
 	//ODO result handler ?
 
@@ -48,6 +46,11 @@ public:
 					  ProgramProvider *pProgramProvider,
 					  const ::org::invenireaude::qsystem::workers::Ext::CallbackList& lstParamters);
 
+protected:
+
+	CallbackSet(const ::IAS::DM::DataFactory *pDataFactory);
+
+	friend class Factory<CallbackSet>;
 };
 /*************************************************************************/
 }
