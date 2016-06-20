@@ -49,11 +49,11 @@ public:
 	bool hasResult()const;
 
 protected:
-	ProgramContext(const DM::DataFactory *pDataFactory, Program* pProgram);
+	ProgramContext(const DM::DataFactory *pDataFactory, const Program* pProgram);
 
-	void init(Program *pProgram);
+	void init(const Program *pProgram);
 
-	Program *pProgram;
+	const Program *pProgram;
 
 	friend class ::IAS::Factory<ProgramContext>;
 };

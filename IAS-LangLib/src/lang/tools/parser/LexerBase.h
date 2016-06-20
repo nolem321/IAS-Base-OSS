@@ -62,7 +62,7 @@ public:
 	virtual ~LexerBase() throw();
 
 
-	void openObject(const String& strObjectName);
+	void openObject(const String& strObjectName, LexerIStreamWrapper* pWrapper = NULL);
 
 	const LexerLocation* getLocation() const;
 	SourceLocation       getCachedLocation()const;

@@ -39,13 +39,16 @@ LexerBase::~LexerBase() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void LexerBase::openObject(const String& strObjectName){
+void LexerBase::openObject(const String& strObjectName, LexerIStreamWrapper* pWrapper){
 	IAS_TRACER;
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Object:"<<strObjectName);
 	if(hmProcessedObjects.count(strObjectName))
 		return;
 
-	pushIStreamWrapper(ptrLexerIStreamFactory->createLexerIStream(strObjectName));
+	if(!pWrapper)
+		pWrapper = ptrLexerIStreamFactory->createLexerIStream(strObjectName);
+
+	pushIStreamWrapper(pWrapper);
 	hmProcessedObjects[strObjectName]=true;
 }
 /*************************************************************************/

@@ -23,6 +23,7 @@
 #include "FormatDateTime.h"
 #include "FormatDateTimeString.h"
 #include "DateTimeToString.h"
+#include "ExecuteAdHoc.h"
 #include "SubString2.h"
 #include "SubString3.h"
 #include "Find.h"
@@ -71,6 +72,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("FormatDateTime",&(FormatDateTime::Create));
 	registerSymbol("FormatDateTimeString",&(FormatDateTimeString::Create));
 	registerSymbol("DateTimeToString",&(DateTimeToString::Create));
+	registerSymbol("ExecuteAdHoc",&(ExecuteAdHoc::Create));
 	registerSymbol("SubString2",&(SubString2::Create));
 	registerSymbol("SubString3",&(SubString3::Create));
 	registerSymbol("Find",&(Find::Create));

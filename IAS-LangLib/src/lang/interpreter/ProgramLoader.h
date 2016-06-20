@@ -32,6 +32,7 @@ namespace Lang {
 namespace Tools {
 namespace Parser{
 class LexerIStreamFactory;
+class LexerIStreamWrapper;
 }
 }
 
@@ -62,9 +63,9 @@ public:
 
 	virtual ~ProgramLoader() throw();
 
-	void loadModel(const String& strObject);
+	void loadModel(const String& strObject, Tools::Parser::LexerIStreamWrapper* pWrapper = NULL);
 
-	::IAS::Lang::Interpreter::Exe::Program* getExecutable(const String& strProgramName);
+	const ::IAS::Lang::Interpreter::Exe::Program* getExecutable(const String& strProgramName);
 
 	void findAllMatches(const TypeList& lstTypes, ProgramList& lstOutput);
 

@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/tools/helper/QuickExecution.h
+ * File: IAS-LangLib/src/lang/tools/helper/AdHocPrograms.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_AS_Lang_Tools_Helper_QuickExecution_H_
-#define _IAS_AS_Lang_Tools_Helper_QuickExecution_H_
+#ifndef _IAS_AS_Lang_Tools_Helper_AdHocPrograms_H_
+#define _IAS_AS_Lang_Tools_Helper_AdHocPrograms_H_
 
 
 #include <commonlib/commonlib.h>
 #include <dm/datamodel.h>
+#include <dm/Impl/DataFactory.h>
 
 #include <lang/interpreter/proc/processor.h>
 #include <lang/interpreter/ProgramLoader.h>
@@ -32,38 +33,35 @@ namespace Helper {
 
 /*************************************************************************/
 /** The class. */
-class QuickExecution {
+class AdHocPrograms : public InstanceFeature<AdHocPrograms> {
 	public:
 
-	virtual void loadXML(const String& strFileName);
-	virtual void setXML(const String& strXML);
-	virtual void saveXML(const String& strFileName);
-	virtual void getXML(String& strXML);
+	virtual ~AdHocPrograms() throw();
 
-	virtual void loadProgram(const String& strProgramName);
-	virtual void execute();
+	void execute(const String& strName,
+				 const String& strSource,
+				 DM::DataObjectPtr& args,
+				 DM::DataObjectPtr& result,
+				 StringStream& ssErrors);
 
 protected:
-	QuickExecution();
-	virtual ~QuickExecution() throw ();
 
-	static ::IAS::DM::DataFactory* ptrDataFactory;
+	AdHocPrograms();
 
-	friend class ::IAS::Factory<QuickExecution>;
+	IAS_DFT_FACTORY<IAS::DM::Impl::DataFactory>::PtrHolder ptrDataFactory;
 
-	::IAS::DM::DataObjectPtr ptrInputDataObject;
-	::IAS::DM::DataObjectPtr ptrOutputDataObject;
+	typedef HashMapStringToPointer<Interpreter::ProgramLoader> ProgramLoaderMap;
 
-	const Interpreter::Exe::Program *pProgram;
+	ProgramLoaderMap hmProgramLoaders;
 
-	IAS_DFT_FACTORY<Interpreter::ProgramLoader>::PtrHolder ptrLoader;
+	Mutex mutex;
 
+	friend class ::IAS::Factory<AdHocPrograms>;
 };
-
 /*************************************************************************/
 }
 }
 }
 }
 
-#endif /* _IAS_AS_Lang_Tools_Helper_QuickExecution_H_ */
+#endif /* _IAS_AS_Lang_Tools_Helper_AdHocPrograms_H_ */

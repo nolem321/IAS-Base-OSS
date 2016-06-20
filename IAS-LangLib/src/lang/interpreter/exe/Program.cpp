@@ -42,7 +42,7 @@ Program::~Program() throw(){
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),"Deleted:"<<(void*)this<<","<<(void*)ptrMainStmtBlock);
 }
 /*************************************************************************/
-void Program::execute(Context* pCtx){
+void Program::execute(Context* pCtx)const{
 	IAS_TRACER;
 
 	if(ptrMainStmtBlock.isNull())
@@ -51,7 +51,7 @@ void Program::execute(Context* pCtx){
 	ptrMainStmtBlock->execute(pCtx);
 }
 /*************************************************************************/
-DM::DataObject *Program::createParameters(){
+DM::DataObject *Program::createParameters()const{
 	IAS_TRACER;
 
 	return ptrParameters->createAndInitializeVariables();
