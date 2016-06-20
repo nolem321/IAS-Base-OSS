@@ -31,7 +31,8 @@ JSONLexer::JSONLexer(std::istream& is):
 		iLineNo(1),
 		iState(S_Start),
 		iToken(T_None),
-		cCurrent(0){
+		cCurrent(0),
+		cEndOfString('"'){
 	IAS_TRACER;
 
 	strValue.reserve(128);
@@ -123,6 +124,12 @@ void JSONLexer::handleStart(){
 
 		case '"' :
 			iState = S_String;
+			cEndOfString = '"';
+		return;
+
+		case '\'' :
+			iState = S_String;
+			cEndOfString = '\'';
 		return;
 
 		default:
@@ -169,15 +176,29 @@ void JSONLexer::handleSymbol(){
 /*************************************************************************/
 void JSONLexer::handleString(){
 	IAS_TRACER;
+
 	nextChar();
 
-	//TODO escapes
 
-	if(cCurrent != '"'){
-		strValue+=cCurrent;
-	}else{
-		iToken=T_StringValue;
+	while(cCurrent != cEndOfString){
+
+		if(cCurrent == '\\'){
+			nextChar();
+
+			if(cCurrent == cEndOfString)
+				strValue+=cEndOfString;
+			else{
+				strValue+='\\';
+				strValue+=cCurrent;
+			}
+		}else
+			strValue+=cCurrent;
+
+		nextChar();
 	}
+
+
+	iToken=T_StringValue;
 
 }
 /*************************************************************************/

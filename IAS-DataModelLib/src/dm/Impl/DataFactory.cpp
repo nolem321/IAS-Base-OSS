@@ -41,25 +41,30 @@ namespace Impl {
 
 
 /*************************************************************************/
-DataFactory::DataFactory(){
+DataFactory::DataFactory(const DM::DataFactory* pParentFactory)
+	:pParentFactory(pParentFactory){
+
 	IAS_TRACER;
 
 
 	ptrTypeList = ModelAllocator<TypeList>::Create();
 
-	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Initialing");
+	if(!pParentFactory) {
 
-	declareDefaultType(Impl::Default::Ext::BooleanType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::FloatType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::IntegerType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::StringType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::DateTimeType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::DateType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::TimeType::GetInstance());
-	declareDefaultType(Impl::Default::Ext::RawType::GetInstance());
-	declareDefaultType(Impl::TypeAny::GetInstance());
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Initialing");
 
-	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Initialized:"<<(void*)this);
+		declareDefaultType(Impl::Default::Ext::BooleanType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::FloatType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::IntegerType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::StringType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::DateTimeType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::DateType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::TimeType::GetInstance());
+		declareDefaultType(Impl::Default::Ext::RawType::GetInstance());
+		declareDefaultType(Impl::TypeAny::GetInstance());
+
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Initialized:"<<(void*)this);
+	}
 }
 /*************************************************************************/
 DataFactory::~DataFactory() throw(){
@@ -78,6 +83,10 @@ DataFactory::~DataFactory() throw(){
 	TypesHashMap::const_iterator it=hmTypes.find(aKey);
 
 	if(it == hmTypes.end()) {
+
+		if(pParentFactory)
+			return pParentFactory->getType(strURI,strName);
+
 		StringStream ssInfo;
 		ssInfo<<"Unknown type: "<<strURI<<":"<<strName;
 		IAS_THROW(ItemNotFoundException(ssInfo.str()));
@@ -132,6 +141,9 @@ void DataFactory::storeType(const HashMapKey& aKey,
 /*************************************************************************/
 ::IAS::DM::Type* DataFactory::getDefaultType(IAS::DM::Type::Types iType) const{
 	IAS_TRACER;
+
+	if(pParentFactory)
+		return pParentFactory->getDefaultType(iType);
 
 	DefaultTypesMap::const_iterator it=mapDefaultTypes.find(iType);
 

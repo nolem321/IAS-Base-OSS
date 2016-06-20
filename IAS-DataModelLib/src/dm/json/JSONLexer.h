@@ -87,7 +87,7 @@ protected:
 	char cCurrent;
 
 	int iLineNo;
-
+	char cEndOfString;
 	friend class ::IAS::Factory<JSONLexer>;
 };
 

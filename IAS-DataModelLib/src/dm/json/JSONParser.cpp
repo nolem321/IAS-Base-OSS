@@ -181,7 +181,7 @@ char* JSONParser::copyStringValue(){
 				case '\\': *sDest++='\\'; break;
 				default:
 					*sDest++=0;
-					IAS_THROW(JSONHelperException(String("Unknown escape sequence after: ")+sCopy));
+					IAS_THROW(JSONHelperException(String("Unknown escape sequence after: [")+sCopy+"], ascii="+TypeTools::IntToString(*sOrig-1)+" "+strValue));
 			}
 		}
 
