@@ -136,8 +136,6 @@ void Update::execute(::IAS::DM::DataObjectPtr& dm){
 	if(iCountSql == 0)
 		return;
 
-	IAS_LOG(true,iCountSql);
-
 	ptrUpdate->feedInputs(dm);
 	ptrUpdate->execute();;
 }
