@@ -49,6 +49,7 @@ protected:
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
 
 	IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::PtrHolder ptrProgramProvider;
+	IAS_DFT_FACTORY<::IAS::DM::DataFactory>::PtrHolder ptrLocalDataFactory;
 
 	friend class ::IAS::Factory<GetHTMLSource>;
 };

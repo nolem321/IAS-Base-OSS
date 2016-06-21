@@ -60,9 +60,9 @@ public:
 protected:
 
 	Mutex mutex;
-	ProgramProvider(const ::IAS::DM::DataFactory *pDataFactory);
+	ProgramProvider(::IAS::DM::DataFactory *pDataFactory);
 
-	IAS_DFT_FACTORY<::IAS::DM::DataFactory>::PtrHolder ptrDataFactory;
+	::IAS::DM::DataFactory *pDataFactory;
 
 	IAS_DFT_FACTORY< IAS::Lang::Interpreter::ProgramLoader >::PtrHolder ptrLoader;
 

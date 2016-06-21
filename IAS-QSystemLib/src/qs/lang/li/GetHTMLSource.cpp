@@ -34,6 +34,7 @@
 #include <qs/workers/proc/wcm/WorkContextManager.h>
 #include <qs/workers/proc/GlobalContext.h>
 #include <qs/workers/proc/ProgramProvider.h>
+#include <dm/Impl/DataFactory.h>
 
 #include "GetHTMLSource.h"
 
@@ -49,8 +50,10 @@ namespace LI {
 GetHTMLSource::GetHTMLSource(const StringList& lstParamaters){
 	IAS_TRACER;
 
+	ptrLocalDataFactory = IAS_DFT_FACTORY<::IAS::DM::Impl::DataFactory>::Create(pWorkContext->getGlobalContext()->getDataFactory());
+
 	ptrProgramProvider =
-			IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::Create(pWorkContext->getGlobalContext()->getDataFactory());
+			IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::Create(ptrLocalDataFactory);
 
 }
 /*************************************************************************/
