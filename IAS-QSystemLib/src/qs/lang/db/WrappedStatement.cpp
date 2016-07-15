@@ -51,7 +51,7 @@ namespace Lang {
 namespace DB {
 
 /*************************************************************************/
-WrappedStatement::WrappedStatement(const StringList& lstParamaters){
+WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size() != 2)
@@ -104,9 +104,9 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters){
+Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<WrappedStatement>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<WrappedStatement>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

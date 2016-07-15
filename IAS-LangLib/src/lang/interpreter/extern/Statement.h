@@ -19,7 +19,7 @@
 #define _IAS_Lang_Interpreter_Extern_Statement_H_
 
 #include <lang/interpreter/exe/stmt/Statement.h>
-
+#include "ModuleProxy.h"
 
 namespace IAS {
 namespace Lang {

@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/lang/cache/GetItem.cpp
+ * File: IAS-QSystemLib/src/qs/lang/fmt/Serialize.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,14 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "GetItem.h"
+#include "Serialize.h"
 #include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
 #include <lang/interpreter/exe/Context.h>
-#include <lang/interpreter/exe/exception/InterpreterProgramException.h>
-
 #include <lang/model/dec/ResultDeclarationNode.h>
+#include <lang/interpreter/exe/exception/InterpreterProgramException.h>
 
 #include <org/invenireaude/qsystem/workers/Context.h>
 #include <org/invenireaude/qsystem/workers/Exception.h>
@@ -31,6 +30,8 @@
 #include <dm/datamodel.h>
 
 #include <qs/workers/proc/wcm/WorkContextManager.h>
+#include <qs/workers/proc/GlobalContext.h>
+
 
 using namespace ::IAS::Lang::Interpreter;
 using namespace ::org::invenireaude::qsystem;
@@ -38,32 +39,37 @@ using namespace ::org::invenireaude::qsystem;
 namespace IAS {
 namespace QS {
 namespace Lang {
-namespace Cache {
+namespace Fmt {
 
 /*************************************************************************/
-GetItem::GetItem(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Serialize::Serialize(const StringList& lstParamaters, const IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+	IAS_TRACER;
+
+	ptrFmtFactory = IAS_DFT_FACTORY<QS::Fmt::FmtFactory>::Create(pModuleProxy->getDataFactory());
+
+}
+/*************************************************************************/
+Serialize::~Serialize() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-GetItem::~GetItem() throw(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-void GetItem::executeExternal(Exe::Context *pCtx) const{
+void Serialize::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String strCacheName = pParameters->getString("cache");
-	const String strItemKey   = pParameters->getString("itemKey");
+	const String strFormat   = pParameters->getString("format");
+	DM::DataObject* dmData   = pParameters->getDataObject("data");
 
 	try{
 
-		pParameters->setDataObject(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
-							   pWorkContext->caches.getBucket(strCacheName)->at(strItemKey));
-	}catch(Exception& e){
+		StringStream ssResult;
+		ptrFmtFactory->getFormatter(strFormat)->write(dmData,ssResult);
 
-		//TODO (H) use exceptions from the cache namespace.
+		pParameters->setString(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
+							   ssResult.str());
+
+	}catch(Exception& e){
 
 		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),e.getName()<<":"<<e.getInfo());
 
@@ -75,13 +81,11 @@ void GetItem::executeExternal(Exe::Context *pCtx) const{
 		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
 
 	}
-
-
 }
 /*************************************************************************/
-Extern::Statement* GetItem::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* Serialize::Create(const StringList& lstParamaters, const IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetItem>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<Serialize>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

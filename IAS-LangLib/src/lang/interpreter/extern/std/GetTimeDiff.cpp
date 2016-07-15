@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetTimeDiff::GetTimeDiff(const StringList& lstParamaters){
+GetTimeDiff::GetTimeDiff(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -60,9 +60,9 @@ void GetTimeDiff::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetTimeDiff::Create(const StringList& lstParamaters){
+Statement* GetTimeDiff::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetTimeDiff>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetTimeDiff>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

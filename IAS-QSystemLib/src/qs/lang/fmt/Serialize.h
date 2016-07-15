@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/extern/std/SubString2.h
+ * File: IAS-QSystemLib/src/qs/lang/fmt/Serialize.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,40 +15,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_Lang_Interpreter_Extern_Std_SubString2_H_
-#define _IAS_Lang_Interpreter_Extern_Std_SubString2_H_
+#ifndef _IAS_QS_Lang_Fmt_Serialize_H_
+#define _IAS_QS_Lang_Fmt_Serialize_H_
 
 #include <lang/interpreter/extern/Statement.h>
+#include <lang/interpreter/exe/Context.h>
 
+#include <qs/workers/proc/wcm/WorkContextManager.h>
+#include <qs/fmt/FmtFactory.h>
 
 namespace IAS {
+namespace QS {
 namespace Lang {
-namespace Interpreter {
-namespace Exe{
-class Context;
-}
-namespace Extern {
-namespace Std {
+namespace Fmt {
 
 /*************************************************************************/
-/** The SubString2 class.
+/** The Serialize class.
  *
  */
-class SubString2 : public ::IAS::Lang::Interpreter::Extern::Statement {
+class Serialize : public ::IAS::Lang::Interpreter::Extern::Statement {
 public:
 
-	virtual ~SubString2() throw();
+	virtual ~Serialize() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
-
+	static Statement* Create(const StringList& lstParamaters, const IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	SubString2(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
+	Serialize(const StringList& lstParamaters, const IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
-	friend class ::IAS::Factory<SubString2>;
+	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
+
+	IAS_DFT_FACTORY<QS::Fmt::FmtFactory>::PtrHolder ptrFmtFactory;
+
+	friend class ::IAS::Factory<Serialize>;
 };
 
 /*************************************************************************/
@@ -56,6 +58,5 @@ protected:
 }
 }
 }
-}
 
-#endif /* _IAS_Lang_Interpreter_Extern_Std_SubString2_H_ */
+#endif /* _IAS_Lang_Interpreter_Extern_Std_Serialize_H_ */

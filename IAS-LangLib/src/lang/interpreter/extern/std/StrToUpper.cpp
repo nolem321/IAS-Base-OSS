@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-StrToUpper::StrToUpper(const StringList& lstParamaters){
+StrToUpper::StrToUpper(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -46,9 +46,9 @@ void StrToUpper::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, MiscTools::StrToUpper(strArgument));
 }
 /*************************************************************************/
-Statement* StrToUpper::Create(const StringList& lstParamaters){
+Statement* StrToUpper::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<StrToUpper>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<StrToUpper>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

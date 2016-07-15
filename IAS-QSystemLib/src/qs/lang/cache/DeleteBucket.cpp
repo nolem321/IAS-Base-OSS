@@ -40,7 +40,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-DeleteBucket::DeleteBucket(const StringList& lstParamaters){
+DeleteBucket::DeleteBucket(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -79,9 +79,9 @@ void DeleteBucket::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* DeleteBucket::Create(const StringList& lstParamaters){
+Extern::Statement* DeleteBucket::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<DeleteBucket>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<DeleteBucket>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

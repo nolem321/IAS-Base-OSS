@@ -39,14 +39,14 @@ public:
 	virtual ~Update() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	Update(const StringList& lstParamaters);
+	Update(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	Workers::Proc::EC::EventCounter* pEventCounter;
 	String strEventCounterName;

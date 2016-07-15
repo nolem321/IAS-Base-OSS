@@ -31,7 +31,7 @@ namespace Interpreter {
 namespace Extern {
 namespace Std {
 /*************************************************************************/
-SysLog::SysLog(const StringList& lstParamaters){
+SysLog::SysLog(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -83,9 +83,9 @@ void SysLog::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* SysLog::Create(const StringList& lstParamaters){
+Statement* SysLog::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SysLog>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SysLog>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

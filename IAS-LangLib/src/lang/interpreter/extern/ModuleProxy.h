@@ -44,10 +44,12 @@ public:
 
 	void cleanUp();
 
+	const DM::DataFactory* getDataFactory()const;
+
 protected:
 	ModuleProxy();
 
-	typedef ::IAS::Lang::Interpreter::Extern::Statement* (*StatementFactoryPtr)(const StringList& lstParameters);
+	typedef ::IAS::Lang::Interpreter::Extern::Statement* (*StatementFactoryPtr)(const StringList& lstParameters, const ModuleProxy* pModuleProxy);
 
 private:
 	const DM::DataFactory* pDataFactory;

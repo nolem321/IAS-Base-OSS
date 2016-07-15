@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetMonth::GetMonth(const StringList& lstParamaters){
+GetMonth::GetMonth(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -55,9 +55,9 @@ void GetMonth::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetMonth::Create(const StringList& lstParamaters){
+Statement* GetMonth::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetMonth>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetMonth>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

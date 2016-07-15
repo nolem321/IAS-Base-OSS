@@ -46,7 +46,7 @@ namespace Lang {
 namespace Tools {
 
 /*************************************************************************/
-ExecuteSystemCmd::ExecuteSystemCmd(const StringList& lstParamaters){
+ExecuteSystemCmd::ExecuteSystemCmd(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 }
@@ -160,9 +160,9 @@ void ExecuteSystemCmd::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* ExecuteSystemCmd::Create(const StringList& lstParamaters){
+Extern::Statement* ExecuteSystemCmd::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<ExecuteSystemCmd>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ExecuteSystemCmd>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

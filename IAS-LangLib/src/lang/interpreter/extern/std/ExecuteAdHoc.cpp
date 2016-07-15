@@ -38,7 +38,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-ExecuteAdHoc::ExecuteAdHoc(const StringList& lstParamaters):
+ExecuteAdHoc::ExecuteAdHoc(const StringList& lstParamaters, const ModuleProxy* pModuleProxy):
 	pAdHocPrograms(Tools::Helper::AdHocPrograms::GetInstance()){
 	IAS_TRACER;
 }
@@ -76,9 +76,9 @@ void ExecuteAdHoc::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* ExecuteAdHoc::Create(const StringList& lstParamaters){
+Statement* ExecuteAdHoc::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<ExecuteAdHoc>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ExecuteAdHoc>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

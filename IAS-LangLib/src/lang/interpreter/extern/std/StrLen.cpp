@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-StrLen::StrLen(const StringList& lstParamaters){
+StrLen::StrLen(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -46,9 +46,9 @@ void StrLen::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable, strArgument.size());
 }
 /*************************************************************************/
-Statement* StrLen::Create(const StringList& lstParamaters){
+Statement* StrLen::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<StrLen>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<StrLen>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

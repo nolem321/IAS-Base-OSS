@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetDay::GetDay(const StringList& lstParamaters){
+GetDay::GetDay(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -55,9 +55,9 @@ void GetDay::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetDay::Create(const StringList& lstParamaters){
+Statement* GetDay::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetDay>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetDay>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

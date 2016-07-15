@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetLocalTimeFormated::GetLocalTimeFormated(const StringList& lstParamaters){
+GetLocalTimeFormated::GetLocalTimeFormated(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -53,9 +53,9 @@ void GetLocalTimeFormated::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetLocalTimeFormated::Create(const StringList& lstParamaters){
+Statement* GetLocalTimeFormated::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetLocalTimeFormated>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetLocalTimeFormated>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-DateTimeToString::DateTimeToString(const StringList& lstParamaters){
+DateTimeToString::DateTimeToString(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -52,9 +52,9 @@ void DateTimeToString::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* DateTimeToString::Create(const StringList& lstParamaters){
+Statement* DateTimeToString::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<DateTimeToString>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<DateTimeToString>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

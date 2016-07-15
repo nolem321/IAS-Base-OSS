@@ -43,7 +43,7 @@ namespace Lang {
 namespace Dict {
 
 /*************************************************************************/
-GetValue::GetValue(const StringList& lstParamaters){
+GetValue::GetValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -80,9 +80,9 @@ void GetValue::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetValue::Create(const StringList& lstParamaters){
+Extern::Statement* GetValue::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetValue>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetValue>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

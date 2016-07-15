@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-ModifyDate::ModifyDate(const StringList& lstParamaters){
+ModifyDate::ModifyDate(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -67,10 +67,10 @@ void ModifyDate::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* ModifyDate::Create(const StringList& lstParamaters){
+Statement* ModifyDate::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 	tzset();
-	return IAS_DFT_FACTORY<ModifyDate>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ModifyDate>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetTimeFormated::GetTimeFormated(const StringList& lstParamaters){
+GetTimeFormated::GetTimeFormated(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -53,9 +53,9 @@ void GetTimeFormated::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetTimeFormated::Create(const StringList& lstParamaters){
+Statement* GetTimeFormated::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetTimeFormated>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetTimeFormated>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

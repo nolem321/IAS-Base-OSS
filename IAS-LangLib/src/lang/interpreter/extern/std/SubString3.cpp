@@ -29,7 +29,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-SubString3::SubString3(const StringList& lstParamaters){
+SubString3::SubString3(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -46,9 +46,9 @@ void SubString3::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, strArgument.substr(iStart,iLength));
 }
 /*************************************************************************/
-Statement* SubString3::Create(const StringList& lstParamaters){
+Statement* SubString3::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SubString3>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SubString3>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -38,12 +38,12 @@ public:
 	virtual ~ExecuteSystemCmd() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	ExecuteSystemCmd(const StringList& lstParamaters);
+	ExecuteSystemCmd(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	int execute(const String& strCommand, const StringList& lstArgs)const;
 

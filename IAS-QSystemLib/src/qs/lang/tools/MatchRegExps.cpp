@@ -44,7 +44,7 @@ namespace Lang {
 namespace Tools {
 
 /*************************************************************************/
-MatchRegExps::MatchRegExps(const StringList& lstParamaters){
+MatchRegExps::MatchRegExps(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size() < 1)
@@ -101,9 +101,9 @@ void MatchRegExps::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* MatchRegExps::Create(const StringList& lstParamaters){
+Extern::Statement* MatchRegExps::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<MatchRegExps>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<MatchRegExps>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

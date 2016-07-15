@@ -40,7 +40,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-FetchBucket::FetchBucket(const StringList& lstParamaters){
+FetchBucket::FetchBucket(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -79,9 +79,9 @@ void FetchBucket::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* FetchBucket::Create(const StringList& lstParamaters){
+Extern::Statement* FetchBucket::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<FetchBucket>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<FetchBucket>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

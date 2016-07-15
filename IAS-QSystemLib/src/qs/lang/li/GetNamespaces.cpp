@@ -45,7 +45,7 @@ using namespace ::IAS::Lang;
 using namespace ::IAS::Lang::Interpreter;
 
 /*************************************************************************/
-GetNamespaces::GetNamespaces(const StringList& lstParamaters){
+GetNamespaces::GetNamespaces(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -98,9 +98,9 @@ void GetNamespaces::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters){
+Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -35,7 +35,7 @@ namespace SYS {
 namespace NET {
 
 /*************************************************************************/
-GetUsage::GetUsage(const StringList& lstParamaters):
+GetUsage::GetUsage(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy):
 	iFraction(/*TODO sysconf(_SC_CLK_TCK)*/1000){
 	IAS_TRACER;
 
@@ -213,9 +213,9 @@ GetUsage::UsageValues& GetUsage::UsageValues::operator =(const struct UsageValue
 	return *this;
 }
 /*************************************************************************/
-Extern::Statement* GetUsage::Create(const StringList& lstParamaters){
+Extern::Statement* GetUsage::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetUsage>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetUsage>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

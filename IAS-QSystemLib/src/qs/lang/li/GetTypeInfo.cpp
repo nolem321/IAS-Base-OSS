@@ -46,7 +46,7 @@ using namespace ::IAS::Lang::Interpreter;
 
 
 /*************************************************************************/
-GetTypeInfo::GetTypeInfo(const StringList& lstParamaters){
+GetTypeInfo::GetTypeInfo(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 }
@@ -279,9 +279,9 @@ void GetTypeInfo::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetTypeInfo::Create(const StringList& lstParamaters){
+Extern::Statement* GetTypeInfo::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetTypeInfo>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetTypeInfo>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

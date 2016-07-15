@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/extern/std/StrToLower.cpp
+ * File: IAS-QSystemLib/src/qs/lang/fmt/ModuleProxy.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,44 +15,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "StrToLower.h"
-#include<lang/log/LogLevel.h>
+#include "ModuleProxy.h"
+#include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
-#include <lang/interpreter/exe/Context.h>
-#include <lang/model/dec/ResultDeclarationNode.h>
 
-#include <dm/datamodel.h>
+#include "Serialize.h"
+#include "Parse.h"
 
 namespace IAS {
+namespace QS {
 namespace Lang {
-namespace Interpreter {
-namespace Extern {
-namespace Std {
+namespace Fmt {
 
 /*************************************************************************/
-StrToLower::StrToLower(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+ModuleProxy::ModuleProxy(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-StrToLower::~StrToLower() throw(){
+ModuleProxy::~ModuleProxy() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void StrToLower::executeExternal(Exe::Context *pCtx) const{
+void ModuleProxy::setupImpl(){
 	IAS_TRACER;
-	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
-	const String strArgument = pParameters->getString("strArgument");
-	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, MiscTools::StrToLower(strArgument));
+	registerSymbol("Serialize",  &(Serialize::Create));
+	registerSymbol("Parse",      &(Parse::Create));
 }
 /*************************************************************************/
-Statement* StrToLower::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+void ModuleProxy::cleanUpImpl(){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<StrToLower>::Create(lstParamaters, pModuleProxy);
+}
+/*************************************************************************/
+ModuleProxy* ModuleProxy::Create(){
+	IAS_TRACER;
+	return IAS_DFT_FACTORY<ModuleProxy>::Create();
 }
 /*************************************************************************/
 }
 }
 }
 }
+/*************************************************************************/
+void* ias_qs_lang_fmt_proxy(){
+	IAS_TRACER;
+	return ::IAS::QS::Lang::Fmt::ModuleProxy::Create();
 }
+/*************************************************************************/

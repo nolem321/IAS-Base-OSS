@@ -38,12 +38,12 @@ public:
 	virtual ~SetValue() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	SetValue(const StringList& lstParamaters);
+	SetValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
 

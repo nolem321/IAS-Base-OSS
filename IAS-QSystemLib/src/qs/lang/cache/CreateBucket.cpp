@@ -40,7 +40,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-CreateBucket::CreateBucket(const StringList& lstParamaters){
+CreateBucket::CreateBucket(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -75,9 +75,9 @@ void CreateBucket::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* CreateBucket::Create(const StringList& lstParamaters){
+Extern::Statement* CreateBucket::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<CreateBucket>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<CreateBucket>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

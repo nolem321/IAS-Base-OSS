@@ -40,13 +40,13 @@ public:
 	virtual ~StrToSHA256() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	StrToSHA256(const StringList& lstParamaters);
+	StrToSHA256(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	friend class ::IAS::Factory<StrToSHA256>;
 };

@@ -40,7 +40,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-ReleaseBucket::ReleaseBucket(const StringList& lstParamaters){
+ReleaseBucket::ReleaseBucket(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -79,9 +79,9 @@ void ReleaseBucket::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* ReleaseBucket::Create(const StringList& lstParamaters){
+Extern::Statement* ReleaseBucket::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<ReleaseBucket>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ReleaseBucket>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

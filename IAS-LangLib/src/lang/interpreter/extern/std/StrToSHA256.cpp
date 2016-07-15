@@ -33,7 +33,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-StrToSHA256::StrToSHA256(const StringList& lstParamaters){
+StrToSHA256::StrToSHA256(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -48,9 +48,9 @@ void StrToSHA256::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, Net::SSL::Tools::ComputeSHA256(strArgument));
 }
 /*************************************************************************/
-Statement* StrToSHA256::Create(const StringList& lstParamaters){
+Statement* StrToSHA256::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<StrToSHA256>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<StrToSHA256>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

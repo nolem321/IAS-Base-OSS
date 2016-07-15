@@ -45,7 +45,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-Receive::Receive(const StringList& lstParamaters){
+Receive::Receive(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -84,9 +84,9 @@ void Receive::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* Receive::Create(const StringList& lstParamaters){
+Extern::Statement* Receive::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Receive>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Receive>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

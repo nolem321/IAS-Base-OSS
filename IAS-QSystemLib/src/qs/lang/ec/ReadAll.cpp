@@ -46,7 +46,7 @@ namespace Lang {
 namespace EC {
 
 /*************************************************************************/
-ReadAll::ReadAll(const StringList& lstParamaters):
+ReadAll::ReadAll(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy):
 	pEventCounter(0){
 	IAS_TRACER;
 
@@ -93,9 +93,9 @@ void ReadAll::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* ReadAll::Create(const StringList& lstParamaters){
+Extern::Statement* ReadAll::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<ReadAll>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ReadAll>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

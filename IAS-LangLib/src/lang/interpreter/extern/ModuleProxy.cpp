@@ -55,7 +55,7 @@ Statement *ModuleProxy::createStatement(const String& strSymbol,
 		IAS_THROW(ItemNotFoundException("symbol not found:")<<strSymbol);
 	}
 
-	return (*(it->second))(lstParameters);
+	return (*(it->second))(lstParameters, this);
 }
 /*************************************************************************/
 void ModuleProxy::cleanUp(){
@@ -77,6 +77,11 @@ void ModuleProxy::setupImpl(){
 /*************************************************************************/
 void ModuleProxy::cleanUpImpl(){
 	IAS_TRACER;
+}
+/*************************************************************************/
+const DM::DataFactory* ModuleProxy::getDataFactory()const{
+	IAS_TRACER;
+	return pDataFactory;
 }
 /*************************************************************************/
 }

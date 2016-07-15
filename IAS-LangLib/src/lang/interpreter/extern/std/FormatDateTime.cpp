@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-FormatDateTime::FormatDateTime(const StringList& lstParamaters){
+FormatDateTime::FormatDateTime(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -53,9 +53,9 @@ void FormatDateTime::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* FormatDateTime::Create(const StringList& lstParamaters){
+Statement* FormatDateTime::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<FormatDateTime>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<FormatDateTime>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -46,7 +46,7 @@ namespace Lang {
 namespace Tools {
 
 /*************************************************************************/
-ApplyTemplate::ApplyTemplate(const StringList& lstParamaters){
+ApplyTemplate::ApplyTemplate(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 }
@@ -92,9 +92,9 @@ void ApplyTemplate::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* ApplyTemplate::Create(const StringList& lstParamaters){
+Extern::Statement* ApplyTemplate::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<ApplyTemplate>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ApplyTemplate>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

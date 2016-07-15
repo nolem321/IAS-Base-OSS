@@ -40,7 +40,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-CreateOrUpdateItem::CreateOrUpdateItem(const StringList& lstParamaters){
+CreateOrUpdateItem::CreateOrUpdateItem(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -77,9 +77,9 @@ void CreateOrUpdateItem::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* CreateOrUpdateItem::Create(const StringList& lstParamaters){
+Extern::Statement* CreateOrUpdateItem::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<CreateOrUpdateItem>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<CreateOrUpdateItem>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

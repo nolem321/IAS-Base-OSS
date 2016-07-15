@@ -41,7 +41,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-GetNumMessages::GetNumMessages(const StringList& lstParamaters){
+GetNumMessages::GetNumMessages(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -61,9 +61,9 @@ void GetNumMessages::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetNumMessages::Create(const StringList& lstParamaters){
+Extern::Statement* GetNumMessages::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetNumMessages>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetNumMessages>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

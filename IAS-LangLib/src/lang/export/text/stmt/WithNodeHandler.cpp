@@ -55,11 +55,11 @@ void WithNodeHandler::call(const Model::Node* pNode,
 
 	if(pWithNode->hasVariable()){
 		aResult.ssOutput<<pWithNode->getVariable();
-		printKeyword(aResult,"AS");
+		printKeyword(aResult," AS");
 	}
 
 	CallbackRegister::SubCall(pXPathAccessNode,pCtx,aResult);
-	printKeyword(aResult,"DO\n");
+	printKeyword(aResult," DO ");
 	pCtx->iIndent++;
 	CallbackRegister::SubCall(pStatementNode,pCtx,aResult);
 	pCtx->iIndent--;

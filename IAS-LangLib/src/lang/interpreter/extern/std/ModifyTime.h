@@ -40,12 +40,12 @@ public:
 	virtual ~ModifyTime() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	ModifyTime(const StringList& lstParamaters);
+	ModifyTime(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	friend class ::IAS::Factory<ModifyTime>;
 };

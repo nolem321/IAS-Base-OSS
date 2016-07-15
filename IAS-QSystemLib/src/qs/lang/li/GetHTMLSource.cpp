@@ -47,7 +47,7 @@ namespace Lang {
 namespace LI {
 
 /*************************************************************************/
-GetHTMLSource::GetHTMLSource(const StringList& lstParamaters){
+GetHTMLSource::GetHTMLSource(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	ptrLocalDataFactory = IAS_DFT_FACTORY<::IAS::DM::Impl::DataFactory>::Create(pWorkContext->getGlobalContext()->getDataFactory());
@@ -87,9 +87,9 @@ void GetHTMLSource::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* GetHTMLSource::Create(const StringList& lstParamaters){
+Extern::Statement* GetHTMLSource::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetHTMLSource>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetHTMLSource>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

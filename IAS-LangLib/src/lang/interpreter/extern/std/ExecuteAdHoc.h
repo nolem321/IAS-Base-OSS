@@ -41,13 +41,13 @@ public:
 	virtual ~ExecuteAdHoc() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	ExecuteAdHoc(const StringList& lstParamaters);
+	ExecuteAdHoc(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	Tools::Helper::AdHocPrograms *pAdHocPrograms;
 

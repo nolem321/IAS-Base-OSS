@@ -36,7 +36,7 @@ namespace SYS {
 namespace CPU {
 
 /*************************************************************************/
-GetOverall::GetOverall(const StringList& lstParamaters):
+GetOverall::GetOverall(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy):
 	iFraction(/*TODO sysconf(_SC_CLK_TCK)*/){
 	IAS_TRACER;
 
@@ -167,9 +167,9 @@ GetOverall::OverallValues& GetOverall::OverallValues::operator =(struct OverallV
 	return *this;
 }
 /*************************************************************************/
-Extern::Statement* GetOverall::Create(const StringList& lstParamaters){
+Extern::Statement* GetOverall::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetOverall>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetOverall>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

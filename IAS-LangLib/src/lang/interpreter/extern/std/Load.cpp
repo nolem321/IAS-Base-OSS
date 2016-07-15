@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Load::Load(const StringList& lstParamaters){
+Load::Load(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -56,9 +56,9 @@ void Load::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* Load::Create(const StringList& lstParamaters){
+Statement* Load::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Load>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Load>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

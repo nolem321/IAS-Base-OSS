@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Save::Save(const StringList& lstParamaters){
+Save::Save(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -60,9 +60,9 @@ void Save::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* Save::Create(const StringList& lstParamaters){
+Statement* Save::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Save>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Save>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
