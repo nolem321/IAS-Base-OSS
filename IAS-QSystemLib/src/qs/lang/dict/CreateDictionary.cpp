@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/lang/dict/GetValue.cpp
+ * File: IAS-QSystemLib/src/qs/lang/dict/CreateDictionary.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "GetValue.h"
+#include "CreateDictionary.h"
 #include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
@@ -34,6 +34,9 @@
 #include <qs/workers/proc/dict/Dictionary.h>
 #include <qs/workers/proc/dict/DictionaryStore.h>
 
+#include <org/invenireaude/qsystem/workers/dict/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/dict/Dictionary.h>
+
 using namespace ::IAS::Lang::Interpreter;
 using namespace ::org::invenireaude::qsystem;
 
@@ -43,30 +46,24 @@ namespace Lang {
 namespace Dict {
 
 /*************************************************************************/
-GetValue::GetValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+CreateDictionary::CreateDictionary(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
-GetValue::~GetValue() throw(){
+CreateDictionary::~CreateDictionary() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void GetValue::executeExternal(Exe::Context *pCtx) const{
+void CreateDictionary::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String strDictName = pParameters->getString("dictionary");
-	const String strItemKey   = pParameters->getString("key");
-	int iTimeoutMS      = 0;
-
-	if(pParameters->getType()->asComplexType()->getProperties().getSize() == 4)
-		iTimeoutMS = pParameters->getInteger("wait") * 1000;
+	workers::dict::Ext::DictionaryPtr dmDictionary  = workers::dict::DataFactory::GetInstance()->getDictionaryType()->cast(pParameters->getDataObject("dictionary"));
 
 	try{
 
-		pParameters->setDataObject(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
-				pWorkContext->getGlobalContext()->getDictionaryStore()->lookup(strDictName, iTimeoutMS)->getValue(strItemKey)->duplicate());
+		pWorkContext->getGlobalContext()->getDictionaryStore()->create(dmDictionary);
 
 	}catch(Exception& e){
 
@@ -80,13 +77,11 @@ void GetValue::executeExternal(Exe::Context *pCtx) const{
 		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
 
 	}
-
-
 }
 /*************************************************************************/
-Extern::Statement* GetValue::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* CreateDictionary::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetValue>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<CreateDictionary>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

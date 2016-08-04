@@ -1,4 +1,4 @@
-#Thu Jul  7 09:29:18 CEST 2016
+#Thu Aug  4 07:55:12 CEST 2016
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -12,6 +12,7 @@ FILES+=Impl/org/invenireaude/qsystem/stats/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/typeinfo/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/workers/cache/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/workers/DataObjects
+FILES+=Impl/org/invenireaude/qsystem/workers/dict/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/workers/ds/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/workers/ec/DataObjects
 FILES+=Impl/org/invenireaude/qsystem/workers/io/DataObjects
@@ -25,6 +26,7 @@ FILES+=org/invenireaude/qsystem/stats/DataFactory
 FILES+=org/invenireaude/qsystem/typeinfo/DataFactory
 FILES+=org/invenireaude/qsystem/workers/cache/DataFactory
 FILES+=org/invenireaude/qsystem/workers/DataFactory
+FILES+=org/invenireaude/qsystem/workers/dict/DataFactory
 FILES+=org/invenireaude/qsystem/workers/ds/DataFactory
 FILES+=org/invenireaude/qsystem/workers/ec/DataFactory
 FILES+=org/invenireaude/qsystem/workers/io/DataFactory
@@ -184,6 +186,7 @@ FILES+=qs/lang/cache/ModuleProxy
 FILES+=qs/lang/cache/ReleaseBucket
 FILES+=qs/lang/db/ModuleProxy
 FILES+=qs/lang/db/WrappedStatement
+FILES+=qs/lang/dict/CreateDictionary
 FILES+=qs/lang/dict/GetValue
 FILES+=qs/lang/dict/ModuleProxy
 FILES+=qs/lang/dict/SetValue

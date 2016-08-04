@@ -17,6 +17,7 @@
  */
 #include "DictionaryStore.h"
 
+using namespace org::invenireaude::qsystem;
 
 namespace IAS {
 namespace QS {
@@ -34,13 +35,75 @@ DictionaryStore::~DictionaryStore() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Dictionary* DictionaryStore::lookup(const String& strDictionary){
+Dictionary* DictionaryStore::lookup(const String& strDictionary, unsigned int iTimeoutMS){
 	IAS_TRACER;
 
-	if(hmDictionaries.count(strDictionary)==0)
-		hmDictionaries[strDictionary]=IAS_DFT_FACTORY<Dictionary>::Create();
+	Mutex::Locker locker(mutex);
+
+
+	if(hmDictionaries.count(strDictionary) == 0){
+
+		unsigned int iStartTimeMS = TypeTools::GetTimeMS();
+
+		do{
+
+			if(!iTimeoutMS)
+				IAS_THROW(ItemNotFoundException("Dictionary: "+strDictionary));
+
+			Thread::Cancellation tc(true);
+
+			IAS_LOG(LogLevel::INSTANCE.isInfo(),"Waiting for dictionary:"<<strDictionary<<", timeout:"<< iTimeoutMS);
+
+			if(!mutex.wait(cndWaitForDictionary, iTimeoutMS))
+				IAS_THROW(ItemNotFoundException("Timedout when waiting for dictionary: "+strDictionary));
+
+			unsigned int iTimeMS = TypeTools::GetTimeMS();
+
+			if(iTimeMS - iStartTimeMS > iTimeoutMS)
+				iTimeoutMS = 0;
+			else
+				iTimeoutMS = iTimeoutMS - (iTimeMS - iStartTimeMS);
+
+
+
+		}while(hmDictionaries.count(strDictionary) == 0);
+
+	}
+
+
+	if(hmDictionaries.count(strDictionary) == 0)
+		IAS_THROW(ItemNotFoundException("Timed out when waiting for dictionary: "+strDictionary));
 
 	return hmDictionaries[strDictionary];
+}
+/*************************************************************************/
+void DictionaryStore::create(const workers::dict::Dictionary* dmDictionary){
+	IAS_TRACER;
+
+	Mutex::Locker locker(mutex);
+
+	String strDictionary(dmDictionary->getName());
+
+	if(hmDictionaries.count(strDictionary)==0)
+		hmDictionaries[strDictionary]=IAS_DFT_FACTORY<Dictionary>::Create(strDictionary);
+
+	Dictionary *pDictionary = hmDictionaries.at(strDictionary);
+
+
+	//TODO clear & swap
+
+	const workers::dict::Ext::ItemList& lstItems(dmDictionary->getItemsList());
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"New dictionary:"<<strDictionary<<", no. of items: "<<lstItems.size());
+
+	for(int iIdx=0; iIdx < lstItems.size(); iIdx++){
+		const workers::dict::Item *dmItem(lstItems.at(iIdx));
+
+		pDictionary->setValue(dmItem->getKey(), dmItem->getValue());
+
+	}
+
+	cndWaitForDictionary.broadcast();
 }
 /*************************************************************************/
 }

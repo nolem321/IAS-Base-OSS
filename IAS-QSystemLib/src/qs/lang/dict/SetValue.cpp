@@ -57,8 +57,8 @@ void SetValue::executeExternal(Exe::Context *pCtx) const{
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
 	const String strDictName = pParameters->getString("cache");
-	const String strItemKey   = pParameters->getString("itemKey");
-	DM::DataObject* dmValue = pParameters->getDataObject("value");
+	const String strItemKey  = pParameters->getString("itemKey");
+	DM::DataObject* dmValue  = pParameters->getDataObject("value");
 
 	try{
 
