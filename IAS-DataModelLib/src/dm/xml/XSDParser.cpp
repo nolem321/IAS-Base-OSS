@@ -105,6 +105,18 @@ XSDParser::PropertyInfo* XSDParser::readPropertyInfo(bool bCheckMulti){
 	String strTypePrefix;
 	String strType;
 
+	int iMaxOccurs = 1;
+
+	if(bCheckMulti){
+		String strMaxOccurs;
+		if(ptrLibXMLLexer->getOptionalAttribute("maxOccurs",strMaxOccurs)){
+			if(strMaxOccurs.compare("unbounded")==0)
+				iMaxOccurs=-1;
+			else
+				iMaxOccurs=TypeTools::StringToInt(strMaxOccurs);
+		}
+	}
+
 	if(!ptrLibXMLLexer->getOptionalAttribute("type", strType)){
 
 		while(true) {
@@ -141,17 +153,7 @@ XSDParser::PropertyInfo* XSDParser::readPropertyInfo(bool bCheckMulti){
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Prefix:"<<strTypePrefix<<" -> "<<ptrPropertyInfo->strTypeURI);
 	}
 
-	int iMaxOccurs = 1;
-	if(bCheckMulti){
-		String strMaxOccurs;
-		if(ptrLibXMLLexer->getOptionalAttribute("maxOccurs",strMaxOccurs)){
-			if(strMaxOccurs.compare("unbounded")==0)
-				iMaxOccurs=-1;
-			else
-				iMaxOccurs=TypeTools::StringToInt(strMaxOccurs);
-		}
 
-	}
 
 	ptrPropertyInfo->bIsMulti = iMaxOccurs != 1;
 
@@ -897,7 +899,7 @@ void XSDParser::createProperties(TypeInfo* pTypeInfo){
 
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
 						"Property for:"<<":"<<pTypeInfo->strName<<" : "<<pPropertyInfo->strName<<" : "<<
-						pPropertyInfo->strTypeURI << ":" << pPropertyInfo->strTypeName);
+						pPropertyInfo->strTypeURI << ":" << pPropertyInfo->strTypeName << ":" << pPropertyInfo->bIsMulti);
 
 		DM::Type* pPropertyType = getConvertedType(pPropertyInfo->strTypeURI, pPropertyInfo->strTypeName);
 
