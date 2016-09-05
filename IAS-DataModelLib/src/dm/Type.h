@@ -145,6 +145,13 @@ public:
     /** Type check and a cast. */
     virtual const ComplexType* asComplexType() const = 0;
 
+    /** Set maximum lenght */
+    typedef unsigned int MaxLenghtType;
+    virtual void setRestrictionMaxLength(const MaxLenghtType iMaxLength)=0;
+    virtual MaxLenghtType getRestrictionMaxLenght()const=0;
+
+    static const MaxLenghtType CDftMaxLength;
+
 };
 
  /*************************************************************************/
