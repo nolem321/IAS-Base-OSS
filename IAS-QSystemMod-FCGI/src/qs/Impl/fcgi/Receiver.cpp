@@ -170,6 +170,8 @@ void Receiver::parseCookies(const String& strValue, API::Attributes*pAttributes)
 
 		case ';':
 			pAttributes->setValue(CCookiePrefix+strAttrName,strAttrValue);
+			strAttrName.clear();
+			strAttrValue.clear();
 			bName=true;
 			break;
 
