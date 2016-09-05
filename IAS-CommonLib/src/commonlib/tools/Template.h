@@ -40,7 +40,6 @@ public:
 			virtual const String& get(const String& strKey) = 0;
 			virtual size_t getNestedCount(const String& strKey) = 0;
 			virtual IArguments* getNested(const String& strKey, size_t iIdx) = 0;
-
 	};
 
 	class Arguments : public IArguments{

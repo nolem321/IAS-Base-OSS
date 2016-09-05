@@ -208,9 +208,22 @@ void Template::evaluate(IArguments& args, std::ostream& os)const{
 
 					}
 				}else{
-					if(posActive == &os)
-						(*posActive) << args.get(strKey);
-					else
+
+					if(posActive == &os){
+
+						bool bIgnoreNotSet = strKey[0] == '?';
+
+						if(bIgnoreNotSet)
+							strKey=strKey.substr(1);
+
+						try{
+							(*posActive) << args.get(strKey);
+						}catch(ItemNotFoundException& e){
+							if(!bIgnoreNotSet)
+								throw;
+						}
+
+					}else
 						(*posActive) << "${"<<strKey <<"}";
 				}
 				iState = ST_Outside;
