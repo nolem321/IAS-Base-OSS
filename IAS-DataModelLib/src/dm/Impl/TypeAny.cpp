@@ -21,6 +21,8 @@
 #include "../../dm/Impl/DataFactory.h"
 #include "../../dm/log/LogLevel.h"
 
+#include "DataObjectAnyType.h"
+
 namespace IAS {
 namespace DM {
 namespace Impl {
@@ -60,7 +62,7 @@ DataObject* TypeAny::createDataObjectImpl() const{
 
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"createDataObject");
 
-	return DataAllocator<Impl::DataObject>::Create(this);
+	return DataAllocator<Impl::DataObjectAnyType>::Create(this);
 }
 /*************************************************************************/
 ::IAS::DM::ComplexType* TypeAny::asComplexType(){
