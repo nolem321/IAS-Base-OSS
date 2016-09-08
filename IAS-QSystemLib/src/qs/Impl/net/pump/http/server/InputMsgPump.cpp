@@ -71,6 +71,8 @@ void InputMsgPump::onHeaderReady(){
 
 		if(strContentType.substr(0,16).compare("application/json")==0)
 			pAttributes->setFormat("JSON");
+		if(strContentType.substr(0,15).compare("application/xml")==0)
+			pAttributes->setFormat("XML");
 		else
 			pAttributes->setFormat("String");
 	}catch(...){
