@@ -132,7 +132,7 @@ bool Type::isAssignableTo(const ::IAS::DM::Type* pType) const{
 	if(pType == this)
 		return true;
 
-	if(pType->getTypeEnum() == AnyType)
+	if(pType->getTypeEnum() == AnyType && pType->isRootType())
 		return true;
 
 	if(pType->getName().compare(strName) == 0 &&
