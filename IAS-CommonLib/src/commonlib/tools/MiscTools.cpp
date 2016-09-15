@@ -20,6 +20,8 @@
 #include "../exception/BadUsageException.h"
 #include "TypeTools.h"
 
+#include <string.h>
+
 namespace IAS {
 
 /*************************************************************************/
@@ -188,13 +190,13 @@ void MiscTools::CopyStreams(std::istream& is, std::ostream& os, size_t iLimit){
 
 }
 /*************************************************************************/
-static const std::string base64_chars =
+static const String CBase64 =
              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
              "abcdefghijklmnopqrstuvwxyz"
              "0123456789+/";
 
 /*************************************************************************/
-static inline bool is_base64(unsigned char c) {
+static inline bool isBase64(unsigned char c) {
   return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
@@ -208,82 +210,144 @@ void MiscTools::StringToBase64(const String& strInput, String& strOutput){
 /*************************************************************************/
 void  MiscTools::BinaryToBase64(const unsigned  char *sData, size_t iDataLen, String& strOutput){
 
-  int i = 0;
-  int j = 0;
-  unsigned char char_array_3[3];
-  unsigned char char_array_4[4];
+  int iIdx = 0;
+
+  unsigned char bytes3[3];
+  unsigned char bytes4[4];
 
   while (iDataLen--) {
-    char_array_3[i++] = *(sData++);
-    if (i == 3) {
-      char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
-      char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
-      char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
-      char_array_4[3] = char_array_3[2] & 0x3f;
+    bytes3[iIdx++] = *(sData++);
+    if (iIdx == 3) {
+      bytes4[0] = (bytes3[0] & 0xfc) >> 2;
+      bytes4[1] = ((bytes3[0] & 0x03) << 4) + ((bytes3[1] & 0xf0) >> 4);
+      bytes4[2] = ((bytes3[1] & 0x0f) << 2) + ((bytes3[2] & 0xc0) >> 6);
+      bytes4[3] = bytes3[2] & 0x3f;
 
-      for(i = 0; (i <4) ; i++)
-    	  strOutput += base64_chars[char_array_4[i]];
-      i = 0;
+      for(iIdx = 0; iIdx < 4 ; iIdx++)
+    	  strOutput += CBase64[bytes4[iIdx]];
+      iIdx = 0;
     }
   }
 
-  if (i)
+  if (iIdx)
   {
-    for(j = i; j < 3; j++)
-      char_array_3[j] = '\0';
+	int iIdx2;
 
-    char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
-    char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
-    char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
-    char_array_4[3] = char_array_3[2] & 0x3f;
+    for(iIdx2 = iIdx; iIdx2 < 3; iIdx2++)
+      bytes3[iIdx2] = '\0';
 
-    for (j = 0; (j < i + 1); j++)
-    	strOutput += base64_chars[char_array_4[j]];
+    bytes4[0] = (bytes3[0] & 0xfc) >> 2;
+    bytes4[1] = ((bytes3[0] & 0x03) << 4) + ((bytes3[1] & 0xf0) >> 4);
+    bytes4[2] = ((bytes3[1] & 0x0f) << 2) + ((bytes3[2] & 0xc0) >> 6);
+    bytes4[3] = bytes3[2] & 0x3f;
 
-    while((i++ < 3))
+    for (iIdx2= 0; iIdx2 < iIdx + 1; iIdx2++)
+    	strOutput += CBase64[bytes4[iIdx2]];
+
+    while((iIdx++ < 3))
     	strOutput += '=';
 
   }
 }
 /*************************************************************************/
-void MiscTools::Base64ToString(const String& strInput, String& strOutput){
+void MiscTools::Base64ToBinary(const String& strInput, unsigned char *sData, size_t iBufferLen, size_t &iDataLen){
 
-	int in_len = strInput.size();
+  int iLeft = strInput.size();
   int i = 0;
   int j = 0;
-  int in_ = 0;
-  unsigned char char_array_4[4], char_array_3[3];
+  int ii = 0;
+  unsigned char bytes4[4], bytes3[3];
 
-  while (in_len-- && ( strInput[in_] != '=') && is_base64(strInput[in_])) {
-    char_array_4[i++] = strInput[in_]; in_++;
+  iDataLen = 0;
+
+  while (iLeft-- && ( strInput[ii] != '=') && isBase64(strInput[ii])) {
+    bytes4[i++] = strInput[ii]; ii++;
     if (i ==4) {
       for (i = 0; i <4; i++)
-        char_array_4[i] = base64_chars.find(char_array_4[i]);
+        bytes4[i] = CBase64.find(bytes4[i]);
 
-      char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
-      char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
-      char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+      bytes3[0] = (bytes4[0] << 2) + ((bytes4[1] & 0x30) >> 4);
+      bytes3[1] = ((bytes4[1] & 0xf) << 4) + ((bytes4[2] & 0x3c) >> 2);
+      bytes3[2] = ((bytes4[2] & 0x3) << 6) + bytes4[3];
+
+      iDataLen += 3;
+
+      if(iDataLen > iBufferLen)
+    	  IAS_THROW(BadUsageException("Error when coping streams."));
+
 
       for (i = 0; (i < 3); i++)
-    	  strOutput += char_array_3[i];
+    	  *sData++ = bytes3[i];
+
+
       i = 0;
     }
   }
 
+
+
   if (i) {
     for (j = i; j <4; j++)
-      char_array_4[j] = 0;
+      bytes4[j] = 0;
 
     for (j = 0; j <4; j++)
-      char_array_4[j] = base64_chars.find(char_array_4[j]);
+      bytes4[j] = CBase64.find(bytes4[j]);
 
-    char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
-    char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
-    char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+    bytes3[0] = (bytes4[0] << 2) + ((bytes4[1] & 0x30) >> 4);
+    bytes3[1] = ((bytes4[1] & 0xf) << 4) + ((bytes4[2] & 0x3c) >> 2);
+    bytes3[2] = ((bytes4[2] & 0x3) << 6) + bytes4[3];
 
-    for (j = 0; (j < i - 1); j++) strOutput += char_array_3[j];
+    for (j = 0; (j < i - 1); j++){
+    	iDataLen++;
+
+        if(iDataLen > iBufferLen)
+          IAS_THROW(BadUsageException("Error when coping streams."));
+
+        *sData++ = bytes3[j];
+    }
+
   }
 
+}
+
+/*************************************************************************/
+void MiscTools::Base64ToString(const String& strInput, String& strOutput){
+
+	  int iLeft = strInput.size();
+	  int i = 0;
+	  int j = 0;
+	  int ii = 0;
+	  unsigned char bytes4[4], bytes3[3];
+
+	  while (iLeft-- && ( strInput[ii] != '=') && isBase64(strInput[ii])) {
+	    bytes4[i++] = strInput[ii]; ii++;
+	    if (i ==4) {
+	      for (i = 0; i <4; i++)
+	        bytes4[i] = CBase64.find(bytes4[i]);
+
+	      bytes3[0] = (bytes4[0] << 2) + ((bytes4[1] & 0x30) >> 4);
+	      bytes3[1] = ((bytes4[1] & 0xf) << 4) + ((bytes4[2] & 0x3c) >> 2);
+	      bytes3[2] = ((bytes4[2] & 0x3) << 6) + bytes4[3];
+
+	      for (i = 0; (i < 3); i++)
+	    	  strOutput += bytes3[i];
+	      i = 0;
+	    }
+	  }
+
+	  if (i) {
+	    for (j = i; j <4; j++)
+	      bytes4[j] = 0;
+
+	    for (j = 0; j <4; j++)
+	      bytes4[j] = CBase64.find(bytes4[j]);
+
+	    bytes3[0] = (bytes4[0] << 2) + ((bytes4[1] & 0x30) >> 4);
+	    bytes3[1] = ((bytes4[1] & 0xf) << 4) + ((bytes4[2] & 0x3c) >> 2);
+	    bytes3[2] = ((bytes4[2] & 0x3) << 6) + bytes4[3];
+
+	    for (j = 0; (j < i - 1); j++) strOutput += bytes3[j];
+	  }
 
 }
 //TODO C++ methods

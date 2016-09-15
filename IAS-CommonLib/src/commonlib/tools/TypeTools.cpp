@@ -33,18 +33,21 @@ int TypeTools::StringToInt(const String& strValue) {
 
 	int iResult;
 
-	StringStream ss(strValue);
-	ss >> iResult;
-	if(!ss.eof())
-		IAS_THROW(BadUsageException("Conversion error: " + strValue));
-
-	/* wait for C11
+#if __cplusplus >= 1201103L
 	try{
 		iResult = std::stoi(strValue.c_str(),0,10);
 	}catch(std::exception& e){
 		IAS_THROW(BadUsageException("Conversion error: " + strValue));
 	}
-   */
+#else
+	StringStream ss(strValue);
+	ss >> iResult;
+
+	if(!ss.eof())
+		IAS_THROW(BadUsageException("Conversion error: " + strValue));
+
+#endif
+
 
 	return iResult;
 

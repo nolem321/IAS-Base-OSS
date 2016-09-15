@@ -43,6 +43,7 @@ public:
 	static void   BinaryToBase64(const unsigned  char *sData, size_t iDataLen, String& strOutput);
 	static void   StringToBase64(const String& strInput, String& strOutput);
 	static void   Base64ToString(const String& strInput, String& strOutput);
+	static void   Base64ToBinary(const String& strInput, unsigned char *sData, size_t iBufferLen, size_t &iDataLen);
 
 	static String StrToLower(const String& strData);
 	static String StrToUpper(const String& strData);
