@@ -41,7 +41,8 @@ const String XMLHelper::XMLPayloadElement("xmlPayload");
 XMLHelper::XMLHelper(const ::IAS::DM::DataFactory *pDataFactory):
 		pDataFactory(pDataFactory),
 		bSkipNullElements(false),
-		bEmptyFirstNS(false){
+		bEmptyFirstNS(false),
+		bPrefixElements(false){
 	IAS_TRACER;
 	IAS_CHECK_IF_VALID(pDataFactory);
 
@@ -185,7 +186,12 @@ void XMLHelper::setEmptyFirstNS(bool bEmptyFirstNS){
 	IAS_TRACER;
 	this->bEmptyFirstNS=bEmptyFirstNS;
 }
-
+/*************************************************************************/
+void XMLHelper::setPrefixElements(bool bPrefixElements){
+	IAS_TRACER;
+	this->bPrefixElements=bPrefixElements;
+}
+/*************************************************************************/
 }
 }
 }
