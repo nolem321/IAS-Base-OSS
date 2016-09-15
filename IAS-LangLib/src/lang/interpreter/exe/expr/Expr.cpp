@@ -125,6 +125,7 @@ void Expr::evaluate(Context *pCtx,
 
 		case DM::Type::DataObjectType:
 		case DM::Type::AnyType:
+		case DM::Type::RawType:
 			evaluate(pCtx,dmResult);
 			break;
 

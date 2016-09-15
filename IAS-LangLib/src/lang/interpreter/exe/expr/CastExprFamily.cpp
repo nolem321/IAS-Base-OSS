@@ -142,7 +142,7 @@ class CastDateTimeExpr : public CastExprFamily, public DateTimeExpr{
 
 	friend class Factory<CastDateTimeExpr>;
 };
-/*************************************************************************/
+/***************************************************************/
 class CastDataObjectExpr : public CastExprFamily, public DataObjectExpr{
 
 	virtual void evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const{
@@ -206,6 +206,13 @@ Expr* CastExprFamily::Create(Expr* pExpr, const DM::Type* pType){
 		case DM::Type::DateTimeType:
 			ptrExpr=IAS_DFT_FACTORY<CastDateTimeExpr>::Create(pExpr,pType);
 			break;
+
+		case DM::Type::RawType:
+			ptrExpr = IAS_DFT_FACTORY<CastDataObjectExpr>::Create(pExpr,pType);
+			break;
+
+		default:
+			IAS_THROW(InternalException("cast is not supported: "+pType->getFullName()));
 	}
 
 	return ptrExpr.pass();

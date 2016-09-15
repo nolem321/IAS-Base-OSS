@@ -49,6 +49,10 @@
 #include "StrLen.h"
 #include "SysLog.h"
 
+#include "Base64ToBinary.h"
+#include "BinaryToBase64.h"
+#include "HexToBinary.h"
+#include "BinaryToHex.h"
 
 namespace IAS {
 namespace Lang {
@@ -98,7 +102,10 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 
-
+	registerSymbol("BinaryToHex",&(BinaryToHex::Create));
+	registerSymbol("HexToBinary",&(HexToBinary::Create));
+	registerSymbol("BinaryToBase64",&(BinaryToBase64::Create));
+	registerSymbol("Base64ToBinary",&(Base64ToBinary::Create));
 }
 /*************************************************************************/
 void StandardModuleProxy::cleanUpImpl(){
