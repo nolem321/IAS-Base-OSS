@@ -20,6 +20,7 @@
 
 #include <commonlib/commonlib.h>
 #include "XPathIntegerExpr.h"
+#include "XPathFloatExpr.h"
 #include "XPathBooleanExpr.h"
 #include "XPathStringExpr.h"
 #include "XPathDataObjectExpr.h"
@@ -126,6 +127,10 @@ XPathExprFamily* XPathExprFamily::Create(Expr* pExpr,
 
 	case DM::Type::IntegerType:
 		ptrResult = IAS_DFT_FACTORY<XPathIntegerExpr>::Create(pExpr,pXPathAccessor);
+		break;
+
+	case DM::Type::FloatType:
+		ptrResult = IAS_DFT_FACTORY<XPathFloatExpr>::Create(pExpr,pXPathAccessor);
 		break;
 
 	case DM::Type::BooleanType:
