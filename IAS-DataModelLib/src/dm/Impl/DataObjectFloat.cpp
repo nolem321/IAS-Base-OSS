@@ -70,7 +70,7 @@ void DataObjectFloat::setBoolean(bool bValue){
 /*************************************************************************/
 void DataObjectFloat::setFloat(Float fValue){
 	IAS_TRACER;
-	this->fValue != fValue;
+	this->fValue = fValue;
 }
 /*************************************************************************/
 void DataObjectFloat::setDataObject(const IAS::DM::DataObject* pDataObject){
