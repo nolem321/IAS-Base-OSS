@@ -58,6 +58,7 @@ protected:
 		S_String,
 		S_StringEsc,
 		S_Integer,
+		S_Float,
 		S_Symbol,
 		S_Greater,
 		S_Less,
@@ -78,6 +79,7 @@ protected:
 	void handleState_Symbol(unsigned char c);
 	void handleState_SpecSymbol(unsigned char c);
 	void handleState_Integer(unsigned char c);
+	void handleState_Float(unsigned char c);
 	void handleState_Greater(unsigned char c);
 	void handleState_Less(unsigned char c);
 	void handleState_Eq(unsigned char c);

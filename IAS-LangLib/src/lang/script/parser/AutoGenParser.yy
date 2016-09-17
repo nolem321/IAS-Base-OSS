@@ -165,6 +165,7 @@ using namespace Parser;
 %token	<sval>			T_SYMBOL
 %token	<sval>			T_STRING
 %token	<sval>          T_INTEGER
+%token	<sval>          T_FLOAT
 %token	<sval>          T_BOOLEAN
 %token	<sval>          T_NULL
 
@@ -358,6 +359,7 @@ exprPrimaryOrXPath :  xpathAccess    { $$ = IAS_DFT_FACTORY<Expr::XPath::XPathEx
 					  
 exprPrimary: T_OPEN_PAR expr T_CLOSE_PAR { $$ = $2; } ;
 exprPrimary: T_INTEGER  { $$ = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_INTEGER,*$1); _SVAL_DELETE($1); } ;
+exprPrimary: T_FLOAT    { $$ = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_FLOAT,*$1);   _SVAL_DELETE($1); } ;
 exprPrimary: T_STRING   { $$ = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_STRING,*$1);  _SVAL_DELETE($1); } ;
 exprPrimary: T_BOOLEAN  { $$ = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_BOOLEAN,*$1); _SVAL_DELETE($1); } ;
 exprPrimary: T_NULL     { $$ = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_NULL,*$1);    _SVAL_DELETE($1); } ;

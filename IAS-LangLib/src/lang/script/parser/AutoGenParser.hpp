@@ -259,8 +259,9 @@ namespace yy {
         T_SYMBOL = 321,
         T_STRING = 322,
         T_INTEGER = 323,
-        T_BOOLEAN = 324,
-        T_NULL = 325
+        T_FLOAT = 324,
+        T_BOOLEAN = 325,
+        T_NULL = 326
       };
     };
 
@@ -551,13 +552,13 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 508,     ///< Last index in yytable_.
+      yylast_ = 513,     ///< Last index in yytable_.
       yynnts_ = 48,  ///< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 71  ///< Number of tokens.
+      yyntokens_ = 72  ///< Number of tokens.
     };
 
 
@@ -568,7 +569,7 @@ namespace yy {
 
 
 } // yy
-#line 572 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:372
+#line 573 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:372
 
 
 
