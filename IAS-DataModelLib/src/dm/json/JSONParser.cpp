@@ -210,12 +210,18 @@ DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeH
 
 	if(pTypeHint && !pTypeHint->isDataObjectType()){
 
-		ValuesMap::const_iterator it=node.getMap()->find("_value");
+		if(pTypeHint->getTypeEnum() != DM::Type::AnyType) {
 
-		if(it == node.getMap()->end())
+			ValuesMap::const_iterator it=node.getMap()->find("_value");
+
+			if(it == node.getMap()->end())
 			IAS_THROW(JSONHelperException("No type hint for a simple type[1]."+pTypeHint->getFullName()));
 
-		return pTypeHint->createDataObject(it->second->getFirst().getValue());
+			return pTypeHint->createDataObject(it->second->getFirst().getValue());
+		} else {
+			return pTypeHint->createDataObject();
+		}
+
 	}
 
 
