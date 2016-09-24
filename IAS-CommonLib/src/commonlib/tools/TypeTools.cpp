@@ -101,6 +101,10 @@ void TypeTools::IntToString(int iValue, String& strValue, int iWidth) {
 /*************************************************************************/
 void TypeTools::FloatToString(Float fValue, String& strValue, int iWidth) {
 	StringStream ss;
+
+	ss.setf(std::ios::fixed,std::ios::floatfield);
+	ss.setf(std::ios::showpoint);
+	
 	if (iWidth > 0) {
 		ss.width(iWidth);
 		ss.fill('0');
