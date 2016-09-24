@@ -19,6 +19,7 @@
 #include <commonlib/commonlib.h>
 
 #include "../../dm/log/LogLevel.h"
+#include "Type.h"
 
 namespace IAS {
 namespace DM {
@@ -29,6 +30,10 @@ DataObjectString::DataObjectString(const Type *pType):
 		DataObjectBasic(pType),
 		strValue(""){
 	IAS_TRACER;
+
+	//if(strValue.length() > pType->getRestrictionMaxLenght())
+	//	IAS_THROW(BadUsageException("xsi:maxLength exceeded."));
+
 }
 /*************************************************************************/
 DataObjectString::~DataObjectString() throw(){
@@ -72,6 +77,10 @@ IAS::DateTime DataObjectString::toDateTime()const{
 /*************************************************************************/
 void DataObjectString::setString(const ::IAS::String& strValue){
 	IAS_TRACER;
+
+	//if(strValue.length() > pType->getRestrictionMaxLenght())
+	//	IAS_THROW(BadUsageException("xsi:maxLength exceeded for: "+strValue));
+
 	this->strValue=strValue;
 }
 /*************************************************************************/
