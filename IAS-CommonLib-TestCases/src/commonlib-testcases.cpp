@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
 			//LogLevel::INSTANCE.bIsMemory=true;
 
 			//IAS_DFT_FACTORY<TCStreamMemoryBuffer>::Create(ptrSuite.getPointer());
-			IAS_DFT_FACTORY<TCTemplates>::Create(ptrSuite.getPointer());
+			IAS_DFT_FACTORY<TCMisc>::Create(ptrSuite.getPointer());
 
 		} else {
 /*

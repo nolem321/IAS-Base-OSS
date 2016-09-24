@@ -36,6 +36,7 @@ public:
 private:
 
 	void caseALL();
+	void caseBase64();
 
 	friend class ::IAS::Factory<TCMisc>;
 	::IAS::TestRunner<TCMisc> theTestRunner;

@@ -40,6 +40,7 @@ void TCTemplates::init(TestSuite* pTestSuite){
 
 	theTestRunner.addCase("Simple",&::IAS::TCT::TCTemplates::caseSimple);
 	theTestRunner.addCase("Nested",&::IAS::TCT::TCTemplates::caseNested);
+	theTestRunner.addCase("Default",&::IAS::TCT::TCTemplates::caseDefault);
 
 	TestUnit::init("TCTemplates",&theTestRunner,pTestSuite);
 }
@@ -75,6 +76,19 @@ void TCTemplates::caseSimple(){
 
 	IAS_DFT_FACTORY<Template>::PtrHolder ptrTemplate(IAS_DFT_FACTORY<Template>::Create("${K1}$${K2}$$${K3}"));
 	runCase(args,ptrTemplate,"V1$${K2}$$V3");
+}
+/*************************************************************************/
+void TCTemplates::caseDefault(){
+
+	IAS_TRACER;
+
+	Template::Arguments args;
+
+	args.add("K1","V1");
+	args.add("K3","V3");
+
+	IAS_DFT_FACTORY<Template>::PtrHolder ptrTemplate(IAS_DFT_FACTORY<Template>::Create("${K1}_${?K2}_${K3}"));
+	runCase(args,ptrTemplate,"V1__V3");
 }
 /*************************************************************************/
 void TCTemplates::caseNested(){

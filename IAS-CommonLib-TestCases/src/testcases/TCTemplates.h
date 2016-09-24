@@ -34,6 +34,7 @@ public:
 
 	void caseSimple();
 	void caseNested();
+	void caseDefault();
 
 protected:
 
