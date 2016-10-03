@@ -46,12 +46,121 @@ using namespace ::IAS::Lang::Interpreter;
 
 
 /*************************************************************************/
-GetTypeInfo::GetTypeInfo(const StringList& lstParamaters){
+GetTypeInfo::GetTypeInfo(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
+
 }
 /*************************************************************************/
 GetTypeInfo::~GetTypeInfo() throw(){
 	IAS_TRACER;
+}
+/*************************************************************************/
+GetTypeInfo::Cache::Cache():bInitialized(false){
+	IAS_TRACER;
+
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::init(const DM::DataFactory* pDataFactory){
+	IAS_TRACER;
+
+	Mutex::Locker locker(mutex);
+
+	buildExtensions(pDataFactory);
+	buildReferences(pDataFactory);
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::buildExtensions(const DM::DataFactory* pDataFactory){
+	IAS_TRACER;
+
+	const DM::TypeList& lstTypes(pDataFactory->getTypes());
+
+		for(int iIdx=0; iIdx<lstTypes.getSize(); iIdx++)
+			if(lstTypes.at(iIdx)->getURI().substr(0,10).compare("IAS/Script")){
+
+			const DM::Type *pType = lstTypes.at(iIdx);
+
+			if(!pType->isRootType())
+				hmDirectExtensions[pType->getBaseType()].insert(pType);
+
+			while(!pType->isRootType()){
+				hmAllExtensions[pType->getBaseType()].insert(pType);
+				pType=pType->getBaseType();
+			}
+	}
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::buildReferences(const DM::DataFactory* pDataFactory){
+	IAS_TRACER;
+
+	const DM::TypeList& lstTypes(pDataFactory->getTypes());
+
+	for(int iIdx=0; iIdx<lstTypes.getSize(); iIdx++)
+	if(lstTypes.at(iIdx)->getURI().substr(0,10).compare("IAS/Script")) {
+
+		const DM::Type *pType = lstTypes.at(iIdx);
+		if(pType->isDataObjectType()) {
+
+			const DM::PropertyList& lstProperities(pType->asComplexType()->getProperties());
+			for(int iIdx = 0; iIdx<lstProperities.getSize(); iIdx++) {
+
+				const DM::Property* pProperty=lstProperities[iIdx];
+				const DM::Type* pPropertyType = pProperty->getType();
+
+				hmReferences[pPropertyType].insert(pType);
+			}
+		}
+	}
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::getDirectExtensions(typeinfo::TypeBase* pResult, const DM::Type* pType){
+	IAS_TRACER;
+
+	if(!hmDirectExtensions.count(pType))
+		return;
+
+	for(TypesSet::const_iterator it = TheCache.hmDirectExtensions[pType].begin();
+			it != TheCache.hmDirectExtensions[pType].end();it++) {
+
+		typeinfo::TypeInfo* pTypeInfo = pResult->createDirectExtensions();
+
+		pTypeInfo->setName((*it)->getName());
+		pTypeInfo->setNamespace((*it)->getURI());
+
+	}
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::getAllExtensions(typeinfo::TypeBase* pResult, const DM::Type* pType){
+	IAS_TRACER;
+
+	if(!hmAllExtensions.count(pType))
+		return;
+
+	for(TypesSet::const_iterator it = TheCache.hmAllExtensions[pType].begin();
+			it != TheCache.hmAllExtensions[pType].end();it++) {
+
+		typeinfo::TypeInfo* pTypeInfo = pResult->createAllExtensions();
+
+		pTypeInfo->setName((*it)->getName());
+		pTypeInfo->setNamespace((*it)->getURI());
+
+	}
+}
+/*************************************************************************/
+void GetTypeInfo::Cache::getReferences(typeinfo::TypeBase* pResult, const DM::Type* pType){
+	IAS_TRACER;
+
+	if(!hmReferences.count(pType))
+		return;
+
+	for(TypesSet::const_iterator it = TheCache.hmReferences[pType].begin();
+			it != TheCache.hmReferences[pType].end();it++) {
+
+		typeinfo::TypeInfo* pTypeInfo = pResult->createReferences();
+
+		pTypeInfo->setName((*it)->getName());
+		pTypeInfo->setNamespace((*it)->getURI());
+
+	}
 }
 /*************************************************************************/
 static void buildInfo(const DM::Type* pType, typeinfo::Ext::TypeBasePtr& ptrResult){
@@ -119,22 +228,38 @@ static void buildInfo(const DM::Type* pType, typeinfo::Ext::TypeBasePtr& ptrResu
 		ptrResult->setDescription(strDescription);
 }
 /*************************************************************************/
+GetTypeInfo::Cache GetTypeInfo::TheCache;
+/*************************************************************************/
 void GetTypeInfo::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
+	TheCache.init(pCtx->getDataFactory());
 
 	try{
 
 		String strType(pParameters->getString("type"));
 		String strTypeNS(pParameters->getString("typeNS"));
 
+		bool   bDirectExtensions(pParameters->getBoolean("directExtensions"));
+		bool   bAllExtensions(pParameters->getBoolean("allExtensions"));
+		bool   bReferences(pParameters->getBoolean("references"));
+
 		const DM::Type *pType = pCtx->getDataFactory()->getType(strTypeNS,strType);
 
 		typeinfo::Ext::TypeBasePtr ptrResult;
 
 		buildInfo(pType, ptrResult);
+
+		if(bDirectExtensions)
+			TheCache.getDirectExtensions(ptrResult,pType);
+
+		if(bAllExtensions)
+			TheCache.getAllExtensions(ptrResult,pType);
+
+		if(bReferences)
+			TheCache.getReferences(ptrResult,pType);
 
 		pParameters->setDataObject(Model::Dec::ResultDeclarationNode::CStrResultVariable,
 				ptrResult);
@@ -154,9 +279,9 @@ void GetTypeInfo::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetTypeInfo::Create(const StringList& lstParamaters){
+Extern::Statement* GetTypeInfo::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetTypeInfo>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetTypeInfo>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

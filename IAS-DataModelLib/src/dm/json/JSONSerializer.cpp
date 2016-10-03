@@ -76,7 +76,13 @@ void JSONSerializer::serializeElement(const DataObject* pDataObject,
 	switch(pType->getTypeEnum()){
 
 
+		case ::IAS::DM::Type::AnyType:
+			os<<"{"<<std::endl<<strPrefix<<"\"_dmType\" : \""<<pType->getURI()<<"#"<<pType->getName()<<"\"";
+			os<<std::endl<<strPrefix<<"}";
+		break;
+
 		case ::IAS::DM::Type::TextType:
+		case ::IAS::DM::Type::RawType:
 		case ::IAS::DM::Type::TimeType:
 		case ::IAS::DM::Type::DateType:
 		case ::IAS::DM::Type::DateTimeType:

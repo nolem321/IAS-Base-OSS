@@ -54,10 +54,7 @@ InputDriver*  System::getBrowserDriver(const API::Destination& destination){
 	IAS_TRACER;
 
 	Mutex::Locker locker(mutex);
-	if(!hmBrowserDrivers.count(destination.getName()))
-		hmBrowserDrivers[destination.getName()]=createBrowserDriver(destination);
-
-	return hmBrowserDrivers.at(destination.getName());
+	return createBrowserDriver(destination);
 
 }
 /*************************************************************************/

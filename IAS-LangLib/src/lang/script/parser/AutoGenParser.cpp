@@ -365,37 +365,44 @@ namespace yy {
     {
             case 66: // T_SYMBOL
 
-#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 371 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
         break;
 
       case 67: // T_STRING
 
-#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 378 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
         break;
 
       case 68: // T_INTEGER
 
-#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 385 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
         break;
 
-      case 69: // T_BOOLEAN
+      case 69: // T_FLOAT
 
-#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 392 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
         break;
 
-      case 70: // T_NULL
+      case 70: // T_BOOLEAN
 
-#line 217 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 399 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
+        break;
+
+      case 71: // T_NULL
+
+#line 218 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:599
+        { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
+#line 406 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:599
         break;
 
 
@@ -532,7 +539,7 @@ namespace yy {
   yyla.location.begin.filename = yyla.location.end.filename = new std::string("waisted");
 }
 
-#line 536 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:725
+#line 543 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:725
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -644,802 +651,808 @@ namespace yy {
           switch (yyn)
             {
   case 5:
-#line 225 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 226 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { myParser.addTypeDefinition((yystack_[0].value.pTypeDefinitionNode)); }
-#line 650 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 657 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 6:
-#line 226 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 227 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     {
     (yystack_[0].value.pProgramNode)->setSourceLocation(myParser.getLexer()->getCachedLocation()); 
 	myParser.addProgram((yystack_[0].value.pProgramNode)); 
 }
-#line 659 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 666 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 7:
-#line 232 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 233 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     {  myParser.open((yystack_[1].value.pQualifiedNameNode)->getQualifiedName()); 
            	 IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Free((yystack_[1].value.pQualifiedNameNode)); 
            	 }
-#line 667 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 674 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 8:
-#line 237 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 238 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[5].value.sval)); _SVAL_DELETE((yystack_[5].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); }
-#line 675 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 682 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 9:
-#line 242 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 243 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
 				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[2].value.pTypeInfo));
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[8].value.sval)); _SVAL_DELETE((yystack_[8].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[6].value.sval)); _SVAL_DELETE((yystack_[6].value.sval)); }
-#line 684 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 691 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 10:
-#line 248 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 249 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 				  
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[1].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
-#line 692 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 699 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 11:
-#line 253 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 254 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 
 				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[1].value.pTypeInfo));
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[7].value.sval)); _SVAL_DELETE((yystack_[7].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[5].value.sval)); _SVAL_DELETE((yystack_[5].value.sval)); }
-#line 701 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 708 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 12:
-#line 260 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 261 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 707 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 714 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 13:
-#line 263 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 264 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 713 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 720 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 14:
-#line 265 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 266 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode); }
-#line 719 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 726 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 15:
-#line 266 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 267 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();  }
-#line 725 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 732 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 16:
-#line 268 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 269 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[2].value.pTypeDefinitionNode); (yylhs.value.pTypeDefinitionNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
-#line 731 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 738 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 17:
-#line 269 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 270 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();}
-#line 737 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 744 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 18:
-#line 271 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 743 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
-    break;
-
-  case 19:
 #line 272 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
-												                _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 750 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
+  case 19:
+#line 273 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
+												                _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
+#line 757 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
   case 20:
-#line 274 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 275 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval)); 
 												 (yylhs.value.pDeclarationNode)->setIsArray(true); 
 												 _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 758 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 765 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 21:
-#line 277 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 278 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
 																  (yylhs.value.pDeclarationNode)->setIsArray(true); 
 												                  _SVAL_DELETE((yystack_[6].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 766 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 773 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 22:
-#line 283 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 284 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[3].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[2].value.pParametersNode)); }
-#line 772 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 779 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 23:
-#line 286 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 287 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[4].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[3].value.pParametersNode),(yystack_[2].value.pDeclarationNode)); }
-#line 778 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 785 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 24:
-#line 289 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 290 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[5].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[4].value.pParametersNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
-#line 784 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 791 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 25:
-#line 292 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 293 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[6].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[5].value.pParametersNode),(yystack_[4].value.pDeclarationNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
-#line 790 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 797 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 26:
-#line 294 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 295 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 796 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 803 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 27:
-#line 295 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 296 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 802 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 809 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 28:
-#line 296 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 297 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 808 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 815 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 29:
-#line 297 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 298 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 814 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 821 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 30:
-#line 299 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 300 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pParametersNode) = (yystack_[1].value.pParametersNode); }
-#line 820 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 827 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 31:
-#line 300 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 301 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create();  }
-#line 826 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 833 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 32:
-#line 302 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 303 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pParametersNode) = (yystack_[2].value.pParametersNode); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
-#line 832 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 839 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 33:
-#line 303 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 304 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create(); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
-#line 838 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 845 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 34:
-#line 305 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 306 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementsListNode) = (yystack_[1].value.pStatementsListNode); }
-#line 844 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 851 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 35:
-#line 307 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 308 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { 
 (yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); 
 (yystack_[1].value.pStatementNode)->setSourceLocation(myParser.getLexer()->getCachedLocation());
 (yylhs.value.pStatementsListNode)->addStatement((yystack_[1].value.pStatementNode));
  }
-#line 854 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 861 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 36:
-#line 312 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 313 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); (yylhs.value.pStatementsListNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
-#line 860 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 867 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 37:
-#line 313 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 314 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementsListNode) = IAS_DFT_FACTORY<Stmt::StatementsListNode>::Create(); }
-#line 866 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 873 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 38:
-#line 315 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 316 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 872 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 879 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 39:
-#line 316 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 317 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 878 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 885 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 40:
-#line 318 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 319 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval));     (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[4].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 884 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 891 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 41:
-#line 320 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 321 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[6].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
-#line 890 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 897 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 42:
-#line 323 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 324 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementsListNode); }
-#line 896 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 903 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 43:
-#line 324 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 325 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 902 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 909 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 44:
-#line 325 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 326 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 908 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 915 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 45:
-#line 326 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 327 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 914 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 921 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 46:
-#line 327 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 328 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 920 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 927 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 47:
-#line 328 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 329 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 926 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 933 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 48:
-#line 329 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 330 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 932 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 939 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 49:
-#line 330 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 331 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 938 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 945 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 50:
-#line 331 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 332 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 944 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 951 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 51:
-#line 332 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 333 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 950 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 957 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 52:
-#line 333 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 334 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 956 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 963 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 53:
-#line 334 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 335 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
-#line 962 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 969 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 54:
-#line 336 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 337 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::AssignmentNode>::Create((yystack_[2].value.pLeftSideNode),(yystack_[0].value.pExprNode)); }
-#line 968 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 975 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 55:
-#line 338 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 339 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pLeftSideNode) = IAS_DFT_FACTORY<Stmt::LeftSideNode>::Create((yystack_[0].value.pXPathAccessNode)); }
-#line 974 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 981 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 56:
-#line 345 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 346 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
-#line 980 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 987 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 57:
-#line 346 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 347 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::AdditionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 986 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 993 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 58:
-#line 347 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 348 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SubtractionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 992 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 999 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 59:
-#line 349 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 350 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
-#line 998 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1005 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 60:
-#line 350 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 351 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::MultiplyNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1004 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1011 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 61:
-#line 351 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 352 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DivisionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1010 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1017 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 62:
-#line 352 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 353 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ModuloNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1016 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1023 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 63:
-#line 354 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 355 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
-#line 1022 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1029 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 64:
-#line 356 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 357 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
-#line 1028 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1035 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 65:
-#line 357 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 358 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::XPath::XPathExprNode>::Create((yystack_[0].value.pXPathAccessNode)); }
-#line 1034 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1041 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 66:
-#line 359 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 360 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = (yystack_[1].value.pExprNode); }
-#line 1040 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1047 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 67:
-#line 360 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 361 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_INTEGER,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1046 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1053 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 68:
-#line 361 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_STRING,*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1052 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 362 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_FLOAT,*(yystack_[0].value.sval));   _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1059 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 69:
-#line 362 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_BOOLEAN,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1058 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 363 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_STRING,*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1065 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 70:
-#line 363 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_NULL,*(yystack_[0].value.sval));    _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1064 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 364 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_BOOLEAN,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1071 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 71:
 #line 365 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1070 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_NULL,*(yystack_[0].value.sval));    _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1077 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 72:
 #line 367 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[3].value.sval),*(yystack_[1].value.sval), (yystack_[0].value.pStatementsListNode)); _SVAL_DELETE((yystack_[3].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
-#line 1076 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1083 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 73:
-#line 370 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CastNode>::Create((yystack_[3].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
-#line 1082 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 369 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[3].value.sval),*(yystack_[1].value.sval), (yystack_[0].value.pStatementsListNode)); _SVAL_DELETE((yystack_[3].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
+#line 1089 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 74:
 #line 372 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::FunCallNode>::Create((yystack_[1].value.pQualifiedNameNode), (yystack_[0].value.pExprListNode)); }
-#line 1088 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CastNode>::Create((yystack_[3].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1095 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 75:
-#line 373 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CopyOfNode>::Create((yystack_[1].value.pXPathAccessNode)); }
-#line 1094 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 374 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::FunCallNode>::Create((yystack_[1].value.pQualifiedNameNode), (yystack_[0].value.pExprListNode)); }
+#line 1101 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 76:
-#line 374 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DetachNode>::Create((yystack_[1].value.pXPathAccessNode)); }
-#line 1100 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 375 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CopyOfNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1107 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 77:
-#line 375 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::NegativeNode>::Create((yystack_[0].value.pExprNode)); }
-#line 1106 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 376 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DetachNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1113 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 78:
-#line 376 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SizeOfNode>::Create((yystack_[1].value.pXPathAccessNode));}
-#line 1112 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 377 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::NegativeNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1119 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 79:
-#line 377 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNode>::Create((yystack_[1].value.pExprNode));}
-#line 1118 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 378 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SizeOfNode>::Create((yystack_[1].value.pXPathAccessNode));}
+#line 1125 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 80:
-#line 378 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNSNode>::Create((yystack_[1].value.pExprNode));}
-#line 1124 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 379 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNode>::Create((yystack_[1].value.pExprNode));}
+#line 1131 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 81:
-#line 379 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::StrLenNode>::Create((yystack_[1].value.pExprNode));}
-#line 1130 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 380 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNSNode>::Create((yystack_[1].value.pExprNode));}
+#line 1137 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 82:
 #line 381 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1136 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::StrLenNode>::Create((yystack_[1].value.pExprNode));}
+#line 1143 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 83:
 #line 383 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalDiffNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1142 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1149 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 84:
-#line 384 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1148 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 385 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalDiffNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1155 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 85:
-#line 385 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1154 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 386 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1161 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 86:
-#line 386 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1160 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 387 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1167 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 87:
-#line 387 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
-#line 1166 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 388 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1173 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 88:
-#line 390 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsTypeNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
-#line 1172 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 389 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
+#line 1179 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 89:
-#line 393 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsInstanceNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
-#line 1178 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 392 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsTypeNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1185 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 90:
 #line 395 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
-#line 1184 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsInstanceNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
+#line 1191 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 91:
-#line 396 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = (yystack_[1].value.pLogicalExprNode); }
-#line 1190 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 397 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1197 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 92:
-#line 397 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalNotNode>::Create((yystack_[0].value.pLogicalExprNode)); }
-#line 1196 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 398 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[1].value.pLogicalExprNode); }
+#line 1203 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 93:
-#line 398 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsSetNode>::Create((yystack_[1].value.pXPathAccessNode)); }
-#line 1202 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 399 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalNotNode>::Create((yystack_[0].value.pLogicalExprNode)); }
+#line 1209 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 94:
-#line 399 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsNullNode>::Create((yystack_[1].value.pXPathAccessNode)); }
-#line 1208 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 400 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsSetNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1215 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 95:
 #line 401 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
-#line 1214 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsNullNode>::Create((yystack_[1].value.pXPathAccessNode)); }
+#line 1221 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 96:
-#line 402 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalAndNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
-#line 1220 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 403 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1227 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 97:
 #line 404 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
-#line 1226 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalAndNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
+#line 1233 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 98:
-#line 405 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalOrNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
-#line 1232 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 406 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1239 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 99:
 #line 407 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
-#line 1238 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalOrNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
+#line 1245 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 100:
-#line 410 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
-								IAS_DFT_FACTORY<Expr::XPath::XPathVariableAccessNode>::Create(
-										(*((yystack_[0].value.pXPathNode)->getElements().begin()))->getName()),(yystack_[0].value.pXPathNode));}
-#line 1246 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 409 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
+#line 1251 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 101:
-#line 414 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 412 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
-						IAS_DFT_FACTORY<Expr::XPath::XPathExprAccessNode>::Create((yystack_[2].value.pExprNode)),(yystack_[0].value.pXPathNode)); }
-#line 1253 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+								IAS_DFT_FACTORY<Expr::XPath::XPathVariableAccessNode>::Create(
+										(*((yystack_[0].value.pXPathNode)->getElements().begin()))->getName()),(yystack_[0].value.pXPathNode));}
+#line 1259 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 102:
-#line 417 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pXPathNode) = (yystack_[2].value.pXPathNode); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1259 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 416 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
+						IAS_DFT_FACTORY<Expr::XPath::XPathExprAccessNode>::Create((yystack_[2].value.pExprNode)),(yystack_[0].value.pXPathNode)); }
+#line 1266 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 103:
 #line 419 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pXPathNode) = (yystack_[5].value.pXPathNode); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
-#line 1265 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = (yystack_[2].value.pXPathNode); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1272 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 104:
 #line 421 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1271 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = (yystack_[5].value.pXPathNode); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
+#line 1278 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 105:
 #line 423 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
-#line 1277 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1284 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 106:
-#line 426 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create("",(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); }
-#line 1283 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 425 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
+#line 1290 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 107:
-#line 427 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create(*(yystack_[4].value.sval),(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); _SVAL_DELETE((yystack_[4].value.sval)); }
-#line 1289 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 428 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create("",(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); }
+#line 1296 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 108:
 #line 429 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WhileLoopNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
-#line 1295 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create(*(yystack_[4].value.sval),(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); _SVAL_DELETE((yystack_[4].value.sval)); }
+#line 1302 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 109:
-#line 432 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[6].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
-#line 1301 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 431 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WhileLoopNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
+#line 1308 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 110:
-#line 435 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[8].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[6].value.pExprNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
-#line 1307 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 434 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[6].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
+#line 1314 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 111:
 #line 437 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
-#line 1313 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[8].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[6].value.pExprNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
+#line 1320 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 112:
-#line 440 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[4].value.pLogicalExprNode),(yystack_[2].value.pStatementNode),(yystack_[0].value.pStatementNode)); }
-#line 1319 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 439 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
+#line 1326 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 113:
-#line 443 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
-#line 1325 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 442 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[4].value.pLogicalExprNode),(yystack_[2].value.pStatementNode),(yystack_[0].value.pStatementNode)); }
+#line 1332 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 114:
 #line 445 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
-#line 1331 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1338 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 115:
-#line 446 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::DeleteNode>::Create((yystack_[0].value.pXPathAccessNode)); }
-#line 1337 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 447 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
+#line 1344 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 116:
 #line 448 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create(); }
-#line 1343 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::DeleteNode>::Create((yystack_[0].value.pXPathAccessNode)); }
+#line 1350 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 117:
-#line 449 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create((yystack_[0].value.pExprNode)); }
-#line 1349 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 450 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create(); }
+#line 1356 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 118:
-#line 452 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create((yystack_[0].value.pExprNode)); }
-#line 1355 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 451 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1362 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 119:
-#line 455 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create((yystack_[1].value.pStatementsListNode),(yystack_[0].value.pCatchListNode));  }
-#line 1361 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 454 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create((yystack_[0].value.pExprNode)); }
+#line 1368 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 120:
-#line 456 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pCatchListNode) = (yystack_[1].value.pCatchListNode); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode));           }
-#line 1367 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 457 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create((yystack_[1].value.pStatementsListNode),(yystack_[0].value.pCatchListNode));  }
+#line 1374 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 121:
-#line 457 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pCatchListNode) = IAS_DFT_FACTORY<Stmt::CatchListNode>::Create(); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode)); }
-#line 1373 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 458 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pCatchListNode) = (yystack_[1].value.pCatchListNode); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode));           }
+#line 1380 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 122:
-#line 460 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pCatchNode) = IAS_DFT_FACTORY<Stmt::CatchNode>::Create((yystack_[2].value.pDeclarationNode),(yystack_[0].value.pStatementsListNode)); }
-#line 1379 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 459 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pCatchListNode) = IAS_DFT_FACTORY<Stmt::CatchListNode>::Create(); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode)); }
+#line 1386 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 123:
 #line 462 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create(); }
-#line 1385 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pCatchNode) = IAS_DFT_FACTORY<Stmt::CatchNode>::Create((yystack_[2].value.pDeclarationNode),(yystack_[0].value.pStatementsListNode)); }
+#line 1392 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 124:
-#line 463 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprListNode)=(yystack_[1].value.pExprListNode); }
-#line 1391 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 464 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create(); }
+#line 1398 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 125:
 #line 465 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprListNode)=(yystack_[2].value.pExprListNode); (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
-#line 1397 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprListNode)=(yystack_[1].value.pExprListNode); }
+#line 1404 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 126:
-#line 466 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create();  (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
-#line 1403 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 467 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pExprListNode)=(yystack_[2].value.pExprListNode); (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
+#line 1410 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 127:
 #line 468 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStringList) = new StringList; }
-#line 1409 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create();  (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
+#line 1416 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 128:
-#line 469 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStringList)=(yystack_[1].value.pStringList); }
-#line 1415 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 470 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList) = new StringList; }
+#line 1422 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 129:
 #line 471 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStringList)=(yystack_[2].value.pStringList); (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
-#line 1421 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    { (yylhs.value.pStringList)=(yystack_[1].value.pStringList); }
+#line 1428 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 130:
-#line 472 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pStringList) = new StringList;  (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
-#line 1427 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 473 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList)=(yystack_[2].value.pStringList); (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 1434 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 131:
-#line 475 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
-    { (yylhs.value.pQualifiedNameNode)= IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1433 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 474 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pStringList) = new StringList;  (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 1440 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
   case 132:
-#line 476 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+#line 477 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
+    { (yylhs.value.pQualifiedNameNode)= IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
+#line 1446 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+    break;
+
+  case 133:
+#line 478 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:847
     { (yylhs.value.pQualifiedNameNode)=(yystack_[2].value.pQualifiedNameNode); (yylhs.value.pQualifiedNameNode)->addNextSymbol(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
-#line 1439 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1452 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
     break;
 
 
-#line 1443 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
+#line 1456 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:847
             default:
               break;
             }
@@ -1694,264 +1707,266 @@ namespace yy {
   }
 
 
-  const short int  AutoGenParser ::yypact_ninf_ = -160;
+  const short int  AutoGenParser ::yypact_ninf_ = -151;
 
-  const short int  AutoGenParser ::yytable_ninf_ = -132;
+  const short int  AutoGenParser ::yytable_ninf_ = -133;
 
   const short int
    AutoGenParser ::yypact_[] =
   {
-    -160,   172,  -160,   -46,   -46,   -39,  -160,  -160,  -160,  -160,
-    -160,   -18,    -6,   -21,   -14,  -160,    13,    30,     7,  -160,
-      24,  -160,    39,  -160,  -160,   -13,    22,    31,    34,    -9,
-      77,  -160,    78,   280,    79,    54,    88,    56,    63,  -160,
-      82,  -160,   -12,  -160,  -160,   360,    76,    76,   360,   360,
-     118,   399,   360,    61,    96,   109,   117,   360,   -46,   122,
-     128,   130,   438,    -8,  -160,  -160,  -160,  -160,  -160,   105,
-     107,  -160,   101,   113,  -160,   114,  -160,  -160,  -160,  -160,
-    -160,  -160,  -160,  -160,  -160,  -160,    15,   112,   108,   -22,
-     123,    88,  -160,   182,   165,   139,   173,   144,   135,    15,
-      76,    76,   169,   170,   124,    65,    84,  -160,   113,  -160,
-    -160,   174,   183,   189,  -160,   188,  -160,  -160,   192,    19,
-     202,   185,   195,   167,   360,   360,   360,  -160,    15,   360,
-     360,   360,  -160,   360,  -160,  -160,   360,   154,   158,   175,
-     171,   176,  -160,  -160,  -160,    40,  -160,   168,  -160,    -4,
-     161,  -160,   163,   179,   360,  -160,  -160,    23,   197,   360,
-     360,   200,   205,   360,   360,   360,   360,   360,   360,   360,
-     360,   360,   360,   360,    76,    76,   321,   321,   207,   192,
-    -160,   360,   321,  -160,   161,   180,   201,   215,   216,  -160,
-     217,   218,   219,   206,  -160,   193,   114,   209,  -160,  -160,
-      48,   186,  -160,   190,  -160,  -160,   236,   208,   212,     2,
-     213,  -160,   252,  -160,   237,   238,   161,   161,  -160,  -160,
-    -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,
-    -160,  -160,   251,    78,  -160,   257,  -160,   240,   118,  -160,
-    -160,  -160,  -160,  -160,  -160,  -160,   360,  -160,   360,  -160,
-    -160,    -5,  -160,   210,  -160,   220,   222,   360,  -160,  -160,
-     242,   246,   321,   247,   321,  -160,  -160,   234,  -160,   258,
-     229,  -160,  -160,  -160,    29,  -160,  -160,  -160,   118,  -160,
-    -160,   224,   225,   360,   321,  -160,   243,  -160,   278,  -160,
-     228,   321,  -160,  -160
+    -151,   112,  -151,   -37,   -37,   -32,  -151,  -151,  -151,  -151,
+    -151,   -16,     7,   -11,    20,  -151,     4,    11,    -8,  -151,
+      23,  -151,    -7,  -151,  -151,   -13,    27,    12,    44,    -9,
+      87,  -151,    90,   281,   100,    71,    95,    61,    75,  -151,
+      37,  -151,   -12,  -151,  -151,   362,   177,   177,   362,   362,
+     123,   402,   362,    79,   111,   114,   115,   362,   -37,   118,
+     129,   131,   442,    34,  -151,  -151,  -151,  -151,  -151,  -151,
+      97,   108,  -151,   102,   113,  -151,   119,  -151,  -151,  -151,
+    -151,  -151,  -151,  -151,  -151,  -151,  -151,     9,   103,   105,
+     -22,   120,    95,  -151,   170,   154,   124,   156,   132,   121,
+       9,   177,   177,   157,   158,    77,    74,    40,  -151,   113,
+    -151,  -151,   159,   161,   183,  -151,   188,  -151,  -151,   184,
+      63,   195,   182,   192,   166,   362,   362,   362,  -151,     9,
+     362,   362,   362,  -151,   362,  -151,  -151,   362,   160,   162,
+      38,   165,   174,  -151,  -151,  -151,    -6,  -151,   167,  -151,
+       1,   164,  -151,   169,   171,   362,  -151,  -151,   140,   198,
+     362,   362,   200,   201,   362,   362,   362,   362,   362,   362,
+     362,   362,   362,   362,   362,   177,   177,   322,   322,   208,
+     184,  -151,   362,   322,  -151,   164,   175,   216,   217,   218,
+    -151,   219,   220,   221,   193,  -151,   210,   119,   211,  -151,
+    -151,    49,   194,  -151,   202,  -151,  -151,   231,   207,   212,
+       3,   213,  -151,   258,  -151,   238,   239,   164,   164,  -151,
+    -151,  -151,  -151,  -151,  -151,  -151,  -151,  -151,  -151,  -151,
+    -151,  -151,  -151,   255,    90,  -151,   259,  -151,   243,   123,
+    -151,  -151,  -151,  -151,  -151,  -151,  -151,   362,  -151,   362,
+    -151,  -151,    -2,  -151,   214,  -151,   222,   223,   362,  -151,
+    -151,   245,   246,   322,   250,   322,  -151,  -151,   236,  -151,
+     260,   241,  -151,  -151,  -151,    70,  -151,  -151,  -151,   123,
+    -151,  -151,   225,   226,   362,   322,  -151,   244,  -151,   279,
+    -151,   240,   322,  -151,  -151
   };
 
   const unsigned char
    AutoGenParser ::yydefact_[] =
   {
        2,     0,     1,     0,     0,     0,     3,     4,     5,     6,
-     131,     0,     0,     0,     0,     7,     0,     0,     0,   132,
+     132,     0,     0,     0,     0,     7,     0,     0,     0,   133,
        0,    31,     0,    33,    37,     0,     0,     0,     0,     0,
        0,    30,     0,     0,     0,    26,     0,     0,     0,    22,
-       0,    10,     0,    32,    34,     0,     0,     0,   116,     0,
+       0,    10,     0,    32,    34,     0,     0,     0,   117,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,   104,    68,    67,    69,    70,    42,     0,
-       0,    43,     0,     0,    55,   100,    46,    45,    44,    47,
-      48,    49,    50,    51,    52,    53,     0,     0,     0,     0,
-       0,     0,    23,    17,     0,     0,     0,    38,     0,     0,
-       0,     0,     0,     0,     0,    56,    59,    63,    64,    90,
-      95,    97,    99,     0,    65,     0,   117,   118,     0,   104,
-       0,     0,    63,     0,     0,     0,     0,   115,     0,     0,
-       0,     0,    77,     0,    36,    35,     0,     0,     0,     0,
-     113,    28,    27,   127,   130,     0,    24,     0,    15,     0,
-       0,     8,     0,     0,     0,    74,    92,     0,     0,     0,
+       0,     0,     0,   105,    69,    67,    68,    70,    71,    42,
+       0,     0,    43,     0,     0,    55,   101,    46,    45,    44,
+      47,    48,    49,    50,    51,    52,    53,     0,     0,     0,
+       0,     0,     0,    23,    17,     0,     0,     0,    38,     0,
+       0,     0,     0,     0,     0,     0,    56,    59,    63,    64,
+      91,    96,    98,   100,     0,    65,     0,   118,   119,     0,
+     105,     0,     0,    63,     0,     0,     0,     0,   116,     0,
+       0,     0,     0,    78,     0,    36,    35,     0,     0,     0,
+       0,   114,    28,    27,   128,   131,     0,    24,     0,    15,
+       0,     0,     8,     0,     0,     0,    75,    93,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,   119,
-     121,     0,     0,    66,     0,     0,     0,     0,     0,   114,
-       0,     0,     0,     0,    54,   104,   101,   102,   123,   126,
-       0,     0,   128,     0,    25,    14,     0,     0,    12,     0,
-      40,    39,     0,    91,     0,     0,     0,     0,    82,    86,
-      84,    87,    85,    83,    57,    58,    60,    61,    62,    96,
-      98,   108,   111,     0,   120,     0,   106,     0,    71,    78,
-      75,    76,    79,    80,    81,   105,     0,   124,     0,    29,
-     129,     0,    16,     0,    11,     0,     0,     0,    93,    94,
-       0,     0,     0,     0,     0,    73,    72,     0,   125,     0,
-      18,    13,     9,    41,     0,    88,    89,   112,     0,   107,
-     103,     0,     0,     0,     0,   122,    20,    19,     0,   109,
-       0,     0,    21,   110
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+     120,   122,     0,     0,    66,     0,     0,     0,     0,     0,
+     115,     0,     0,     0,     0,    54,   105,   102,   103,   124,
+     127,     0,     0,   129,     0,    25,    14,     0,     0,    12,
+       0,    40,    39,     0,    92,     0,     0,     0,     0,    83,
+      87,    85,    88,    86,    84,    57,    58,    60,    61,    62,
+      97,    99,   109,   112,     0,   121,     0,   107,     0,    72,
+      79,    76,    77,    80,    81,    82,   106,     0,   125,     0,
+      29,   130,     0,    16,     0,    11,     0,     0,     0,    94,
+      95,     0,     0,     0,     0,     0,    74,    73,     0,   126,
+       0,    18,    13,     9,    41,     0,    89,    90,   113,     0,
+     108,   104,     0,     0,     0,     0,   123,    20,    19,     0,
+     110,     0,     0,    21,   111
   };
 
   const short int
    AutoGenParser ::yypgoto_[] =
   {
-    -160,  -160,  -160,  -160,  -160,  -152,    93,  -160,  -160,  -160,
-    -160,  -160,  -160,   -15,  -160,   -27,  -159,  -160,  -160,    28,
-     -91,   -33,   -42,   -29,  -160,   204,   131,   132,   -38,   -26,
-     160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,  -160,
-    -160,  -160,   127,   -70,  -160,   231,  -160,    -3
+    -151,  -151,  -151,  -151,  -151,  -149,    88,  -151,  -151,  -151,
+    -151,  -151,  -151,   -15,  -151,   -27,  -121,  -151,  -151,    28,
+    -150,   -59,   -42,   -29,  -151,   204,   128,   130,   -44,   -26,
+     172,  -151,  -151,  -151,  -151,  -151,  -151,  -151,  -151,  -151,
+    -151,  -151,   134,   -77,  -151,   232,  -151,    -3
   };
 
   const short int
    AutoGenParser ::yydefgoto_[] =
   {
-      -1,     1,     6,     7,     8,   209,    95,   149,   207,     9,
-      27,    17,    22,    68,    33,    23,    70,    71,    72,   104,
-     105,   106,   107,   108,   109,   110,   111,   112,   113,   114,
-      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
-      85,   179,   180,   140,   200,    90,   145,    99
+      -1,     1,     6,     7,     8,   210,    96,   150,   208,     9,
+      27,    17,    22,    69,    33,    23,    71,    72,    73,   105,
+     106,   107,   108,   109,   110,   111,   112,   113,   114,   115,
+      76,    77,    78,    79,    80,    81,    82,    83,    84,    85,
+      86,   180,   181,   141,   201,    91,   146,   100
   };
 
   const short int
    AutoGenParser ::yytable_[] =
   {
-      11,    12,    28,   205,    73,    43,    69,    74,    93,   115,
-     122,   143,    38,    34,    96,    40,    73,   231,   232,    98,
-      10,   269,    73,   236,  -131,   120,    16,    13,    73,   155,
-      86,   127,   237,   132,    18,   118,    24,    24,    14,   133,
-      15,    20,   283,   181,   284,   144,    21,   139,  -131,    41,
-      14,  -131,    19,    35,    97,   128,   183,    25,   189,   122,
-     254,   270,   206,   158,   260,   261,   133,   161,   162,    26,
-      37,    14,    31,   202,    29,  -131,   116,   117,   224,   225,
-     121,   247,   163,   164,   165,   166,   167,   168,    93,    36,
-      30,    94,    39,    32,   203,    73,    73,    73,   186,   187,
-     188,    42,   248,   277,    87,   279,    20,   100,   101,    88,
-      53,    54,    55,    56,   169,   170,    59,    60,   102,   103,
-      89,    92,    61,    91,    24,   289,    62,   123,   124,   157,
-      73,    73,   293,   214,   215,   171,   172,   173,   226,   227,
-     228,   125,    63,    64,    65,    66,    67,    73,    73,   126,
-      74,    74,    73,    73,   129,   235,    74,   190,   191,   192,
-     130,   193,   131,   134,   194,   135,   136,   199,   161,   162,
-     137,   138,     2,    86,    86,   142,     3,     4,   141,    86,
-       5,   146,   212,   163,   164,   165,   166,   167,   168,   148,
-     150,   218,   219,   220,   221,   222,   223,   151,   152,   153,
-     154,   159,   160,   174,   176,   177,   263,    52,   198,    53,
-      54,    55,    56,   175,   178,    59,    60,   182,   183,   184,
-     195,    61,   185,   266,   197,    62,   204,   208,   -74,   210,
-     213,   201,   216,    73,   239,    73,    74,   217,    74,   233,
-     133,    63,    64,    65,    66,    67,   211,   238,   240,   241,
-     242,   243,   244,   249,   245,    73,   246,   250,    74,    86,
-     251,    86,    73,   285,   257,    74,   252,   253,   256,   262,
-     258,   259,   264,   265,   267,   275,   268,   271,   272,   276,
-     278,    86,   280,   281,   282,   274,    24,    44,    86,   273,
-     286,    45,   287,   291,    46,   292,    47,   196,   290,    48,
-      49,    50,   255,    51,   156,   229,   234,   230,    20,     0,
-       0,   288,    52,     0,    53,    54,    55,    56,    57,    58,
-      59,    60,   147,     0,     0,     0,    61,    24,     0,     0,
-      62,     0,    45,     0,     0,    46,     0,    47,     0,     0,
-      48,    49,    50,     0,    51,     0,    63,    64,    65,    66,
-      67,     0,     0,    52,     0,    53,    54,    55,    56,    57,
-      58,    59,    60,     0,     0,     0,     0,    61,     0,     0,
-       0,    62,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    63,    64,    65,
-      66,    67,    52,     0,    53,    54,    55,    56,     0,     0,
-      59,    60,     0,     0,     0,     0,    61,     0,     0,     0,
-      62,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    63,    64,    65,    66,
-      67,    52,     0,    53,    54,    55,    56,     0,     0,    59,
-      60,     0,     0,     0,     0,    61,     0,     0,     0,    62,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   119,    64,    65,    66,    67,
-      52,     0,    53,    54,    55,    56,     0,     0,    59,    60,
-       0,     0,     0,     0,    61,     0,     0,     0,    62,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    10,    64,    65,    66,    67
+      11,    12,    28,   116,    74,    43,    70,    75,   206,    94,
+     123,   144,    38,    34,    97,    40,    74,    24,    24,    99,
+     225,   226,    74,   156,   270,   121,    31,   203,    74,    10,
+      87,   128,    20,   133,    13,   119,   238,    21,    25,    16,
+      14,   140,    15,    94,    18,   145,    95,    32,   204,    41,
+      26,    37,   190,    35,    98,   129,   232,   233,   159,    29,
+     123,   255,   237,    14,   271,    14,  -132,   207,   261,   262,
+      52,   199,    53,    54,    55,    56,   117,   118,    59,    60,
+     122,   134,   248,   284,    61,   285,    19,   182,    62,    30,
+    -132,   172,   173,   174,    36,  -132,    74,    74,    74,   187,
+     188,   189,    39,   249,    63,    64,    65,    66,    67,    68,
+     134,    42,     2,   227,   228,   229,     3,     4,    20,  -132,
+       5,   162,   163,   170,   171,    88,    89,    90,    92,    24,
+     158,    74,    74,    93,   215,   216,   164,   165,   166,   167,
+     168,   169,   278,   125,   280,   124,   126,   127,    74,    74,
+     130,    75,    75,    74,    74,   135,   236,    75,   191,   192,
+     193,   131,   194,   132,   290,   195,   136,   137,   200,   142,
+     138,   294,   143,   184,    87,    87,   139,   149,   147,   151,
+      87,   153,   152,   213,   162,   163,   155,   154,   175,   160,
+     161,   176,   219,   220,   221,   222,   223,   224,   177,   164,
+     165,   166,   167,   168,   169,   178,   179,   264,   101,   102,
+     183,    53,    54,    55,    56,   184,   185,    59,    60,   103,
+     104,   186,   -75,    61,   267,   205,   196,    62,   198,   202,
+     209,   214,   217,   218,    74,   211,    74,    75,   212,    75,
+     234,   246,   239,    63,    64,    65,    66,    67,    68,   240,
+     241,   242,   243,   244,   245,   252,    74,   134,   247,    75,
+      87,   250,    87,    74,   286,   253,    75,   254,   257,   251,
+     258,   259,   260,   263,   265,   268,   266,   269,   276,   277,
+     273,   272,    87,   279,   281,   282,   275,    24,    44,    87,
+     274,   287,    45,   288,   292,    46,   283,    47,   256,   291,
+      48,    49,    50,   230,    51,   157,   231,   293,     0,    20,
+     197,     0,   289,    52,   235,    53,    54,    55,    56,    57,
+      58,    59,    60,     0,   148,     0,     0,    61,    24,     0,
+       0,    62,     0,    45,     0,     0,    46,     0,    47,     0,
+       0,    48,    49,    50,     0,    51,     0,    63,    64,    65,
+      66,    67,    68,     0,    52,     0,    53,    54,    55,    56,
+      57,    58,    59,    60,     0,     0,     0,     0,    61,     0,
+       0,     0,    62,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    63,    64,
+      65,    66,    67,    68,    52,     0,    53,    54,    55,    56,
+       0,     0,    59,    60,     0,     0,     0,     0,    61,     0,
+       0,     0,    62,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    63,    64,
+      65,    66,    67,    68,    52,     0,    53,    54,    55,    56,
+       0,     0,    59,    60,     0,     0,     0,     0,    61,     0,
+       0,     0,    62,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,   120,    64,
+      65,    66,    67,    68,    52,     0,    53,    54,    55,    56,
+       0,     0,    59,    60,     0,     0,     0,     0,    61,     0,
+       0,     0,    62,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    10,    64,
+      65,    66,    67,    68
   };
 
   const short int
    AutoGenParser ::yycheck_[] =
   {
-       3,     4,    17,     7,    33,    32,    33,    33,     6,    47,
-      52,    33,    27,    26,    26,    24,    45,   176,   177,    45,
-      66,    26,    51,   182,    32,    51,    32,    66,    57,    99,
-      33,    57,   184,    62,    55,    50,     6,     6,    56,    47,
-      58,    28,    13,    24,    15,    67,    33,    32,    56,    58,
-      56,    32,    66,    66,    66,    58,    33,    27,   128,   101,
-      58,    66,    66,   101,   216,   217,    47,    44,    45,    39,
-      39,    56,    33,    33,    67,    56,    48,    49,   169,   170,
-      52,    33,    59,    60,    61,    62,    63,    64,     6,    67,
-      66,     9,    58,    54,    54,   124,   125,   126,   124,   125,
-     126,    24,    54,   262,    25,   264,    28,    31,    32,    55,
-      34,    35,    36,    37,    49,    50,    40,    41,    42,    43,
-      32,    58,    46,    67,     6,   284,    50,    66,    32,   101,
-     159,   160,   291,   159,   160,    51,    52,    53,   171,   172,
-     173,    32,    66,    67,    68,    69,    70,   176,   177,    32,
-     176,   177,   181,   182,    32,   181,   182,   129,   130,   131,
-      32,   133,    32,    58,   136,    58,    65,   139,    44,    45,
-      57,    57,     0,   176,   177,    67,     4,     5,    66,   182,
-       8,    58,   154,    59,    60,    61,    62,    63,    64,     7,
-      25,   163,   164,   165,   166,   167,   168,    58,    25,    55,
-      65,    32,    32,    29,    15,    17,   233,    32,    33,    34,
-      35,    36,    37,    30,    22,    40,    41,    15,    33,    24,
-      66,    46,    55,   238,    66,    50,    58,    66,    57,    66,
-      33,    55,    32,   262,    33,   264,   262,    32,   264,    32,
-      47,    66,    67,    68,    69,    70,    67,    67,    33,    33,
-      33,    33,    33,    67,    48,   284,    47,    67,   284,   262,
-      24,   264,   291,   278,    12,   291,    58,    55,    55,    18,
-      33,    33,    15,    33,   246,    33,   248,    67,    58,    33,
-      33,   284,    48,    25,    55,   257,     6,     7,   291,    67,
-      66,    11,    67,    15,    14,    67,    16,   137,    55,    19,
-      20,    21,   209,    23,   100,   174,   179,   175,    28,    -1,
-      -1,   283,    32,    -1,    34,    35,    36,    37,    38,    39,
-      40,    41,    91,    -1,    -1,    -1,    46,     6,    -1,    -1,
-      50,    -1,    11,    -1,    -1,    14,    -1,    16,    -1,    -1,
-      19,    20,    21,    -1,    23,    -1,    66,    67,    68,    69,
-      70,    -1,    -1,    32,    -1,    34,    35,    36,    37,    38,
-      39,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,    -1,
-      -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,
-      69,    70,    32,    -1,    34,    35,    36,    37,    -1,    -1,
-      40,    41,    -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,
-      50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    66,    67,    68,    69,
-      70,    32,    -1,    34,    35,    36,    37,    -1,    -1,    40,
-      41,    -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,    50,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    66,    67,    68,    69,    70,
-      32,    -1,    34,    35,    36,    37,    -1,    -1,    40,    41,
-      -1,    -1,    -1,    -1,    46,    -1,    -1,    -1,    50,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    66,    67,    68,    69,    70
+       3,     4,    17,    47,    33,    32,    33,    33,     7,     6,
+      52,    33,    27,    26,    26,    24,    45,     6,     6,    45,
+     170,   171,    51,   100,    26,    51,    33,    33,    57,    66,
+      33,    57,    28,    62,    66,    50,   185,    33,    27,    32,
+      56,    32,    58,     6,    55,    67,     9,    54,    54,    58,
+      39,    39,   129,    66,    66,    58,   177,   178,   102,    67,
+     102,    58,   183,    56,    66,    56,    32,    66,   217,   218,
+      32,    33,    34,    35,    36,    37,    48,    49,    40,    41,
+      52,    47,    33,    13,    46,    15,    66,    24,    50,    66,
+      56,    51,    52,    53,    67,    32,   125,   126,   127,   125,
+     126,   127,    58,    54,    66,    67,    68,    69,    70,    71,
+      47,    24,     0,   172,   173,   174,     4,     5,    28,    56,
+       8,    44,    45,    49,    50,    25,    55,    32,    67,     6,
+     102,   160,   161,    58,   160,   161,    59,    60,    61,    62,
+      63,    64,   263,    32,   265,    66,    32,    32,   177,   178,
+      32,   177,   178,   182,   183,    58,   182,   183,   130,   131,
+     132,    32,   134,    32,   285,   137,    58,    65,   140,    66,
+      57,   292,    67,    33,   177,   178,    57,     7,    58,    25,
+     183,    25,    58,   155,    44,    45,    65,    55,    29,    32,
+      32,    30,   164,   165,   166,   167,   168,   169,    15,    59,
+      60,    61,    62,    63,    64,    17,    22,   234,    31,    32,
+      15,    34,    35,    36,    37,    33,    24,    40,    41,    42,
+      43,    55,    57,    46,   239,    58,    66,    50,    66,    55,
+      66,    33,    32,    32,   263,    66,   265,   263,    67,   265,
+      32,    48,    67,    66,    67,    68,    69,    70,    71,    33,
+      33,    33,    33,    33,    33,    24,   285,    47,    47,   285,
+     263,    67,   265,   292,   279,    58,   292,    55,    55,    67,
+      12,    33,    33,    18,    15,   247,    33,   249,    33,    33,
+      58,    67,   285,    33,    48,    25,   258,     6,     7,   292,
+      67,    66,    11,    67,    15,    14,    55,    16,   210,    55,
+      19,    20,    21,   175,    23,   101,   176,    67,    -1,    28,
+     138,    -1,   284,    32,   180,    34,    35,    36,    37,    38,
+      39,    40,    41,    -1,    92,    -1,    -1,    46,     6,    -1,
+      -1,    50,    -1,    11,    -1,    -1,    14,    -1,    16,    -1,
+      -1,    19,    20,    21,    -1,    23,    -1,    66,    67,    68,
+      69,    70,    71,    -1,    32,    -1,    34,    35,    36,    37,
+      38,    39,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,
+      -1,    -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    69,    70,    71,    32,    -1,    34,    35,    36,    37,
+      -1,    -1,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,
+      -1,    -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    69,    70,    71,    32,    -1,    34,    35,    36,    37,
+      -1,    -1,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,
+      -1,    -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    69,    70,    71,    32,    -1,    34,    35,    36,    37,
+      -1,    -1,    40,    41,    -1,    -1,    -1,    -1,    46,    -1,
+      -1,    -1,    50,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    66,    67,
+      68,    69,    70,    71
   };
 
   const unsigned char
    AutoGenParser ::yystos_[] =
   {
-       0,    72,     0,     4,     5,     8,    73,    74,    75,    80,
-      66,   118,   118,    66,    56,    58,    32,    82,    55,    66,
-      28,    33,    83,    86,     6,    27,    39,    81,    84,    67,
-      66,    33,    54,    85,    26,    66,    67,    39,    84,    58,
-      24,    58,    24,    86,     7,    11,    14,    16,    19,    20,
+       0,    73,     0,     4,     5,     8,    74,    75,    76,    81,
+      66,   119,   119,    66,    56,    58,    32,    83,    55,    66,
+      28,    33,    84,    87,     6,    27,    39,    82,    85,    67,
+      66,    33,    54,    86,    26,    66,    67,    39,    85,    58,
+      24,    58,    24,    87,     7,    11,    14,    16,    19,    20,
       21,    23,    32,    34,    35,    36,    37,    38,    39,    40,
-      41,    46,    50,    66,    67,    68,    69,    70,    84,    86,
-      87,    88,    89,    94,   100,   101,   102,   103,   104,   105,
-     106,   107,   108,   109,   110,   111,   118,    25,    55,    32,
-     116,    67,    58,     6,     9,    77,    26,    66,   100,   118,
-      31,    32,    42,    43,    90,    91,    92,    93,    94,    95,
-      96,    97,    98,    99,   100,    99,    90,    90,    84,    66,
-     100,    90,    93,    66,    32,    32,    32,   100,   118,    32,
-      32,    32,    94,    47,    58,    58,    65,    57,    57,    32,
-     114,    66,    67,    33,    67,   117,    58,   116,     7,    78,
-      25,    58,    25,    55,    65,   114,    96,    90,    99,    32,
-      32,    44,    45,    59,    60,    61,    62,    63,    64,    49,
-      50,    51,    52,    53,    29,    30,    15,    17,    22,   112,
-     113,    24,    15,    33,    24,    55,   100,   100,   100,   114,
-      90,    90,    90,    90,    90,    66,   101,    66,    33,    90,
-     115,    55,    33,    54,    58,     7,    66,    79,    66,    76,
-      66,    67,    90,    33,   100,   100,    32,    32,    90,    90,
-      90,    90,    90,    90,    91,    91,    92,    92,    92,    97,
-      98,    87,    87,    32,   113,   100,    87,    76,    67,    33,
-      33,    33,    33,    33,    33,    48,    47,    33,    54,    67,
-      67,    24,    58,    55,    58,    77,    55,    12,    33,    33,
-      76,    76,    18,    86,    15,    33,    84,    90,    90,    26,
-      66,    67,    58,    67,    90,    33,    33,    87,    33,    87,
-      48,    25,    55,    13,    15,    84,    66,    67,    90,    87,
-      55,    15,    67,    87
+      41,    46,    50,    66,    67,    68,    69,    70,    71,    85,
+      87,    88,    89,    90,    95,   101,   102,   103,   104,   105,
+     106,   107,   108,   109,   110,   111,   112,   119,    25,    55,
+      32,   117,    67,    58,     6,     9,    78,    26,    66,   101,
+     119,    31,    32,    42,    43,    91,    92,    93,    94,    95,
+      96,    97,    98,    99,   100,   101,   100,    91,    91,    85,
+      66,   101,    91,    94,    66,    32,    32,    32,   101,   119,
+      32,    32,    32,    95,    47,    58,    58,    65,    57,    57,
+      32,   115,    66,    67,    33,    67,   118,    58,   117,     7,
+      79,    25,    58,    25,    55,    65,   115,    97,    91,   100,
+      32,    32,    44,    45,    59,    60,    61,    62,    63,    64,
+      49,    50,    51,    52,    53,    29,    30,    15,    17,    22,
+     113,   114,    24,    15,    33,    24,    55,   101,   101,   101,
+     115,    91,    91,    91,    91,    91,    66,   102,    66,    33,
+      91,   116,    55,    33,    54,    58,     7,    66,    80,    66,
+      77,    66,    67,    91,    33,   101,   101,    32,    32,    91,
+      91,    91,    91,    91,    91,    92,    92,    93,    93,    93,
+      98,    99,    88,    88,    32,   114,   101,    88,    77,    67,
+      33,    33,    33,    33,    33,    33,    48,    47,    33,    54,
+      67,    67,    24,    58,    55,    58,    78,    55,    12,    33,
+      33,    77,    77,    18,    87,    15,    33,    85,    91,    91,
+      26,    66,    67,    58,    67,    91,    33,    33,    88,    33,
+      88,    48,    25,    55,    13,    15,    85,    66,    67,    91,
+      88,    55,    15,    67,    88
   };
 
   const unsigned char
    AutoGenParser ::yyr1_[] =
   {
-       0,    71,    72,    72,    73,    73,    73,    74,    75,    75,
-      75,    75,    76,    76,    77,    77,    78,    78,    79,    79,
-      79,    79,    80,    80,    80,    80,    81,    81,    81,    81,
-      82,    82,    83,    83,    84,    85,    85,    85,    86,    86,
-      86,    86,    87,    87,    87,    87,    87,    87,    87,    87,
-      87,    87,    87,    87,    88,    89,    90,    91,    91,    91,
-      92,    92,    92,    92,    93,    93,    94,    94,    94,    94,
-      94,    94,    94,    94,    94,    94,    94,    94,    94,    94,
-      94,    94,    95,    95,    95,    95,    95,    95,    95,    95,
-      96,    96,    96,    96,    96,    97,    97,    98,    98,    99,
-     100,   100,   101,   101,   101,   101,   102,   102,   103,   104,
-     104,   105,   105,   106,   107,   108,   109,   109,   110,   111,
-     112,   112,   113,   114,   114,   115,   115,   116,   116,   117,
-     117,   118,   118
+       0,    72,    73,    73,    74,    74,    74,    75,    76,    76,
+      76,    76,    77,    77,    78,    78,    79,    79,    80,    80,
+      80,    80,    81,    81,    81,    81,    82,    82,    82,    82,
+      83,    83,    84,    84,    85,    86,    86,    86,    87,    87,
+      87,    87,    88,    88,    88,    88,    88,    88,    88,    88,
+      88,    88,    88,    88,    89,    90,    91,    92,    92,    92,
+      93,    93,    93,    93,    94,    94,    95,    95,    95,    95,
+      95,    95,    95,    95,    95,    95,    95,    95,    95,    95,
+      95,    95,    95,    96,    96,    96,    96,    96,    96,    96,
+      96,    97,    97,    97,    97,    97,    98,    98,    99,    99,
+     100,   101,   101,   102,   102,   102,   102,   103,   103,   104,
+     105,   105,   106,   106,   107,   108,   109,   110,   110,   111,
+     112,   113,   113,   114,   115,   115,   116,   116,   117,   117,
+     118,   118,   119,   119
   };
 
   const unsigned char
@@ -1964,13 +1979,13 @@ namespace yy {
        6,     8,     1,     1,     1,     1,     1,     1,     1,     1,
        1,     1,     1,     1,     3,     1,     1,     3,     3,     1,
        3,     3,     3,     1,     1,     1,     3,     1,     1,     1,
-       1,     4,     5,     5,     2,     4,     4,     2,     4,     4,
-       4,     4,     3,     3,     3,     3,     3,     3,     5,     5,
-       1,     3,     2,     4,     4,     1,     3,     1,     3,     1,
-       1,     3,     3,     6,     1,     4,     4,     6,     4,     8,
-      10,     4,     6,     2,     3,     2,     1,     2,     2,     3,
-       2,     1,     5,     2,     3,     3,     1,     2,     3,     3,
-       1,     1,     3
+       1,     1,     4,     5,     5,     2,     4,     4,     2,     4,
+       4,     4,     4,     3,     3,     3,     3,     3,     3,     5,
+       5,     1,     3,     2,     4,     4,     1,     3,     1,     3,
+       1,     1,     3,     3,     6,     1,     4,     4,     6,     4,
+       8,    10,     4,     6,     2,     3,     2,     1,     2,     2,
+       3,     2,     1,     5,     2,     3,     3,     1,     2,     3,
+       3,     1,     1,     3
   };
 
 
@@ -1991,9 +2006,9 @@ namespace yy {
   "\"ISINSTANCE\"", "\"STRLEN\"", "\"[\"", "\"]\"", "\"+\"", "\"-\"",
   "\"*\"", "\"/\"", "\"%\"", "\",\"", "\":\"", "\"::\"", "\".\"", "\";\"",
   "\"==\"", "\"<\"", "\"<=\"", "\">\"", "\">=\"", "\"<>\"",
-  "\"= (assignment)\"", "T_SYMBOL", "T_STRING", "T_INTEGER", "T_BOOLEAN",
-  "T_NULL", "$accept", "globals", "global", "import", "typeDefinition",
-  "baseType", "typeDefinitionPropertiesEnclosed",
+  "\"= (assignment)\"", "T_SYMBOL", "T_STRING", "T_INTEGER", "T_FLOAT",
+  "T_BOOLEAN", "T_NULL", "$accept", "globals", "global", "import",
+  "typeDefinition", "baseType", "typeDefinitionPropertiesEnclosed",
   "typeDefinitionProperties", "property", "program", "programResult",
   "parametersListPar", "parametersList", "statementsListBeginEnd",
   "statementsList", "declaration", "statement", "assignment", "lvalue",
@@ -2009,20 +2024,20 @@ namespace yy {
   const unsigned short int
    AutoGenParser ::yyrline_[] =
   {
-       0,   222,   222,   222,   224,   225,   226,   231,   236,   241,
-     247,   252,   259,   262,   265,   266,   268,   269,   271,   272,
-     274,   277,   282,   285,   288,   291,   294,   295,   296,   297,
-     299,   300,   302,   303,   305,   307,   312,   313,   315,   316,
-     317,   319,   323,   324,   325,   326,   327,   328,   329,   330,
-     331,   332,   333,   334,   336,   338,   345,   346,   347,   349,
-     350,   351,   352,   354,   356,   357,   359,   360,   361,   362,
-     363,   365,   366,   369,   372,   373,   374,   375,   376,   377,
-     378,   379,   381,   383,   384,   385,   386,   387,   389,   392,
-     395,   396,   397,   398,   399,   401,   402,   404,   405,   407,
-     410,   413,   417,   418,   421,   422,   426,   427,   429,   431,
-     434,   437,   439,   443,   445,   446,   448,   449,   452,   455,
-     456,   457,   459,   462,   463,   465,   466,   468,   469,   471,
-     472,   475,   476
+       0,   223,   223,   223,   225,   226,   227,   232,   237,   242,
+     248,   253,   260,   263,   266,   267,   269,   270,   272,   273,
+     275,   278,   283,   286,   289,   292,   295,   296,   297,   298,
+     300,   301,   303,   304,   306,   308,   313,   314,   316,   317,
+     318,   320,   324,   325,   326,   327,   328,   329,   330,   331,
+     332,   333,   334,   335,   337,   339,   346,   347,   348,   350,
+     351,   352,   353,   355,   357,   358,   360,   361,   362,   363,
+     364,   365,   367,   368,   371,   374,   375,   376,   377,   378,
+     379,   380,   381,   383,   385,   386,   387,   388,   389,   391,
+     394,   397,   398,   399,   400,   401,   403,   404,   406,   407,
+     409,   412,   415,   419,   420,   423,   424,   428,   429,   431,
+     433,   436,   439,   441,   445,   447,   448,   450,   451,   454,
+     457,   458,   459,   461,   464,   465,   467,   468,   470,   471,
+     473,   474,   477,   478
   };
 
   // Print the state stack on the debug stream.
@@ -2095,9 +2110,9 @@ namespace yy {
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
       45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
       55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    70
+      65,    66,    67,    68,    69,    70,    71
     };
-    const unsigned int user_token_number_max_ = 325;
+    const unsigned int user_token_number_max_ = 326;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -2110,8 +2125,8 @@ namespace yy {
 
 
 } // yy
-#line 2114 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:1155
-#line 478 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:1156
+#line 2129 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:1155
+#line 480 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:1156
 
 
 

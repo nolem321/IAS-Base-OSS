@@ -163,7 +163,7 @@ void XMLParser::parse_xml_element(DataObject* pParent){
 
 			}else if(ptrLibXMLLexer->checkType(XML_READER_TYPE_END_ELEMENT)){
 					IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),strName<<" : createEmpty");
-					ptrCurrent = pType->createDataObject("");
+					ptrCurrent = pType->createDataObject();
 			}else{
 				IAS_THROW(InternalException("Unhandled case in parse_xml_element()."));
 			}
@@ -206,7 +206,7 @@ void XMLParser::parse_xml_element(DataObject* pParent){
 
 			const char* sValue = ptrLibXMLLexer->getValue();
 
-			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo()||true,strName<<" : createFrom: ["<<sValue<<"]");
+			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),strName<<" : createFrom: ["<<sValue<<"]"<<pType->getFullName());
 			ptrCurrent->setString(XMLHelper::XMLPayloadElement,sValue);
 			ptrLibXMLLexer->nextElement();
 		}

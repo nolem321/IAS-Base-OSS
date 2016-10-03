@@ -20,6 +20,9 @@
 
 #include <lang/interpreter/extern/Statement.h>
 #include <lang/interpreter/exe/Context.h>
+#include <set>
+
+#include <org/invenireaude/qsystem/typeinfo/TypeBase.h>
 
 namespace IAS {
 namespace QS {
@@ -35,14 +38,41 @@ public:
 	virtual ~GetTypeInfo() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	GetTypeInfo(const StringList& lstParamaters);
+	GetTypeInfo(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
+	class Cache {
+
+	public:
+		Cache();
+		void init(const DM::DataFactory* pDataFactory);
+
+		typedef std::set<const DM::Type*> TypesSet;
+		typedef std::map<const DM::Type*, TypesSet> TypesToSetMap;
+
+		TypesToSetMap hmDirectExtensions;
+		TypesToSetMap hmAllExtensions;
+		TypesToSetMap hmReferences;
+
+		void getDirectExtensions(org::invenireaude::qsystem::typeinfo::TypeBase* pResult, const DM::Type* pType);
+		void getAllExtensions(org::invenireaude::qsystem::typeinfo::TypeBase* pResult, const DM::Type* pType);
+		void getReferences(org::invenireaude::qsystem::typeinfo::TypeBase* pResult, const DM::Type* pType);
+
+	protected:
+		void buildExtensions(const DM::DataFactory* pDataFactory);
+		void buildReferences(const DM::DataFactory* pDataFactory);
+
+
+		Mutex mutex;
+		bool bInitialized;
+	};
+
+	static Cache TheCache;
 	friend class ::IAS::Factory<GetTypeInfo>;
 };
 

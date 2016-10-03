@@ -54,7 +54,7 @@ protected:
 	::IAS::DM::DataObjectPtr ptrInputDataObject;
 	::IAS::DM::DataObjectPtr ptrOutputDataObject;
 
-	Interpreter::Exe::Program *pProgram;
+	const Interpreter::Exe::Program *pProgram;
 
 	IAS_DFT_FACTORY<Interpreter::ProgramLoader>::PtrHolder ptrLoader;
 

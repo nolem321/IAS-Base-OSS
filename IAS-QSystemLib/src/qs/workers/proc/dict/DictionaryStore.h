@@ -22,6 +22,10 @@
 
 #include "Dictionary.h"
 
+#include <org/invenireaude/qsystem/workers/dict/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/dict/Dictionary.h>
+#include <org/invenireaude/qsystem/workers/dict/Item.h>
+
 namespace IAS {
 namespace QS {
 namespace Workers {
@@ -38,13 +42,16 @@ public:
 	virtual ~DictionaryStore() throw();
 
 
-	Dictionary* lookup(const String& strDictionary);
+	Dictionary* lookup(const String& strDictionary, unsigned int iTimeoutMS = 0);
+
+	void create(const org::invenireaude::qsystem::workers::dict::Dictionary* dmDictionary);
 
 protected:
 
 	DictionaryStore();
 
-	Mutex mutex;
+	Mutex       mutex;
+	Condition   cndWaitForDictionary;
 
 	typedef HashMapStringToPointer<Dictionary> DictionariesMap;
 

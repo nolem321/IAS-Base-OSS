@@ -24,5 +24,6 @@
 #include "Context.h"
 #include "SecureLayer.h"
 #include "SSLException.h"
+#include "Tools.h"
 
 #endif /* _IAS_Net_SSL_ssl_H_ */

@@ -23,6 +23,7 @@
 
 namespace IAS {
 
+
 /*************************************************************************/
 bool EnvTools::GetEnv(const String& strName, String& strValue){
 	IAS_TRACER;
@@ -54,6 +55,48 @@ void EnvTools::GetEnvTokenized(const String& strName,
 	String strValue;
 	if(GetEnv(strName,strValue))
 		TypeTools::Tokenize(strValue, lstValues, cDelimiter);
+}
+/*************************************************************************/
+String EnvTools::Substitute(const String& strPattern, bool bFailIfMissing){
+	IAS_TRACER;
+
+	StringStream ssResult;
+
+	for(String::const_iterator it=strPattern.begin(); it != strPattern.end(); it++){
+
+		if(*it == '$'){
+
+			if(++it != strPattern.end() && *it == '{'){
+
+				String strEnv;
+
+				while(++it != strPattern.end() && *it != '}')
+					strEnv+=(*it);
+
+				if(*it != '}')
+					IAS_THROW(BadUsageException("Missing '}' in environment pattern."))
+
+				String strValue;
+
+				if(GetEnv(strEnv,strValue)){
+					ssResult<<strValue;
+				}else{
+
+					if(bFailIfMissing)
+						IAS_THROW(ItemNotFoundException(strEnv));
+
+					ssResult<<"${"<<strEnv<<"}";
+				}
+
+			}
+		}else{
+			ssResult<<*it;
+		}
+
+
+	}
+
+	return ssResult.str();
 }
 /*************************************************************************/
 }

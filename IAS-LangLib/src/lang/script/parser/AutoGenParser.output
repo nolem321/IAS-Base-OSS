@@ -4,8 +4,8 @@ Terminals unused in grammar
    "CALL"
 
 
-State 93 conflicts: 1 shift/reduce
-State 232 conflicts: 1 shift/reduce
+State 94 conflicts: 1 shift/reduce
+State 233 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -100,95 +100,96 @@ Grammar
 
    65 exprPrimary: "(" expr ")"
    66            | T_INTEGER
-   67            | T_STRING
-   68            | T_BOOLEAN
-   69            | T_NULL
-   70            | "NEW" T_SYMBOL ":" T_STRING
-   71            | "NEW" T_SYMBOL ":" T_STRING statementsListBeginEnd
-   72            | "(" exprPrimaryOrXPath "AS" baseType ")"
-   73            | qname exprListPar
-   74            | "COPYOF" "(" xpathAccess ")"
-   75            | "DETACH" "(" xpathAccess ")"
-   76            | "-" exprPrimary
-   77            | "SIZEOF" "(" xpathAccess ")"
-   78            | "TYPE" "(" expr ")"
-   79            | "TYPENS" "(" expr ")"
-   80            | "STRLEN" "(" expr ")"
+   67            | T_FLOAT
+   68            | T_STRING
+   69            | T_BOOLEAN
+   70            | T_NULL
+   71            | "NEW" T_SYMBOL ":" T_STRING
+   72            | "NEW" T_SYMBOL ":" T_STRING statementsListBeginEnd
+   73            | "(" exprPrimaryOrXPath "AS" baseType ")"
+   74            | qname exprListPar
+   75            | "COPYOF" "(" xpathAccess ")"
+   76            | "DETACH" "(" xpathAccess ")"
+   77            | "-" exprPrimary
+   78            | "SIZEOF" "(" xpathAccess ")"
+   79            | "TYPE" "(" expr ")"
+   80            | "TYPENS" "(" expr ")"
+   81            | "STRLEN" "(" expr ")"
 
-   81 relationalOper: expr "==" expr
-   82               | expr "<>" expr
-   83               | expr "<=" expr
-   84               | expr ">=" expr
-   85               | expr "<" expr
-   86               | expr ">" expr
-   87               | expr "ISTYPE" "(" baseType ")"
-   88               | expr "ISINSTANCE" "(" baseType ")"
+   82 relationalOper: expr "==" expr
+   83               | expr "<>" expr
+   84               | expr "<=" expr
+   85               | expr ">=" expr
+   86               | expr "<" expr
+   87               | expr ">" expr
+   88               | expr "ISTYPE" "(" baseType ")"
+   89               | expr "ISINSTANCE" "(" baseType ")"
 
-   89 logicalExprPrimary: relationalOper
-   90                   | "(" logicalExpr ")"
-   91                   | "NOT" logicalExprPrimary
-   92                   | "ISSET" "(" xpathAccess ")"
-   93                   | "ISNULL" "(" xpathAccess ")"
+   90 logicalExprPrimary: relationalOper
+   91                   | "(" logicalExpr ")"
+   92                   | "NOT" logicalExprPrimary
+   93                   | "ISSET" "(" xpathAccess ")"
+   94                   | "ISNULL" "(" xpathAccess ")"
 
-   94 logicalExprFactor: logicalExprPrimary
-   95                  | logicalExprFactor "AND" logicalExprFactor
+   95 logicalExprFactor: logicalExprPrimary
+   96                  | logicalExprFactor "AND" logicalExprFactor
 
-   96 logicalExprTerm: logicalExprFactor
-   97                | logicalExprTerm "OR" logicalExprTerm
+   97 logicalExprTerm: logicalExprFactor
+   98                | logicalExprTerm "OR" logicalExprTerm
 
-   98 logicalExpr: logicalExprTerm
+   99 logicalExpr: logicalExprTerm
 
-   99 xpathAccess: xpath
-  100            | exprPrimary "." xpath
+  100 xpathAccess: xpath
+  101            | exprPrimary "." xpath
 
-  101 xpath: xpath "." T_SYMBOL
-  102      | xpath "." T_SYMBOL "[" expr "]"
-  103      | T_SYMBOL
-  104      | T_SYMBOL "[" expr "]"
+  102 xpath: xpath "." T_SYMBOL
+  103      | xpath "." T_SYMBOL "[" expr "]"
+  104      | T_SYMBOL
+  105      | T_SYMBOL "[" expr "]"
 
-  105 with: "WITH" xpathAccess "DO" statement
-  106     | "WITH" T_SYMBOL "AS" xpathAccess "DO" statement
+  106 with: "WITH" xpathAccess "DO" statement
+  107     | "WITH" T_SYMBOL "AS" xpathAccess "DO" statement
 
-  107 whileLoop: "WHILE" logicalExpr "DO" statement
+  108 whileLoop: "WHILE" logicalExpr "DO" statement
 
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" statement
-  109        | "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" statement
+  110        | "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
 
-  110 ifThenElse: "IF" logicalExpr "THEN" statement
-  111           | "IF" logicalExpr "THEN" statement "ELSE" statement
+  111 ifThenElse: "IF" logicalExpr "THEN" statement
+  112           | "IF" logicalExpr "THEN" statement "ELSE" statement
 
-  112 call: qname exprListPar
+  113 call: qname exprListPar
 
-  113 external: "EXTERNAL" qname exprListPar
+  114 external: "EXTERNAL" qname exprListPar
 
-  114 delete: "DELETE" xpathAccess
+  115 delete: "DELETE" xpathAccess
 
-  115 return: "RETURN"
-  116       | "RETURN" expr
+  116 return: "RETURN"
+  117       | "RETURN" expr
 
-  117 throw: "THROW" expr
+  118 throw: "THROW" expr
 
-  118 tryCatch: "TRY" statementsListBeginEnd catchList
+  119 tryCatch: "TRY" statementsListBeginEnd catchList
 
-  119 catchList: catchList catch
-  120          | catch
+  120 catchList: catchList catch
+  121          | catch
 
-  121 catch: "CATCH" "(" declaration ")" statementsListBeginEnd
+  122 catch: "CATCH" "(" declaration ")" statementsListBeginEnd
 
-  122 exprListPar: "(" ")"
-  123            | "(" exprList ")"
+  123 exprListPar: "(" ")"
+  124            | "(" exprList ")"
 
-  124 exprList: exprList "," expr
-  125         | expr
+  125 exprList: exprList "," expr
+  126         | expr
 
-  126 externalParametersPar: "(" ")"
-  127                      | "(" externalParameters ")"
+  127 externalParametersPar: "(" ")"
+  128                      | "(" externalParameters ")"
 
-  128 externalParameters: externalParameters "," T_STRING
-  129                   | T_STRING
+  129 externalParameters: externalParameters "," T_STRING
+  130                   | T_STRING
 
-  130 qname: T_SYMBOL
-  131      | qname "::" T_SYMBOL
+  131 qname: T_SYMBOL
+  132      | qname "::" T_SYMBOL
 
 
 Terminals, with rules where they appear
@@ -203,173 +204,174 @@ T_NONE (258)
 "DEFINE" (263) 7 8 9 10
 "EXTENSION" (264) 8 10
 "CALL" (265)
-"FOR" (266) 108 109
-"TO" (267) 108 109
-"STEP" (268) 109
-"WHILE" (269) 107
-"DO" (270) 105 106 107 108 109
-"IF" (271) 110 111
-"THEN" (272) 110 111
-"ELSE" (273) 111
-"RETURN" (274) 115 116
-"THROW" (275) 117
-"TRY" (276) 118
-"CATCH" (277) 121
-"WITH" (278) 105 106
-"AS" (279) 7 8 10 17 18 19 20 37 38 39 40 72 106
+"FOR" (266) 109 110
+"TO" (267) 109 110
+"STEP" (268) 110
+"WHILE" (269) 108
+"DO" (270) 106 107 108 109 110
+"IF" (271) 111 112
+"THEN" (272) 111 112
+"ELSE" (273) 112
+"RETURN" (274) 116 117
+"THROW" (275) 118
+"TRY" (276) 119
+"CATCH" (277) 122
+"WITH" (278) 106 107
+"AS" (279) 7 8 10 17 18 19 20 37 38 39 40 73 107
 "OF" (280) 8 10 19 20 27 28 39 40
 "ARRAY" (281) 19 20 27 28 39 40
 "RETURNS" (282) 25 26 27 28
 "VAR" (283) 37 38 39 40
-"AND" (284) 95
-"OR" (285) 97
-"NOT" (286) 91
-"(" (287) 29 30 65 72 74 75 77 78 79 80 87 88 90 92 93 121 122 123
-    126 127
-")" (288) 29 30 65 72 74 75 77 78 79 80 87 88 90 92 93 121 122 123
-    126 127
-"NEW" (289) 70 71
-"SIZEOF" (290) 77
-"COPYOF" (291) 74
-"DETACH" (292) 75
-"DELETE" (293) 114
-"EXTERNAL" (294) 23 24 113
-"TYPE" (295) 78
-"TYPENS" (296) 79
-"ISSET" (297) 92
-"ISNULL" (298) 93
-"ISTYPE" (299) 87
-"ISINSTANCE" (300) 88
-"STRLEN" (301) 80
-"[" (302) 102 104
-"]" (303) 102 104
+"AND" (284) 96
+"OR" (285) 98
+"NOT" (286) 92
+"(" (287) 29 30 65 73 75 76 78 79 80 81 88 89 91 93 94 122 123 124
+    127 128
+")" (288) 29 30 65 73 75 76 78 79 80 81 88 89 91 93 94 122 123 124
+    127 128
+"NEW" (289) 71 72
+"SIZEOF" (290) 78
+"COPYOF" (291) 75
+"DETACH" (292) 76
+"DELETE" (293) 115
+"EXTERNAL" (294) 23 24 114
+"TYPE" (295) 79
+"TYPENS" (296) 80
+"ISSET" (297) 93
+"ISNULL" (298) 94
+"ISTYPE" (299) 88
+"ISINSTANCE" (300) 89
+"STRLEN" (301) 81
+"[" (302) 103 105
+"]" (303) 103 105
 "+" (304) 56
-"-" (305) 57 76
+"-" (305) 57 77
 "*" (306) 59
 "/" (307) 60
 "%" (308) 61
-"," (309) 31 124 128
-":" (310) 7 8 9 10 12 18 20 26 28 38 40 70 71
-"::" (311) 131
-"." (312) 100 101 102
+"," (309) 31 125 129
+":" (310) 7 8 9 10 12 18 20 26 28 38 40 71 72
+"::" (311) 132
+"." (312) 101 102 103
 ";" (313) 6 7 8 9 10 15 21 22 23 24 34 35
-"==" (314) 81
-"<" (315) 85
-"<=" (316) 83
-">" (317) 86
-">=" (318) 84
-"<>" (319) 82
-"= (assignment)" (320) 53 108 109
-T_SYMBOL (321) 7 8 9 10 11 12 17 18 19 20 25 26 27 28 37 38 39 40 70
-    71 101 102 103 104 106 130 131
-T_STRING (322) 7 8 9 10 12 18 20 23 24 26 28 38 40 67 70 71 128 129
+"==" (314) 82
+"<" (315) 86
+"<=" (316) 84
+">" (317) 87
+">=" (318) 85
+"<>" (319) 83
+"= (assignment)" (320) 53 109 110
+T_SYMBOL (321) 7 8 9 10 11 12 17 18 19 20 25 26 27 28 37 38 39 40 71
+    72 102 103 104 105 107 131 132
+T_STRING (322) 7 8 9 10 12 18 20 23 24 26 28 38 40 68 71 72 129 130
 T_INTEGER (323) 66
-T_BOOLEAN (324) 68
-T_NULL (325) 69
+T_FLOAT (324) 67
+T_BOOLEAN (325) 69
+T_NULL (326) 70
 
 
 Nonterminals, with rules where they appear
 
-$accept (71)
+$accept (72)
     on left: 0
-globals (72)
+globals (73)
     on left: 1 2, on right: 0 2
-global (73)
+global (74)
     on left: 3 4 5, on right: 2
-import (74)
+import (75)
     on left: 6, on right: 3
-typeDefinition (75)
+typeDefinition (76)
     on left: 7 8 9 10, on right: 4
-baseType (76)
-    on left: 11 12, on right: 8 10 72 87 88
-typeDefinitionPropertiesEnclosed (77)
+baseType (77)
+    on left: 11 12, on right: 8 10 73 88 89
+typeDefinitionPropertiesEnclosed (78)
     on left: 13 14, on right: 7 8
-typeDefinitionProperties (78)
+typeDefinitionProperties (79)
     on left: 15 16, on right: 13 15
-property (79)
+property (80)
     on left: 17 18 19 20, on right: 15
-program (80)
+program (81)
     on left: 21 22 23 24, on right: 5
-programResult (81)
+programResult (82)
     on left: 25 26 27 28, on right: 22 24
-parametersListPar (82)
+parametersListPar (83)
     on left: 29 30, on right: 21 22 23 24
-parametersList (83)
+parametersList (84)
     on left: 31 32, on right: 29 31
-statementsListBeginEnd (84)
-    on left: 33, on right: 21 22 41 71 118 121
-statementsList (85)
+statementsListBeginEnd (85)
+    on left: 33, on right: 21 22 41 72 119 122
+statementsList (86)
     on left: 34 35 36, on right: 33 34 35
-declaration (86)
-    on left: 37 38 39 40, on right: 31 32 35 121
-statement (87)
-    on left: 41 42 43 44 45 46 47 48 49 50 51 52, on right: 34 105
-    106 107 108 109 110 111
-assignment (88)
+declaration (87)
+    on left: 37 38 39 40, on right: 31 32 35 122
+statement (88)
+    on left: 41 42 43 44 45 46 47 48 49 50 51 52, on right: 34 106
+    107 108 109 110 111 112
+assignment (89)
     on left: 53, on right: 42
-lvalue (89)
+lvalue (90)
     on left: 54, on right: 53
-expr (90)
-    on left: 55, on right: 53 65 78 79 80 81 82 83 84 85 86 87 88 102
-    104 108 109 116 117 124 125
-exprTerm (91)
+expr (91)
+    on left: 55, on right: 53 65 79 80 81 82 83 84 85 86 87 88 89 103
+    105 109 110 117 118 125 126
+exprTerm (92)
     on left: 56 57 58, on right: 55 56 57
-exprFactor (92)
+exprFactor (93)
     on left: 59 60 61 62, on right: 58 59 60 61
-exprPrimaryOrXPath (93)
-    on left: 63 64, on right: 62 72
-exprPrimary (94)
-    on left: 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80, on right:
-    63 76 100
-relationalOper (95)
-    on left: 81 82 83 84 85 86 87 88, on right: 89
-logicalExprPrimary (96)
-    on left: 89 90 91 92 93, on right: 91 94
-logicalExprFactor (97)
-    on left: 94 95, on right: 95 96
-logicalExprTerm (98)
-    on left: 96 97, on right: 97 98
-logicalExpr (99)
-    on left: 98, on right: 90 107 110 111
-xpathAccess (100)
-    on left: 99 100, on right: 54 64 74 75 77 92 93 105 106 108 109
-    114
-xpath (101)
-    on left: 101 102 103 104, on right: 99 100 101 102
-with (102)
-    on left: 105 106, on right: 45
-whileLoop (103)
-    on left: 107, on right: 44
-forLoop (104)
-    on left: 108 109, on right: 43
-ifThenElse (105)
-    on left: 110 111, on right: 46
-call (106)
-    on left: 112, on right: 47
-external (107)
-    on left: 113, on right: 48
-delete (108)
-    on left: 114, on right: 49
-return (109)
-    on left: 115 116, on right: 50
-throw (110)
-    on left: 117, on right: 51
-tryCatch (111)
-    on left: 118, on right: 52
-catchList (112)
-    on left: 119 120, on right: 118 119
-catch (113)
-    on left: 121, on right: 119 120
-exprListPar (114)
-    on left: 122 123, on right: 73 112 113
-exprList (115)
-    on left: 124 125, on right: 123 124
-externalParametersPar (116)
-    on left: 126 127, on right: 23 24
-externalParameters (117)
-    on left: 128 129, on right: 127 128
-qname (118)
-    on left: 130 131, on right: 6 21 22 23 24 73 112 113 131
+exprPrimaryOrXPath (94)
+    on left: 63 64, on right: 62 73
+exprPrimary (95)
+    on left: 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81, on right:
+    63 77 101
+relationalOper (96)
+    on left: 82 83 84 85 86 87 88 89, on right: 90
+logicalExprPrimary (97)
+    on left: 90 91 92 93 94, on right: 92 95
+logicalExprFactor (98)
+    on left: 95 96, on right: 96 97
+logicalExprTerm (99)
+    on left: 97 98, on right: 98 99
+logicalExpr (100)
+    on left: 99, on right: 91 108 111 112
+xpathAccess (101)
+    on left: 100 101, on right: 54 64 75 76 78 93 94 106 107 109 110
+    115
+xpath (102)
+    on left: 102 103 104 105, on right: 100 101 102 103
+with (103)
+    on left: 106 107, on right: 45
+whileLoop (104)
+    on left: 108, on right: 44
+forLoop (105)
+    on left: 109 110, on right: 43
+ifThenElse (106)
+    on left: 111 112, on right: 46
+call (107)
+    on left: 113, on right: 47
+external (108)
+    on left: 114, on right: 48
+delete (109)
+    on left: 115, on right: 49
+return (110)
+    on left: 116 117, on right: 50
+throw (111)
+    on left: 118, on right: 51
+tryCatch (112)
+    on left: 119, on right: 52
+catchList (113)
+    on left: 120 121, on right: 119 120
+catch (114)
+    on left: 122, on right: 120 121
+exprListPar (115)
+    on left: 123 124, on right: 74 113 114
+exprList (116)
+    on left: 125 126, on right: 124 125
+externalParametersPar (117)
+    on left: 127 128, on right: 23 24
+externalParameters (118)
+    on left: 129 130, on right: 128 129
+qname (119)
+    on left: 131 132, on right: 6 21 22 23 24 74 113 114 132
 
 
 State 0
@@ -465,15 +467,15 @@ State 9
 
 State 10
 
-  130 qname: T_SYMBOL .
+  131 qname: T_SYMBOL .
 
-    $default  reduce using rule 130 (qname)
+    $default  reduce using rule 131 (qname)
 
 
 State 11
 
     6 import: "IMPORT" qname . ";"
-  131 qname: qname . "::" T_SYMBOL
+  132 qname: qname . "::" T_SYMBOL
 
     "::"  shift, and go to state 14
     ";"   shift, and go to state 15
@@ -485,7 +487,7 @@ State 12
    22        | "PROGRAM" qname . parametersListPar programResult statementsListBeginEnd ";"
    23        | "PROGRAM" qname . parametersListPar "EXTERNAL" T_STRING externalParametersPar ";"
    24        | "PROGRAM" qname . parametersListPar programResult "EXTERNAL" T_STRING externalParametersPar ";"
-  131 qname: qname . "::" T_SYMBOL
+  132 qname: qname . "::" T_SYMBOL
 
     "("   shift, and go to state 16
     "::"  shift, and go to state 14
@@ -505,7 +507,7 @@ State 13
 
 State 14
 
-  131 qname: qname "::" . T_SYMBOL
+  132 qname: qname "::" . T_SYMBOL
 
     T_SYMBOL  shift, and go to state 19
 
@@ -556,9 +558,9 @@ State 18
 
 State 19
 
-  131 qname: qname "::" T_SYMBOL .
+  132 qname: qname "::" T_SYMBOL .
 
-    $default  reduce using rule 131 (qname)
+    $default  reduce using rule 132 (qname)
 
 
 State 20
@@ -706,28 +708,29 @@ State 33
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    declaration             go to state 69
-    statement               go to state 70
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    statementsListBeginEnd  go to state 69
+    declaration             go to state 70
+    statement               go to state 71
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
 State 34
@@ -735,7 +738,7 @@ State 34
    27 programResult: "RETURNS" "ARRAY" . "OF" T_SYMBOL
    28              | "RETURNS" "ARRAY" . "OF" T_SYMBOL ":" T_STRING
 
-    "OF"  shift, and go to state 87
+    "OF"  shift, and go to state 88
 
 
 State 35
@@ -743,7 +746,7 @@ State 35
    25 programResult: "RETURNS" T_SYMBOL .
    26              | "RETURNS" T_SYMBOL . ":" T_STRING
 
-    ":"  shift, and go to state 88
+    ":"  shift, and go to state 89
 
     $default  reduce using rule 25 (programResult)
 
@@ -752,23 +755,23 @@ State 36
 
    23 program: "PROGRAM" qname parametersListPar "EXTERNAL" T_STRING . externalParametersPar ";"
 
-    "("  shift, and go to state 89
+    "("  shift, and go to state 90
 
-    externalParametersPar  go to state 90
+    externalParametersPar  go to state 91
 
 
 State 37
 
    24 program: "PROGRAM" qname parametersListPar programResult "EXTERNAL" . T_STRING externalParametersPar ";"
 
-    T_STRING  shift, and go to state 91
+    T_STRING  shift, and go to state 92
 
 
 State 38
 
    22 program: "PROGRAM" qname parametersListPar programResult statementsListBeginEnd . ";"
 
-    ";"  shift, and go to state 92
+    ";"  shift, and go to state 93
 
 
 State 39
@@ -784,10 +787,10 @@ State 40
     8               | "DEFINE" T_SYMBOL ":" T_STRING "AS" . "EXTENSION" "OF" baseType typeDefinitionPropertiesEnclosed ";"
    10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" . "EXTENSION" "OF" baseType ";"
 
-    "BEGIN"      shift, and go to state 93
-    "EXTENSION"  shift, and go to state 94
+    "BEGIN"      shift, and go to state 94
+    "EXTENSION"  shift, and go to state 95
 
-    typeDefinitionPropertiesEnclosed  go to state 95
+    typeDefinitionPropertiesEnclosed  go to state 96
 
 
 State 41
@@ -804,8 +807,8 @@ State 42
    39            | "VAR" T_SYMBOL "AS" . "ARRAY" "OF" T_SYMBOL
    40            | "VAR" T_SYMBOL "AS" . "ARRAY" "OF" T_SYMBOL ":" T_STRING
 
-    "ARRAY"   shift, and go to state 96
-    T_SYMBOL  shift, and go to state 97
+    "ARRAY"   shift, and go to state 97
+    T_SYMBOL  shift, and go to state 98
 
 
 State 43
@@ -824,8 +827,8 @@ State 44
 
 State 45
 
-  108 forLoop: "FOR" . xpathAccess "= (assignment)" expr "TO" expr "DO" statement
-  109        | "FOR" . xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
+  109 forLoop: "FOR" . xpathAccess "= (assignment)" expr "TO" expr "DO" statement
+  110        | "FOR" . xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -839,94 +842,97 @@ State 45
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
-    xpathAccess  go to state 98
-    xpath        go to state 75
-    qname        go to state 99
+    exprPrimary  go to state 74
+    xpathAccess  go to state 99
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 46
 
-  107 whileLoop: "WHILE" . logicalExpr "DO" statement
+  108 whileLoop: "WHILE" . logicalExpr "DO" statement
 
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
     "NEW"      shift, and go to state 53
     "SIZEOF"   shift, and go to state 54
     "COPYOF"   shift, and go to state 55
     "DETACH"   shift, and go to state 56
     "TYPE"     shift, and go to state 59
     "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
     "STRLEN"   shift, and go to state 61
     "-"        shift, and go to state 62
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 104
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 110
-    logicalExprFactor   go to state 111
-    logicalExprTerm     go to state 112
-    logicalExpr         go to state 113
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 105
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 111
+    logicalExprFactor   go to state 112
+    logicalExprTerm     go to state 113
+    logicalExpr         go to state 114
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 47
 
-  110 ifThenElse: "IF" . logicalExpr "THEN" statement
-  111           | "IF" . logicalExpr "THEN" statement "ELSE" statement
+  111 ifThenElse: "IF" . logicalExpr "THEN" statement
+  112           | "IF" . logicalExpr "THEN" statement "ELSE" statement
 
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
     "NEW"      shift, and go to state 53
     "SIZEOF"   shift, and go to state 54
     "COPYOF"   shift, and go to state 55
     "DETACH"   shift, and go to state 56
     "TYPE"     shift, and go to state 59
     "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
     "STRLEN"   shift, and go to state 61
     "-"        shift, and go to state 62
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 104
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 110
-    logicalExprFactor   go to state 111
-    logicalExprTerm     go to state 112
-    logicalExpr         go to state 115
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 105
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 111
+    logicalExprFactor   go to state 112
+    logicalExprTerm     go to state 113
+    logicalExpr         go to state 116
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 48
 
-  115 return: "RETURN" .
-  116       | "RETURN" . expr
+  116 return: "RETURN" .
+  117       | "RETURN" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -940,24 +946,25 @@ State 48
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    $default  reduce using rule 115 (return)
+    $default  reduce using rule 116 (return)
 
-    expr                go to state 116
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 117
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 49
 
-  117 throw: "THROW" . expr
+  118 throw: "THROW" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -971,32 +978,33 @@ State 49
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 117
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 118
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 50
 
-  118 tryCatch: "TRY" . statementsListBeginEnd catchList
+  119 tryCatch: "TRY" . statementsListBeginEnd catchList
 
     "BEGIN"  shift, and go to state 24
 
-    statementsListBeginEnd  go to state 118
+    statementsListBeginEnd  go to state 119
 
 
 State 51
 
-  105 with: "WITH" . xpathAccess "DO" statement
-  106     | "WITH" . T_SYMBOL "AS" xpathAccess "DO" statement
+  106 with: "WITH" . xpathAccess "DO" statement
+  107     | "WITH" . T_SYMBOL "AS" xpathAccess "DO" statement
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1007,22 +1015,23 @@ State 51
     "TYPENS"   shift, and go to state 60
     "STRLEN"   shift, and go to state 61
     "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 119
+    T_SYMBOL   shift, and go to state 120
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
-    xpathAccess  go to state 120
-    xpath        go to state 75
-    qname        go to state 99
+    exprPrimary  go to state 74
+    xpathAccess  go to state 121
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 52
 
    65 exprPrimary: "(" . expr ")"
-   72            | "(" . exprPrimaryOrXPath "AS" baseType ")"
+   73            | "(" . exprPrimaryOrXPath "AS" baseType ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1036,51 +1045,52 @@ State 52
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 121
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 122
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 122
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 123
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 53
 
-   70 exprPrimary: "NEW" . T_SYMBOL ":" T_STRING
-   71            | "NEW" . T_SYMBOL ":" T_STRING statementsListBeginEnd
+   71 exprPrimary: "NEW" . T_SYMBOL ":" T_STRING
+   72            | "NEW" . T_SYMBOL ":" T_STRING statementsListBeginEnd
 
-    T_SYMBOL  shift, and go to state 123
+    T_SYMBOL  shift, and go to state 124
 
 
 State 54
 
-   77 exprPrimary: "SIZEOF" . "(" xpathAccess ")"
-
-    "("  shift, and go to state 124
-
-
-State 55
-
-   74 exprPrimary: "COPYOF" . "(" xpathAccess ")"
+   78 exprPrimary: "SIZEOF" . "(" xpathAccess ")"
 
     "("  shift, and go to state 125
 
 
-State 56
+State 55
 
-   75 exprPrimary: "DETACH" . "(" xpathAccess ")"
+   75 exprPrimary: "COPYOF" . "(" xpathAccess ")"
 
     "("  shift, and go to state 126
 
 
+State 56
+
+   76 exprPrimary: "DETACH" . "(" xpathAccess ")"
+
+    "("  shift, and go to state 127
+
+
 State 57
 
-  114 delete: "DELETE" . xpathAccess
+  115 delete: "DELETE" . xpathAccess
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1094,48 +1104,49 @@ State 57
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
-    xpathAccess  go to state 127
-    xpath        go to state 75
-    qname        go to state 99
+    exprPrimary  go to state 74
+    xpathAccess  go to state 128
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 58
 
-  113 external: "EXTERNAL" . qname exprListPar
+  114 external: "EXTERNAL" . qname exprListPar
 
     T_SYMBOL  shift, and go to state 10
 
-    qname  go to state 128
+    qname  go to state 129
 
 
 State 59
 
-   78 exprPrimary: "TYPE" . "(" expr ")"
-
-    "("  shift, and go to state 129
-
-
-State 60
-
-   79 exprPrimary: "TYPENS" . "(" expr ")"
+   79 exprPrimary: "TYPE" . "(" expr ")"
 
     "("  shift, and go to state 130
 
 
-State 61
+State 60
 
-   80 exprPrimary: "STRLEN" . "(" expr ")"
+   80 exprPrimary: "TYPENS" . "(" expr ")"
 
     "("  shift, and go to state 131
 
 
+State 61
+
+   81 exprPrimary: "STRLEN" . "(" expr ")"
+
+    "("  shift, and go to state 132
+
+
 State 62
 
-   76 exprPrimary: "-" . exprPrimary
+   77 exprPrimary: "-" . exprPrimary
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1149,31 +1160,32 @@ State 62
     T_SYMBOL   shift, and go to state 10
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 132
-    qname        go to state 99
+    exprPrimary  go to state 133
+    qname        go to state 100
 
 
 State 63
 
-  103 xpath: T_SYMBOL .
-  104      | T_SYMBOL . "[" expr "]"
-  130 qname: T_SYMBOL .
+  104 xpath: T_SYMBOL .
+  105      | T_SYMBOL . "[" expr "]"
+  131 qname: T_SYMBOL .
 
-    "["  shift, and go to state 133
+    "["  shift, and go to state 134
 
-    "("       reduce using rule 130 (qname)
-    "::"      reduce using rule 130 (qname)
-    $default  reduce using rule 103 (xpath)
+    "("       reduce using rule 131 (qname)
+    "::"      reduce using rule 131 (qname)
+    $default  reduce using rule 104 (xpath)
 
 
 State 64
 
-   67 exprPrimary: T_STRING .
+   68 exprPrimary: T_STRING .
 
-    $default  reduce using rule 67 (exprPrimary)
+    $default  reduce using rule 68 (exprPrimary)
 
 
 State 65
@@ -1185,580 +1197,564 @@ State 65
 
 State 66
 
-   68 exprPrimary: T_BOOLEAN .
+   67 exprPrimary: T_FLOAT .
 
-    $default  reduce using rule 68 (exprPrimary)
+    $default  reduce using rule 67 (exprPrimary)
 
 
 State 67
 
-   69 exprPrimary: T_NULL .
+   69 exprPrimary: T_BOOLEAN .
 
     $default  reduce using rule 69 (exprPrimary)
 
 
 State 68
 
+   70 exprPrimary: T_NULL .
+
+    $default  reduce using rule 70 (exprPrimary)
+
+
+State 69
+
    41 statement: statementsListBeginEnd .
 
     $default  reduce using rule 41 (statement)
 
 
-State 69
-
-   35 statementsList: statementsList declaration . ";"
-
-    ";"  shift, and go to state 134
-
-
 State 70
 
-   34 statementsList: statementsList statement . ";"
+   35 statementsList: statementsList declaration . ";"
 
     ";"  shift, and go to state 135
 
 
 State 71
 
+   34 statementsList: statementsList statement . ";"
+
+    ";"  shift, and go to state 136
+
+
+State 72
+
    42 statement: assignment .
 
     $default  reduce using rule 42 (statement)
 
 
-State 72
+State 73
 
    53 assignment: lvalue . "= (assignment)" expr
 
-    "= (assignment)"  shift, and go to state 136
-
-
-State 73
-
-  100 xpathAccess: exprPrimary . "." xpath
-
-    "."  shift, and go to state 137
+    "= (assignment)"  shift, and go to state 137
 
 
 State 74
+
+  101 xpathAccess: exprPrimary . "." xpath
+
+    "."  shift, and go to state 138
+
+
+State 75
 
    54 lvalue: xpathAccess .
 
     $default  reduce using rule 54 (lvalue)
 
 
-State 75
-
-   99 xpathAccess: xpath .
-  101 xpath: xpath . "." T_SYMBOL
-  102      | xpath . "." T_SYMBOL "[" expr "]"
-
-    "."  shift, and go to state 138
-
-    $default  reduce using rule 99 (xpathAccess)
-
-
 State 76
+
+  100 xpathAccess: xpath .
+  102 xpath: xpath . "." T_SYMBOL
+  103      | xpath . "." T_SYMBOL "[" expr "]"
+
+    "."  shift, and go to state 139
+
+    $default  reduce using rule 100 (xpathAccess)
+
+
+State 77
 
    45 statement: with .
 
     $default  reduce using rule 45 (statement)
 
 
-State 77
+State 78
 
    44 statement: whileLoop .
 
     $default  reduce using rule 44 (statement)
 
 
-State 78
+State 79
 
    43 statement: forLoop .
 
     $default  reduce using rule 43 (statement)
 
 
-State 79
+State 80
 
    46 statement: ifThenElse .
 
     $default  reduce using rule 46 (statement)
 
 
-State 80
+State 81
 
    47 statement: call .
 
     $default  reduce using rule 47 (statement)
 
 
-State 81
+State 82
 
    48 statement: external .
 
     $default  reduce using rule 48 (statement)
 
 
-State 82
+State 83
 
    49 statement: delete .
 
     $default  reduce using rule 49 (statement)
 
 
-State 83
+State 84
 
    50 statement: return .
 
     $default  reduce using rule 50 (statement)
 
 
-State 84
+State 85
 
    51 statement: throw .
 
     $default  reduce using rule 51 (statement)
 
 
-State 85
+State 86
 
    52 statement: tryCatch .
 
     $default  reduce using rule 52 (statement)
 
 
-State 86
-
-   73 exprPrimary: qname . exprListPar
-  112 call: qname . exprListPar
-  131 qname: qname . "::" T_SYMBOL
-
-    "("   shift, and go to state 139
-    "::"  shift, and go to state 14
-
-    exprListPar  go to state 140
-
-
 State 87
 
-   27 programResult: "RETURNS" "ARRAY" "OF" . T_SYMBOL
-   28              | "RETURNS" "ARRAY" "OF" . T_SYMBOL ":" T_STRING
+   74 exprPrimary: qname . exprListPar
+  113 call: qname . exprListPar
+  132 qname: qname . "::" T_SYMBOL
 
-    T_SYMBOL  shift, and go to state 141
+    "("   shift, and go to state 140
+    "::"  shift, and go to state 14
+
+    exprListPar  go to state 141
 
 
 State 88
 
-   26 programResult: "RETURNS" T_SYMBOL ":" . T_STRING
+   27 programResult: "RETURNS" "ARRAY" "OF" . T_SYMBOL
+   28              | "RETURNS" "ARRAY" "OF" . T_SYMBOL ":" T_STRING
 
-    T_STRING  shift, and go to state 142
+    T_SYMBOL  shift, and go to state 142
 
 
 State 89
 
-  126 externalParametersPar: "(" . ")"
-  127                      | "(" . externalParameters ")"
+   26 programResult: "RETURNS" T_SYMBOL ":" . T_STRING
 
-    ")"       shift, and go to state 143
-    T_STRING  shift, and go to state 144
-
-    externalParameters  go to state 145
+    T_STRING  shift, and go to state 143
 
 
 State 90
 
-   23 program: "PROGRAM" qname parametersListPar "EXTERNAL" T_STRING externalParametersPar . ";"
+  127 externalParametersPar: "(" . ")"
+  128                      | "(" . externalParameters ")"
 
-    ";"  shift, and go to state 146
+    ")"       shift, and go to state 144
+    T_STRING  shift, and go to state 145
+
+    externalParameters  go to state 146
 
 
 State 91
 
-   24 program: "PROGRAM" qname parametersListPar programResult "EXTERNAL" T_STRING . externalParametersPar ";"
+   23 program: "PROGRAM" qname parametersListPar "EXTERNAL" T_STRING externalParametersPar . ";"
 
-    "("  shift, and go to state 89
-
-    externalParametersPar  go to state 147
+    ";"  shift, and go to state 147
 
 
 State 92
+
+   24 program: "PROGRAM" qname parametersListPar programResult "EXTERNAL" T_STRING . externalParametersPar ";"
+
+    "("  shift, and go to state 90
+
+    externalParametersPar  go to state 148
+
+
+State 93
 
    22 program: "PROGRAM" qname parametersListPar programResult statementsListBeginEnd ";" .
 
     $default  reduce using rule 22 (program)
 
 
-State 93
+State 94
 
    13 typeDefinitionPropertiesEnclosed: "BEGIN" . typeDefinitionProperties "END"
    14                                 | "BEGIN" . "END"
 
-    "END"  shift, and go to state 148
+    "END"  shift, and go to state 149
 
     "END"     [reduce using rule 16 (typeDefinitionProperties)]
     $default  reduce using rule 16 (typeDefinitionProperties)
 
-    typeDefinitionProperties  go to state 149
-
-
-State 94
-
-    8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" . "OF" baseType typeDefinitionPropertiesEnclosed ";"
-   10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" . "OF" baseType ";"
-
-    "OF"  shift, and go to state 150
+    typeDefinitionProperties  go to state 150
 
 
 State 95
 
-    7 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" typeDefinitionPropertiesEnclosed . ";"
+    8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" . "OF" baseType typeDefinitionPropertiesEnclosed ";"
+   10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" . "OF" baseType ";"
 
-    ";"  shift, and go to state 151
+    "OF"  shift, and go to state 151
 
 
 State 96
 
-   39 declaration: "VAR" T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL
-   40            | "VAR" T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL ":" T_STRING
+    7 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" typeDefinitionPropertiesEnclosed . ";"
 
-    "OF"  shift, and go to state 152
+    ";"  shift, and go to state 152
 
 
 State 97
 
-   37 declaration: "VAR" T_SYMBOL "AS" T_SYMBOL .
-   38            | "VAR" T_SYMBOL "AS" T_SYMBOL . ":" T_STRING
+   39 declaration: "VAR" T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL
+   40            | "VAR" T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL ":" T_STRING
 
-    ":"  shift, and go to state 153
-
-    $default  reduce using rule 37 (declaration)
+    "OF"  shift, and go to state 153
 
 
 State 98
 
-  108 forLoop: "FOR" xpathAccess . "= (assignment)" expr "TO" expr "DO" statement
-  109        | "FOR" xpathAccess . "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
+   37 declaration: "VAR" T_SYMBOL "AS" T_SYMBOL .
+   38            | "VAR" T_SYMBOL "AS" T_SYMBOL . ":" T_STRING
 
-    "= (assignment)"  shift, and go to state 154
+    ":"  shift, and go to state 154
+
+    $default  reduce using rule 37 (declaration)
 
 
 State 99
 
-   73 exprPrimary: qname . exprListPar
-  131 qname: qname . "::" T_SYMBOL
+  109 forLoop: "FOR" xpathAccess . "= (assignment)" expr "TO" expr "DO" statement
+  110        | "FOR" xpathAccess . "= (assignment)" expr "TO" expr "STEP" expr "DO" statement
 
-    "("   shift, and go to state 139
-    "::"  shift, and go to state 14
-
-    exprListPar  go to state 155
+    "= (assignment)"  shift, and go to state 155
 
 
 State 100
 
-   91 logicalExprPrimary: "NOT" . logicalExprPrimary
+   74 exprPrimary: qname . exprListPar
+  132 qname: qname . "::" T_SYMBOL
 
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    "("   shift, and go to state 140
+    "::"  shift, and go to state 14
 
-    expr                go to state 104
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 156
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprListPar  go to state 156
 
 
 State 101
 
-   65 exprPrimary: "(" . expr ")"
-   72            | "(" . exprPrimaryOrXPath "AS" baseType ")"
-   90 logicalExprPrimary: "(" . logicalExpr ")"
+   92 logicalExprPrimary: "NOT" . logicalExprPrimary
 
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
     "NEW"      shift, and go to state 53
     "SIZEOF"   shift, and go to state 54
     "COPYOF"   shift, and go to state 55
     "DETACH"   shift, and go to state 56
     "TYPE"     shift, and go to state 59
     "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
     "STRLEN"   shift, and go to state 61
     "-"        shift, and go to state 62
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 157
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 122
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 110
-    logicalExprFactor   go to state 111
-    logicalExprTerm     go to state 112
-    logicalExpr         go to state 158
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 105
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 157
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 102
 
-   92 logicalExprPrimary: "ISSET" . "(" xpathAccess ")"
+   65 exprPrimary: "(" . expr ")"
+   73            | "(" . exprPrimaryOrXPath "AS" baseType ")"
+   91 logicalExprPrimary: "(" . logicalExpr ")"
 
-    "("  shift, and go to state 159
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    expr                go to state 158
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 123
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 111
+    logicalExprFactor   go to state 112
+    logicalExprTerm     go to state 113
+    logicalExpr         go to state 159
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 103
 
-   93 logicalExprPrimary: "ISNULL" . "(" xpathAccess ")"
+   93 logicalExprPrimary: "ISSET" . "(" xpathAccess ")"
 
     "("  shift, and go to state 160
 
 
 State 104
 
-   81 relationalOper: expr . "==" expr
-   82               | expr . "<>" expr
-   83               | expr . "<=" expr
-   84               | expr . ">=" expr
-   85               | expr . "<" expr
-   86               | expr . ">" expr
-   87               | expr . "ISTYPE" "(" baseType ")"
-   88               | expr . "ISINSTANCE" "(" baseType ")"
+   94 logicalExprPrimary: "ISNULL" . "(" xpathAccess ")"
 
-    "ISTYPE"      shift, and go to state 161
-    "ISINSTANCE"  shift, and go to state 162
-    "=="          shift, and go to state 163
-    "<"           shift, and go to state 164
-    "<="          shift, and go to state 165
-    ">"           shift, and go to state 166
-    ">="          shift, and go to state 167
-    "<>"          shift, and go to state 168
+    "("  shift, and go to state 161
 
 
 State 105
+
+   82 relationalOper: expr . "==" expr
+   83               | expr . "<>" expr
+   84               | expr . "<=" expr
+   85               | expr . ">=" expr
+   86               | expr . "<" expr
+   87               | expr . ">" expr
+   88               | expr . "ISTYPE" "(" baseType ")"
+   89               | expr . "ISINSTANCE" "(" baseType ")"
+
+    "ISTYPE"      shift, and go to state 162
+    "ISINSTANCE"  shift, and go to state 163
+    "=="          shift, and go to state 164
+    "<"           shift, and go to state 165
+    "<="          shift, and go to state 166
+    ">"           shift, and go to state 167
+    ">="          shift, and go to state 168
+    "<>"          shift, and go to state 169
+
+
+State 106
 
    55 expr: exprTerm .
    56 exprTerm: exprTerm . "+" exprTerm
    57         | exprTerm . "-" exprTerm
 
-    "+"  shift, and go to state 169
-    "-"  shift, and go to state 170
+    "+"  shift, and go to state 170
+    "-"  shift, and go to state 171
 
     $default  reduce using rule 55 (expr)
 
 
-State 106
+State 107
 
    58 exprTerm: exprFactor .
    59 exprFactor: exprFactor . "*" exprFactor
    60           | exprFactor . "/" exprFactor
    61           | exprFactor . "%" exprFactor
 
-    "*"  shift, and go to state 171
-    "/"  shift, and go to state 172
-    "%"  shift, and go to state 173
+    "*"  shift, and go to state 172
+    "/"  shift, and go to state 173
+    "%"  shift, and go to state 174
 
     $default  reduce using rule 58 (exprTerm)
 
 
-State 107
+State 108
 
    62 exprFactor: exprPrimaryOrXPath .
 
     $default  reduce using rule 62 (exprFactor)
 
 
-State 108
+State 109
 
    63 exprPrimaryOrXPath: exprPrimary .
-  100 xpathAccess: exprPrimary . "." xpath
+  101 xpathAccess: exprPrimary . "." xpath
 
-    "."  shift, and go to state 137
+    "."  shift, and go to state 138
 
     $default  reduce using rule 63 (exprPrimaryOrXPath)
 
 
-State 109
-
-   89 logicalExprPrimary: relationalOper .
-
-    $default  reduce using rule 89 (logicalExprPrimary)
-
-
 State 110
 
-   94 logicalExprFactor: logicalExprPrimary .
+   90 logicalExprPrimary: relationalOper .
 
-    $default  reduce using rule 94 (logicalExprFactor)
+    $default  reduce using rule 90 (logicalExprPrimary)
 
 
 State 111
 
-   95 logicalExprFactor: logicalExprFactor . "AND" logicalExprFactor
-   96 logicalExprTerm: logicalExprFactor .
+   95 logicalExprFactor: logicalExprPrimary .
 
-    "AND"  shift, and go to state 174
-
-    $default  reduce using rule 96 (logicalExprTerm)
+    $default  reduce using rule 95 (logicalExprFactor)
 
 
 State 112
 
-   97 logicalExprTerm: logicalExprTerm . "OR" logicalExprTerm
-   98 logicalExpr: logicalExprTerm .
+   96 logicalExprFactor: logicalExprFactor . "AND" logicalExprFactor
+   97 logicalExprTerm: logicalExprFactor .
 
-    "OR"  shift, and go to state 175
+    "AND"  shift, and go to state 175
 
-    $default  reduce using rule 98 (logicalExpr)
+    $default  reduce using rule 97 (logicalExprTerm)
 
 
 State 113
 
-  107 whileLoop: "WHILE" logicalExpr . "DO" statement
+   98 logicalExprTerm: logicalExprTerm . "OR" logicalExprTerm
+   99 logicalExpr: logicalExprTerm .
 
-    "DO"  shift, and go to state 176
+    "OR"  shift, and go to state 176
+
+    $default  reduce using rule 99 (logicalExpr)
 
 
 State 114
+
+  108 whileLoop: "WHILE" logicalExpr . "DO" statement
+
+    "DO"  shift, and go to state 177
+
+
+State 115
 
    64 exprPrimaryOrXPath: xpathAccess .
 
     $default  reduce using rule 64 (exprPrimaryOrXPath)
 
 
-State 115
-
-  110 ifThenElse: "IF" logicalExpr . "THEN" statement
-  111           | "IF" logicalExpr . "THEN" statement "ELSE" statement
-
-    "THEN"  shift, and go to state 177
-
-
 State 116
 
-  116 return: "RETURN" expr .
+  111 ifThenElse: "IF" logicalExpr . "THEN" statement
+  112           | "IF" logicalExpr . "THEN" statement "ELSE" statement
 
-    $default  reduce using rule 116 (return)
+    "THEN"  shift, and go to state 178
 
 
 State 117
 
-  117 throw: "THROW" expr .
+  117 return: "RETURN" expr .
 
-    $default  reduce using rule 117 (throw)
+    $default  reduce using rule 117 (return)
 
 
 State 118
 
-  118 tryCatch: "TRY" statementsListBeginEnd . catchList
+  118 throw: "THROW" expr .
 
-    "CATCH"  shift, and go to state 178
-
-    catchList  go to state 179
-    catch      go to state 180
+    $default  reduce using rule 118 (throw)
 
 
 State 119
 
-  103 xpath: T_SYMBOL .
-  104      | T_SYMBOL . "[" expr "]"
-  106 with: "WITH" T_SYMBOL . "AS" xpathAccess "DO" statement
-  130 qname: T_SYMBOL .
+  119 tryCatch: "TRY" statementsListBeginEnd . catchList
 
-    "AS"  shift, and go to state 181
-    "["   shift, and go to state 133
+    "CATCH"  shift, and go to state 179
 
-    "("       reduce using rule 130 (qname)
-    "::"      reduce using rule 130 (qname)
-    $default  reduce using rule 103 (xpath)
+    catchList  go to state 180
+    catch      go to state 181
 
 
 State 120
 
-  105 with: "WITH" xpathAccess . "DO" statement
+  104 xpath: T_SYMBOL .
+  105      | T_SYMBOL . "[" expr "]"
+  107 with: "WITH" T_SYMBOL . "AS" xpathAccess "DO" statement
+  131 qname: T_SYMBOL .
 
-    "DO"  shift, and go to state 182
+    "AS"  shift, and go to state 182
+    "["   shift, and go to state 134
+
+    "("       reduce using rule 131 (qname)
+    "::"      reduce using rule 131 (qname)
+    $default  reduce using rule 104 (xpath)
 
 
 State 121
 
-   65 exprPrimary: "(" expr . ")"
+  106 with: "WITH" xpathAccess . "DO" statement
 
-    ")"  shift, and go to state 183
+    "DO"  shift, and go to state 183
 
 
 State 122
 
-   62 exprFactor: exprPrimaryOrXPath .
-   72 exprPrimary: "(" exprPrimaryOrXPath . "AS" baseType ")"
+   65 exprPrimary: "(" expr . ")"
 
-    "AS"  shift, and go to state 184
-
-    $default  reduce using rule 62 (exprFactor)
+    ")"  shift, and go to state 184
 
 
 State 123
 
-   70 exprPrimary: "NEW" T_SYMBOL . ":" T_STRING
-   71            | "NEW" T_SYMBOL . ":" T_STRING statementsListBeginEnd
+   62 exprFactor: exprPrimaryOrXPath .
+   73 exprPrimary: "(" exprPrimaryOrXPath . "AS" baseType ")"
 
-    ":"  shift, and go to state 185
+    "AS"  shift, and go to state 185
+
+    $default  reduce using rule 62 (exprFactor)
 
 
 State 124
 
-   77 exprPrimary: "SIZEOF" "(" . xpathAccess ")"
+   71 exprPrimary: "NEW" T_SYMBOL . ":" T_STRING
+   72            | "NEW" T_SYMBOL . ":" T_STRING statementsListBeginEnd
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    exprPrimary  go to state 73
-    xpathAccess  go to state 186
-    xpath        go to state 75
-    qname        go to state 99
+    ":"  shift, and go to state 186
 
 
 State 125
 
-   74 exprPrimary: "COPYOF" "(" . xpathAccess ")"
+   78 exprPrimary: "SIZEOF" "(" . xpathAccess ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1772,18 +1768,19 @@ State 125
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
+    exprPrimary  go to state 74
     xpathAccess  go to state 187
-    xpath        go to state 75
-    qname        go to state 99
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 126
 
-   75 exprPrimary: "DETACH" "(" . xpathAccess ")"
+   75 exprPrimary: "COPYOF" "(" . xpathAccess ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1797,65 +1794,63 @@ State 126
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
+    exprPrimary  go to state 74
     xpathAccess  go to state 188
-    xpath        go to state 75
-    qname        go to state 99
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 127
 
-  114 delete: "DELETE" xpathAccess .
+   76 exprPrimary: "DETACH" "(" . xpathAccess ")"
 
-    $default  reduce using rule 114 (delete)
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    exprPrimary  go to state 74
+    xpathAccess  go to state 189
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 128
 
-  113 external: "EXTERNAL" qname . exprListPar
-  131 qname: qname . "::" T_SYMBOL
+  115 delete: "DELETE" xpathAccess .
 
-    "("   shift, and go to state 139
-    "::"  shift, and go to state 14
-
-    exprListPar  go to state 189
+    $default  reduce using rule 115 (delete)
 
 
 State 129
 
-   78 exprPrimary: "TYPE" "(" . expr ")"
+  114 external: "EXTERNAL" qname . exprListPar
+  132 qname: qname . "::" T_SYMBOL
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    "("   shift, and go to state 140
+    "::"  shift, and go to state 14
 
-    expr                go to state 190
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprListPar  go to state 190
 
 
 State 130
 
-   79 exprPrimary: "TYPENS" "(" . expr ")"
+   79 exprPrimary: "TYPE" "(" . expr ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1869,22 +1864,23 @@ State 130
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 191
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 131
 
-   80 exprPrimary: "STRLEN" "(" . expr ")"
+   80 exprPrimary: "TYPENS" "(" . expr ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1898,29 +1894,23 @@ State 131
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 192
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 132
 
-   76 exprPrimary: "-" exprPrimary .
-
-    $default  reduce using rule 76 (exprPrimary)
-
-
-State 133
-
-  104 xpath: T_SYMBOL "[" . expr "]"
+   81 exprPrimary: "STRLEN" "(" . expr ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -1934,34 +1924,72 @@ State 133
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 193
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
+
+
+State 133
+
+   77 exprPrimary: "-" exprPrimary .
+
+    $default  reduce using rule 77 (exprPrimary)
 
 
 State 134
+
+  105 xpath: T_SYMBOL "[" . expr "]"
+
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    expr                go to state 194
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
+
+
+State 135
 
    35 statementsList: statementsList declaration ";" .
 
     $default  reduce using rule 35 (statementsList)
 
 
-State 135
+State 136
 
    34 statementsList: statementsList statement ";" .
 
     $default  reduce using rule 34 (statementsList)
 
 
-State 136
+State 137
 
    53 assignment: lvalue "= (assignment)" . expr
 
@@ -1977,43 +2005,44 @@ State 136
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 194
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
-
-
-State 137
-
-  100 xpathAccess: exprPrimary "." . xpath
-
-    T_SYMBOL  shift, and go to state 195
-
-    xpath  go to state 196
+    expr                go to state 195
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 138
 
-  101 xpath: xpath "." . T_SYMBOL
-  102      | xpath "." . T_SYMBOL "[" expr "]"
+  101 xpathAccess: exprPrimary "." . xpath
 
-    T_SYMBOL  shift, and go to state 197
+    T_SYMBOL  shift, and go to state 196
+
+    xpath  go to state 197
 
 
 State 139
 
-  122 exprListPar: "(" . ")"
-  123            | "(" . exprList ")"
+  102 xpath: xpath "." . T_SYMBOL
+  103      | xpath "." . T_SYMBOL "[" expr "]"
+
+    T_SYMBOL  shift, and go to state 198
+
+
+State 140
+
+  123 exprListPar: "(" . ")"
+  124            | "(" . exprList ")"
 
     "("        shift, and go to state 52
-    ")"        shift, and go to state 198
+    ")"        shift, and go to state 199
     "NEW"      shift, and go to state 53
     "SIZEOF"   shift, and go to state 54
     "COPYOF"   shift, and go to state 55
@@ -2025,235 +2054,212 @@ State 139
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 199
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    exprList            go to state 200
-    qname               go to state 99
-
-
-State 140
-
-   73 exprPrimary: qname exprListPar .
-  112 call: qname exprListPar .
-
-    "."       reduce using rule 73 (exprPrimary)
-    $default  reduce using rule 112 (call)
+    expr                go to state 200
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    exprList            go to state 201
+    qname               go to state 100
 
 
 State 141
 
+   74 exprPrimary: qname exprListPar .
+  113 call: qname exprListPar .
+
+    "."       reduce using rule 74 (exprPrimary)
+    $default  reduce using rule 113 (call)
+
+
+State 142
+
    27 programResult: "RETURNS" "ARRAY" "OF" T_SYMBOL .
    28              | "RETURNS" "ARRAY" "OF" T_SYMBOL . ":" T_STRING
 
-    ":"  shift, and go to state 201
+    ":"  shift, and go to state 202
 
     $default  reduce using rule 27 (programResult)
 
 
-State 142
+State 143
 
    26 programResult: "RETURNS" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 26 (programResult)
 
 
-State 143
-
-  126 externalParametersPar: "(" ")" .
-
-    $default  reduce using rule 126 (externalParametersPar)
-
-
 State 144
 
-  129 externalParameters: T_STRING .
+  127 externalParametersPar: "(" ")" .
 
-    $default  reduce using rule 129 (externalParameters)
+    $default  reduce using rule 127 (externalParametersPar)
 
 
 State 145
 
-  127 externalParametersPar: "(" externalParameters . ")"
-  128 externalParameters: externalParameters . "," T_STRING
+  130 externalParameters: T_STRING .
 
-    ")"  shift, and go to state 202
-    ","  shift, and go to state 203
+    $default  reduce using rule 130 (externalParameters)
 
 
 State 146
+
+  128 externalParametersPar: "(" externalParameters . ")"
+  129 externalParameters: externalParameters . "," T_STRING
+
+    ")"  shift, and go to state 203
+    ","  shift, and go to state 204
+
+
+State 147
 
    23 program: "PROGRAM" qname parametersListPar "EXTERNAL" T_STRING externalParametersPar ";" .
 
     $default  reduce using rule 23 (program)
 
 
-State 147
+State 148
 
    24 program: "PROGRAM" qname parametersListPar programResult "EXTERNAL" T_STRING externalParametersPar . ";"
 
-    ";"  shift, and go to state 204
+    ";"  shift, and go to state 205
 
 
-State 148
+State 149
 
    14 typeDefinitionPropertiesEnclosed: "BEGIN" "END" .
 
     $default  reduce using rule 14 (typeDefinitionPropertiesEnclosed)
 
 
-State 149
+State 150
 
    13 typeDefinitionPropertiesEnclosed: "BEGIN" typeDefinitionProperties . "END"
    15 typeDefinitionProperties: typeDefinitionProperties . property ";"
 
-    "END"     shift, and go to state 205
-    T_SYMBOL  shift, and go to state 206
+    "END"     shift, and go to state 206
+    T_SYMBOL  shift, and go to state 207
 
-    property  go to state 207
+    property  go to state 208
 
 
-State 150
+State 151
 
     8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" . baseType typeDefinitionPropertiesEnclosed ";"
    10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" . baseType ";"
 
-    T_SYMBOL  shift, and go to state 208
+    T_SYMBOL  shift, and go to state 209
 
-    baseType  go to state 209
+    baseType  go to state 210
 
 
-State 151
+State 152
 
     7 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" typeDefinitionPropertiesEnclosed ";" .
 
     $default  reduce using rule 7 (typeDefinition)
 
 
-State 152
+State 153
 
    39 declaration: "VAR" T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL
    40            | "VAR" T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL ":" T_STRING
 
-    T_SYMBOL  shift, and go to state 210
-
-
-State 153
-
-   38 declaration: "VAR" T_SYMBOL "AS" T_SYMBOL ":" . T_STRING
-
-    T_STRING  shift, and go to state 211
+    T_SYMBOL  shift, and go to state 211
 
 
 State 154
 
-  108 forLoop: "FOR" xpathAccess "= (assignment)" . expr "TO" expr "DO" statement
-  109        | "FOR" xpathAccess "= (assignment)" . expr "TO" expr "STEP" expr "DO" statement
+   38 declaration: "VAR" T_SYMBOL "AS" T_SYMBOL ":" . T_STRING
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    expr                go to state 212
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    T_STRING  shift, and go to state 212
 
 
 State 155
 
-   73 exprPrimary: qname exprListPar .
+  109 forLoop: "FOR" xpathAccess "= (assignment)" . expr "TO" expr "DO" statement
+  110        | "FOR" xpathAccess "= (assignment)" . expr "TO" expr "STEP" expr "DO" statement
 
-    $default  reduce using rule 73 (exprPrimary)
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    expr                go to state 213
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 156
 
-   91 logicalExprPrimary: "NOT" logicalExprPrimary .
+   74 exprPrimary: qname exprListPar .
 
-    $default  reduce using rule 91 (logicalExprPrimary)
+    $default  reduce using rule 74 (exprPrimary)
 
 
 State 157
 
-   65 exprPrimary: "(" expr . ")"
-   81 relationalOper: expr . "==" expr
-   82               | expr . "<>" expr
-   83               | expr . "<=" expr
-   84               | expr . ">=" expr
-   85               | expr . "<" expr
-   86               | expr . ">" expr
-   87               | expr . "ISTYPE" "(" baseType ")"
-   88               | expr . "ISINSTANCE" "(" baseType ")"
+   92 logicalExprPrimary: "NOT" logicalExprPrimary .
 
-    ")"           shift, and go to state 183
-    "ISTYPE"      shift, and go to state 161
-    "ISINSTANCE"  shift, and go to state 162
-    "=="          shift, and go to state 163
-    "<"           shift, and go to state 164
-    "<="          shift, and go to state 165
-    ">"           shift, and go to state 166
-    ">="          shift, and go to state 167
-    "<>"          shift, and go to state 168
+    $default  reduce using rule 92 (logicalExprPrimary)
 
 
 State 158
 
-   90 logicalExprPrimary: "(" logicalExpr . ")"
+   65 exprPrimary: "(" expr . ")"
+   82 relationalOper: expr . "==" expr
+   83               | expr . "<>" expr
+   84               | expr . "<=" expr
+   85               | expr . ">=" expr
+   86               | expr . "<" expr
+   87               | expr . ">" expr
+   88               | expr . "ISTYPE" "(" baseType ")"
+   89               | expr . "ISINSTANCE" "(" baseType ")"
 
-    ")"  shift, and go to state 213
+    ")"           shift, and go to state 184
+    "ISTYPE"      shift, and go to state 162
+    "ISINSTANCE"  shift, and go to state 163
+    "=="          shift, and go to state 164
+    "<"           shift, and go to state 165
+    "<="          shift, and go to state 166
+    ">"           shift, and go to state 167
+    ">="          shift, and go to state 168
+    "<>"          shift, and go to state 169
 
 
 State 159
 
-   92 logicalExprPrimary: "ISSET" "(" . xpathAccess ")"
+   91 logicalExprPrimary: "(" logicalExpr . ")"
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    exprPrimary  go to state 73
-    xpathAccess  go to state 214
-    xpath        go to state 75
-    qname        go to state 99
+    ")"  shift, and go to state 214
 
 
 State 160
 
-   93 logicalExprPrimary: "ISNULL" "(" . xpathAccess ")"
+   93 logicalExprPrimary: "ISSET" "(" . xpathAccess ")"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2267,61 +2273,59 @@ State 160
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
+    exprPrimary  go to state 74
     xpathAccess  go to state 215
-    xpath        go to state 75
-    qname        go to state 99
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 161
 
-   87 relationalOper: expr "ISTYPE" . "(" baseType ")"
+   94 logicalExprPrimary: "ISNULL" "(" . xpathAccess ")"
 
-    "("  shift, and go to state 216
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    exprPrimary  go to state 74
+    xpathAccess  go to state 216
+    xpath        go to state 76
+    qname        go to state 100
 
 
 State 162
 
-   88 relationalOper: expr "ISINSTANCE" . "(" baseType ")"
+   88 relationalOper: expr "ISTYPE" . "(" baseType ")"
 
     "("  shift, and go to state 217
 
 
 State 163
 
-   81 relationalOper: expr "==" . expr
+   89 relationalOper: expr "ISINSTANCE" . "(" baseType ")"
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    expr                go to state 218
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    "("  shift, and go to state 218
 
 
 State 164
 
-   85 relationalOper: expr "<" . expr
+   82 relationalOper: expr "==" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2335,22 +2339,23 @@ State 164
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 219
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 165
 
-   83 relationalOper: expr "<=" . expr
+   86 relationalOper: expr "<" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2364,22 +2369,23 @@ State 165
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 220
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 166
 
-   86 relationalOper: expr ">" . expr
+   84 relationalOper: expr "<=" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2393,22 +2399,23 @@ State 166
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 221
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 167
 
-   84 relationalOper: expr ">=" . expr
+   87 relationalOper: expr ">" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2422,22 +2429,23 @@ State 167
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 222
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 168
 
-   82 relationalOper: expr "<>" . expr
+   85 relationalOper: expr ">=" . expr
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2451,20 +2459,51 @@ State 168
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 223
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 169
+
+   83 relationalOper: expr "<>" . expr
+
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    expr                go to state 224
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
+
+
+State 170
 
    56 exprTerm: exprTerm "+" . exprTerm
 
@@ -2480,19 +2519,20 @@ State 169
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprTerm            go to state 224
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 225
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
-State 170
+State 171
 
    57 exprTerm: exprTerm "-" . exprTerm
 
@@ -2508,19 +2548,20 @@ State 170
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprTerm            go to state 225
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 226
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
-State 171
+State 172
 
    59 exprFactor: exprFactor "*" . exprFactor
 
@@ -2536,18 +2577,19 @@ State 171
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprFactor          go to state 226
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprFactor          go to state 227
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
-State 172
+State 173
 
    60 exprFactor: exprFactor "/" . exprFactor
 
@@ -2563,18 +2605,19 @@ State 172
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprFactor          go to state 227
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprFactor          go to state 228
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
-State 173
+State 174
 
    61 exprFactor: exprFactor "%" . exprFactor
 
@@ -2590,141 +2633,94 @@ State 173
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprFactor          go to state 228
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
-
-
-State 174
-
-   95 logicalExprFactor: logicalExprFactor "AND" . logicalExprFactor
-
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    expr                go to state 104
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 110
-    logicalExprFactor   go to state 229
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprFactor          go to state 229
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 175
 
-   97 logicalExprTerm: logicalExprTerm "OR" . logicalExprTerm
+   96 logicalExprFactor: logicalExprFactor "AND" . logicalExprFactor
 
-    "NOT"      shift, and go to state 100
-    "("        shift, and go to state 101
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
     "NEW"      shift, and go to state 53
     "SIZEOF"   shift, and go to state 54
     "COPYOF"   shift, and go to state 55
     "DETACH"   shift, and go to state 56
     "TYPE"     shift, and go to state 59
     "TYPENS"   shift, and go to state 60
-    "ISSET"    shift, and go to state 102
-    "ISNULL"   shift, and go to state 103
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
     "STRLEN"   shift, and go to state 61
     "-"        shift, and go to state 62
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 104
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    relationalOper      go to state 109
-    logicalExprPrimary  go to state 110
-    logicalExprFactor   go to state 111
-    logicalExprTerm     go to state 230
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 105
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 111
+    logicalExprFactor   go to state 230
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 176
 
-  107 whileLoop: "WHILE" logicalExpr "DO" . statement
+   98 logicalExprTerm: logicalExprTerm "OR" . logicalExprTerm
 
-    "BEGIN"     shift, and go to state 24
-    "FOR"       shift, and go to state 45
-    "WHILE"     shift, and go to state 46
-    "IF"        shift, and go to state 47
-    "RETURN"    shift, and go to state 48
-    "THROW"     shift, and go to state 49
-    "TRY"       shift, and go to state 50
-    "WITH"      shift, and go to state 51
-    "("         shift, and go to state 52
-    "NEW"       shift, and go to state 53
-    "SIZEOF"    shift, and go to state 54
-    "COPYOF"    shift, and go to state 55
-    "DETACH"    shift, and go to state 56
-    "DELETE"    shift, and go to state 57
-    "EXTERNAL"  shift, and go to state 58
-    "TYPE"      shift, and go to state 59
-    "TYPENS"    shift, and go to state 60
-    "STRLEN"    shift, and go to state 61
-    "-"         shift, and go to state 62
-    T_SYMBOL    shift, and go to state 63
-    T_STRING    shift, and go to state 64
-    T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    "NOT"      shift, and go to state 101
+    "("        shift, and go to state 102
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "ISSET"    shift, and go to state 103
+    "ISNULL"   shift, and go to state 104
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    statement               go to state 231
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    expr                go to state 105
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    relationalOper      go to state 110
+    logicalExprPrimary  go to state 111
+    logicalExprFactor   go to state 112
+    logicalExprTerm     go to state 231
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 177
 
-  110 ifThenElse: "IF" logicalExpr "THEN" . statement
-  111           | "IF" logicalExpr "THEN" . statement "ELSE" statement
+  108 whileLoop: "WHILE" logicalExpr "DO" . statement
 
     "BEGIN"     shift, and go to state 24
     "FOR"       shift, and go to state 45
@@ -2748,58 +2744,110 @@ State 177
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
+    statementsListBeginEnd  go to state 69
     statement               go to state 232
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
 State 178
 
-  121 catch: "CATCH" . "(" declaration ")" statementsListBeginEnd
+  111 ifThenElse: "IF" logicalExpr "THEN" . statement
+  112           | "IF" logicalExpr "THEN" . statement "ELSE" statement
 
-    "("  shift, and go to state 233
+    "BEGIN"     shift, and go to state 24
+    "FOR"       shift, and go to state 45
+    "WHILE"     shift, and go to state 46
+    "IF"        shift, and go to state 47
+    "RETURN"    shift, and go to state 48
+    "THROW"     shift, and go to state 49
+    "TRY"       shift, and go to state 50
+    "WITH"      shift, and go to state 51
+    "("         shift, and go to state 52
+    "NEW"       shift, and go to state 53
+    "SIZEOF"    shift, and go to state 54
+    "COPYOF"    shift, and go to state 55
+    "DETACH"    shift, and go to state 56
+    "DELETE"    shift, and go to state 57
+    "EXTERNAL"  shift, and go to state 58
+    "TYPE"      shift, and go to state 59
+    "TYPENS"    shift, and go to state 60
+    "STRLEN"    shift, and go to state 61
+    "-"         shift, and go to state 62
+    T_SYMBOL    shift, and go to state 63
+    T_STRING    shift, and go to state 64
+    T_INTEGER   shift, and go to state 65
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
+
+    statementsListBeginEnd  go to state 69
+    statement               go to state 233
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
 State 179
 
-  118 tryCatch: "TRY" statementsListBeginEnd catchList .
-  119 catchList: catchList . catch
+  122 catch: "CATCH" . "(" declaration ")" statementsListBeginEnd
 
-    "CATCH"  shift, and go to state 178
-
-    $default  reduce using rule 118 (tryCatch)
-
-    catch  go to state 234
+    "("  shift, and go to state 234
 
 
 State 180
 
-  120 catchList: catch .
+  119 tryCatch: "TRY" statementsListBeginEnd catchList .
+  120 catchList: catchList . catch
 
-    $default  reduce using rule 120 (catchList)
+    "CATCH"  shift, and go to state 179
+
+    $default  reduce using rule 119 (tryCatch)
+
+    catch  go to state 235
 
 
 State 181
 
-  106 with: "WITH" T_SYMBOL "AS" . xpathAccess "DO" statement
+  121 catchList: catch .
+
+    $default  reduce using rule 121 (catchList)
+
+
+State 182
+
+  107 with: "WITH" T_SYMBOL "AS" . xpathAccess "DO" statement
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -2813,18 +2861,19 @@ State 181
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    exprPrimary  go to state 73
-    xpathAccess  go to state 235
-    xpath        go to state 75
-    qname        go to state 99
+    exprPrimary  go to state 74
+    xpathAccess  go to state 236
+    xpath        go to state 76
+    qname        go to state 100
 
 
-State 182
+State 183
 
-  105 with: "WITH" xpathAccess "DO" . statement
+  106 with: "WITH" xpathAccess "DO" . statement
 
     "BEGIN"     shift, and go to state 24
     "FOR"       shift, and go to state 45
@@ -2848,350 +2897,351 @@ State 182
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    statement               go to state 236
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    statementsListBeginEnd  go to state 69
+    statement               go to state 237
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
-State 183
+State 184
 
    65 exprPrimary: "(" expr ")" .
 
     $default  reduce using rule 65 (exprPrimary)
 
 
-State 184
-
-   72 exprPrimary: "(" exprPrimaryOrXPath "AS" . baseType ")"
-
-    T_SYMBOL  shift, and go to state 208
-
-    baseType  go to state 237
-
-
 State 185
 
-   70 exprPrimary: "NEW" T_SYMBOL ":" . T_STRING
-   71            | "NEW" T_SYMBOL ":" . T_STRING statementsListBeginEnd
+   73 exprPrimary: "(" exprPrimaryOrXPath "AS" . baseType ")"
 
-    T_STRING  shift, and go to state 238
+    T_SYMBOL  shift, and go to state 209
+
+    baseType  go to state 238
 
 
 State 186
 
-   77 exprPrimary: "SIZEOF" "(" xpathAccess . ")"
+   71 exprPrimary: "NEW" T_SYMBOL ":" . T_STRING
+   72            | "NEW" T_SYMBOL ":" . T_STRING statementsListBeginEnd
 
-    ")"  shift, and go to state 239
+    T_STRING  shift, and go to state 239
 
 
 State 187
 
-   74 exprPrimary: "COPYOF" "(" xpathAccess . ")"
+   78 exprPrimary: "SIZEOF" "(" xpathAccess . ")"
 
     ")"  shift, and go to state 240
 
 
 State 188
 
-   75 exprPrimary: "DETACH" "(" xpathAccess . ")"
+   75 exprPrimary: "COPYOF" "(" xpathAccess . ")"
 
     ")"  shift, and go to state 241
 
 
 State 189
 
-  113 external: "EXTERNAL" qname exprListPar .
-
-    $default  reduce using rule 113 (external)
-
-
-State 190
-
-   78 exprPrimary: "TYPE" "(" expr . ")"
+   76 exprPrimary: "DETACH" "(" xpathAccess . ")"
 
     ")"  shift, and go to state 242
 
 
+State 190
+
+  114 external: "EXTERNAL" qname exprListPar .
+
+    $default  reduce using rule 114 (external)
+
+
 State 191
 
-   79 exprPrimary: "TYPENS" "(" expr . ")"
+   79 exprPrimary: "TYPE" "(" expr . ")"
 
     ")"  shift, and go to state 243
 
 
 State 192
 
-   80 exprPrimary: "STRLEN" "(" expr . ")"
+   80 exprPrimary: "TYPENS" "(" expr . ")"
 
     ")"  shift, and go to state 244
 
 
 State 193
 
-  104 xpath: T_SYMBOL "[" expr . "]"
+   81 exprPrimary: "STRLEN" "(" expr . ")"
 
-    "]"  shift, and go to state 245
+    ")"  shift, and go to state 245
 
 
 State 194
+
+  105 xpath: T_SYMBOL "[" expr . "]"
+
+    "]"  shift, and go to state 246
+
+
+State 195
 
    53 assignment: lvalue "= (assignment)" expr .
 
     $default  reduce using rule 53 (assignment)
 
 
-State 195
-
-  103 xpath: T_SYMBOL .
-  104      | T_SYMBOL . "[" expr "]"
-
-    "["  shift, and go to state 133
-
-    $default  reduce using rule 103 (xpath)
-
-
 State 196
 
-  100 xpathAccess: exprPrimary "." xpath .
-  101 xpath: xpath . "." T_SYMBOL
-  102      | xpath . "." T_SYMBOL "[" expr "]"
+  104 xpath: T_SYMBOL .
+  105      | T_SYMBOL . "[" expr "]"
 
-    "."  shift, and go to state 138
+    "["  shift, and go to state 134
 
-    $default  reduce using rule 100 (xpathAccess)
+    $default  reduce using rule 104 (xpath)
 
 
 State 197
 
-  101 xpath: xpath "." T_SYMBOL .
-  102      | xpath "." T_SYMBOL . "[" expr "]"
+  101 xpathAccess: exprPrimary "." xpath .
+  102 xpath: xpath . "." T_SYMBOL
+  103      | xpath . "." T_SYMBOL "[" expr "]"
 
-    "["  shift, and go to state 246
+    "."  shift, and go to state 139
 
-    $default  reduce using rule 101 (xpath)
+    $default  reduce using rule 101 (xpathAccess)
 
 
 State 198
 
-  122 exprListPar: "(" ")" .
+  102 xpath: xpath "." T_SYMBOL .
+  103      | xpath "." T_SYMBOL . "[" expr "]"
 
-    $default  reduce using rule 122 (exprListPar)
+    "["  shift, and go to state 247
+
+    $default  reduce using rule 102 (xpath)
 
 
 State 199
 
-  125 exprList: expr .
+  123 exprListPar: "(" ")" .
 
-    $default  reduce using rule 125 (exprList)
+    $default  reduce using rule 123 (exprListPar)
 
 
 State 200
 
-  123 exprListPar: "(" exprList . ")"
-  124 exprList: exprList . "," expr
+  126 exprList: expr .
 
-    ")"  shift, and go to state 247
-    ","  shift, and go to state 248
+    $default  reduce using rule 126 (exprList)
 
 
 State 201
 
-   28 programResult: "RETURNS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
+  124 exprListPar: "(" exprList . ")"
+  125 exprList: exprList . "," expr
 
-    T_STRING  shift, and go to state 249
+    ")"  shift, and go to state 248
+    ","  shift, and go to state 249
 
 
 State 202
 
-  127 externalParametersPar: "(" externalParameters ")" .
-
-    $default  reduce using rule 127 (externalParametersPar)
-
-
-State 203
-
-  128 externalParameters: externalParameters "," . T_STRING
+   28 programResult: "RETURNS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
 
     T_STRING  shift, and go to state 250
 
 
+State 203
+
+  128 externalParametersPar: "(" externalParameters ")" .
+
+    $default  reduce using rule 128 (externalParametersPar)
+
+
 State 204
+
+  129 externalParameters: externalParameters "," . T_STRING
+
+    T_STRING  shift, and go to state 251
+
+
+State 205
 
    24 program: "PROGRAM" qname parametersListPar programResult "EXTERNAL" T_STRING externalParametersPar ";" .
 
     $default  reduce using rule 24 (program)
 
 
-State 205
+State 206
 
    13 typeDefinitionPropertiesEnclosed: "BEGIN" typeDefinitionProperties "END" .
 
     $default  reduce using rule 13 (typeDefinitionPropertiesEnclosed)
 
 
-State 206
+State 207
 
    17 property: T_SYMBOL . "AS" T_SYMBOL
    18         | T_SYMBOL . "AS" T_SYMBOL ":" T_STRING
    19         | T_SYMBOL . "AS" "ARRAY" "OF" T_SYMBOL
    20         | T_SYMBOL . "AS" "ARRAY" "OF" T_SYMBOL ":" T_STRING
 
-    "AS"  shift, and go to state 251
-
-
-State 207
-
-   15 typeDefinitionProperties: typeDefinitionProperties property . ";"
-
-    ";"  shift, and go to state 252
+    "AS"  shift, and go to state 252
 
 
 State 208
 
-   11 baseType: T_SYMBOL .
-   12         | T_SYMBOL . ":" T_STRING
+   15 typeDefinitionProperties: typeDefinitionProperties property . ";"
 
-    ":"  shift, and go to state 253
-
-    $default  reduce using rule 11 (baseType)
+    ";"  shift, and go to state 253
 
 
 State 209
 
-    8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType . typeDefinitionPropertiesEnclosed ";"
-   10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType . ";"
+   11 baseType: T_SYMBOL .
+   12         | T_SYMBOL . ":" T_STRING
 
-    "BEGIN"  shift, and go to state 93
-    ";"      shift, and go to state 254
+    ":"  shift, and go to state 254
 
-    typeDefinitionPropertiesEnclosed  go to state 255
+    $default  reduce using rule 11 (baseType)
 
 
 State 210
 
+    8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType . typeDefinitionPropertiesEnclosed ";"
+   10               | "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType . ";"
+
+    "BEGIN"  shift, and go to state 94
+    ";"      shift, and go to state 255
+
+    typeDefinitionPropertiesEnclosed  go to state 256
+
+
+State 211
+
    39 declaration: "VAR" T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL .
    40            | "VAR" T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL . ":" T_STRING
 
-    ":"  shift, and go to state 256
+    ":"  shift, and go to state 257
 
     $default  reduce using rule 39 (declaration)
 
 
-State 211
+State 212
 
    38 declaration: "VAR" T_SYMBOL "AS" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 38 (declaration)
 
 
-State 212
-
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr . "TO" expr "DO" statement
-  109        | "FOR" xpathAccess "= (assignment)" expr . "TO" expr "STEP" expr "DO" statement
-
-    "TO"  shift, and go to state 257
-
-
 State 213
 
-   90 logicalExprPrimary: "(" logicalExpr ")" .
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr . "TO" expr "DO" statement
+  110        | "FOR" xpathAccess "= (assignment)" expr . "TO" expr "STEP" expr "DO" statement
 
-    $default  reduce using rule 90 (logicalExprPrimary)
+    "TO"  shift, and go to state 258
 
 
 State 214
 
-   92 logicalExprPrimary: "ISSET" "(" xpathAccess . ")"
+   91 logicalExprPrimary: "(" logicalExpr ")" .
 
-    ")"  shift, and go to state 258
+    $default  reduce using rule 91 (logicalExprPrimary)
 
 
 State 215
 
-   93 logicalExprPrimary: "ISNULL" "(" xpathAccess . ")"
+   93 logicalExprPrimary: "ISSET" "(" xpathAccess . ")"
 
     ")"  shift, and go to state 259
 
 
 State 216
 
-   87 relationalOper: expr "ISTYPE" "(" . baseType ")"
+   94 logicalExprPrimary: "ISNULL" "(" xpathAccess . ")"
 
-    T_SYMBOL  shift, and go to state 208
-
-    baseType  go to state 260
+    ")"  shift, and go to state 260
 
 
 State 217
 
-   88 relationalOper: expr "ISINSTANCE" "(" . baseType ")"
+   88 relationalOper: expr "ISTYPE" "(" . baseType ")"
 
-    T_SYMBOL  shift, and go to state 208
+    T_SYMBOL  shift, and go to state 209
 
     baseType  go to state 261
 
 
 State 218
 
-   81 relationalOper: expr "==" expr .
+   89 relationalOper: expr "ISINSTANCE" "(" . baseType ")"
 
-    $default  reduce using rule 81 (relationalOper)
+    T_SYMBOL  shift, and go to state 209
+
+    baseType  go to state 262
 
 
 State 219
 
-   85 relationalOper: expr "<" expr .
-
-    $default  reduce using rule 85 (relationalOper)
-
-
-State 220
-
-   83 relationalOper: expr "<=" expr .
-
-    $default  reduce using rule 83 (relationalOper)
-
-
-State 221
-
-   86 relationalOper: expr ">" expr .
-
-    $default  reduce using rule 86 (relationalOper)
-
-
-State 222
-
-   84 relationalOper: expr ">=" expr .
-
-    $default  reduce using rule 84 (relationalOper)
-
-
-State 223
-
-   82 relationalOper: expr "<>" expr .
+   82 relationalOper: expr "==" expr .
 
     $default  reduce using rule 82 (relationalOper)
 
 
+State 220
+
+   86 relationalOper: expr "<" expr .
+
+    $default  reduce using rule 86 (relationalOper)
+
+
+State 221
+
+   84 relationalOper: expr "<=" expr .
+
+    $default  reduce using rule 84 (relationalOper)
+
+
+State 222
+
+   87 relationalOper: expr ">" expr .
+
+    $default  reduce using rule 87 (relationalOper)
+
+
+State 223
+
+   85 relationalOper: expr ">=" expr .
+
+    $default  reduce using rule 85 (relationalOper)
+
+
 State 224
+
+   83 relationalOper: expr "<>" expr .
+
+    $default  reduce using rule 83 (relationalOper)
+
+
+State 225
 
    56 exprTerm: exprTerm . "+" exprTerm
    56         | exprTerm "+" exprTerm .
@@ -3200,7 +3250,7 @@ State 224
     $default  reduce using rule 56 (exprTerm)
 
 
-State 225
+State 226
 
    56 exprTerm: exprTerm . "+" exprTerm
    57         | exprTerm . "-" exprTerm
@@ -3209,7 +3259,7 @@ State 225
     $default  reduce using rule 57 (exprTerm)
 
 
-State 226
+State 227
 
    59 exprFactor: exprFactor . "*" exprFactor
    59           | exprFactor "*" exprFactor .
@@ -3219,7 +3269,7 @@ State 226
     $default  reduce using rule 59 (exprFactor)
 
 
-State 227
+State 228
 
    59 exprFactor: exprFactor . "*" exprFactor
    60           | exprFactor . "/" exprFactor
@@ -3229,7 +3279,7 @@ State 227
     $default  reduce using rule 60 (exprFactor)
 
 
-State 228
+State 229
 
    59 exprFactor: exprFactor . "*" exprFactor
    60           | exprFactor . "/" exprFactor
@@ -3239,177 +3289,141 @@ State 228
     $default  reduce using rule 61 (exprFactor)
 
 
-State 229
-
-   95 logicalExprFactor: logicalExprFactor . "AND" logicalExprFactor
-   95                  | logicalExprFactor "AND" logicalExprFactor .
-
-    $default  reduce using rule 95 (logicalExprFactor)
-
-
 State 230
 
-   97 logicalExprTerm: logicalExprTerm . "OR" logicalExprTerm
-   97                | logicalExprTerm "OR" logicalExprTerm .
+   96 logicalExprFactor: logicalExprFactor . "AND" logicalExprFactor
+   96                  | logicalExprFactor "AND" logicalExprFactor .
 
-    $default  reduce using rule 97 (logicalExprTerm)
+    $default  reduce using rule 96 (logicalExprFactor)
 
 
 State 231
 
-  107 whileLoop: "WHILE" logicalExpr "DO" statement .
+   98 logicalExprTerm: logicalExprTerm . "OR" logicalExprTerm
+   98                | logicalExprTerm "OR" logicalExprTerm .
 
-    $default  reduce using rule 107 (whileLoop)
+    $default  reduce using rule 98 (logicalExprTerm)
 
 
 State 232
 
-  110 ifThenElse: "IF" logicalExpr "THEN" statement .
-  111           | "IF" logicalExpr "THEN" statement . "ELSE" statement
+  108 whileLoop: "WHILE" logicalExpr "DO" statement .
 
-    "ELSE"  shift, and go to state 262
-
-    "ELSE"    [reduce using rule 110 (ifThenElse)]
-    $default  reduce using rule 110 (ifThenElse)
+    $default  reduce using rule 108 (whileLoop)
 
 
 State 233
 
-  121 catch: "CATCH" "(" . declaration ")" statementsListBeginEnd
+  111 ifThenElse: "IF" logicalExpr "THEN" statement .
+  112           | "IF" logicalExpr "THEN" statement . "ELSE" statement
 
-    "VAR"  shift, and go to state 20
+    "ELSE"  shift, and go to state 263
 
-    declaration  go to state 263
+    "ELSE"    [reduce using rule 111 (ifThenElse)]
+    $default  reduce using rule 111 (ifThenElse)
 
 
 State 234
 
-  119 catchList: catchList catch .
+  122 catch: "CATCH" "(" . declaration ")" statementsListBeginEnd
 
-    $default  reduce using rule 119 (catchList)
+    "VAR"  shift, and go to state 20
+
+    declaration  go to state 264
 
 
 State 235
 
-  106 with: "WITH" T_SYMBOL "AS" xpathAccess . "DO" statement
+  120 catchList: catchList catch .
 
-    "DO"  shift, and go to state 264
+    $default  reduce using rule 120 (catchList)
 
 
 State 236
 
-  105 with: "WITH" xpathAccess "DO" statement .
+  107 with: "WITH" T_SYMBOL "AS" xpathAccess . "DO" statement
 
-    $default  reduce using rule 105 (with)
+    "DO"  shift, and go to state 265
 
 
 State 237
 
-   72 exprPrimary: "(" exprPrimaryOrXPath "AS" baseType . ")"
+  106 with: "WITH" xpathAccess "DO" statement .
 
-    ")"  shift, and go to state 265
+    $default  reduce using rule 106 (with)
 
 
 State 238
 
-   70 exprPrimary: "NEW" T_SYMBOL ":" T_STRING .
-   71            | "NEW" T_SYMBOL ":" T_STRING . statementsListBeginEnd
+   73 exprPrimary: "(" exprPrimaryOrXPath "AS" baseType . ")"
 
-    "BEGIN"  shift, and go to state 24
-
-    $default  reduce using rule 70 (exprPrimary)
-
-    statementsListBeginEnd  go to state 266
+    ")"  shift, and go to state 266
 
 
 State 239
 
-   77 exprPrimary: "SIZEOF" "(" xpathAccess ")" .
+   71 exprPrimary: "NEW" T_SYMBOL ":" T_STRING .
+   72            | "NEW" T_SYMBOL ":" T_STRING . statementsListBeginEnd
 
-    $default  reduce using rule 77 (exprPrimary)
+    "BEGIN"  shift, and go to state 24
+
+    $default  reduce using rule 71 (exprPrimary)
+
+    statementsListBeginEnd  go to state 267
 
 
 State 240
 
-   74 exprPrimary: "COPYOF" "(" xpathAccess ")" .
+   78 exprPrimary: "SIZEOF" "(" xpathAccess ")" .
 
-    $default  reduce using rule 74 (exprPrimary)
+    $default  reduce using rule 78 (exprPrimary)
 
 
 State 241
 
-   75 exprPrimary: "DETACH" "(" xpathAccess ")" .
+   75 exprPrimary: "COPYOF" "(" xpathAccess ")" .
 
     $default  reduce using rule 75 (exprPrimary)
 
 
 State 242
 
-   78 exprPrimary: "TYPE" "(" expr ")" .
+   76 exprPrimary: "DETACH" "(" xpathAccess ")" .
 
-    $default  reduce using rule 78 (exprPrimary)
+    $default  reduce using rule 76 (exprPrimary)
 
 
 State 243
 
-   79 exprPrimary: "TYPENS" "(" expr ")" .
+   79 exprPrimary: "TYPE" "(" expr ")" .
 
     $default  reduce using rule 79 (exprPrimary)
 
 
 State 244
 
-   80 exprPrimary: "STRLEN" "(" expr ")" .
+   80 exprPrimary: "TYPENS" "(" expr ")" .
 
     $default  reduce using rule 80 (exprPrimary)
 
 
 State 245
 
-  104 xpath: T_SYMBOL "[" expr "]" .
+   81 exprPrimary: "STRLEN" "(" expr ")" .
 
-    $default  reduce using rule 104 (xpath)
+    $default  reduce using rule 81 (exprPrimary)
 
 
 State 246
 
-  102 xpath: xpath "." T_SYMBOL "[" . expr "]"
+  105 xpath: T_SYMBOL "[" expr "]" .
 
-    "("        shift, and go to state 52
-    "NEW"      shift, and go to state 53
-    "SIZEOF"   shift, and go to state 54
-    "COPYOF"   shift, and go to state 55
-    "DETACH"   shift, and go to state 56
-    "TYPE"     shift, and go to state 59
-    "TYPENS"   shift, and go to state 60
-    "STRLEN"   shift, and go to state 61
-    "-"        shift, and go to state 62
-    T_SYMBOL   shift, and go to state 63
-    T_STRING   shift, and go to state 64
-    T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
-
-    expr                go to state 267
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    $default  reduce using rule 105 (xpath)
 
 
 State 247
 
-  123 exprListPar: "(" exprList ")" .
-
-    $default  reduce using rule 123 (exprListPar)
-
-
-State 248
-
-  124 exprList: exprList "," . expr
+  103 xpath: xpath "." T_SYMBOL "[" . expr "]"
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -3423,83 +3437,121 @@ State 248
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
     expr                go to state 268
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
+
+
+State 248
+
+  124 exprListPar: "(" exprList ")" .
+
+    $default  reduce using rule 124 (exprListPar)
 
 
 State 249
+
+  125 exprList: exprList "," . expr
+
+    "("        shift, and go to state 52
+    "NEW"      shift, and go to state 53
+    "SIZEOF"   shift, and go to state 54
+    "COPYOF"   shift, and go to state 55
+    "DETACH"   shift, and go to state 56
+    "TYPE"     shift, and go to state 59
+    "TYPENS"   shift, and go to state 60
+    "STRLEN"   shift, and go to state 61
+    "-"        shift, and go to state 62
+    T_SYMBOL   shift, and go to state 63
+    T_STRING   shift, and go to state 64
+    T_INTEGER  shift, and go to state 65
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
+
+    expr                go to state 269
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
+
+
+State 250
 
    28 programResult: "RETURNS" "ARRAY" "OF" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 28 (programResult)
 
 
-State 250
-
-  128 externalParameters: externalParameters "," T_STRING .
-
-    $default  reduce using rule 128 (externalParameters)
-
-
 State 251
+
+  129 externalParameters: externalParameters "," T_STRING .
+
+    $default  reduce using rule 129 (externalParameters)
+
+
+State 252
 
    17 property: T_SYMBOL "AS" . T_SYMBOL
    18         | T_SYMBOL "AS" . T_SYMBOL ":" T_STRING
    19         | T_SYMBOL "AS" . "ARRAY" "OF" T_SYMBOL
    20         | T_SYMBOL "AS" . "ARRAY" "OF" T_SYMBOL ":" T_STRING
 
-    "ARRAY"   shift, and go to state 269
-    T_SYMBOL  shift, and go to state 270
+    "ARRAY"   shift, and go to state 270
+    T_SYMBOL  shift, and go to state 271
 
 
-State 252
+State 253
 
    15 typeDefinitionProperties: typeDefinitionProperties property ";" .
 
     $default  reduce using rule 15 (typeDefinitionProperties)
 
 
-State 253
+State 254
 
    12 baseType: T_SYMBOL ":" . T_STRING
 
-    T_STRING  shift, and go to state 271
+    T_STRING  shift, and go to state 272
 
 
-State 254
+State 255
 
    10 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType ";" .
 
     $default  reduce using rule 10 (typeDefinition)
 
 
-State 255
+State 256
 
     8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType typeDefinitionPropertiesEnclosed . ";"
 
-    ";"  shift, and go to state 272
-
-
-State 256
-
-   40 declaration: "VAR" T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
-
-    T_STRING  shift, and go to state 273
+    ";"  shift, and go to state 273
 
 
 State 257
 
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" . expr "DO" statement
-  109        | "FOR" xpathAccess "= (assignment)" expr "TO" . expr "STEP" expr "DO" statement
+   40 declaration: "VAR" T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
+
+    T_STRING  shift, and go to state 274
+
+
+State 258
+
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" . expr "DO" statement
+  110        | "FOR" xpathAccess "= (assignment)" expr "TO" . expr "STEP" expr "DO" statement
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -3513,106 +3565,51 @@ State 257
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 274
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
-
-
-State 258
-
-   92 logicalExprPrimary: "ISSET" "(" xpathAccess ")" .
-
-    $default  reduce using rule 92 (logicalExprPrimary)
+    expr                go to state 275
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
 State 259
 
-   93 logicalExprPrimary: "ISNULL" "(" xpathAccess ")" .
+   93 logicalExprPrimary: "ISSET" "(" xpathAccess ")" .
 
     $default  reduce using rule 93 (logicalExprPrimary)
 
 
 State 260
 
-   87 relationalOper: expr "ISTYPE" "(" baseType . ")"
+   94 logicalExprPrimary: "ISNULL" "(" xpathAccess ")" .
 
-    ")"  shift, and go to state 275
+    $default  reduce using rule 94 (logicalExprPrimary)
 
 
 State 261
 
-   88 relationalOper: expr "ISINSTANCE" "(" baseType . ")"
+   88 relationalOper: expr "ISTYPE" "(" baseType . ")"
 
     ")"  shift, and go to state 276
 
 
 State 262
 
-  111 ifThenElse: "IF" logicalExpr "THEN" statement "ELSE" . statement
+   89 relationalOper: expr "ISINSTANCE" "(" baseType . ")"
 
-    "BEGIN"     shift, and go to state 24
-    "FOR"       shift, and go to state 45
-    "WHILE"     shift, and go to state 46
-    "IF"        shift, and go to state 47
-    "RETURN"    shift, and go to state 48
-    "THROW"     shift, and go to state 49
-    "TRY"       shift, and go to state 50
-    "WITH"      shift, and go to state 51
-    "("         shift, and go to state 52
-    "NEW"       shift, and go to state 53
-    "SIZEOF"    shift, and go to state 54
-    "COPYOF"    shift, and go to state 55
-    "DETACH"    shift, and go to state 56
-    "DELETE"    shift, and go to state 57
-    "EXTERNAL"  shift, and go to state 58
-    "TYPE"      shift, and go to state 59
-    "TYPENS"    shift, and go to state 60
-    "STRLEN"    shift, and go to state 61
-    "-"         shift, and go to state 62
-    T_SYMBOL    shift, and go to state 63
-    T_STRING    shift, and go to state 64
-    T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
-
-    statementsListBeginEnd  go to state 68
-    statement               go to state 277
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    ")"  shift, and go to state 277
 
 
 State 263
 
-  121 catch: "CATCH" "(" declaration . ")" statementsListBeginEnd
-
-    ")"  shift, and go to state 278
-
-
-State 264
-
-  106 with: "WITH" T_SYMBOL "AS" xpathAccess "DO" . statement
+  112 ifThenElse: "IF" logicalExpr "THEN" statement "ELSE" . statement
 
     "BEGIN"     shift, and go to state 24
     "FOR"       shift, and go to state 45
@@ -3636,167 +3633,225 @@ State 264
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    statement               go to state 279
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    statementsListBeginEnd  go to state 69
+    statement               go to state 278
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
+
+
+State 264
+
+  122 catch: "CATCH" "(" declaration . ")" statementsListBeginEnd
+
+    ")"  shift, and go to state 279
 
 
 State 265
 
-   72 exprPrimary: "(" exprPrimaryOrXPath "AS" baseType ")" .
+  107 with: "WITH" T_SYMBOL "AS" xpathAccess "DO" . statement
 
-    $default  reduce using rule 72 (exprPrimary)
+    "BEGIN"     shift, and go to state 24
+    "FOR"       shift, and go to state 45
+    "WHILE"     shift, and go to state 46
+    "IF"        shift, and go to state 47
+    "RETURN"    shift, and go to state 48
+    "THROW"     shift, and go to state 49
+    "TRY"       shift, and go to state 50
+    "WITH"      shift, and go to state 51
+    "("         shift, and go to state 52
+    "NEW"       shift, and go to state 53
+    "SIZEOF"    shift, and go to state 54
+    "COPYOF"    shift, and go to state 55
+    "DETACH"    shift, and go to state 56
+    "DELETE"    shift, and go to state 57
+    "EXTERNAL"  shift, and go to state 58
+    "TYPE"      shift, and go to state 59
+    "TYPENS"    shift, and go to state 60
+    "STRLEN"    shift, and go to state 61
+    "-"         shift, and go to state 62
+    T_SYMBOL    shift, and go to state 63
+    T_STRING    shift, and go to state 64
+    T_INTEGER   shift, and go to state 65
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
+
+    statementsListBeginEnd  go to state 69
+    statement               go to state 280
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
 State 266
 
-   71 exprPrimary: "NEW" T_SYMBOL ":" T_STRING statementsListBeginEnd .
+   73 exprPrimary: "(" exprPrimaryOrXPath "AS" baseType ")" .
 
-    $default  reduce using rule 71 (exprPrimary)
+    $default  reduce using rule 73 (exprPrimary)
 
 
 State 267
 
-  102 xpath: xpath "." T_SYMBOL "[" expr . "]"
+   72 exprPrimary: "NEW" T_SYMBOL ":" T_STRING statementsListBeginEnd .
 
-    "]"  shift, and go to state 280
+    $default  reduce using rule 72 (exprPrimary)
 
 
 State 268
 
-  124 exprList: exprList "," expr .
+  103 xpath: xpath "." T_SYMBOL "[" expr . "]"
 
-    $default  reduce using rule 124 (exprList)
+    "]"  shift, and go to state 281
 
 
 State 269
 
-   19 property: T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL
-   20         | T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL ":" T_STRING
+  125 exprList: exprList "," expr .
 
-    "OF"  shift, and go to state 281
+    $default  reduce using rule 125 (exprList)
 
 
 State 270
 
+   19 property: T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL
+   20         | T_SYMBOL "AS" "ARRAY" . "OF" T_SYMBOL ":" T_STRING
+
+    "OF"  shift, and go to state 282
+
+
+State 271
+
    17 property: T_SYMBOL "AS" T_SYMBOL .
    18         | T_SYMBOL "AS" T_SYMBOL . ":" T_STRING
 
-    ":"  shift, and go to state 282
+    ":"  shift, and go to state 283
 
     $default  reduce using rule 17 (property)
 
 
-State 271
+State 272
 
    12 baseType: T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 12 (baseType)
 
 
-State 272
+State 273
 
     8 typeDefinition: "DEFINE" T_SYMBOL ":" T_STRING "AS" "EXTENSION" "OF" baseType typeDefinitionPropertiesEnclosed ";" .
 
     $default  reduce using rule 8 (typeDefinition)
 
 
-State 273
+State 274
 
    40 declaration: "VAR" T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 40 (declaration)
 
 
-State 274
-
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr . "DO" statement
-  109        | "FOR" xpathAccess "= (assignment)" expr "TO" expr . "STEP" expr "DO" statement
-
-    "STEP"  shift, and go to state 283
-    "DO"    shift, and go to state 284
-
-
 State 275
 
-   87 relationalOper: expr "ISTYPE" "(" baseType ")" .
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr . "DO" statement
+  110        | "FOR" xpathAccess "= (assignment)" expr "TO" expr . "STEP" expr "DO" statement
 
-    $default  reduce using rule 87 (relationalOper)
+    "STEP"  shift, and go to state 284
+    "DO"    shift, and go to state 285
 
 
 State 276
 
-   88 relationalOper: expr "ISINSTANCE" "(" baseType ")" .
+   88 relationalOper: expr "ISTYPE" "(" baseType ")" .
 
     $default  reduce using rule 88 (relationalOper)
 
 
 State 277
 
-  111 ifThenElse: "IF" logicalExpr "THEN" statement "ELSE" statement .
+   89 relationalOper: expr "ISINSTANCE" "(" baseType ")" .
 
-    $default  reduce using rule 111 (ifThenElse)
+    $default  reduce using rule 89 (relationalOper)
 
 
 State 278
 
-  121 catch: "CATCH" "(" declaration ")" . statementsListBeginEnd
+  112 ifThenElse: "IF" logicalExpr "THEN" statement "ELSE" statement .
 
-    "BEGIN"  shift, and go to state 24
-
-    statementsListBeginEnd  go to state 285
+    $default  reduce using rule 112 (ifThenElse)
 
 
 State 279
 
-  106 with: "WITH" T_SYMBOL "AS" xpathAccess "DO" statement .
+  122 catch: "CATCH" "(" declaration ")" . statementsListBeginEnd
 
-    $default  reduce using rule 106 (with)
+    "BEGIN"  shift, and go to state 24
+
+    statementsListBeginEnd  go to state 286
 
 
 State 280
 
-  102 xpath: xpath "." T_SYMBOL "[" expr "]" .
+  107 with: "WITH" T_SYMBOL "AS" xpathAccess "DO" statement .
 
-    $default  reduce using rule 102 (xpath)
+    $default  reduce using rule 107 (with)
 
 
 State 281
 
-   19 property: T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL
-   20         | T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL ":" T_STRING
+  103 xpath: xpath "." T_SYMBOL "[" expr "]" .
 
-    T_SYMBOL  shift, and go to state 286
+    $default  reduce using rule 103 (xpath)
 
 
 State 282
 
-   18 property: T_SYMBOL "AS" T_SYMBOL ":" . T_STRING
+   19 property: T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL
+   20         | T_SYMBOL "AS" "ARRAY" "OF" . T_SYMBOL ":" T_STRING
 
-    T_STRING  shift, and go to state 287
+    T_SYMBOL  shift, and go to state 287
 
 
 State 283
 
-  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" . expr "DO" statement
+   18 property: T_SYMBOL "AS" T_SYMBOL ":" . T_STRING
+
+    T_STRING  shift, and go to state 288
+
+
+State 284
+
+  110 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" . expr "DO" statement
 
     "("        shift, and go to state 52
     "NEW"      shift, and go to state 53
@@ -3810,22 +3865,23 @@ State 283
     T_SYMBOL   shift, and go to state 63
     T_STRING   shift, and go to state 64
     T_INTEGER  shift, and go to state 65
-    T_BOOLEAN  shift, and go to state 66
-    T_NULL     shift, and go to state 67
+    T_FLOAT    shift, and go to state 66
+    T_BOOLEAN  shift, and go to state 67
+    T_NULL     shift, and go to state 68
 
-    expr                go to state 288
-    exprTerm            go to state 105
-    exprFactor          go to state 106
-    exprPrimaryOrXPath  go to state 107
-    exprPrimary         go to state 108
-    xpathAccess         go to state 114
-    xpath               go to state 75
-    qname               go to state 99
+    expr                go to state 289
+    exprTerm            go to state 106
+    exprFactor          go to state 107
+    exprPrimaryOrXPath  go to state 108
+    exprPrimary         go to state 109
+    xpathAccess         go to state 115
+    xpath               go to state 76
+    qname               go to state 100
 
 
-State 284
+State 285
 
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" . statement
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" . statement
 
     "BEGIN"     shift, and go to state 24
     "FOR"       shift, and go to state 45
@@ -3849,77 +3905,78 @@ State 284
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    statement               go to state 289
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
-
-
-State 285
-
-  121 catch: "CATCH" "(" declaration ")" statementsListBeginEnd .
-
-    $default  reduce using rule 121 (catch)
+    statementsListBeginEnd  go to state 69
+    statement               go to state 290
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
 State 286
 
+  122 catch: "CATCH" "(" declaration ")" statementsListBeginEnd .
+
+    $default  reduce using rule 122 (catch)
+
+
+State 287
+
    19 property: T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL .
    20         | T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL . ":" T_STRING
 
-    ":"  shift, and go to state 290
+    ":"  shift, and go to state 291
 
     $default  reduce using rule 19 (property)
 
 
-State 287
+State 288
 
    18 property: T_SYMBOL "AS" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 18 (property)
 
 
-State 288
-
-  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr . "DO" statement
-
-    "DO"  shift, and go to state 291
-
-
 State 289
 
-  108 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" statement .
+  110 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr . "DO" statement
 
-    $default  reduce using rule 108 (forLoop)
+    "DO"  shift, and go to state 292
 
 
 State 290
 
-   20 property: T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
+  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "DO" statement .
 
-    T_STRING  shift, and go to state 292
+    $default  reduce using rule 109 (forLoop)
 
 
 State 291
 
-  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" . statement
+   20 property: T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" . T_STRING
+
+    T_STRING  shift, and go to state 293
+
+
+State 292
+
+  110 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" . statement
 
     "BEGIN"     shift, and go to state 24
     "FOR"       shift, and go to state 45
@@ -3943,38 +4000,39 @@ State 291
     T_SYMBOL    shift, and go to state 63
     T_STRING    shift, and go to state 64
     T_INTEGER   shift, and go to state 65
-    T_BOOLEAN   shift, and go to state 66
-    T_NULL      shift, and go to state 67
+    T_FLOAT     shift, and go to state 66
+    T_BOOLEAN   shift, and go to state 67
+    T_NULL      shift, and go to state 68
 
-    statementsListBeginEnd  go to state 68
-    statement               go to state 293
-    assignment              go to state 71
-    lvalue                  go to state 72
-    exprPrimary             go to state 73
-    xpathAccess             go to state 74
-    xpath                   go to state 75
-    with                    go to state 76
-    whileLoop               go to state 77
-    forLoop                 go to state 78
-    ifThenElse              go to state 79
-    call                    go to state 80
-    external                go to state 81
-    delete                  go to state 82
-    return                  go to state 83
-    throw                   go to state 84
-    tryCatch                go to state 85
-    qname                   go to state 86
+    statementsListBeginEnd  go to state 69
+    statement               go to state 294
+    assignment              go to state 72
+    lvalue                  go to state 73
+    exprPrimary             go to state 74
+    xpathAccess             go to state 75
+    xpath                   go to state 76
+    with                    go to state 77
+    whileLoop               go to state 78
+    forLoop                 go to state 79
+    ifThenElse              go to state 80
+    call                    go to state 81
+    external                go to state 82
+    delete                  go to state 83
+    return                  go to state 84
+    throw                   go to state 85
+    tryCatch                go to state 86
+    qname                   go to state 87
 
 
-State 292
+State 293
 
    20 property: T_SYMBOL "AS" "ARRAY" "OF" T_SYMBOL ":" T_STRING .
 
     $default  reduce using rule 20 (property)
 
 
-State 293
+State 294
 
-  109 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement .
+  110 forLoop: "FOR" xpathAccess "= (assignment)" expr "TO" expr "STEP" expr "DO" statement .
 
-    $default  reduce using rule 109 (forLoop)
+    $default  reduce using rule 110 (forLoop)

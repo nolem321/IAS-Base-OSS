@@ -56,7 +56,7 @@ public:
 									 ::IAS::Lang::Interpreter::Exe::InterpreterProgramException& e)=0;
 	};
 
-	void addProgram(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+	void addProgram(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 					const String& strName);
 
 	virtual void execute(const String& strProgramName,
@@ -66,7 +66,7 @@ public:
 	virtual unsigned int execute(::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
 						 DM::DataObject* dmData);
 
-	::IAS::Lang::Interpreter::Exe::Program *getProgram(const String& strProgramName)const;
+	const ::IAS::Lang::Interpreter::Exe::Program *getProgram(const String& strProgramName)const;
 
 	void setResultHandler(ResultHandler *pResultHandler);
 
@@ -87,17 +87,17 @@ protected:
 
 	const ::IAS::DM::DataFactory *pDataFactory;
 
-	typedef HashMapOfPointers< ::IAS::Lang::Interpreter::Exe::Program *, StatsEntry> ProgramMap;
+	typedef HashMapOfPointers< const ::IAS::Lang::Interpreter::Exe::Program *, StatsEntry> ProgramMap;
 	ProgramMap   hmPrograms;
 
-	typedef HashMapWithStringKey< ::IAS::Lang::Interpreter::Exe::Program* > ProgramByNameMap;
-	ProgramByNameMap								   		               hmProgramByName;
+	typedef HashMapWithStringKey< const ::IAS::Lang::Interpreter::Exe::Program* > ProgramByNameMap;
+	ProgramByNameMap								   		                      hmProgramByName;
 
-	bool match(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+	bool match(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 				   const ::IAS::DM::Type* pCtxType,
 				   const ::IAS::DM::Type* pDataType);
 
-	virtual void execute(::IAS::Lang::Interpreter::Exe::Program *pProgram,
+	virtual void execute(const ::IAS::Lang::Interpreter::Exe::Program *pProgram,
 			 	 	 ::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
 			 	 	 DM::DataObject* dmData);
 

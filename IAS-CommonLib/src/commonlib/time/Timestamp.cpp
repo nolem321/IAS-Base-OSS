@@ -90,6 +90,10 @@ Timestamp::Timestamp(const Timestamp& other) :
 		theValue(other.theValue) {
 }
 /*************************************************************************/
+Timestamp::Timestamp(const String& strValue) {
+		fromDateTimeString(strValue);
+}
+/*************************************************************************/
 Timestamp::~Timestamp() throw () {
 }
 /*************************************************************************/
@@ -268,6 +272,11 @@ String Timestamp::toString(const String& strFormat) const {
 				if(theValue.tv_usec/CFRound > 0)
 				ssValue<<"."<<std::setw(CFPrec)<<(theValue.tv_usec/CFRound);
 				break;
+				case 'u': ssValue<<std::setw(UFPrec)<<(theValue.tv_usec);break;
+				case 'U':
+				if(theValue.tv_usec > 0)
+				ssValue<<"."<<std::setw(UFPrec)<<(theValue.tv_usec);
+				break;
 
 				case 'z': ssValue<<(timezone < 0 ? "-" : "+")<<std::setw(2)<<abs(timezone/3600); break;
 				case 'Z': if(timezone!=0)ssValue<<(timezone < 0 ? "-" : "+")<<std::setw(2)<<abs(timezone/3600); break;
@@ -303,6 +312,11 @@ void Timestamp::fromTimeString(const String& strValue) {
 }
 /*************************************************************************/
 void Timestamp::fromString(const String& strValue, const String& strFormat) {
+	IAS_TRACER;
+	fromString(strValue,strFormat,false);
+}
+/*************************************************************************/
+void Timestamp::fromString(const String& strValue, const String& strFormat, bool toLocalTime) {
 	IAS_TRACER;
 
 	StringStream ssValue(strValue);
@@ -380,7 +394,13 @@ void Timestamp::fromString(const String& strValue, const String& strFormat) {
 
 	tmpTime.tm_isdst=-1;
 
-	theValue.tv_sec=mktime(&tmpTime);
+
+	if (toLocalTime) {
+		theValue.tv_sec = Timestamp::gmtToLocal(&tmpTime);
+	} else {
+		theValue.tv_sec=mktime(&tmpTime);
+	}
+
 	theValue.tv_usec=CFRound*iMSec;
 }
 /*************************************************************************/
@@ -621,4 +641,16 @@ bool operator>(const Timestamp& left, const Timestamp& right) {
 
 }
 /*************************************************************************/
+time_t Timestamp::gmtToLocal(struct tm* timeinfo){
+	 IAS_TRACER;
+
+    timeinfo->tm_isdst = -1; // let the system figure this out for us
+    time_t t = mktime(timeinfo) - timezone;
+
+    if (daylight != 0 && timeinfo->tm_isdst != 0) {
+        t += 3600;
+    }
+
+    return t;
+}
 }

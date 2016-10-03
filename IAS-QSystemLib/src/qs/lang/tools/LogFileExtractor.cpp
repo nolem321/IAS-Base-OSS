@@ -41,7 +41,7 @@ namespace Lang {
 namespace Tools {
 
 /*************************************************************************/
-LogFileExtractor::LogFileExtractor(const StringList& lstParamaters):
+LogFileExtractor::LogFileExtractor(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy):
 	iTimeoutMS(InputFileTail::CInfiniteWait){
 	IAS_TRACER;
 
@@ -88,9 +88,9 @@ void LogFileExtractor::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* LogFileExtractor::Create(const StringList& lstParamaters){
+Extern::Statement* LogFileExtractor::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<LogFileExtractor>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<LogFileExtractor>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

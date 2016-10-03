@@ -18,6 +18,7 @@
 #include "Dictionary.h"
 
 
+
 namespace IAS {
 namespace QS {
 namespace Workers {
@@ -25,7 +26,8 @@ namespace Proc {
 namespace Dict {
 
 /*************************************************************************/
-Dictionary::Dictionary(){
+Dictionary::Dictionary(const String& strName):
+	strName(strName){
 	IAS_TRACER;
 }
 
@@ -47,7 +49,7 @@ DM::DataObject* Dictionary::getValue(const String& strKey){
 	Mutex::Locker locker(mutex);
 
 	if(hmValues.count(strKey) == 0)
-		IAS_THROW(ItemNotFoundException(String("Dictionary value not found for:"+strKey)));
+		IAS_THROW(ItemNotFoundException(String("Dictionary value not found for: "+strKey+", in "+strName)));
 
 	return hmValues.at(strKey);
 }

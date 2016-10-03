@@ -22,6 +22,7 @@
 
 #include "GetValue.h"
 #include "SetValue.h"
+#include "CreateDictionary.h"
 
 namespace IAS {
 namespace QS {
@@ -40,7 +41,8 @@ ModuleProxy::~ModuleProxy() throw(){
 void ModuleProxy::setupImpl(){
 	IAS_TRACER;
 	registerSymbol("SetValue",  &(SetValue::Create));
-	registerSymbol("GetValue", 	&(SetValue::Create));
+	registerSymbol("GetValue", 	&(GetValue::Create));
+	registerSymbol("CreateDictionary", 	&(CreateDictionary::Create));
 }
 /*************************************************************************/
 void ModuleProxy::cleanUpImpl(){

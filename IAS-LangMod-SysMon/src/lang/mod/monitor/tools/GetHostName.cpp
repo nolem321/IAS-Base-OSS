@@ -31,7 +31,7 @@ namespace Monitor {
 namespace Tools {
 
 /*************************************************************************/
-GetHostName::GetHostName(const StringList& lstParamaters){
+GetHostName::GetHostName(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -57,9 +57,9 @@ void GetHostName::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetHostName::Create(const StringList& lstParamaters){
+Extern::Statement* GetHostName::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetHostName>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetHostName>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

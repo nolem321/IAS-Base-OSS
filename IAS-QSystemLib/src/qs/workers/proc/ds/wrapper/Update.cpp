@@ -61,7 +61,8 @@ Update::Update(::IAS::DS::API::Session* pSession,
 	Lexer::Token iToken;
 
 	int iCountSpec=0;
-	int iCountSql=0;
+
+	iCountSql=0;
 
 	while((iToken=pLexer->nextToken()) != Lexer::T_END){
 
@@ -115,6 +116,9 @@ Update::Update(::IAS::DS::API::Session* pSession,
 
 	pLexer->assetNext(Lexer::T_END);
 
+	if(iCountSql == 0)
+		return;
+
 	ptrUpdate->setSQLText(strSQLText);
 	ptrUpdate->prepare();
 
@@ -128,6 +132,9 @@ Update::~Update() throw(){
 /*************************************************************************/
 void Update::execute(::IAS::DM::DataObjectPtr& dm){
 	IAS_TRACER;
+
+	if(iCountSql == 0)
+		return;
 
 	ptrUpdate->feedInputs(dm);
 	ptrUpdate->execute();;

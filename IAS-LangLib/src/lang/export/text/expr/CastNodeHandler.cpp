@@ -52,6 +52,7 @@ void CastNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Callback
 	CallbackRegister::SubCall(pCastNode->getChild(), pCtx, aResultExpr);
 
 	aResult.ssOutput<<" ( ";
+	aResult.ssOutput<<aResultExpr.ssOutput.str();
 	aResult.ssOutput<<" AS ";
 	const Model::Dec::TypeInfoNode *pTypeInfoNode = pCastNode->getTypeInfoNode();
 	aResult.ssOutput<<pTypeInfoNode->getType();

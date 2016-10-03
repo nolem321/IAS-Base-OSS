@@ -67,13 +67,13 @@ ProgramLoader::~ProgramLoader() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void ProgramLoader::loadModel(const String& strObject){
+void ProgramLoader::loadModel(const String& strObject, Tools::Parser::LexerIStreamWrapper* pWrapper){
 	IAS_TRACER;
 
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Model for: "<<strObject);
 
 	try{
-		ptrLexer->openObject(strObject);
+		ptrLexer->openObject(strObject, pWrapper);
 	}catch(ItemNotFoundException& e){
 		IAS_THROW(SourceNotFoundException(strObject));
 	}
@@ -84,7 +84,7 @@ void ProgramLoader::loadModel(const String& strObject){
 
 }
 /*************************************************************************/
-Interpreter::Exe::Program* ProgramLoader::getExecutable(const String& strProgramName){
+const Interpreter::Exe::Program* ProgramLoader::getExecutable(const String& strProgramName){
 	IAS_TRACER;
 	TypeList anyTypes;
 	return ptrExecStore->getExecutable(strProgramName,anyTypes);

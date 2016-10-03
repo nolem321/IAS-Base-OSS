@@ -32,7 +32,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetRandomString::GetRandomString(const StringList& lstParamaters){
+GetRandomString::GetRandomString(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size())
@@ -45,7 +45,7 @@ GetRandomString::~GetRandomString() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-const char  GetRandomString::CRandomChars  []= "1234567890abcdefghijklmnoprstquwvxyzABCDEFGHIJKLMNOPRSTUWVXYZab";
+const char  GetRandomString::CRandomChars  []=  "1234567890abcdefghijklmnoprstquwvxyzABCDEFGHIJKLMNOPRSTQUWVXYZab";
 /*************************************************************************/
 void GetRandomString::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
@@ -68,9 +68,9 @@ void GetRandomString::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetRandomString::Create(const StringList& lstParamaters){
+Statement* GetRandomString::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetRandomString>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetRandomString>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

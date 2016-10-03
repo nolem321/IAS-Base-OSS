@@ -168,6 +168,7 @@ void Lexer::handleStep(){
 		case S_Symbol:     handleState_Symbol(c); break;
 		case S_SpecSymbol: handleState_SpecSymbol(c); break;
 		case S_Integer:    handleState_Integer(c); break;
+		case S_Float:      handleState_Float(c); break;
 		case S_Greater:    handleState_Greater(c); break;
 		case S_Less:       handleState_Less(c); break;
 		case S_Eq:         handleState_Eq(c); break;
@@ -336,10 +337,25 @@ void Lexer::handleState_Integer(unsigned char c){
 	IAS_TRACER;
 	if(isdigit(c)){
 		aTokenInfo.addChar(c);
+	}else if(c == '.'){
+		iCurrentState=S_Float;
+		aTokenInfo.addChar(c);
 	}else{
 		getActiveWrapper()->ungetChar();
 		iCurrentState=S_End;
 		aTokenInfo.setToken(Token::T_INTEGER,true);
+	}
+
+}
+/*************************************************************************/
+void Lexer::handleState_Float(unsigned char c){
+	IAS_TRACER;
+	if(isdigit(c)){
+		aTokenInfo.addChar(c);
+	}else{
+		getActiveWrapper()->ungetChar();
+		iCurrentState=S_End;
+		aTokenInfo.setToken(Token::T_FLOAT,true);
 	}
 
 }

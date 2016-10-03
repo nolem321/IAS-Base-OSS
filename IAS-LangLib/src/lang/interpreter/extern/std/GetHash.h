@@ -40,13 +40,13 @@ public:
 	virtual ~GetHash() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	GetHash(const StringList& lstParamaters);
+	GetHash(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	_Hash<String> hash;
 

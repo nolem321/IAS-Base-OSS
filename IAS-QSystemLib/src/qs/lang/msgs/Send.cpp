@@ -43,7 +43,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-Send::Send(const StringList& lstParamaters){
+Send::Send(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -78,9 +78,9 @@ void Send::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* Send::Create(const StringList& lstParamaters){
+Extern::Statement* Send::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Send>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Send>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

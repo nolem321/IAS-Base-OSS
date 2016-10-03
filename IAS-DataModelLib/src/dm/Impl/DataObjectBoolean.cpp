@@ -28,7 +28,7 @@ namespace DM {
 namespace Impl {
 
 /*************************************************************************/
-DataObjectBoolean::DataObjectBoolean(const Type *pType):DataObjectBasic(pType){
+DataObjectBoolean::DataObjectBoolean(const Type *pType):DataObjectBasic(pType),bValue(false){
 	IAS_TRACER;
 }
 /*************************************************************************/

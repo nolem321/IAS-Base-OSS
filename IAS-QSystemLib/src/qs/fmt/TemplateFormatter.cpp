@@ -56,37 +56,6 @@ void TemplateFormatter::read( DM::DataObjectPtr& dmData,
 
 	IAS_THROW(BadUsageException("Cannot read from the template formatter."))
 }
-/*************************************************************************/
-class Arguments : public Template::Arguments{
-
-	public:
-
-	Arguments(const DM::DataObject* dmData):dmData(dmData){
-		IAS_TRACER;
-		IAS_CHECK_IF_NULL(dmData);
-	};
-
-	virtual ~Arguments(){};
-
-	virtual const String& get(const String& strKey) const{
-		IAS_TRACER;
-
-		//TODO revise API, however single instance will not be called by more than one thread
-		//and the Template class does not preserve value, so it is safe for now.
-
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"key: "<<strKey);
-
-		if(hmValues.count(strKey)==0)
-			const_cast<Arguments*>(this)->hmValues[strKey] = dmData->getString(strKey);
-
-
-		return hmValues.at(strKey);
-	}
-
-	protected:
-	  const DM::DataObject* dmData;
-	  HashMapWithStringKey<String> hmValues;
-};
 /****************************************************************q*********/
 void TemplateFormatter::write(const DM::DataObject* dmData,
 		 	 	 	 	  std::ostream&       ostream,
@@ -100,38 +69,69 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
     ts.start();
 
 
-	const String& strTemplateName(pAttributes->getValue(CStrAttr));
-	const Template* pTemplate(getTemplate(strTemplateName));
+	const Template* pTemplate(getTemplate(pAttributes, dmData));
 
-	Arguments args(dmData);
+	Tools::Template::Arguments args(dmData);
 	pTemplate->evaluate(args,ostream);
 
 	tsrSerialization.addSample(ts);
 
 }
+
 /*************************************************************************/
-const Template* TemplateFormatter::getTemplate(const String& strTemplateName){
+const Tools::Template* TemplateFormatter::tryTemplate(const String& strName) {
+
 	IAS_TRACER;
 
-	if(hmTemplates.count(strTemplateName) == 0){
+	if(hmTemplates.count(strName) == 0){
 
-		bool bFound = false;
-		for(StringList::const_iterator it=lstTemplateDirectories.begin();!bFound && it != lstTemplateDirectories.end(); it++){
+	bool bFound = false;
 
-			try{
-				String strValue;
-				InputFile::LoadString(*it+"/"+strTemplateName,strValue);
-				hmTemplates[strTemplateName]=IAS_DFT_FACTORY<Template>::Create(strValue);
-				bFound=true;
-			}catch(SystemException& e){	}
+	for (StringList::const_iterator it = lstTemplateDirectories.begin();
+			!bFound && it != lstTemplateDirectories.end(); it++) {
 
+		IAS_LOG(::IAS::QS::LogLevel::INSTANCE.isInfo(),
+				"Loading template: "<<strName<<" from "<<(*it));
+
+		try {
+			String strValue;
+			InputFile::LoadString(*it + "/" + strName, strValue);
+			hmTemplates[strName] = IAS_DFT_FACTORY<Tools::Template>::Create(strValue);
+			bFound = true;
+		} catch (SystemException& e) {
+			IAS_THROW(ItemNotFoundException("Template: "+strName))
 		}
 
-		if(!bFound)
-			IAS_THROW(ItemNotFoundException()<<"Template: "<<strTemplateName);
 	}
 
-	return hmTemplates[strTemplateName];
+	}
+
+	return hmTemplates[strName];
+}
+
+/*************************************************************************/
+const Tools::Template* TemplateFormatter::getTemplate(QS::API::Attributes *pAttributes,
+												const DM::DataObject* dmData){
+	IAS_TRACER;
+
+
+	const Tools::Template* pTemplate = NULL;
+
+	if(pAttributes->isSet(CStrAttr)){
+
+			const String& strTemplateName(pAttributes->getValue(CStrAttr));
+			pTemplate = tryTemplate(strTemplateName);
+
+	}else{
+
+		URI uri(dmData->getType()->getURI());
+		String strTemplateName(uri.getHost()+"/"+uri.getPath()+"/"+dmData->getType()->getName()+".temp");
+
+		pTemplate = tryTemplate(strTemplateName);
+
+	}
+
+	return pTemplate;
 }
 /*************************************************************************/
 }

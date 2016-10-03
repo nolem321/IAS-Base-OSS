@@ -41,7 +41,7 @@ namespace Lang {
 namespace Cache {
 
 /*************************************************************************/
-GetItem::GetItem(const StringList& lstParamaters){
+GetItem::GetItem(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -79,9 +79,9 @@ void GetItem::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetItem::Create(const StringList& lstParamaters){
+Extern::Statement* GetItem::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetItem>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetItem>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

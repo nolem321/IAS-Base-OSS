@@ -78,6 +78,13 @@ public:
 		return bEmptyFirstNS;
 	}
 
+	inline bool isPrefixElements()const{
+		return bPrefixElements;
+	}
+
+	void setEmptyFirstNS(bool bEmptyFirstNS);
+	void setPrefixElements(bool bPrefixElements);
+
 	static const String XMLPayloadElement;
 
 protected:
@@ -90,6 +97,7 @@ protected:
 
 	bool bSkipNullElements;
 	bool bEmptyFirstNS;
+	bool bPrefixElements;
 
 	friend class ::IAS::Factory<XMLHelper>;
 };

@@ -43,7 +43,7 @@ namespace Lang {
 namespace Dict {
 
 /*************************************************************************/
-GetValue::GetValue(const StringList& lstParamaters){
+GetValue::GetValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -56,13 +56,17 @@ void GetValue::executeExternal(Exe::Context *pCtx) const{
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String strDictName = pParameters->getString("cache");
-	const String strItemKey   = pParameters->getString("itemKey");
+	const String strDictName = pParameters->getString("dictionary");
+	const String strItemKey   = pParameters->getString("key");
+	int iTimeoutMS      = 0;
+
+	if(pParameters->getType()->asComplexType()->getProperties().getSize() == 4)
+		iTimeoutMS = pParameters->getInteger("wait") * 1000;
 
 	try{
 
 		pParameters->setDataObject(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
-				pWorkContext->getGlobalContext()->getDictionaryStore()->lookup(strDictName)->getValue(strItemKey));
+				pWorkContext->getGlobalContext()->getDictionaryStore()->lookup(strDictName, iTimeoutMS)->getValue(strItemKey)->duplicate());
 
 	}catch(Exception& e){
 
@@ -80,9 +84,9 @@ void GetValue::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetValue::Create(const StringList& lstParamaters){
+Extern::Statement* GetValue::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetValue>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetValue>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -55,6 +55,10 @@ public:
 
     virtual bool equals(const ::IAS::DM::Type *pType) const;
 
+    virtual void setRestrictionMaxLength(const MaxLenghtType iMaxLength);
+    virtual MaxLenghtType getRestrictionMaxLenght()const;
+
+
     virtual IAS::DM::DataObject* createDataObject() const;
 	virtual IAS::DM::DataObject* createDataObject(const char*  sValue) const;
     virtual IAS::DM::DataObject* createDataObject(const String& strValue) const;
@@ -97,6 +101,7 @@ protected:
 
 	const ::IAS::DM::Type*  pBaseType;
 
+	MaxLenghtType iMaxLength;
 
 	void setIsNSElementsType(bool bIsNSElementsType);
 

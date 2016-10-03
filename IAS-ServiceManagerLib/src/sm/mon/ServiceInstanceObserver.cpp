@@ -23,11 +23,20 @@
 #include "ServiceStatus.h"
 #include "Monitor.h"
 #include <sm/cfg/Config.h>
+#include "unistd.h"
 
 namespace IAS {
 namespace SM {
 namespace Mon {
 
+/*
+ * This is workaround for close(), see the man page
+ * Any record locks (see fcntl(2)) held on the
+       file it was associated with, and owned by the process, are removed
+       (regardless of the file descriptor that was used to obtain the lock).
+ */
+String           ServiceInstanceObserver::MyServiceName;
+ProcessLockFile *ServiceInstanceObserver::MyProcessLockFile(0);
 /*************************************************************************/
 ServiceInstanceObserver::ServiceInstanceObserver(const Monitor *pMonitor,
 												 ServiceStatus* pServiceStatus,
@@ -38,13 +47,23 @@ ServiceInstanceObserver::ServiceInstanceObserver(const Monitor *pMonitor,
 
 	IAS_TRACER;
 
-	ptrLockFile=IAS_DFT_FACTORY<ProcessLockFile>::Create(
+	strServiceName = pServiceStatus->getService()->getName() + TypeTools::IntToString(iInstanceIdx);
+
+	if(MyServiceName.compare(strServiceName) == 0){
+		IAS_CHECK_IF_NULL(MyProcessLockFile);
+		ptrLockFile=MyProcessLockFile;
+	}else{
+		ptrLockFile=IAS_DFT_FACTORY<ProcessLockFile>::Create(
 			pMonitor->getConfig()->getLckDir(),
 			pServiceStatus->getService(), iInstanceIdx);
+	}
 }
 /*************************************************************************/
 ServiceInstanceObserver::~ServiceInstanceObserver() throw(){
 	IAS_TRACER;
+
+	if(ptrLockFile == MyProcessLockFile)
+		ptrLockFile.pass();
 }
 /*************************************************************************/
 void ServiceInstanceObserver::refresh(){
@@ -54,10 +73,21 @@ void ServiceInstanceObserver::refresh(){
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Observing: "<<pServiceStatus->getService()->getName()<<":"<<iInstanceIdx);
 
-	pInstanceStatus->bIsRunning = ptrLockFile->isLocked();
 	ProcessLockFile::State      iState;
 	ptrLockFile->getProcessPidAndState(pInstanceStatus->iPid, iState);
 	pInstanceStatus->bIsStarted=iState==ProcessLockFile::PS_STARTED;
+
+
+	if(pInstanceStatus->iPid == getpid()){
+		pInstanceStatus->bIsRunning = true;
+		MyProcessLockFile=ptrLockFile;
+		MyServiceName=strServiceName;
+	}else{
+		pInstanceStatus->bIsRunning = ptrLockFile->isLocked();
+	}
+
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"My PID: "<<getpid());
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Status: "<<pInstanceStatus->bIsStarted<<":"<<pInstanceStatus->bIsRunning<<":"<<pInstanceStatus->iPid);
 

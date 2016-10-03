@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-SubString2::SubString2(const StringList& lstParamaters){
+SubString2::SubString2(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -47,9 +47,9 @@ void SubString2::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, strArgument.substr(iStart));
 }
 /*************************************************************************/
-Statement* SubString2::Create(const StringList& lstParamaters){
+Statement* SubString2::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SubString2>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SubString2>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

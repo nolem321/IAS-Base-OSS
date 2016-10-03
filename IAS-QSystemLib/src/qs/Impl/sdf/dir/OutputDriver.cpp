@@ -31,7 +31,7 @@ OutputDriver::OutputDriver(const API::Destination& destination):
 		iCount(0){
 	IAS_TRACER;
 
-	ptrTemplate=IAS_DFT_FACTORY<Template>::Create(String("/")+destination.getName());
+	ptrTemplate=IAS_DFT_FACTORY<Template>::Create(String("/")+EnvTools::Substitute(destination.getName(),false));
 }
 
 /*************************************************************************/
@@ -59,7 +59,7 @@ bool OutputDriver::send(Message* pMessage){
 	args.add("PID",TypeTools::IntToString((unsigned int)getpid()));
 	args.add("TID",TypeTools::IntToString((unsigned int)pthread_self()));
 	args.add("TS",ts.toString());
-	args.add("ID",pMessage->getAttributes()->getMID());
+	args.add("MID",pMessage->getAttributes()->getMID());
 
 	ptrTemplate->evaluate(args,ssFileName);
 

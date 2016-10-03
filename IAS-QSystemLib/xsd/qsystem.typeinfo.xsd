@@ -13,8 +13,11 @@
 	<xsi:complexContent>
 	   <xsi:extension base="ti:TypeInfo">
 	     <xsi:sequence>
-	   	 	<xsi:element name="base"        type="ti:TypeInfo" minOccurs="0" maxOccurs="1"/>	   	 	
-	   	 	<xsi:element name="description" type="xsi:string" minOccurs="0" maxOccurs="1"/>	   	 	
+	   	 	<xsi:element name="base"              type="ti:TypeInfo" minOccurs="0" maxOccurs="1"/>	   	 	
+	   	 	<xsi:element name="description"       type="xsi:string"  minOccurs="0" maxOccurs="1"/>
+	   	 	<xsi:element name="directExtensions"  type="ti:TypeInfo" minOccurs="0" maxOccurs="unbounded"/>	 	   	 	
+	   	 	<xsi:element name="allExtensions"     type="ti:TypeInfo" minOccurs="0" maxOccurs="unbounded"/>	 	   	 	
+	   	 	<xsi:element name="references"        type="ti:TypeInfo" minOccurs="0" maxOccurs="unbounded"/>
 	   	 </xsi:sequence>
   	  </xsi:extension>   		    	
   	</xsi:complexContent>	

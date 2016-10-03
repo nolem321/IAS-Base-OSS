@@ -47,7 +47,8 @@ Type::Type(const String& strURI,
     strName(strName),
 	pBaseType(pBaseType),
 	bIsNSElementsType(false),
-	strDescription(""){
+	strDescription(""),
+	iMaxLength(CDftMaxLength){
 
 		IAS_TRACER;
 
@@ -91,6 +92,14 @@ bool Type::equals(const ::IAS::DM::Type* pType) const{
 			 strURI.compare(pType->getURI().c_str())==0 );
 }
 /*************************************************************************/
+void Type::setRestrictionMaxLength(const Type::MaxLenghtType iMaxLength){
+	this->iMaxLength = iMaxLength;
+}
+/*************************************************************************/
+Type::MaxLenghtType Type::getRestrictionMaxLenght()const{
+	return iMaxLength;
+}
+/*************************************************************************/
 bool Type::isRootType() const{
 	return pBaseType == NULL;
 }
@@ -123,7 +132,7 @@ bool Type::isAssignableTo(const ::IAS::DM::Type* pType) const{
 	if(pType == this)
 		return true;
 
-	if(pType->getTypeEnum() == AnyType)
+	if(pType->getTypeEnum() == AnyType && pType->isRootType())
 		return true;
 
 	if(pType->getName().compare(strName) == 0 &&

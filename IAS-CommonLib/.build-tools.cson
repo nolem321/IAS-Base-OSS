@@ -1,0 +1,74 @@
+providers: [
+  {
+    key: "bt"
+    config:
+      commands: [
+        {
+          project: "/data/dia/Workspaces/IA-Fresh/IAS-CommonLib"
+          source: "/data/dia/Workspaces/IA-Fresh/IAS-CommonLib/.build-tools.cson"
+          name: "all"
+          command: "make -j8 all"
+          wd: "."
+          env: {}
+          modifier:
+            env:
+              IAS_PLATFORM: "Linux-64bit"
+            save_all: {}
+          environment:
+            name: "child_process"
+            config:
+              stdoe: "both"
+          stdout:
+            pipeline: []
+          stderr:
+            pipeline: [
+              {
+                name: "profile"
+                config:
+                  profile: "gcc_clang"
+              }
+            ]
+          output:
+            console:
+              close_success: false
+              queue_in_buffer: true
+              colors: true
+              stdin: false
+            linter:
+              no_trace: false
+              immediate: false
+          version: 2
+        }
+        {
+          project: "/data/dia/Workspaces/IA-Fresh/IAS-CommonLib"
+          source: "/data/dia/Workspaces/IA-Fresh/IAS-CommonLib/.build-tools.cson"
+          name: "clean"
+          command: "make clean"
+          wd: "."
+          env: {}
+          modifier:
+            save_all: {}
+            env:
+              IAS_PLATFORM: "Linux-64bit"
+          environment:
+            name: "child_process"
+            config:
+              stdoe: "both"
+          stdout:
+            pipeline: []
+          stderr:
+            pipeline: []
+          output:
+            console:
+              close_success: true
+              queue_in_buffer: true
+              colors: false
+              stdin: false
+            linter:
+              no_trace: false
+              immediate: false
+          version: 2
+        }
+      ]
+  }
+]

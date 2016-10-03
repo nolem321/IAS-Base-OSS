@@ -29,7 +29,7 @@
   			<xsi:element name="txnMode"     type="TransactionMode"  minOccurs="0" maxOccurs="1" />
   			<xsi:element name="timeout"     type="xsi:integer" minOccurs="0" maxOccurs="1" />  		
   			<xsi:element name="attrUpdates" type="AttributeUpdate" minOccurs="0" maxOccurs="unbounded"  />
-  			<xsi:element name="onRecievie"  type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
+  			<xsi:element name="onReceive"   type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
   		   	<xsi:element name="onSend"      type="Callback"  minOccurs="0" maxOccurs="unbounded"/>
   		   	<xsi:element name="onNoData"    type="Callback"  minOccurs="0" maxOccurs="unbounded"/>  		   	
   		</xsi:sequence>	 	  		

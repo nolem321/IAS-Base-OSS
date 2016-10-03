@@ -23,6 +23,8 @@
 namespace IAS{
 namespace DM{
 
+const Type::MaxLenghtType Type::CDftMaxLength(UINT_MAX);
+
 /*void Type::Free(DataObject *pObj){
 	if(pObj)
 		pObj->getType()->deleteDataObject(pObj);

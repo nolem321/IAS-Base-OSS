@@ -46,26 +46,31 @@ void XSDHelper::defineTypesFromFile(const String& strFileName, const String& str
 	if(fileLookup(strFileName, strTargetNamespace))
 		return;
 
-	IAS_DFT_FACTORY<XSDParser>::PtrHolder ptrParser(IAS_DFT_FACTORY<XSDParser>::Create(this,
-			IAS_DFT_FACTORY<LibXMLLexerForFile>::Create(strFileName)));
+	try {
+		IAS_DFT_FACTORY<XSDParser>::PtrHolder ptrParser(IAS_DFT_FACTORY<XSDParser>::Create(this,
+						IAS_DFT_FACTORY<LibXMLLexerForFile>::Create(strFileName)));
 
-	size_t iIdx = strFileName.find_last_of('/');
+		size_t iIdx = strFileName.find_last_of('/');
 
-	ptrParser->setWorkingDir(strFileName.substr(0,iIdx));
-	ptrParser->parse();
+		ptrParser->setWorkingDir(strFileName.substr(0,iIdx));
+		ptrParser->parse();
 
-	String strFileTNS = ptrParser->getTargetNamespace();
+		String strFileTNS = ptrParser->getTargetNamespace();
 
-	if(!strTargetNamespace.empty() && strTargetNamespace.compare(strFileTNS) != 0)
+		if(!strTargetNamespace.empty() && strTargetNamespace.compare(strFileTNS) != 0)
 		IAS_THROW(BadUsageException("Different namespace expected in xsd:import: "
-				+strTargetNamespace+", got: "+strFileTNS+", file: "+strFileName));
+						+strTargetNamespace+", got: "+strFileTNS+", file: "+strFileName));
 
-	if(fileLookup(strFileName, strFileTNS))
+		if(fileLookup(strFileName, strFileTNS))
 		return;
 
-	ptrParser->define();
+		ptrParser->define();
 
-	registerFile(strFileName,strFileTNS);
+		registerFile(strFileName,strFileTNS);
+	} catch(Exception& e) {
+		IAS_THROW(BadUsageException("Loading XSD failed for file: "+strFileName + ", for reason: "+e.getInfo()));
+	}
+
 }
 /*************************************************************************/
 
@@ -75,16 +80,22 @@ void XSDHelper::includeTypesFromFile(const String& strFileName, const String& st
 	if(fileLookup(strFileName, strTargetNamespace))
 		return;
 
-	IAS_DFT_FACTORY<XSDParser>::PtrHolder ptrParser(IAS_DFT_FACTORY<XSDParserForInclude>::Create(this,
-			IAS_DFT_FACTORY<LibXMLLexerForFile>::Create(strFileName), strTargetNamespace));
+	try {
+		IAS_DFT_FACTORY<XSDParser>::PtrHolder ptrParser(IAS_DFT_FACTORY<XSDParserForInclude>::Create(this,
+						IAS_DFT_FACTORY<LibXMLLexerForFile>::Create(strFileName), strTargetNamespace));
 
-	size_t iIdx = strFileName.find_last_of('/');
+		size_t iIdx = strFileName.find_last_of('/');
 
-	ptrParser->setWorkingDir(strFileName.substr(0,iIdx));
-	ptrParser->parse();
-	ptrParser->define();
+		ptrParser->setWorkingDir(strFileName.substr(0,iIdx));
+		ptrParser->parse();
+		ptrParser->define();
 
-	registerFile(strFileName, strTargetNamespace);
+		registerFile(strFileName, strTargetNamespace);
+
+	} catch(Exception& e) {
+		IAS_THROW(BadUsageException("Loading XSD failed for file: "+strFileName + ", for reason: "+e.getInfo()));
+	}
+
 }
 /*************************************************************************/
 static inline String _normalizePath(const String& strFileName){

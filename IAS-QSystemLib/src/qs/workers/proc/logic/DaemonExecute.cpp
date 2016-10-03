@@ -104,7 +104,7 @@ void DaemonExecute::compute(){
 	DM::DataObjectPtr dmValue(dmDaemonControl);
 	computeDM(dmContext, dmValue);
 
-	if(!dmDaemonControl->isSetActive() && !dmDaemonControl->getActive())
+	if(dmDaemonControl->isSetActive() && !dmDaemonControl->getActive())
 		IAS_THROW(EndOfDataException());
 
 	iNextInterval = dmDaemonControl->getNextInterval();

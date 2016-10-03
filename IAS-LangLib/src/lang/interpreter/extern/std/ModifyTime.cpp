@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-ModifyTime::ModifyTime(const StringList& lstParamaters){
+ModifyTime::ModifyTime(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -68,10 +68,10 @@ void ModifyTime::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* ModifyTime::Create(const StringList& lstParamaters){
+Statement* ModifyTime::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 	tzset();
-	return IAS_DFT_FACTORY<ModifyTime>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<ModifyTime>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

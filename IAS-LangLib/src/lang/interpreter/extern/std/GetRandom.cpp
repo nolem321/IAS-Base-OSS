@@ -32,7 +32,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetRandom::GetRandom(const StringList& lstParamaters){
+GetRandom::GetRandom(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size())
@@ -53,9 +53,9 @@ void GetRandom::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetRandom::Create(const StringList& lstParamaters){
+Statement* GetRandom::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetRandom>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetRandom>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

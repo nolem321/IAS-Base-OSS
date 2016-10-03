@@ -50,6 +50,8 @@ protected:
 	::IAS::DS::API::StatementUpdate::PtrHolder ptrUpdate;
 	SettersTable 	                           tabInputSetters;
 
+	int iCountSql;
+
 	friend class Factory<Update>;
 };
 

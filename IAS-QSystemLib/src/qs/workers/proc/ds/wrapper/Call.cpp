@@ -74,6 +74,7 @@ Call::Call(::IAS::DS::API::Session* pSession,
 		pLexer->assetToken(Lexer::T_SYMBOL);
 
 		String strXPath(pLexer->getXPathValue());
+		bool bQuote=pLexer->isQuoted();
 
 		iToken=pLexer->nextToken();
 		SettersTable::Mode iMode;
@@ -97,7 +98,14 @@ Call::Call(::IAS::DS::API::Session* pSession,
 		if(iCount++)
 			strSQLText+=", ";
 
+		if(bQuote)
+			strSQLText+='"';
+
 		strSQLText+=strTag;
+
+		if(bQuote)
+			strSQLText+='"';
+
 	}
 
 

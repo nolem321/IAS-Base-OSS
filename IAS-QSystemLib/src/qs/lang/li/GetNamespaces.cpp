@@ -45,7 +45,7 @@ using namespace ::IAS::Lang;
 using namespace ::IAS::Lang::Interpreter;
 
 /*************************************************************************/
-GetNamespaces::GetNamespaces(const StringList& lstParamaters){
+GetNamespaces::GetNamespaces(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -63,8 +63,7 @@ static void buildInfo(DM::DataObjectList& lstResult, const DM::DataFactory* pDat
 	for(int iIdx=0; iIdx<lstTypes.getSize(); iIdx++){
 		String strNS(lstTypes.at(iIdx)->getURI());
 
-		if(strNS.substr(0,10).compare("IAS/Script"))
-			setNamespaces.insert(strNS);
+		setNamespaces.insert(strNS);
 	}
 
 	for(std::set<String>::const_iterator it=setNamespaces.begin(); it != setNamespaces.end(); it++)
@@ -99,9 +98,9 @@ void GetNamespaces::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters){
+Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

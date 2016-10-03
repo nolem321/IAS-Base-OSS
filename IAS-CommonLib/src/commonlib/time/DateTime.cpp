@@ -47,6 +47,11 @@ DateTime::DateTime(const String& strValue, const String& strFmt){
 	Timestamp::fromString(strValue, strFmt);
 }
 /*************************************************************************/
+DateTime::DateTime(const String& strValue, const String& strFmt, bool toLocalTime){
+	IAS_TRACER;
+	Timestamp::fromString(strValue, strFmt, toLocalTime);
+}
+/*************************************************************************/
 DateTime::~DateTime() throw(){}
 /*************************************************************************/
 String DateTime::toString()const{

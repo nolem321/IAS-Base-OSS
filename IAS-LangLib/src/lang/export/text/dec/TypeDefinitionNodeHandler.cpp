@@ -77,7 +77,7 @@ void TypeDefinitionNodeHandler::call(const Model::Node* pNode,
 			bFirst=false;
 		}
 
-		aResult.ssOutput<<aSubCallResult.ssOutput<<std::endl;
+		aResult.ssOutput<<aSubCallResult.ssOutput.str()<<std::endl;
 	}
 
 	aResult.ssOutput<<"END"<<std::endl;

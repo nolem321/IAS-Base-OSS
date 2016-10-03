@@ -34,7 +34,7 @@ namespace Interpreter {
 namespace Exe {
 
 /*************************************************************************/
-ProgramContext::ProgramContext(const DM::DataFactory *pDataFactory, Program* pProgram){
+ProgramContext::ProgramContext(const DM::DataFactory *pDataFactory, const Program* pProgram){
 
 	IAS_TRACER;
 
@@ -83,7 +83,7 @@ void ProgramContext::execute(Exe::Context *pCtx){
 
 }
 /*************************************************************************/
-void ProgramContext::init(Program* pProgram){
+void ProgramContext::init(const Program* pProgram){
 	IAS_TRACER;
 	this->pProgram=pProgram;
 	ptrParameterValues = pProgram->createParameters();

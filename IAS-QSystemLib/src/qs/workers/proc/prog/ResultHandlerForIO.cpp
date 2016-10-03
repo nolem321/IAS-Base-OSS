@@ -84,7 +84,7 @@ void ResultHandlerForIO::handleException(::org::invenireaude::qsystem::workers::
 
 		try{
 			dmContext->setException(e.getValue());
-			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),DM::XML::XMLHelper::Stringify(pDataFactory,e.getValue()));
+			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),e.getValue()->getType()->getFullName()+", info: "+e.getValue()->getString("info"));
 
 		}catch(DM::RuntimeException& e2){
 			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),workers::DataFactory::GetInstance()->getExceptionType()->getFullName()

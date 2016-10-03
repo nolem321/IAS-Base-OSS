@@ -19,6 +19,7 @@
 
 #include "sm/cmdline/StartParameters.h"
 #include "sm/api/ServiceManager.h"
+#include <unistd.h>
 
 using namespace IAS;
 using namespace IAS::SM;
@@ -37,6 +38,11 @@ int main(int argc, char* argv[]) {
 
 		IAS_DFT_FACTORY<API::ServiceManager>::PtrHolder ptrServiceManager(IAS_DFT_FACTORY<API::ServiceManager>::Create());
 		ptrServiceManager->startServices(ptrParameters->getGrpAttrPairList());
+
+		if(ptrParameters->isDisplayOnEnd()){
+			sleep(1);
+			ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList());
+		}
 
 	} catch (IAS::SystemException& e) {
 		std::cerr << "System Exception:\n";

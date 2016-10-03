@@ -40,13 +40,13 @@ public:
 	virtual ~GetTimeDiff() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	GetTimeDiff(const StringList& lstParamaters);
+	GetTimeDiff(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	friend class ::IAS::Factory<GetTimeDiff>;
 };

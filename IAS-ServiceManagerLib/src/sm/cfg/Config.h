@@ -68,31 +68,53 @@ public:
 	void copyDeploymentConfig(::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr& ptrDeploymentConfig)const;
 
 protected:
-	Config(const String& strCfgDir);
+	Config(const String& strCfgDirs);
 
 	static const String& StrConfigFile;
 	static const String& StrDeploymentFile;
 	static const String& StrConfigLockFile;
 
-	String strCfgDir;
+
+	class Entry{
+
+	public:
+		  virtual ~Entry();
+
+		  const String& getDirName();
+		  bool checkVersion();
+
+		  SYS::FS::FileLock* getLockObject();
+
+		protected:
+
+		  Entry(const String& strDirName);
+
+		  String strDirName;
+		  String strVersion;
+
+		  ::org::invenireaude::sm::cfg::Ext::ServiceConfigPtr     dmServiceConfig;
+		  ::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr  dmDeploymentConfig;
+
+		  IAS_DFT_FACTORY<SYS::FS::FileLock>::PtrHolder ptrConfigLock;
+
+		  friend class ::IAS::Factory<Entry>;
+	};
+
+	typedef HashMapStringToPointer<Entry> ConfigDirsMap;
+	ConfigDirsMap                         hmConfigDirs;
 
 	::org::invenireaude::sm::cfg::Ext::ServiceConfigPtr     dmServiceConfig;
 	::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr  dmDeploymentConfig;
 
 	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper;
 
-	void loadDM();
+	void loadDM(const String& strCfgDir, bool bOverwrite);
 	void saveDM();
 
 	void indexItems();
 
 	IAS_DFT_FACTORY<ServiceIndexer>::PtrHolder   ptrServiceIndexer;
 
-
-	String strVersion;
-
-	::IAS::SYS::ILockable* getLockObject();
-	IAS_DFT_FACTORY<SYS::FS::FileLock>::PtrHolder ptrConfigLock;
 
 	typedef HashMapWithStringKey< const ::org::invenireaude::sm::cfg::Service* > ServiceByNameMap;
 	ServiceByNameMap                                                       hmServicesByName;

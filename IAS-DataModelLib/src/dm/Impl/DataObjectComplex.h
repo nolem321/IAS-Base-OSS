@@ -53,6 +53,7 @@ public:
 	virtual void  setDateTime(const IAS::DM::Property* pProperty,const IAS::DateTime& tValue);
 	virtual void  setBoolean(const IAS::DM::Property* pProperty, bool bValue);
 	virtual void  setString(const IAS::DM::Property* pProperty, const String& strValue);
+	virtual void  setRaw(const IAS::DM::Property* pProperty, const RawContent* pRawContent);
 
 	virtual void setDataObject(const IAS::DM::DataObject* pDataObject);
 
@@ -63,6 +64,7 @@ public:
 	virtual Float   getFloat(const IAS::DM::Property* pProperty) const;
 	virtual IAS::DateTime  getDateTime(const IAS::DM::Property* pProperty) const;
 	virtual String  getString(const IAS::DM::Property* pProperty) const;
+	virtual void    getRaw(const IAS::DM::Property* pProperty, RawContent* pRawContent)const;
 
 protected:
 	DataObjectComplex(const Type *pType);

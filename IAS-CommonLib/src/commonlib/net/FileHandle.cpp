@@ -89,6 +89,10 @@ IBlockIO::Result  FileHandle::write(const void *pData, size_t iDataSize, size_t&
 	if(iResult < 0){
 		if(errno == EAGAIN || errno == EWOULDBLOCK)
 			return RC_WantWrite;
+
+		if(errno == EPIPE)
+			IAS_THROW(EndOfDataException("write - broken pipe"));
+
 		IAS_THROW(SystemException("write",errno));
 	}
 
@@ -102,11 +106,12 @@ IBlockIO::Result FileHandle::read(void *pData, size_t iBufferLen, size_t& iDataS
 	if(readUndone(pData,iBufferLen,iDataSize))
 		return RC_OK;
 
-	if(iTimeout > 0)
-		if(!waitForData(WM_Read)){
-			iDataSize=0;
-			return RC_OK;
-		}
+
+	if(iTimeout >= 0)
+	if(!waitForData(WM_Read)){
+		iDataSize=0;
+		return RC_OK;
+	}
 
 	ssize_t iResult = 0;
 
@@ -121,6 +126,14 @@ IBlockIO::Result FileHandle::read(void *pData, size_t iBufferLen, size_t& iDataS
 
 		if(errno == EAGAIN || errno == EWOULDBLOCK)
 			return RC_WantRead;
+
+		if(errno == EPIPE)
+				IAS_THROW(EndOfDataException("read - broken pipe"));
+
+		if(errno == 104)
+					IAS_THROW(EndOfDataException("read - connection reset by peer"));
+
+
 		IAS_THROW(SystemException("read",errno));
 	}
 
@@ -144,6 +157,8 @@ void FileHandle::close(){
 	int iResult;
 
 	if(iFileDescriptor > 0){
+
+		shutdown(iFileDescriptor, SHUT_RDWR);
 
 		if(::close(iFileDescriptor) != 0)
 			IAS_LOG(LogLevel::INSTANCE.isError(),"close("<<iFileDescriptor<<")="<<errno<<":"<<strerror(errno));

@@ -49,7 +49,7 @@ public:
 
 	virtual ~ProgramProvider() throw();
 
-	IAS::Lang::Interpreter::Exe::Program*
+	const IAS::Lang::Interpreter::Exe::Program*
 	    loadProgram(const String& strProgramName);
 
 	void load(const String& strProgramName, Prog::ProgramSet *pProgramSet);
@@ -61,6 +61,7 @@ protected:
 
 	Mutex mutex;
 	ProgramProvider(::IAS::DM::DataFactory *pDataFactory);
+
 	::IAS::DM::DataFactory *pDataFactory;
 
 	IAS_DFT_FACTORY< IAS::Lang::Interpreter::ProgramLoader >::PtrHolder ptrLoader;

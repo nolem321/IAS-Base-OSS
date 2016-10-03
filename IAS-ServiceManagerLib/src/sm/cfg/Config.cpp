@@ -34,14 +34,62 @@ const String& Config::StrConfigLockFile = "Config.lck";
 const String& Config::StrConfigFile = "SMServices.xml";
 const String& Config::StrDeploymentFile = "SMDeployment.xml";
 /*************************************************************************/
-Config::Config(const String& strCfgDir): bVerbose(true), osLog(std::cerr) {
+Config::Entry::Entry(const String& strDirName):strDirName(strDirName){
+	IAS_TRACER;
+}
+/*************************************************************************/
+Config::Entry::~Entry(){
+	IAS_TRACER;
+}
+/*************************************************************************/
+const String& Config::Entry::getDirName(){
+	IAS_TRACER;
+	return strDirName;
+}
+/*************************************************************************/
+bool Config::Entry::checkVersion(){
+	IAS_TRACER;
+	String strVersion;
+	getLockObject()->readContent(strVersion);
+
+	bool bResult = strVersion.compare(this->strVersion) != 0;
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Check Version: ["<<strVersion<<"] ? ["<<this->strVersion<<"]="<<bResult);
+
+	this->strVersion=strVersion;
+
+
+	return bResult;
+}
+/*************************************************************************/
+SYS::FS::FileLock* Config::Entry::getLockObject() {
+	IAS_TRACER;
+
+	if (ptrConfigLock.isNull()) {
+		String strFile = strDirName + "/" + StrConfigLockFile;
+		ptrConfigLock = IAS_DFT_FACTORY<SYS::FS::FileLock>::Create(strFile);
+	}
+
+	return ptrConfigLock;
+}
+/*************************************************************************/
+Config::Config(const String& strCfgDirs):
+		bVerbose(true),
+		osLog(std::cerr){
 
 	IAS_TRACER;
-	this->strCfgDir = strCfgDir;
+
 
 	ptrXMLHelper = IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(DataFactory::GetInstance()->getContaingDataFactory());
-
 	ptrServiceIndexer = IAS_DFT_FACTORY<ServiceIndexer>::Create();
+
+	StringList lstCfgDirs;
+	IAS::TypeTools::Tokenize(strCfgDirs, lstCfgDirs, ':');
+
+	for(StringList::const_iterator it=lstCfgDirs.begin(); it != lstCfgDirs.end(); it++){
+
+		hmConfigDirs[*it]=IAS_DFT_FACTORY<Entry>::Create(*it);
+	}
 
 	load();
 }
@@ -78,31 +126,23 @@ const String& Config::getLckDir()const{
 	return strLckDir;
 }
 /*************************************************************************/
-::IAS::SYS::ILockable* Config::getLockObject() {
-	IAS_TRACER;
-
-	if (ptrConfigLock.isNull()) {
-		String strFile = strCfgDir + "/" + StrConfigLockFile;
-		std::cerr<<"test: "<<strFile<<std::endl;
-		ptrConfigLock = IAS_DFT_FACTORY<SYS::FS::FileLock>::Create(strFile);
-	}
-
-	return ptrConfigLock;
-}
-/*************************************************************************/
 bool Config::refresh() {
 	IAS_TRACER;
 
-	SYS::Locker lock(getLockObject());
+	bool bChanged = false;
 
-	String strTmp;
-	ptrConfigLock->readContent(strTmp);
+	for(ConfigDirsMap::const_iterator it = hmConfigDirs.begin(); !bChanged && it != hmConfigDirs.end(); it++) {
 
-	if (strTmp.compare(strVersion) == 0)
+		Entry *pEntry=it->second;
+		bChanged = pEntry->checkVersion();
+
+		if(bVerbose && bChanged)
+			getOutput()<<"New configuration detected: "<<it->first<<std::endl;
+
+	}
+
+	if(!bChanged)
 		return false;
-
-	if(bVerbose)
-		getOutput()<<"New configuration detected:"<<strTmp<<std::endl;
 
 	load();
 
@@ -117,8 +157,8 @@ void Config::save() {
 void Config::load() {
 	IAS_TRACER;
 
-	SYS::Locker lock(getLockObject());
-	ptrConfigLock->readContent(strVersion);
+	if(hmConfigDirs.size() == 0)
+		IAS_THROW(ConfigException("Empty service list."));
 
 	hmResourceGrpByName.clear();
 	hmResourceGrpForService.clear();
@@ -126,7 +166,19 @@ void Config::load() {
 
 	ptrServiceIndexer = IAS_DFT_FACTORY<ServiceIndexer>::Create();
 
-	loadDM();
+	bool bFirst = true;
+
+	for(ConfigDirsMap::const_iterator it = hmConfigDirs.begin(); it != hmConfigDirs.end(); it++) {
+
+		Entry *pEntry=it->second;
+
+		SYS::Locker lock(pEntry->getLockObject());
+
+		pEntry->checkVersion();
+
+		loadDM(pEntry->getDirName(), it==hmConfigDirs.begin());
+	}
+
 	indexItems();
 }
 /*************************************************************************/
@@ -211,20 +263,12 @@ void Config::indexItems() {
 		lstResourceGrpForService.insert(dmComputedResourceGrp);
 	}
 
-	strLckDir="/var/tmp/lck";
-	try{
-		strLckDir=dmDeploymentConfig->getLckDir();
-	}catch(...){};
 
-	iRefreshMS=1000;
-	try{
-		iRefreshMS=dmDeploymentConfig->getRefreshMS();
-	}catch(...){};
 }
 /*************************************************************************/
 void Config::saveDM() {
 	IAS_TRACER;
-
+/*
 	{
 		String strURL = strCfgDir + "/" + StrConfigFile;
 		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Services to: "<<strURL);
@@ -238,27 +282,79 @@ void Config::saveDM() {
 
 		ptrXMLHelper->save((const String) strURL, dmDeploymentConfig, "deploymentConfig", "");
 	}
+	*/
 }
 /*************************************************************************/
-void Config::loadDM() {
+void Config::loadDM(const String& strCfgDir, bool bOverwrite) {
 	IAS_TRACER;
 
-	{
-		String strURL = strCfgDir + "/" + StrConfigFile;
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Services from: "<<strURL);
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Loading from: "<<strCfgDir);
 
-		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strURL));
-		dmServiceConfig = DataFactory::GetInstance()->getServiceConfigType()->cast(ptrDoc->getRootObject());
+		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocS(ptrXMLHelper->readFile(strCfgDir + "/" + StrConfigFile));
+		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocD(ptrXMLHelper->readFile(strCfgDir + "/" + StrDeploymentFile));
 
-	}
+		Ext::ServiceConfigPtr  dmServiceConfig;
+		Ext::DeploymentConfigPtr  dmDeploymentConfig;
 
-	{
-		String strURL = strCfgDir + "/" + StrDeploymentFile;
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Deployment from: "<<strURL);
+		dmServiceConfig = DataFactory::GetInstance()->getServiceConfigType()->cast(ptrDocS->getRootObject());
+		dmDeploymentConfig = DataFactory::GetInstance()->getDeploymentConfigType()->cast(ptrDocD->getRootObject());
 
-		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strURL));
-		dmDeploymentConfig = DataFactory::GetInstance()->getDeploymentConfigType()->cast(ptrDoc->getRootObject());
-	}
+		dmDeploymentConfig->setLckDir(EnvTools::Substitute(dmDeploymentConfig->getLckDir()));
+
+		/* substitute in deployment */
+		Ext::ResourceGroupList& lstRGList(dmDeploymentConfig->getResourcesList());
+
+		for(int iIdx = 0; iIdx< lstRGList.size(); iIdx++) {
+
+			lstRGList.at(iIdx)->setLogDir(EnvTools::Substitute(lstRGList.at(iIdx)->getLogDir()));
+			Ext::VariableList& lstVarList(lstRGList.at(iIdx)->getEnv()->getVarsList());
+
+			for(int iIdxVar = 0; iIdxVar < lstVarList.size(); iIdxVar++) {
+				Ext::VariablePtr dmVariable = lstVarList.at(iIdxVar);
+				dmVariable->setValue(EnvTools::Substitute(dmVariable->getValue()));
+			}
+		}
+
+		if(bOverwrite){
+
+			this->dmServiceConfig=dmServiceConfig;
+			this->dmDeploymentConfig=dmDeploymentConfig;
+			strLckDir="/var/tmp/lck";
+
+			try{
+				strLckDir=dmDeploymentConfig->getLckDir();
+			}catch(...){};
+
+			iRefreshMS=1000;
+			try{
+				iRefreshMS=dmDeploymentConfig->getRefreshMS();
+			}catch(...){};
+
+		}else{
+
+			Ext::ServiceList& lstServices(dmServiceConfig->getServicesList());
+			Ext::ServiceList& lstTargetServices(this->dmServiceConfig->getServicesList());
+
+			for(int iIdx=0;iIdx<lstServices.size();iIdx++){
+				lstTargetServices.add(lstServices.at(iIdx)->duplicateService());
+			}
+
+			if(dmDeploymentConfig->isSetLckDir() && dmDeploymentConfig->getLckDir().compare(strLckDir) != 0)
+				IAS_THROW(ConfigException("You must have the same LckDirs in all merged SM configurations: "+strCfgDir+" vs. value of "+ strLckDir));
+
+			if(dmDeploymentConfig->isSetRefreshMS() && dmDeploymentConfig->getRefreshMS() != iRefreshMS)
+				IAS_THROW(ConfigException("You must have the same LckDirs in all merged SM configurations: "+strCfgDir));
+
+			Ext::ResourceGroupList& lstResGroups(dmDeploymentConfig->getResourcesList());
+			Ext::ResourceGroupList& lstTargetResGroups(this->dmDeploymentConfig->getResourcesList());
+
+			for(int iIdx=0; iIdx < lstResGroups.size(); iIdx++){
+				lstTargetResGroups.add(lstResGroups.at(iIdx)->duplicateResourceGroup());
+			}
+
+		}
+
+
 }
 /*************************************************************************/
 String Config::getLogFilesBase(const Service* pService) const{

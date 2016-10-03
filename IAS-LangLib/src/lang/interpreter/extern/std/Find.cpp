@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Find::Find(const StringList& lstParamaters){
+Find::Find(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -45,12 +45,12 @@ void Find::executeExternal(Exe::Context *pCtx) const{
 	const String strArgument = pParameters->getString("strArgument");
 	const String strPattern  = pParameters->getString("strPattern");
 	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,
-				strArgument.find(strPattern.c_str(),String::npos));
+				strArgument.find(strPattern.c_str(), 0));
 }
 /*************************************************************************/
-Statement* Find::Create(const StringList& lstParamaters){
+Statement* Find::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Find>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Find>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

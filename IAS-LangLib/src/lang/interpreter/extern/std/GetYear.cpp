@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetYear::GetYear(const StringList& lstParamaters){
+GetYear::GetYear(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -56,9 +56,9 @@ void GetYear::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetYear::Create(const StringList& lstParamaters){
+Statement* GetYear::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetYear>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetYear>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -62,7 +62,7 @@ Expr* ConstExprFamily::Create(const DM::Type* pType, const String& strValue){
 		break;
 
 	case DM::Type::FloatType:
-		ptrExpr = IAS_DFT_FACTORY<ConstFloatExpr>::Create(IAS::TypeTools::StringToInt(strValue));
+		ptrExpr = IAS_DFT_FACTORY<ConstFloatExpr>::Create(IAS::TypeTools::StringToFloat(strValue));
 		break;
 
 //TODO (M) to jest cos dziwnego - czemu konwersji nie robi DM ?

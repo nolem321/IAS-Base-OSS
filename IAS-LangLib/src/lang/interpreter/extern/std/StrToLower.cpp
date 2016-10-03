@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-StrToLower::StrToLower(const StringList& lstParamaters){
+StrToLower::StrToLower(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -46,9 +46,9 @@ void StrToLower::executeExternal(Exe::Context *pCtx) const{
 	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, MiscTools::StrToLower(strArgument));
 }
 /*************************************************************************/
-Statement* StrToLower::Create(const StringList& lstParamaters){
+Statement* StrToLower::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<StrToLower>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<StrToLower>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

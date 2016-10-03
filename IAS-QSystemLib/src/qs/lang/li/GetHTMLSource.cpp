@@ -34,6 +34,7 @@
 #include <qs/workers/proc/wcm/WorkContextManager.h>
 #include <qs/workers/proc/GlobalContext.h>
 #include <qs/workers/proc/ProgramProvider.h>
+#include <dm/Impl/DataFactory.h>
 
 #include "GetHTMLSource.h"
 
@@ -46,8 +47,14 @@ namespace Lang {
 namespace LI {
 
 /*************************************************************************/
-GetHTMLSource::GetHTMLSource(const StringList& lstParamaters){
+GetHTMLSource::GetHTMLSource(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
+
+	ptrLocalDataFactory = IAS_DFT_FACTORY<::IAS::DM::Impl::DataFactory>::Create(pWorkContext->getGlobalContext()->getDataFactory());
+
+	ptrProgramProvider =
+			IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::Create(ptrLocalDataFactory);
+
 }
 /*************************************************************************/
 GetHTMLSource::~GetHTMLSource() throw(){
@@ -63,8 +70,7 @@ void GetHTMLSource::executeExternal(Exe::Context *pCtx) const{
 
 	try{
 
-
-		pWorkContext->getGlobalContext()->getProgramProvider()->getSources(strName,
+		ptrProgramProvider->getSources(strName,
 				pParameters->getList(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable)
 			);
 
@@ -81,9 +87,9 @@ void GetHTMLSource::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* GetHTMLSource::Create(const StringList& lstParamaters){
+Extern::Statement* GetHTMLSource::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetHTMLSource>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetHTMLSource>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

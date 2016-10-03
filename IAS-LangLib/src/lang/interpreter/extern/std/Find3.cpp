@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Find3::Find3(const StringList& lstParamaters){
+Find3::Find3(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -51,9 +51,9 @@ void Find3::executeExternal(Exe::Context *pCtx) const{
 				strArgument.find(strPattern.c_str(),(iStart<0)?0:iStart));
 }
 /*************************************************************************/
-Statement* Find3::Create(const StringList& lstParamaters){
+Statement* Find3::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Find3>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Find3>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

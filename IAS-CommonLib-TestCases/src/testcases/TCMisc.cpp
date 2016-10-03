@@ -39,7 +39,8 @@ TCMisc::~TCMisc() throw(){
 /*************************************************************************/
 void TCMisc::init(TestSuite* pTestSuite){
 	IAS_TRACER;
-	theTestRunner.addCase("ALL",&::IAS::TCT::TCMisc::caseALL);
+	//theTestRunner.addCase("ALL",&::IAS::TCT::TCMisc::caseALL);
+	theTestRunner.addCase("Base64",&::IAS::TCT::TCMisc::caseBase64);
 	TestUnit::init("TCMisc",&theTestRunner,pTestSuite);
 }
 /*************************************************************************/
@@ -53,6 +54,18 @@ void TCMisc::caseALL(){
 	std::cout<<TypeTools::Replace("abc1234abc56789abc","abc","XYZ")<<'\n';
 	std::cout<<TypeTools::Replace("1234abc56789","abc","XYZ")<<'\n';
 
+	{
+
+		String strPattern("${home} sweet ${HOME}");
+		String strValue = EnvTools::Substitute(strPattern);
+
+		if(strValue.compare(" sweet "+EnvTools::GetEnv("HOME")) != 0)
+			IAS_THROW(InternalException("Test case failed for  EnvTools::Substitute"));
+
+		std::cout<<"Value: "<<strValue<<std::endl;
+
+	}
+
 	TimeSamplesResults tsr;
 	TimeSample ts(true);
 	std::cout<<"Wait !"<<std::endl;
@@ -62,6 +75,29 @@ void TCMisc::caseALL(){
 	tsr.addSample(ts);
 	std::cout<<tsr<<std::endl;
 
+}
+/*************************************************************************/
+void TCMisc::caseBase64(){
+	IAS_TRACER;
+
+	String s("ABCDEFGHIJKL");
+
+	unsigned char buffer[1024];
+	String strBase64;
+	String strOutput;
+	size_t iDataLen;
+
+	IAS::MiscTools::BinaryToBase64((const unsigned char*)s.c_str(), s.length()+1, strBase64);
+	std::cout<<strBase64<<'\n';
+	std::cout<<strOutput<<'\n';
+	IAS::MiscTools::Base64ToBinary(strBase64, buffer, 1024, iDataLen);
+	IAS::MiscTools::Base64ToString(strBase64, strOutput);
+
+	std::cout<<s.length()<<":"<<iDataLen<<'\n';
+
+	std::cout<<strOutput<<'\n';
+	String str2((const char*)buffer,iDataLen-1);
+	std::cout<<str2<<'\n';
 }
 /*************************************************************************/
 } /* namespace TCT */

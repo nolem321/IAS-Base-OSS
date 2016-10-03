@@ -32,7 +32,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-GetHash::GetHash(const StringList& lstParamaters){
+GetHash::GetHash(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size())
@@ -56,9 +56,9 @@ void GetHash::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* GetHash::Create(const StringList& lstParamaters){
+Statement* GetHash::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetHash>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<GetHash>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

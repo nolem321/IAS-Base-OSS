@@ -23,7 +23,7 @@ namespace IAS {
 namespace SM {
 namespace CmdLine {
 /*************************************************************************/
-const String ProgramParameters::StrCommonArgSpec("hm:");
+const String ProgramParameters::StrCommonArgSpec("dhm:");
 /*************************************************************************/
 ProgramParameters::ProgramParameters() throw(){
 	IAS_TRACER;
@@ -66,6 +66,10 @@ void ProgramParameters::printCmdDesc(std::ostream& os) const {
 void ProgramParameters::printArgsDesc(std::ostream& os) const {
 	IAS_TRACER;
 	os<<"test2";
+}
+/*************************************************************************/
+bool ProgramParameters::isDisplayOnEnd() const {
+	return hmIndicators.count('d') != 0;
 }
 /*************************************************************************/
 }

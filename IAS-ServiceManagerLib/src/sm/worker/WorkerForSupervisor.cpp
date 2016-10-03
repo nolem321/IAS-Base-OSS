@@ -54,6 +54,7 @@ void WorkerForSupervisor::work(const ::org::invenireaude::sm::cfg::Service* pSer
 	int iCount           = dmResourceGrp->getCount();
 
 	int iRestartInterval = dmResourceGrp->isSetRestartInterval() ? dmResourceGrp->getRestartInterval() : 60;
+	time_t tNow = time(0);
 
 	for (int iIdx = 0; iIdx < iCount; iIdx++) {
 		const Mon::ServiceStatus::InstanceStatus *pInstanceStatus = pServiceStatus->getInstanceStatus(iIdx);
@@ -62,23 +63,24 @@ void WorkerForSupervisor::work(const ::org::invenireaude::sm::cfg::Service* pSer
 
 		if(pInstanceStatus->bIsStarted){
 
-			if(!pInstanceStatus->bIsRunning){
-
-				if(it == hmFailedServices.end() || it->second == 0){
+			if(!pInstanceStatus->bIsRunning)
+			{
+				if(it == hmFailedServices.end()) {
 					ptrStartStopHelper->startInstance(pService,iIdx);
-					hmFailedServices[pService] = it == hmFailedServices.end() ? (iRestartInterval / 2 + 1) : iRestartInterval;
-				}else{
-					IAS_LOG(LogLevel::INSTANCE.isInfo(), "Waiting  : "<<pService->getName()<<" "<<hmFailedServices[pService]);
-					it->second--;
+					hmFailedServices[pService] = tNow + (iRestartInterval / 2);
+				} else if(tNow > it->second) {
+					ptrStartStopHelper->startInstance(pService,iIdx);
+					hmFailedServices[pService] = tNow + iRestartInterval;
+				} else {
+					IAS_LOG(LogLevel::INSTANCE.isInfo(), "Waiting  : "<<pService->getName()<<" "<< (hmFailedServices[pService] - tNow));
 				}
 
 			}else{
 
 				if(it != hmFailedServices.end()){
-					if(it->second == 0)
+					if(tNow > it->second) {
 						hmFailedServices.erase(it);
-					else
-						it->second--;
+					}
 				}
 
 			}/* IF: isRunning */

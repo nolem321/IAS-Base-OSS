@@ -181,7 +181,7 @@ char* JSONParser::copyStringValue(){
 				case '\\': *sDest++='\\'; break;
 				default:
 					*sDest++=0;
-					IAS_THROW(JSONHelperException(String("Unknown escape sequence after: ")+sCopy));
+					IAS_THROW(JSONHelperException(String("Unknown escape sequence after: [")+sCopy+"], ascii="+TypeTools::IntToString(*sOrig-1)+" "+strValue));
 			}
 		}
 
@@ -193,29 +193,13 @@ char* JSONParser::copyStringValue(){
 DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeHint){
 	IAS_TRACER;
 
-	//TODO some concept to store subtypes of basic types.
+	if(node.getType() == Node::T_Value){
 
-	if(pTypeHint && !pTypeHint->isDataObjectType()){
-		if(node.getType() == Node::T_Value)
+		if(pTypeHint && !pTypeHint->isDataObjectType())
 			return pTypeHint->createDataObject(node.getValue());
-		else{
-			pTypeHint=getDMType(node.getMap());
-			if(pTypeHint){
-				ValuesMap::const_iterator it=node.getMap()->find("_value");
 
-				if(it == node.getMap()->end())
-					IAS_THROW(JSONHelperException("No type hint for a simple type."));
-
-				return pTypeHint->createDataObject(it->second->getFirst().getValue());
-			}else
-				IAS_THROW(JSONHelperException("No type hint for a simple type."));
-		}
+		IAS_THROW(JSONHelperException("No hint or data object type given for a simple type."));
 	}
-
-	String strType;
-	String strURI;
-
-	Impl::DataAllocator<DataObject>::PtrHolder dm;
 
 	ValuesMap *pMap=node.getMap();
 
@@ -223,6 +207,29 @@ DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeH
 
 	if(pMapType)
 		pTypeHint=pMapType;
+
+	if(pTypeHint && !pTypeHint->isDataObjectType()){
+
+		if(pTypeHint->getTypeEnum() != DM::Type::AnyType) {
+
+			ValuesMap::const_iterator it=node.getMap()->find("_value");
+
+			if(it == node.getMap()->end())
+			IAS_THROW(JSONHelperException("No type hint for a simple type[1]."+pTypeHint->getFullName()));
+
+			return pTypeHint->createDataObject(it->second->getFirst().getValue());
+		} else {
+			return pTypeHint->createDataObject();
+		}
+
+	}
+
+
+	String strType;
+	String strURI;
+
+	Impl::DataAllocator<DataObject>::PtrHolder dm;
+
 
 	if(!pTypeHint)
 		IAS_THROW(JSONHelperException("No type hint for a complex type."));

@@ -37,14 +37,17 @@ public:
 	virtual ~Dictionary() throw();
 
 
+
 	void setValue(const String& strKey, DM::DataObject* dm);
 	DM::DataObject* getValue(const String& strKey);
 
 protected:
 
-	Dictionary();
+	Dictionary(const String& strName);
 
 	Mutex mutex;
+
+	String strName;
 
 	typedef HashMapWithStringKey<DM::DataObjectPtr> ValuesMap;
 	ValuesMap hmValues;

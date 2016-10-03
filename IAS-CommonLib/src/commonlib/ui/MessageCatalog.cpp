@@ -96,11 +96,11 @@ void MessageCatalog::MessageCatalogUpdater::UpdateCatalog(MsgId idMsg, const Str
 	MessageCatalog::GetInstance()->update(idMsg, strMessage);
 }
 /*************************************************************************/
+static Mutex _mutex;
+/*************************************************************************/
 void MessageCatalog::update(MsgId idMsg, const String& strMessage){
 
-	static Mutex mutex;
-
-	Mutex::Locker locker(mutex);
+	Mutex::Locker locker(_mutex);
 
 	if(hmMessages.count(idMsg)){
 		IAS_LOG(LogLevel::INSTANCE.isError(),"Two User Messages with the same id: "<<idMsg<<", has: "<<hmMessages[idMsg]<<", got: "<<strMessage);
@@ -116,6 +116,8 @@ void MessageCatalog::fillMessageText(String& strOutput,
 	IAS_TRACER;
 
 	String strMsg;
+
+	Mutex::Locker locker(_mutex);
 
 	if(hmMessages.count(iMessageId) == 0){
 		StringStream ss;
@@ -158,6 +160,8 @@ const String MessageCatalog::ENV_DSP_MSGS_DIR_DEFALUT("msgs");
 /*************************************************************************/
 void MessageCatalog::loadExternalMessages(){
 	IAS_TRACER;
+
+	Mutex::Locker locker(_mutex);
 
 	String strDirectory(ENV_DSP_MSGS_DIR_DEFALUT);
 	EnvTools::GetEnv(ENV_DSP_MSGS_DIR,strDirectory);

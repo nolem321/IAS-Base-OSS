@@ -49,7 +49,7 @@ public:
 
 protected:
 
-	DataFactory();
+	DataFactory(const DM::DataFactory* pParentFactory = NULL);
 
 
 	typedef _HashMapStringPairKey HashMapKey;
@@ -73,6 +73,8 @@ protected:
 	void declareUserType(const HashMapKey& aKey, ::IAS::DM::Type* pType);
 	void declareDefaultType(::IAS::DM::Type* pType);
 	void declareBuiltInType(::IAS::DM::Type* pType);
+
+	const DM::DataFactory* pParentFactory;
 
 	friend class ::IAS::Factory<DataFactory>;
 };

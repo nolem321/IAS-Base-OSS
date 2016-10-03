@@ -8,6 +8,7 @@
  xmlns:logic="http://www.invenireaude.org/qsystem/workers/logic"
  xmlns:txm="http://www.invenireaude.org/qsystem/workers/txm"
  xmlns:cache="http://www.invenireaude.org/qsystem/workers/cache"
+ xmlns:dict="http://www.invenireaude.org/qsystem/workers/dict"
  xmlns:ec="http://www.invenireaude.org/qsystem/workers/ec"
  xmlns:stats="http://www.invenireaude.org/qsystem/workers/stats"
  xmlns:spec="http://www.invenireaude.org/qsystem/workers/spec"
@@ -19,6 +20,7 @@
    <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/txm"   schemaLocation="qsystem.workers.txm.xsd"/>   
    <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/logic" schemaLocation="qsystem.workers.logic.xsd"/>   
    <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/cache" schemaLocation="qsystem.workers.cache.xsd"/>
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/dict"  schemaLocation="qsystem.workers.dict.xsd"/>
    <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/ec"    schemaLocation="qsystem.workers.ec.xsd"/>
    <xsi:import namespace="http://www.invenireaude.org/qsystem/workers/stats" schemaLocation="qsystem.workers.stats.xsd"/>
 

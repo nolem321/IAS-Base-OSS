@@ -40,13 +40,13 @@ public:
 	virtual ~SubString3() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	SubString3(const StringList& lstParamaters);
+	SubString3(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	friend class ::IAS::Factory<SubString3>;
 };

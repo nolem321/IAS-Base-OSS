@@ -40,12 +40,12 @@ public:
 	virtual ~MatchRegExps() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	MatchRegExps(const StringList& lstParamaters);
+	MatchRegExps(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
 

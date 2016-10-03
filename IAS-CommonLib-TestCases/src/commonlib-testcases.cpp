@@ -52,6 +52,7 @@
 #include "testcases/TCSockets.h"
 #include "testcases/TCBucketCache.h"
 #include "testcases/TCHttp.h"
+#include "testcases/TCTemplates.h"
 
 using namespace IAS;
 using namespace TCT;
@@ -76,7 +77,7 @@ int main(int argc, char* argv[]) {
 			//LogLevel::INSTANCE.bIsMemory=true;
 
 			//IAS_DFT_FACTORY<TCStreamMemoryBuffer>::Create(ptrSuite.getPointer());
-			IAS_DFT_FACTORY<TCSockets>::Create(ptrSuite.getPointer());
+			IAS_DFT_FACTORY<TCMisc>::Create(ptrSuite.getPointer());
 
 		} else {
 /*

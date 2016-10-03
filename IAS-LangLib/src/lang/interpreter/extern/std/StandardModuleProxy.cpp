@@ -20,6 +20,10 @@
 
 #include <commonlib/commonlib.h>
 
+#include "FormatDateTime.h"
+#include "FormatDateTimeString.h"
+#include "DateTimeToString.h"
+#include "ExecuteAdHoc.h"
 #include "SubString2.h"
 #include "SubString3.h"
 #include "Find.h"
@@ -27,6 +31,7 @@
 #include "Replace.h"
 #include "GetTime.h"
 #include "GetTimeFormated.h"
+#include "GetLocalTimeFormated.h"
 #include "GetYear.h"
 #include "GetMonth.h"
 #include "GetDay.h"
@@ -40,8 +45,14 @@
 #include "GetHash.h"
 #include "StrToLower.h"
 #include "StrToUpper.h"
+#include "StrToSHA256.h"
 #include "StrLen.h"
 #include "SysLog.h"
+
+#include "Base64ToBinary.h"
+#include "BinaryToBase64.h"
+#include "HexToBinary.h"
+#include "BinaryToHex.h"
 
 namespace IAS {
 namespace Lang {
@@ -62,6 +73,10 @@ void StandardModuleProxy::setupImpl(){
 
 	IAS_TRACER;
 
+	registerSymbol("FormatDateTime",&(FormatDateTime::Create));
+	registerSymbol("FormatDateTimeString",&(FormatDateTimeString::Create));
+	registerSymbol("DateTimeToString",&(DateTimeToString::Create));
+	registerSymbol("ExecuteAdHoc",&(ExecuteAdHoc::Create));
 	registerSymbol("SubString2",&(SubString2::Create));
 	registerSymbol("SubString3",&(SubString3::Create));
 	registerSymbol("Find",&(Find::Create));
@@ -69,6 +84,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("Replace",&(Replace::Create));
 	registerSymbol("GetTime",&(GetTime::Create));
 	registerSymbol("GetTimeFormated",&(GetTimeFormated::Create));
+	registerSymbol("GetLocalTimeFormated",&(GetLocalTimeFormated::Create));
 	registerSymbol("GetYear",&(GetYear::Create));
 	registerSymbol("GetMonth",&(GetMonth::Create));
 	registerSymbol("GetDay",&(GetDay::Create));
@@ -82,10 +98,14 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("GetHash",&(GetHash::Create));
 	registerSymbol("StrToLower",&(StrToLower::Create));
 	registerSymbol("StrToUpper",&(StrToUpper::Create));
+	registerSymbol("StrToSHA256",&(StrToSHA256::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 
-
+	registerSymbol("BinaryToHex",&(BinaryToHex::Create));
+	registerSymbol("HexToBinary",&(HexToBinary::Create));
+	registerSymbol("BinaryToBase64",&(BinaryToBase64::Create));
+	registerSymbol("Base64ToBinary",&(Base64ToBinary::Create));
 }
 /*************************************************************************/
 void StandardModuleProxy::cleanUpImpl(){

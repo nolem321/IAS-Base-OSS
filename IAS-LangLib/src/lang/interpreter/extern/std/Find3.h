@@ -40,13 +40,13 @@ public:
 	virtual ~Find3() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 protected:
 
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	Find3(const StringList& lstParamaters);
+	Find3(const StringList& lstParamaters, const ModuleProxy* pModuleProxy);
 
 	friend class ::IAS::Factory<Find3>;
 };

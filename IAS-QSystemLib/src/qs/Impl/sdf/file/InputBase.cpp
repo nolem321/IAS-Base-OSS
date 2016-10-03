@@ -70,7 +70,7 @@ Message* InputBase::receiveImpl(int iTimeWait,bool bRemoveInputFile){
 	if(strFileName.compare("/stdin")==0)
 		return IAS_DFT_FACTORY<Message>::Create< std::istream& >(std::cin);
 
-	InputFile inFile(strFileName);
+	InputFile inFile(EnvTools::Substitute(strFileName));
 	inFile.open();
 
 	if(!inFile.isOpenedAndGood())

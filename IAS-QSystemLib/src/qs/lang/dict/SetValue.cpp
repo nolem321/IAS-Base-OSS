@@ -43,7 +43,7 @@ namespace Lang {
 namespace Dict {
 
 /*************************************************************************/
-SetValue::SetValue(const StringList& lstParamaters){
+SetValue::SetValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -57,8 +57,8 @@ void SetValue::executeExternal(Exe::Context *pCtx) const{
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
 	const String strDictName = pParameters->getString("cache");
-	const String strItemKey   = pParameters->getString("itemKey");
-	DM::DataObject* dmValue = pParameters->getDataObject("value");
+	const String strItemKey  = pParameters->getString("itemKey");
+	DM::DataObject* dmValue  = pParameters->getDataObject("value");
 
 	try{
 
@@ -78,9 +78,9 @@ void SetValue::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* SetValue::Create(const StringList& lstParamaters){
+Extern::Statement* SetValue::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetValue>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SetValue>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.invenireaude.org/qsystem/workers/dict"
+ xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns:dict="http://www.invenireaude.org/qsystem/workers/dict"
+ >
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"    schemaLocation="qsystem.workers.xsd"/> 
+   	
+ <xsi:complexType name="Exception">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType> 		
+ 
+  <xsi:complexType name="NotFoundException">
+ 	<xsi:complexContent>
+ 	  <xsi:extension base="dict:Exception">
+ 	  </xsi:extension>
+ 	</xsi:complexContent>
+ </xsi:complexType>  	
+   	
+  <!-- Some types used in external interfaces -->
+  <xsi:complexType name="Item">  		
+  	<xsi:sequence>
+  	  <xsi:element name="key"   type="xsi:string" minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="value" type="xsi:anyType" minOccurs="0" maxOccurs="1"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+
+ <xsi:complexType name="Dictionary">  		
+  	<xsi:sequence>
+  	  <xsi:element name="name"   type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="valid"  type="xsi:time"    minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="items"  type="dict:Item"   minOccurs="0" maxOccurs="unbounded"/>
+  	</xsi:sequence>
+ </xsi:complexType>
+ 
+</xsi:schema>

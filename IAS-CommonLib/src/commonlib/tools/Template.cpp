@@ -18,6 +18,7 @@
 #include "Template.h"
 #include "../exception/ProcessorException.h"
 #include "../exception/ItemNotFoundException.h"
+#include "../exception/BadUsageException.h"
 
 #include "../memory/memory.h"
 #include "../logger/logger.h"
@@ -26,7 +27,11 @@
 namespace IAS {
 
 /*************************************************************************/
-Template::Arguments::Arguments(){};
+Template::Arguments::Arguments(Arguments* pParentArguments):
+		pParentArguments(pParentArguments)
+	{};
+/*************************************************************************/
+Template::Arguments::~Arguments() throw(){}
 /*************************************************************************/
 void Template::Arguments::add(const String& strKey, const String& strValue){
 	IAS_TRACER;
@@ -34,241 +39,229 @@ void Template::Arguments::add(const String& strKey, const String& strValue){
 	hmValues[strKey]=strValue;
 }
 /*************************************************************************/
-const String& Template::Arguments::get(const String& strKey) const{
+Template::Arguments* Template::Arguments::createNested(const String& strKey){
+
+	Template::Arguments* pResult = createNestedImpl(strKey);
+
+	if(hmNested.count(strKey) == 0)
+		hmNested[strKey]=IAS_DFT_FACTORY<NestedEntry>::Create();
+	hmNested[strKey]->push(pResult);
+
+	return pResult;
+}
+/*************************************************************************/
+const String& Template::Arguments::get(const String& strKey){
 	IAS_TRACER;
 
 	ValuesMap::const_iterator it=hmValues.find(strKey);
 
 	if(it == hmValues.end()) {
+
+		String strValue;
+
+		if(getImpl(strKey,strValue)){
+			hmValues[strKey] = strValue;
+			return hmValues[strKey];
+		}
+
+		if(pParentArguments)
+			return pParentArguments->get(strKey);
+
 		IAS_THROW(ItemNotFoundException(strKey));
 	}
 
 	return it->second;
 }
 /*************************************************************************/
-Template::ChildArguments::ChildArguments(const Arguments& parent):parent(parent){};
-/*************************************************************************/
-const String& Template::ChildArguments::get(const String& strKey) const{
-	IAS_TRACER;
+size_t Template::Arguments::getNestedCount(const String& strKey){
 
-	ValuesMap::const_iterator it=hmValues.find(strKey);
+	if(hmNested.count(strKey) == 0) {
 
-	if(it == hmValues.end()) {
-		return parent.get(strKey);
+		if(pParentArguments)
+			return pParentArguments->getNestedCount(strKey);
+
+		IAS_THROW(ItemNotFoundException(strKey));
 	}
 
-	return it->second;
+	return hmNested.at(strKey)->tabArguments.size();
+}
+/*************************************************************************/
+Template::IArguments* Template::Arguments::getNested(const String& strKey, size_t iIdx){
+	IAS_TRACER;
 
+	if(hmNested.count(strKey) == 0) {
+
+		if(pParentArguments)
+			return pParentArguments->getNested(strKey,iIdx);
+
+		IAS_THROW(ItemNotFoundException(strKey));
+	}
+
+	if(hmNested.at(strKey)->tabArguments.size() <= iIdx)
+		IAS_THROW(ItemNotFoundException(strKey + " index out of bound"));
+
+	return hmNested.at(strKey)->tabArguments[iIdx];
+}
+/*************************************************************************/
+Template::Arguments* Template::Arguments::createNestedImpl(const String& strKey){
+	IAS_TRACER
+	return IAS_DFT_FACTORY<Arguments>::Create(this);
+}
+/*************************************************************************/
+bool Template::Arguments::getImpl(const String& strKey, String& strValue){
+	IAS_TRACER;
+	return false;
 }
 /*************************************************************************/
 Template::Template(const String& strTemplateText){
 
 	IAS_TRACER;
 	this->strTemplateText=strTemplateText;
-
-	buildKeysList();
 }
 /*************************************************************************/
 Template::~Template() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-bool Template::hasKey(const String& strKey) const{
-	IAS_TRACER;
-
-	std::vector<String>::const_iterator it = lstKeys.begin();
-	while(it != lstKeys.end()){
-
-		if(strKey.compare(*it) == 0)
-			return true;
-		it++;
-	}
-
-	return false;
-}
-/*************************************************************************/
-void Template::evaluate(const Arguments& args, std::ostream& os)const{
+void Template::evaluate(IArguments& args, std::ostream& os)const{
 
 	State iState = ST_Outside;
 	String strKey;
+	String strRepeatKey;
+	StringStream ssRepeat;
 
-	for(int iIdx=0; iIdx<strTemplateText.length(); iIdx++){
+	std::ostream* posActive(&os);
 
-		char c=strTemplateText[iIdx];
+	for (int iIdx = 0; iIdx < strTemplateText.length(); iIdx++) {
 
-		switch(c){
+		char c = strTemplateText[iIdx];
 
-			case '$':
-				switch(iState){
-					case ST_Outside:
-						iState=ST_Special;
-						break;
-					case ST_Special:
-						iState=ST_Special;
-						os<<'$';
-						break;
-					case ST_Template:
-						IAS_THROW(ProcessorException("$ within Template."));
-						break;
-					default:
-						IAS_THROW(InternalException("Template::buildKeysList::iState"));
-				}
+		switch (c) {
+
+		case '$':
+			switch (iState) {
+			case ST_Outside:
+				iState = ST_Special;
+				break;
+			case ST_Special:
+				iState = ST_Outside;
+				(*posActive) << "$$";
+				break;
+			case ST_Template:
+				IAS_THROW(ProcessorException("$ within Template."));
+				break;
+			default:
+				IAS_THROW(InternalException("Template parse error 1"));
+			}
+			break;
+
+		case '{':
+			switch (iState) {
+			case ST_Outside:
+				(*posActive) << c;
+				break;
+			case ST_Special:
+				iState = ST_Template;
+				strKey = "";
+				break;
+			case ST_Template:
+				IAS_THROW(ProcessorException("{ within Template."));
+				break;
+			default:
+				IAS_THROW(InternalException("Template parse error 2"));
+			}
+			break;
+
+		case '}':
+			switch (iState) {
+			case ST_Outside:
+				(*posActive) << c;
+				break;
+			case ST_Special:
+				iState = ST_Outside;
+				(*posActive) << c;
 				break;
 
+			case ST_Template:
 
-				case '{':
-					switch(iState){
-						case ST_Outside:
-							os<<c;
-							break;
-						case ST_Special:
-							iState=ST_Template;
-							strKey="";
-							break;
-						case ST_Template:
-							IAS_THROW(ProcessorException("{ within Template."));
-							break;
-						default:
-							IAS_THROW(InternalException("Template::buildKeysList::iState"));
+				if(strKey.length() == 0)
+					IAS_THROW(ItemNotFoundException("Empty template key ?"));
+
+				if(strKey[0] == '*'){
+					strKey=strKey.substr(1);
+					if(strRepeatKey.empty()){
+						strRepeatKey=strKey;
+						posActive = &ssRepeat;
+
+					}else{
+
+						if(strRepeatKey.compare(strKey) == 0){
+							Template t(ssRepeat.str());
+							for(int iIdx = 0; iIdx < args.getNestedCount(strKey); iIdx++)
+								t.evaluate(*args.getNested(strKey,iIdx),os);
+							strRepeatKey.clear();
+							posActive=&os;
+
+						}else{
+							(*posActive)<<"${*"<<strKey<<"}";
+						}
+
 					}
-					break;
+				}else{
 
-					case '}':
-						switch(iState){
-							case ST_Outside:
-								os<<c;
-								break;
-							case ST_Special:
-								iState=ST_Outside;
-								os<<'$'<<c;
-								iState=ST_Outside;
-								break;
-							case ST_Template:
-								os<<args.get(strKey);
-								iState=ST_Outside;
-								break;
-							default:
-								IAS_THROW(InternalException("Template::buildKeysList::iState"));
-					}
-					break;
+					if(posActive == &os){
 
-					default:
-						switch(iState){
-							case ST_Outside:
-								os<<c;
-							break;
-							case ST_Special:
-							break;
-							case ST_Template:
-								strKey+=c;
-							break;
-							default:
-								IAS_THROW(InternalException("Template::buildKeysList::iState"));
-							}
-			}/* SWITCH (c) */
+						bool bIgnoreNotSet = strKey[0] == '?';
 
-		}/* FOR */
+						if(bIgnoreNotSet)
+							strKey=strKey.substr(1);
+
+						try{
+							(*posActive) << args.get(strKey);
+						}catch(ItemNotFoundException& e){
+							if(!bIgnoreNotSet)
+								throw;
+						}
+
+					}else
+						(*posActive) << "${"<<strKey <<"}";
+				}
+				iState = ST_Outside;
+				break;
+			default:
+				IAS_THROW(InternalException("Template::buildKeysList::iState"))
+				;
+			}
+			break;
+
+		default:
+			switch (iState) {
+			case ST_Outside:
+				(*posActive) << c;
+				break;
+			case ST_Special:
+				break;
+			case ST_Template:
+				strKey += c;
+				break;
+			default:
+				IAS_THROW(InternalException("Template::buildKeysList::iState"))
+				;
+			}
+		}/* SWITCH (c) */
+
+	}/* FOR */
 
 	if(iState == ST_Special)
 		os<<'$';
 
 	if(iState == ST_Template)
-			os<<"${"<<strKey;
+		os<<"${"<<strKey;
 
+	if(posActive != &os)
+		IAS_THROW(BadUsageException("Parse error in a template interation: "+strRepeatKey));
 
 	os.flush();
-}
-/*************************************************************************/
-void Template::buildKeysList(){
-	IAS_TRACER;
-
-	State iState = ST_Outside;
-	String strKey;
-
-	int iLine = 1;
-	int iPos  = 0;
-
-	for(int iIdx=0; iIdx<strTemplateText.length(); iIdx++){
-
-		char c=strTemplateText[iIdx];
-
-		iPos++;
-
-		switch(c){
-
-			case '$':
-				switch(iState){
-					case ST_Outside:
-						iState=ST_Special;
-						break;
-					case ST_Special:
-						iState=ST_Special;
-						break;
-					case ST_Template:
-						IAS_THROW(ProcessorException("$ within Template.",iPos,iLine));
-						break;
-					default:
-						IAS_THROW(InternalException("Template::buildKeysList::iState"));
-				}
-				break;
-
-
-				case '{':
-					switch(iState){
-						case ST_Outside:
-							break;
-						case ST_Special:
-							iState=ST_Template;
-							strKey="";
-							break;
-						case ST_Template:
-							IAS_THROW(ProcessorException("{ within Template.",iPos,iLine));
-							break;
-						default:
-							IAS_THROW(InternalException("Template::buildKeysList::iState"));
-					}
-					break;
-
-					case '}':
-						switch(iState){
-							case ST_Outside:
-								break;
-							case ST_Special:
-								iState=ST_Outside;
-								break;
-							case ST_Template:
-								lstKeys.push_back(strKey);
-								iState=ST_Outside;
-								break;
-							default:
-								IAS_THROW(InternalException("Template::buildKeysList::iState"));
-					}
-					break;
-
-					case '\n':
-
-						switch(iState){
-							case ST_Special:
-								iState=ST_Outside;
-							case ST_Outside:
-								iLine++;
-								iPos=0;
-								break;
-							case ST_Template:
-								IAS_THROW(ProcessorException("'\n' within Template.",iPos,iLine));
-								break;
-							default:
-								IAS_THROW(InternalException("Template::buildKeysList::iState"));
-					}
-
-					default:
-						if(iState == ST_Template)
-							strKey+=c;
-
-		}/* SWITCH (c) */
-
-		}/* FOR */
-
 }
 
 /*************************************************************************/

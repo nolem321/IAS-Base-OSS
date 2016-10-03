@@ -40,9 +40,9 @@ public:
 
 	virtual ~Program() throw();
 
-	void execute(Context* pCtx);
+	void execute(Context* pCtx)const;
 
-	DM::DataObject* createParameters();
+	DM::DataObject* createParameters()const;
 
 	const Dec::Parameters* getParameters()const { return ptrParameters; };
 

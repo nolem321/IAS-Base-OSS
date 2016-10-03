@@ -114,8 +114,9 @@ std::istream& LexerFileIStreamWrapper::getIS(){
 /*                               S T R I N G                             */
 /*************************************************************************/
 LexerStringIStreamWrapper::LexerStringIStreamWrapper(const String& strBuffer) throw():
-ssBuffer(strBuffer)
-{}
+ssBuffer(strBuffer){
+	setName("STREAM");
+}
 /*************************************************************************/
 LexerStringIStreamWrapper::~LexerStringIStreamWrapper() throw(){
 	IAS_TRACER;

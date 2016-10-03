@@ -31,6 +31,7 @@
 #include <org/invenireaude/qsystem/typeinfo/DataFactory.h>
 #include <lang/model/allmodel.h>
 
+
 using namespace org::invenireaude::qsystem;
 
 
@@ -47,7 +48,7 @@ const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
 
 /*************************************************************************/
 ProgramProvider::ProgramProvider(::IAS::DM::DataFactory *pDataFactory):
-		pDataFactory(pDataFactory){
+	pDataFactory(pDataFactory){
 	IAS_TRACER;
 
 	StringList lstSrcPath;
@@ -59,14 +60,13 @@ ProgramProvider::ProgramProvider(::IAS::DM::DataFactory *pDataFactory):
 
 	ptrLoader = IAS_DFT_FACTORY<Interpreter::ProgramLoader>::Create(pDataFactory,ptrLexerIStreamFactory.pass());
 
-
 }
 /*************************************************************************/
 ProgramProvider::~ProgramProvider() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-IAS::Lang::Interpreter::Exe::Program* ProgramProvider::loadProgram(const String& strProgramName){
+const IAS::Lang::Interpreter::Exe::Program* ProgramProvider::loadProgram(const String& strProgramName){
 	IAS_TRACER;
 
 	//TODO Repeated loads ?

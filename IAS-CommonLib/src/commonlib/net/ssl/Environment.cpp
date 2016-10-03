@@ -102,7 +102,7 @@ void Environment::initialize() {
 	//TODO signal(SIGPIPE, SIG_IGN).
 	//This should make send to return EPIPE error. Otherwise you can
 	// send MSG_NOSIGNAL flag to the send call.
-	signal(SIGPIPE, 0);
+	//signal(SIGPIPE, 0);
 
     /* Set our cipher list */
     //if(ciphers){

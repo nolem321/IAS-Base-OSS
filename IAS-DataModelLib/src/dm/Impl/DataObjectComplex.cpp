@@ -156,6 +156,12 @@ void  DataObjectComplex::setString(const IAS::DM::Property* pProperty, const Str
 	createDataObject(pProperty)->setString(strValue);
 }
 /*************************************************************************/
+void DataObjectComplex::setRaw(const IAS::DM::Property* pProperty, const RawContent* pRawContent){
+	IAS_TRACER;
+
+	createDataObject(pProperty)->setRaw(pRawContent);
+}
+/*************************************************************************/
 void DataObjectComplex::unset(const ::IAS::DM::Property* pProperty){
 	IAS_TRACER;
 
@@ -228,6 +234,12 @@ IAS::DateTime DataObjectComplex::getDateTime(const IAS::DM::Property* pProperty)
 String  DataObjectComplex::getString(const IAS::DM::Property* pProperty)const{
 	IAS_TRACER;
 	return getDataObject(pProperty)->toString();
+}
+/*************************************************************************/
+void DataObjectComplex::getRaw(const IAS::DM::Property* pProperty, RawContent* pRawContent)const{
+	IAS_TRACER;
+
+	getDataObject(pProperty)->toRaw(pRawContent);
 }
 /*************************************************************************/
 const ::IAS::DM::DataObjectList& DataObjectComplex::getList(const IAS::DM::Property *pProperty) const{

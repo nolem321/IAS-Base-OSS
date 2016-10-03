@@ -98,6 +98,8 @@ void Response::serialize(std::ostream& os){
 	if(iConentLength != SIZE_MAX)
 		os<<"Content-Length: "<<iConentLength<<"\r\n";
 
+	os<<"Connection: Keep-Alive"<<"\r\n";
+
 	for (CookiesList::const_iterator it=lstCookies.begin(); it != lstCookies.end(); ++it)
 		os<<"Set-Cookie: "<<(*it)<<"\r\n";
 

@@ -31,7 +31,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Replace::Replace(const StringList& lstParamaters){
+Replace::Replace(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -53,9 +53,9 @@ void Replace::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* Replace::Create(const StringList& lstParamaters){
+Statement* Replace::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Replace>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Replace>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

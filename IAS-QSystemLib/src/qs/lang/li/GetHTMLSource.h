@@ -22,6 +22,7 @@
 #include <lang/interpreter/exe/Context.h>
 
 #include <qs/workers/proc/wcm/WorkContextManager.h>
+#include <qs/workers/proc/ProgramProvider.h>
 
 namespace IAS {
 namespace QS {
@@ -38,14 +39,17 @@ public:
 	virtual ~GetHTMLSource() throw();
 
 	/** Creates an instance. */
-	static Statement* Create(const StringList& lstParamaters);
+	static Statement* Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 protected:
 	virtual void executeExternal(::IAS::Lang::Interpreter::Exe::Context *pCtx) const;
 
-	GetHTMLSource(const StringList& lstParamaters);
+	GetHTMLSource(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
+
+	IAS_DFT_FACTORY<Workers::Proc::ProgramProvider>::PtrHolder ptrProgramProvider;
+	IAS_DFT_FACTORY<::IAS::DM::DataFactory>::PtrHolder ptrLocalDataFactory;
 
 	friend class ::IAS::Factory<GetHTMLSource>;
 };

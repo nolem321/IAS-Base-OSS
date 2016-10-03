@@ -151,6 +151,9 @@ void Request::serialize(std::ostream& os){
 	if(!strContentType.empty())
 		os<<"Content-Type: "<<strContentType<<"\r\n";
 
+	if(!strSOAPAction.empty())
+			os<<"SOAPAction: "<<strSOAPAction<<"\r\n";
+
 	if(iConentLength != SIZE_MAX)
 		os<<"Content-Length: "<<iConentLength<<"\r\n";
 
@@ -320,6 +323,7 @@ void Request::Parser::processNameValuePair(){
 
 		}
 	}
+	else if(!strName.compare("SOAPAction")){ request.setSOAPAction(strValue); }
 
 	strName.clear();
 	//TODO (H) do not ignore
@@ -364,6 +368,25 @@ void Request::setAuthorization(const String& strMethod, const String& strParamet
 	strAuthorizationParameter=strParameter;
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Authorization: "<<strAuthorizationMethod<<" "<<strAuthorizationParameter);
+
+}
+/*************************************************************************/
+bool Request::isSetSOAPAction()const{
+	return !strSOAPAction.empty();
+}
+/*************************************************************************/
+void Request::getSOAPAction(String& strParameter)const{
+	IAS_TRACER;
+
+	strParameter  = strSOAPAction;
+
+}
+/*************************************************************************/
+void Request::setSOAPAction(const String& strParameter){
+	IAS_TRACER;
+	strSOAPAction=strParameter;
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"SOAPAction: "<<strSOAPAction);
 
 }
 /*************************************************************************/

@@ -46,7 +46,7 @@ namespace Lang {
 namespace EC {
 
 /*************************************************************************/
-Update::Update(const StringList& lstParamaters):
+Update::Update(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy):
 	pEventCounter(0){
 	IAS_TRACER;
 
@@ -95,9 +95,9 @@ void Update::executeExternal(Exe::Context *pCtx) const{
 	}
 }
 /*************************************************************************/
-Extern::Statement* Update::Create(const StringList& lstParamaters){
+Extern::Statement* Update::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Update>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Update>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -129,7 +129,9 @@ bool ExecStore::getExecutableImpl(const String& strName,
 
     	if(lstTypes.isAnyThing() || matchParameteres(pProgramNode,lstTypes)){
     		refOutput=hmExecutables[pProgramNode];
-    		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Result: "<<(void*)refOutput);
+    		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Result: "<<(void*)refOutput<<", "
+    				<<pModel->resolve(pProgramNode->getSourceLocation().getSourceID())<<":"
+					<<pProgramNode->getSourceLocation().getLineNumber());
     		return true;
     	}
 

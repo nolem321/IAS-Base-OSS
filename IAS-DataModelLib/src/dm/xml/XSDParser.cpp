@@ -105,6 +105,18 @@ XSDParser::PropertyInfo* XSDParser::readPropertyInfo(bool bCheckMulti){
 	String strTypePrefix;
 	String strType;
 
+	int iMaxOccurs = 1;
+
+	if(bCheckMulti){
+		String strMaxOccurs;
+		if(ptrLibXMLLexer->getOptionalAttribute("maxOccurs",strMaxOccurs)){
+			if(strMaxOccurs.compare("unbounded")==0)
+				iMaxOccurs=-1;
+			else
+				iMaxOccurs=TypeTools::StringToInt(strMaxOccurs);
+		}
+	}
+
 	if(!ptrLibXMLLexer->getOptionalAttribute("type", strType)){
 
 		while(true) {
@@ -141,17 +153,7 @@ XSDParser::PropertyInfo* XSDParser::readPropertyInfo(bool bCheckMulti){
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Prefix:"<<strTypePrefix<<" -> "<<ptrPropertyInfo->strTypeURI);
 	}
 
-	int iMaxOccurs = 1;
-	if(bCheckMulti){
-		String strMaxOccurs;
-		if(ptrLibXMLLexer->getOptionalAttribute("maxOccurs",strMaxOccurs)){
-			if(strMaxOccurs.compare("unbounded")==0)
-				iMaxOccurs=-1;
-			else
-				iMaxOccurs=TypeTools::StringToInt(strMaxOccurs);
-		}
 
-	}
 
 	ptrPropertyInfo->bIsMulti = iMaxOccurs != 1;
 
@@ -579,7 +581,7 @@ void XSDParser::parse_xsd_extension(bool bComplexType){
 
 		lookupURI(strTypePrefix, ptrPropertyInfo->strTypeURI);
 
-		IAS_LOG(true,"Check simpleContent: "<<strTargetNamespace<<"#"<<pCurrentTypeInfo->strName);
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Check simpleContent: "<<strTargetNamespace<<"#"<<pCurrentTypeInfo->strName);
 
 		pCurrentTypeInfo->lstPropertyInfo.push_back(ptrPropertyInfo.pass());
 	}
@@ -611,6 +613,18 @@ void XSDParser::parse_xsd_extension(bool bComplexType){
 	IAS_THROW(XMLHelperException("XSD Error in an extension."));
 }
 /*************************************************************************/
+void XSDParser::parse_xsd_maxLength(){
+
+	IAS_TRACER;
+
+	TypeInfo* pCurrentTypeInfo=getCurrentType();
+	String strValue = ptrLibXMLLexer->getMandatoryAttribute("value");
+	pCurrentTypeInfo->iMaxLength = TypeTools::StringToInt(strValue);
+
+	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),pCurrentTypeInfo->strName<<", maxLength: "<<pCurrentTypeInfo->iMaxLength);
+
+}
+/*************************************************************************/
 void XSDParser::parse_xsd_restriction(){
 	IAS_TRACER;
 
@@ -634,6 +648,10 @@ void XSDParser::parse_xsd_restriction(){
 
 		if(!ptrLibXMLLexer->nextElement())
 			IAS_THROW(XMLHelperException("Unexpected end of xsd stream."))
+
+		if(ptrLibXMLLexer->checkLocalName("maxLength")){
+			parse_xsd_maxLength();
+		}
 
 		if(ptrLibXMLLexer->checkType(XML_READER_TYPE_END_ELEMENT) &&
 			ptrLibXMLLexer->checkLocalName("restriction"))
@@ -853,6 +871,10 @@ DM::Type* XSDParser::defineType(TypeInfo* pTypeInfo){
 		if(!(pTypeInfo->strDocumentation.empty())){
 			pNewType->setDescription(pTypeInfo->strDocumentation);
 		}
+
+		if(pTypeInfo->iMaxLength != Type::CDftMaxLength)
+			pNewType->setRestrictionMaxLength(pTypeInfo->iMaxLength);
+
 		createProperties(pTypeInfo);
 	}
 
@@ -897,7 +919,7 @@ void XSDParser::createProperties(TypeInfo* pTypeInfo){
 
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
 						"Property for:"<<":"<<pTypeInfo->strName<<" : "<<pPropertyInfo->strName<<" : "<<
-						pPropertyInfo->strTypeURI << ":" << pPropertyInfo->strTypeName);
+						pPropertyInfo->strTypeURI << ":" << pPropertyInfo->strTypeName << ":" << pPropertyInfo->bIsMulti);
 
 		DM::Type* pPropertyType = getConvertedType(pPropertyInfo->strTypeURI, pPropertyInfo->strTypeName);
 
@@ -953,7 +975,8 @@ void XSDParser::defineTargetNSElements(){
 
 			pComplexType->defineProperty(pPropertyInfo->strName,
 										 pPropertyType,
-										 pPropertyInfo->bIsMulti);
+										 false,false,
+										 pPropertyInfo->strDocumentation);
 
 		}
 }

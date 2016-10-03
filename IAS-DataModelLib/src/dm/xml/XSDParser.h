@@ -20,9 +20,10 @@
 
 #include <commonlib/commonlib.h>
 
+#include "../Type.h"
+
 namespace IAS {
 namespace DM {
-class Type;
 class ComplexType;
 class DataFactory;
 
@@ -65,6 +66,7 @@ protected:
 	void parse_xsd_simpleContent();
 	void parse_xsd_extension(bool bComplexType);
 	void parse_xsd_restriction();
+	void parse_xsd_maxLength();
 	void parse_xsd_schema();
 	void parse_xsd_schemaAttribute();
 	String parse_xsd_annotation();
@@ -108,7 +110,7 @@ protected:
 		};
 
 		virtual ~TypeInfo(){};
-		TypeInfo() throw():pType(NULL),iStage(STAGE_NONE){};
+		TypeInfo() throw():pType(NULL),iStage(STAGE_NONE),iMaxLength(Type::CDftMaxLength){};
 
 		String strName;
 		String strBaseTypeURI;
@@ -120,6 +122,7 @@ protected:
 		Type* pType;
 		Stage iStage;
 
+		Type::MaxLenghtType iMaxLength;
 		void init();
 	};
 
