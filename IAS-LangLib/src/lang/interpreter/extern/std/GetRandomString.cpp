@@ -45,7 +45,7 @@ GetRandomString::~GetRandomString() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-const char  GetRandomString::CRandomChars  []=  "1234567890abcdefghijklmnoprstquwvxyzABCDEFGHIJKLMNOPRSTUWVXYZabc";
+const char  GetRandomString::CRandomChars  []=  "1234567890abcdefghijklmnoprstquwvxyzABCDEFGHIJKLMNOPRSTQUWVXYZab";
 /*************************************************************************/
 void GetRandomString::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
