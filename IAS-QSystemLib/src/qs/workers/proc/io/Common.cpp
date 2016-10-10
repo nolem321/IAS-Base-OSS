@@ -169,7 +169,7 @@ void Common::applyContext(const ::org::invenireaude::qsystem::workers::Ext::Cont
 
 		//TODO Must be done in QS modules.
 		//if(strName[0] != '.')
-		// pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
+		pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
 	}
 
 	if(QS::LogLevel::INSTANCE.isInfo()){
