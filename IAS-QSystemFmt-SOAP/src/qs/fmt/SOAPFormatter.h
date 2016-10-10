@@ -23,6 +23,7 @@
 #include <dm/json/JSONHelper.h>
 
 #include <qs/fmt/Formatter.h>
+#include <qs/fmt/XMLFormatter.h>
 
 #include <org/invenireaude/qsystem/workers/Context.h>
 
@@ -48,24 +49,40 @@ public:
 						   QS::API::Attributes *pAttributes=NULL);
 
 protected:
-	SOAPFormatter(const DM::DataFactory* pDataFactory);
+
+	SOAPFormatter(const DM::DataFactory* pDataFactory, const String& strNS);
+
+	const String& strNS;
 
 	const DM::DataFactory* pDataFactory;
-
-	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper;
 
 	TimeSamplesResults tsrParsing;
 	TimeSamplesResults tsrSerialization;
 
 	friend class Factory<SOAPFormatter>;
-
-	static const String& CElementName;
-	static const String& CElementURI;
-	static const String& CElementEncoding;
-
 };
 
 /*************************************************************************/
+class SOAPFormatterV1 : public SOAPFormatter{
+  protected:
+	SOAPFormatterV1(const DM::DataFactory* pDataFactory);
+	friend class Factory<SOAPFormatterV1>;
+};
+/*************************************************************************/
+class SOAPFormatterV12 : public SOAPFormatter{
+  protected:
+	SOAPFormatterV12(const DM::DataFactory* pDataFactory);
+
+	void getSOAPContent(std::istream& istream, StringStream& ostream);
+
+	virtual void read( DM::DataObjectPtr& dmData,
+						   std::istream&       istream,
+						   QS::API::Attributes *pAttributes=NULL);
+
+	friend class Factory<SOAPFormatterV12>;
+};
+/*************************************************************************/
+
 }
 }
 }
@@ -73,6 +90,7 @@ protected:
 /*************************************************************************/
 extern "C"{
 void* _ias_qs_fmt_SOAP(const ::IAS::DM::DataFactory* pDataFactory);
+void* _ias_qs_fmt_SOAP12(const ::IAS::DM::DataFactory* pDataFactory);
 }
 /*************************************************************************/
 #endif /* _IAS_QS_Fmt_SOAPFormatter_H_ */

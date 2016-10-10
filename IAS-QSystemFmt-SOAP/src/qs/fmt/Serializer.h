@@ -39,7 +39,10 @@ public:
 	void serialize(const DM::XML::XMLDocument* pDocument);
 
 protected:
-	Serializer(DM::XML::XMLHelper* pXMLHelper, DM::XML::LibXMLWriter *pWriter, QS::API::Attributes *pAttributes=NULL);
+	Serializer(DM::XML::XMLHelper* pXMLHelper,
+			   DM::XML::LibXMLWriter *pWriter,
+			   const String& strSOAPNS,
+			   QS::API::Attributes *pAttributes=NULL);
 
 	QS::API::Attributes *pAttributes;
 	const DM::XML::XMLDocument* pDocument;
@@ -47,6 +50,8 @@ protected:
 	void write_soap_envelope();
 	void write_soap_header();
 	void write_soap_body();
+
+	const String& strSOAPNS;
 
 	friend class Factory<Serializer>;
 };
