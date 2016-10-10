@@ -167,8 +167,9 @@ void Common::applyContext(const ::org::invenireaude::qsystem::workers::Ext::Cont
 		const workers::Attribute *pAttribute=lstAttributes.at(iIdx);
 		const String& strName(pAttribute->getName());
 
-		if(strName[0] != '.')
-		 pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
+		//TODO Must be done in QS modules.
+		//if(strName[0] != '.')
+		// pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
 	}
 
 	if(QS::LogLevel::INSTANCE.isInfo()){
