@@ -83,7 +83,8 @@ int main(int argc, char* argv[]) {
 		IAS_TEST_EXE("com::examples::basic::catch03", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::withsingle", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::cast", "customer.xml");
-
+		IAS_TEST_EXE("com::examples::basic::sort", "customer.xml");
+		IAS_TEST_EXE("com::examples::basic::merge", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::newfuncalls", "customer.xml");
 
 		IAS_TEST_EXE("com::examples::basic::inlinetypes", "customer.xml");
@@ -98,7 +99,9 @@ int main(int argc, char* argv[]) {
 		/* old stuff for fun : IAS_TEST_EXE("com::examples::test", "customer.xml");*/
 
 		//ptrSuite->run(argc == 1 ? "" : argv[1]);
-		ptrSuite->run("com::examples::basic::inlinetypes");
+		ptrSuite->run("com::examples::basic::merge");
+		//ptrSuite->run("");
+
 		ptrSuite->printResults(std::cout);
 
 	} catch (IAS::SystemException& e) {
