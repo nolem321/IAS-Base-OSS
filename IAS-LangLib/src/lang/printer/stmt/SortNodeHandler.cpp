@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/stmt/LeftSide.cpp
+ * File: IAS-LangLib/src/lang/printer/stmt/SortNodeHandler.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,51 +15,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "LeftSide.h"
+#include "SortNodeHandler.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
-#include "../Context.h"
-#include "../expr/Expr.h"
-#include "../expr/ExprResultSetter.h"
-#include "../expr/xpath/XPathExprFamily.h"
+#include <lang/model/allmodel.h>
+
+#include "../CallbackRegister.h"
 
 namespace IAS {
 namespace Lang {
-namespace Interpreter {
-namespace Exe {
+namespace Printer {
 namespace Stmt {
 
 /*************************************************************************/
-LeftSide::LeftSide(Expr::XPath::XPathExprFamily *pXPathExprFamily):
-				ptrXPathExprFamily(pXPathExprFamily){
+SortNodeHandler::SortNodeHandler() {
+	IAS_TRACER;
+}
+
+/*************************************************************************/
+SortNodeHandler::~SortNodeHandler() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-LeftSide::~LeftSide() throw(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-void LeftSide::assignValue(Context *pCtx, Expr::Expr* pExpr) const{
+void SortNodeHandler::call(const Model::Node* pNode,
+						    CallbackCtx *pCtx,
+						    std::ostream& os){
 	IAS_TRACER;
 
-	Expr::ExprResultSetter aResult(ptrXPathExprFamily->getTargetObjectSetter(pCtx));
-	pExpr->evaluate(pCtx,aResult);
+	IAS_TYPEID_CHECK(Model::Stmt::SortNode, pNode);
+	const Model::Stmt::SortNode *pSortNode = IAS_DYNAMICCAST_CONST(Model::Stmt::SortNode, pNode);
+
+	const Model::Expr::XPath::XPathAccessNode   *pListXPathAccessNode = pSortNode->getListXPathAccessNode();
+	const Model::Dec::QualifiedNameNode         *pQualifiedNameNode  = pSortNode->getQualifiedNameNode();
+
+	bool bDescending = pSortNode->isDescending();
+
+	printIndent(pCtx,os);
+	os<<"SORT ";
+	CallbackRegister::SubCall(pListXPathAccessNode, pCtx, os);
+
+	if(pQualifiedNameNode){
+		os<<"\n";
+		printIndent(pCtx,os);
+		os<<" WITH ";
+		CallbackRegister::SubCall(pQualifiedNameNode,pCtx,os);
+	}
 
 }
 /*************************************************************************/
-void LeftSide::mergeValue(Context *pCtx, Expr::Expr* pExpr) const{
-	IAS_TRACER;
-
-	Expr::ExprResultSetter rs(ptrXPathExprFamily->getTargetObjectSetter(pCtx));
-
-	DM::DataObjectPtr dmResult;
-	pExpr->evaluate(pCtx,dmResult);
-
-	rs.merge(dmResult);
-}
-/*************************************************************************/
-}
 }
 }
 }

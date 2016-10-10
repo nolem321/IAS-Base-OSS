@@ -35,6 +35,8 @@
 #include "stmt/WhileLoop.h"
 #include "stmt/ForLoop.h"
 #include "stmt/With.h"
+#include "stmt/Sort.h"
+#include "stmt/Merge.h"
 
 #include "ProgramContext.h"
 

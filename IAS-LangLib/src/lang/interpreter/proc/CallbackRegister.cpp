@@ -77,7 +77,9 @@
 #include "stmt/ForLoopNodeHandler.h"
 #include "stmt/IfThenElseNodeHandler.h"
 #include "stmt/LeftSideNodeHandler.h"
+#include "stmt/MergeNodeHandler.h"
 #include "stmt/ReturnNodeHandler.h"
+#include "stmt/SortNodeHandler.h"
 #include "stmt/StatementNodeHandler.h"
 #include "stmt/StatementsListNodeHandler.h"
 #include "stmt/ThrowNodeHandler.h"
@@ -175,7 +177,9 @@ void CallbackRegister::init(){
 	registerCallback<Model::Stmt::ForLoopNode>(IAS_DFT_FACTORY<Stmt::ForLoopNodeHandler>::Create());
 	registerCallback<Model::Stmt::IfThenElseNode>(IAS_DFT_FACTORY<Stmt::IfThenElseNodeHandler>::Create());
 	registerCallback<Model::Stmt::LeftSideNode>(IAS_DFT_FACTORY<Stmt::LeftSideNodeHandler>::Create());
+	registerCallback<Model::Stmt::MergeNode>(IAS_DFT_FACTORY<Stmt::MergeNodeHandler>::Create());
 	registerCallback<Model::Stmt::ReturnNode>(IAS_DFT_FACTORY<Stmt::ReturnNodeHandler>::Create());
+	registerCallback<Model::Stmt::SortNode>(IAS_DFT_FACTORY<Stmt::SortNodeHandler>::Create());
 	registerCallback<Model::Stmt::StatementNode>(IAS_DFT_FACTORY<Stmt::StatementNodeHandler>::Create());
 	registerCallback<Model::Stmt::StatementsListNode>(IAS_DFT_FACTORY<Stmt::StatementsListNodeHandler>::Create());
 	registerCallback<Model::Stmt::ThrowNode>(IAS_DFT_FACTORY<Stmt::ThrowNodeHandler>::Create());

@@ -66,6 +66,10 @@ void Lexer::init(){
 
 	hmKeywords["WITH"]=Token::T_WITH;
 
+	hmKeywords["SORT"]=Token::T_SORT;
+	hmKeywords["USING"]=Token::T_USING;
+	hmKeywords["MERGE"]=Token::T_MERGE;
+
 	hmKeywords["AS"]=Token::T_AS;
 	hmKeywords["OF"]=Token::T_OF;
 	hmKeywords["ARRAY"]=Token::T_ARRAY;

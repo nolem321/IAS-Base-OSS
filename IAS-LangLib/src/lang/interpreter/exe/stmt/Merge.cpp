@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/stmt/LeftSide.cpp
+ * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Merge.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,14 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "LeftSide.h"
+#include "Merge.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
 #include "../Context.h"
-#include "../expr/Expr.h"
-#include "../expr/ExprResultSetter.h"
-#include "../expr/xpath/XPathExprFamily.h"
+#include "LeftSide.h"
 
 namespace IAS {
 namespace Lang {
@@ -31,32 +29,20 @@ namespace Exe {
 namespace Stmt {
 
 /*************************************************************************/
-LeftSide::LeftSide(Expr::XPath::XPathExprFamily *pXPathExprFamily):
-				ptrXPathExprFamily(pXPathExprFamily){
+Merge::Merge(LeftSide *pLeftSide, Expr::Expr *pExpr){
+	IAS_TRACER;
+	this->ptrLeftSide=pLeftSide;
+	this->ptrExpr=pExpr;
+}
+/*************************************************************************/
+Merge::~Merge() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-LeftSide::~LeftSide() throw(){
+void Merge::execute(Context *pCtx) const{
 	IAS_TRACER;
-}
-/*************************************************************************/
-void LeftSide::assignValue(Context *pCtx, Expr::Expr* pExpr) const{
-	IAS_TRACER;
-
-	Expr::ExprResultSetter aResult(ptrXPathExprFamily->getTargetObjectSetter(pCtx));
-	pExpr->evaluate(pCtx,aResult);
-
-}
-/*************************************************************************/
-void LeftSide::mergeValue(Context *pCtx, Expr::Expr* pExpr) const{
-	IAS_TRACER;
-
-	Expr::ExprResultSetter rs(ptrXPathExprFamily->getTargetObjectSetter(pCtx));
-
-	DM::DataObjectPtr dmResult;
-	pExpr->evaluate(pCtx,dmResult);
-
-	rs.merge(dmResult);
+	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Merge:"<<(void*)this);
+	ptrLeftSide->mergeValue(pCtx,ptrExpr);
 }
 /*************************************************************************/
 }

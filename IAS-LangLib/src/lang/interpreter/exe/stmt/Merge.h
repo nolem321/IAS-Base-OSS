@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/stmt/LeftSide.h
+ * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Merge.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,45 +15,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_AS_Lang_Interpreter_Exe_Stmt_LEFTSIDE_H_
-#define _IAS_AS_Lang_Interpreter_Exe_Stmt_LEFTSIDE_H_
+#ifndef _IAS_AS_Lang_Interpreter_Exe_Stmt_Merge_H_
+#define _IAS_AS_Lang_Interpreter_Exe_Stmt_Merge_H_
 
-#include <commonlib/commonlib.h>
+#include "Statement.h"
 
-#include <dm/datamodel.h>
+#include "../expr/Expr.h"
+
 
 namespace IAS {
 namespace Lang {
 namespace Interpreter {
 namespace Exe {
 class Context;
-namespace Expr {
-class Expr;
-namespace XPath{
-class XPathExprFamily;
-}
-}
+
 namespace Stmt {
+class LeftSide;
 
 /*************************************************************************/
-/** The left side (assignable) entity.
- * This object holds the left side details (variable, xpath etc.) and
- * the expression to be evaluated upon the execution.
+/** The assignment statement.
+ * This class utilizes the LeftSide class.
  */
- class LeftSide {
+ class Merge : public Statement {
 public:
 
-	virtual ~LeftSide() throw();
+	virtual ~Merge() throw();
 
-	void assignValue(Context *pCtx, Expr::Expr* pExpr) const;
-	void mergeValue(Context *pCtx, Expr::Expr* pExpr) const;
+	virtual void execute(Context *pCtx) const;
 
 protected:
-	LeftSide(Expr::XPath::XPathExprFamily   *pXPathExprFamily);
+	Merge(LeftSide *pLeftSide, Expr::Expr *pExpr);
 
-	IAS_DFT_FACTORY<Expr::XPath::XPathExprFamily>::PtrHolder   ptrXPathExprFamily;
-
-	friend class ::IAS::Factory<LeftSide>;
+	IAS_DFT_FACTORY<LeftSide>::PtrHolder   ptrLeftSide;
+	IAS_DFT_FACTORY<Expr::Expr>::PtrHolder ptrExpr;
+	friend class ::IAS::Factory<Merge>;
 };
 
 /*************************************************************************/
@@ -63,4 +58,4 @@ protected:
 }
 }
 
-#endif /* _IAS_AS_Lang_Interpreter_Exe_Stmt_LEFTSIDE_H_ */
+#endif /* _IAS_AS_Lang_Interpreter_Exe_Stmt_ASSIGNMENT_H_ */

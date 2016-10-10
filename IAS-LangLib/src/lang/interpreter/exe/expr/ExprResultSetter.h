@@ -46,6 +46,8 @@ public:
 	virtual void assign(DM::DataObject* dmValue);
 	virtual void assignList(DM::DataObjectList& refList);
 
+	virtual void merge(DM::DataObject* dmValue);
+
 	const DM::Property* getProperty()const;
 
 protected:
