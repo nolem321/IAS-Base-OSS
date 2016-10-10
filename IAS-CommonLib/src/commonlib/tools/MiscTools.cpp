@@ -190,6 +190,21 @@ void MiscTools::CopyStreams(std::istream& is, std::ostream& os, size_t iLimit){
 
 }
 /*************************************************************************/
+String MiscTools::StreamToString(std::istream& is){
+	IAS_TRACER;
+
+	is.clear();
+	is.seekg(0);
+
+	StringStream ssTmp;
+	MiscTools::CopyStreams(is, ssTmp);
+
+	is.clear();
+	is.seekg(0);
+
+	return ssTmp.str();
+}
+/*************************************************************************/
 static const String CBase64 =
              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
              "abcdefghijklmnopqrstuvwxyz"

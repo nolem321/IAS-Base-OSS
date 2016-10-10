@@ -28,7 +28,6 @@ namespace IAS {
 namespace Net {
 namespace HTTP {
 
-
 /*************************************************************************/
 Request::Request():
 	iMethod(HM_NONE){
@@ -158,6 +157,10 @@ void Request::serialize(std::ostream& os){
 	if(iConentLength != SIZE_MAX)
 		os<<"Content-Length: "<<iConentLength<<"\r\n";
 
+	for(NameValuePairList::const_iterator it=lstCustomHeaders.begin(); it != lstCustomHeaders.end(); it++) {
+		os << (*it).first << ": " << (*it).second << "\r\n";
+	}
+
 	if(lstCookies.size()){
 		os<<"Cookie: ";
 
@@ -236,8 +239,6 @@ void Request::Parser::parse(){
 	}else
 		IAS_THROW(BadUsageException("HTTP Request Parser Error: http version [")<<s<<"]");
 
-
-
 	while(is.good()){
 		is.getline(sBuffer,iBufSize,'\r');
 
@@ -249,20 +250,20 @@ void Request::Parser::parse(){
 
 		if(*sBuffer == 0){
 
-			if(!strName.empty())
+			if(!nameValue.first.empty())
 				processNameValuePair();
 
 			return;
 
 		}else if(isblank(*sBuffer)){
 
-			if(strName.empty())
+			if(nameValue.first.empty())
 				IAS_THROW(BadUsageException("HTTP Request Parser Error: the line start with a blank but no header value earlier."))
-			strValue+=sBuffer+1;
+			nameValue.second+=sBuffer+1;
 
 		} else {
 
-			if(!strName.empty())
+			if(!nameValue.first.empty())
 				processNameValuePair();
 
 			parseNameValue(sBuffer);
@@ -279,32 +280,32 @@ static inline String &_trim(String &s) {
 void Request::Parser::processNameValuePair(){
 	IAS_TRACER;
 
-	IAS_LOG(LogLevel::INSTANCE.isInfo(),strName<<"="<<strValue)
-	if(!strName.compare("From")){ request.setFrom(strValue); }
-	else if(!strName.compare("User-Agent")){ request.setUserAgent(strValue); }
-	else if(!strName.compare("Host")){ request.setHost(strValue); }
-	else if(!strName.compare("Accept")){ request.setAccept(strValue); }
-	else if(!strName.compare("Accept-Language")){ request.setAcceptLanguage(strValue); }
-	else if(!strName.compare("Transfer-Encoding")){ request.setTransferEncoding(strValue); }
-	else if(!strName.compare("Authorization")){
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),nameValue.first<<"="<<nameValue.second)
+	if(!nameValue.first.compare("From")){ request.setFrom(nameValue.second); }
+	else if(!nameValue.first.compare("User-Agent")){ request.setUserAgent(nameValue.second); }
+	else if(!nameValue.first.compare("Host")){ request.setHost(nameValue.second); }
+	else if(!nameValue.first.compare("Accept")){ request.setAccept(nameValue.second); }
+	else if(!nameValue.first.compare("Accept-Language")){ request.setAcceptLanguage(nameValue.second); }
+	else if(!nameValue.first.compare("Transfer-Encoding")){ request.setTransferEncoding(nameValue.second); }
+	else if(!nameValue.first.compare("Authorization")){
 
 		String strMethod;
 		String strParameter;
 
-		StringStream ssTmp(strValue);
+		StringStream ssTmp(nameValue.second);
 
 		ssTmp>>strMethod>>strParameter;
 
 		request.setAuthorization(strMethod,strParameter);
 
-	}else if(!strName.compare("Content-Type")){ request.setContentType(strValue); }
-	else if(!strName.compare("Content-Length")){ request.setContentLength(strValue); }
-	else if(!strName.compare("Content-type")){ request.setContentType(strValue); }
-	else if(!strName.compare("Content-length")){ request.setContentLength(strValue); }
-	else if(!strName.compare("Cookie")){
+	}else if(!nameValue.first.compare("Content-Type")){ request.setContentType(nameValue.second); }
+	else if(!nameValue.first.compare("Content-Length")){ request.setContentLength(nameValue.second); }
+	else if(!nameValue.first.compare("Content-type")){ request.setContentType(nameValue.second); }
+	else if(!nameValue.first.compare("Content-length")){ request.setContentLength(nameValue.second); }
+	else if(!nameValue.first.compare("Cookie")){
 
 		StringList lstCookies;
-		TypeTools::Tokenize(strValue,lstCookies,';');
+		TypeTools::Tokenize(nameValue.second,lstCookies,';');
 		for (StringList::const_iterator it=lstCookies.begin(); it != lstCookies.end(); ++it) {
 
 			size_t iCursor = (*it).find('=');
@@ -324,31 +325,16 @@ void Request::Parser::processNameValuePair(){
 
 		}
 	}
-	else if(!strName.compare("SOAPAction")){ request.setSOAPAction(strValue); }
+	else if(!nameValue.first.compare("SOAPAction")){ request.setSOAPAction(nameValue.second); }
 
-	strName.clear();
+	nameValue.first.clear();
 	//TODO (H) do not ignore
 }
 /*************************************************************************/
 void Request::Parser::parseNameValue(char* sBuffer){
 	IAS_TRACER;
 
-	char *s=sBuffer;
-	char *c=sBuffer;
-
-	while(*c && *c != ':')
-		c++;
-
-	if(*c != ':')
-		IAS_THROW(BadUsageException("HTTP Request Parser Error: missing ':'"));
-
-	*c++=0;
-	strName=s;
-
-	while(isblank(*c))
-		c++;
-
-	strValue=c;
+	nameValue = Header::Parser::ParseNameValue(sBuffer);
 }
 /*************************************************************************/
 bool Request::isSetAuthorization()const{

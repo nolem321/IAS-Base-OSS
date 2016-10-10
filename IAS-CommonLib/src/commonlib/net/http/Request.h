@@ -99,7 +99,7 @@ protected:
 
 	CookiesList   lstCookies;
 
-	class Parser{
+	class Parser : public Header::Parser{
 	public:
 
 		Parser(Request& request, std::istream& in);
@@ -111,8 +111,7 @@ protected:
 		void processNameValuePair();
 		void parseNameValue(char* sBuffer);
 
-		String strName;
-		String strValue;
+		NameValuePair nameValue;
 		Request& request;
 		std::istream& is;
 	};
