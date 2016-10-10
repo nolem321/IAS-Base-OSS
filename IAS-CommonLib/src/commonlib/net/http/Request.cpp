@@ -28,6 +28,7 @@ namespace IAS {
 namespace Net {
 namespace HTTP {
 
+
 /*************************************************************************/
 Request::Request():
 	iMethod(HM_NONE){
