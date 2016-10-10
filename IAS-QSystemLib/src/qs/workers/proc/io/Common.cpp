@@ -167,8 +167,8 @@ void Common::applyContext(const ::org::invenireaude::qsystem::workers::Ext::Cont
 		const workers::Attribute *pAttribute=lstAttributes.at(iIdx);
 		const String& strName(pAttribute->getName());
 
-		//TODO if(strName[0] != '.')
-		pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
+		if(strName[0] != '.')
+		 pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
 	}
 
 	if(QS::LogLevel::INSTANCE.isInfo()){
@@ -251,8 +251,19 @@ void Common::buildContext(const API::Message* pMessage,
 void Common::parse(API::Message* pMessage, DM::DataObjectPtr& dmData){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pMessage);
-	pFmtFactory->getFormatter(pMessage->getAttributes()->getFormat())->
-			read(dmData,*(pMessage->getContent()), pMessage->getAttributes());
+
+	try{
+
+		pFmtFactory->getFormatter(pMessage->getAttributes()->getFormat())->
+				read(dmData,*(pMessage->getContent()), pMessage->getAttributes());
+
+	}catch(Exception& e){
+		if(LogLevel::INSTANCE.isData()){
+			IAS_LOG(true,"Cannot parse: "<<MiscTools::StreamToString(*pMessage->getContent()));
+		}
+
+		throw;
+	}
 
 	if(QS::LogLevel::INSTANCE.isData()){
 		StringStream ssTmp;

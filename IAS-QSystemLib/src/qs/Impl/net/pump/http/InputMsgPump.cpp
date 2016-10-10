@@ -78,7 +78,7 @@ InputMsgPump::~InputMsgPump() throw(){
 
 	pMessage->getBaseAttributes()->setMID(MessageIDGenerator::TheInstance.getNextMID());
 	pMessage->getBaseAttributes()->setFormat("JSON");
-	pMessage->getBaseAttributes()->setReplyTo("dummynet");
+	pMessage->getBaseAttributes()->setReplyTo("http://localhost/dummynet");
 
 	onHeaderReady();
 

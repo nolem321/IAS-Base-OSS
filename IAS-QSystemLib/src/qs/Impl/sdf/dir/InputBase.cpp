@@ -73,8 +73,12 @@ Message* InputBase::receiveImpl(int iTimeWait, bool bRemoveInputFile){
 		Mutex::Locker locker(mutex);
 
 		while(itEntries != dirReader.end() &&
-				(*itEntries)->iType != SYS::FS::DirectoryReader::FT_FILE)
+				(*itEntries)->iType != SYS::FS::DirectoryReader::FT_FILE){
+
+			IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"Skipping: "<<(*itEntries)->strFile<<", "<<(*itEntries)->iType<<", "<<SYS::FS::DirectoryReader::FT_FILE);
+
 			itEntries++;
+		}
 
 		while(itEntries == dirReader.end()){
 
