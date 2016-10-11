@@ -50,7 +50,6 @@ void SOAPFormatter::read(DM::DataObjectPtr& dmData,
 
 	IAS_TRACER;
 
-
 	TimeSample ts(::IAS::QS::LogLevel::INSTANCE.isProfile());
 	ts.start();
 
@@ -141,12 +140,11 @@ void SOAPFormatterV12::read(DM::DataObjectPtr& dmData,
 
 	IAS_TRACER;
 
-	StringStream ss;
+	StringStream ssTmp;
 
-	getSOAPContent(istream,ss);
+	getSOAPContent(istream,ssTmp);
 
-	SOAPFormatterV12::read(dmData, ss, pAttributes);
-
+	SOAPFormatter::read(dmData, ssTmp, pAttributes);
 }
 /*************************************************************************/
 void SOAPFormatterV12::getSOAPContent(std::istream& istream,
@@ -162,16 +160,20 @@ void SOAPFormatterV12::getSOAPContent(std::istream& istream,
 
 		getline(istream,line,'\r');
 
-		if(istream.get() != '\n')
-			IAS_THROW(BadUsageException("HTTP MTOM Parser Error: LF expected after CR."));
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Line:["<<line<<"]");
+
+		char c;
+
+		if((c=istream.get()) != '\n')
+			IAS_THROW(BadUsageException("HTTP MTOM Parser Error: LF expected after CR: (int)c = "+TypeTools::IntToString(c)));
 
 		if(!istream.good())
 			IAS_THROW(BadUsageException("HTTP MTOM Parser Error: content reader failed."));
 
 		if(inXml)
-			if (line.compare(boundry) && line.compare(boundryEnd))
+			if (line.compare(boundry) && line.compare(boundryEnd)){
 				ostream << line;
-			else
+			}else
 				break;
 
 		if ((line.length() > 1) && (line[0] == '-') && (line[1] == '-'))
@@ -182,11 +184,14 @@ void SOAPFormatterV12::getSOAPContent(std::istream& istream,
 			else
 				break;
 
-		if((line.length() > 0) && (line[0] == '<')) {
+		if(!inXml && (line.length() > 0) && (line[0] == '<')) {
 			ostream << line;
 			inXml = true;
 		}
 	}
+
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"SOAPContent:[["<<ostream.str()<<"]]");
 }
 /*************************************************************************/
 

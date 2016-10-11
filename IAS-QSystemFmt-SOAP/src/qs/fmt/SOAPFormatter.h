@@ -52,7 +52,7 @@ protected:
 
 	SOAPFormatter(const DM::DataFactory* pDataFactory, const String& strNS);
 
-	const String& strNS;
+	const String strNS;
 
 	const DM::DataFactory* pDataFactory;
 
