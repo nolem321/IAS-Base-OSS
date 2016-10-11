@@ -571,7 +571,7 @@ void XSDParser::parse_xsd_extension(bool bComplexType){
 
 		IAS_DFT_FACTORY<PropertyInfo>::PtrHolder ptrPropertyInfo( IAS_DFT_FACTORY<PropertyInfo>::Create());
 
-		ptrPropertyInfo->strName=XMLHelper::XMLPayloadElement;
+		ptrPropertyInfo->strName=XMLHelper::CXMLPayloadElement;
 
 		String strTypePrefix;
 
