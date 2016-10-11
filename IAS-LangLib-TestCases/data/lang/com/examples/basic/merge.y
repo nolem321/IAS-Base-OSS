@@ -57,11 +57,13 @@ BEGIN
 
   VAR c AS Customer : "abc";
   
-  c MERGE input;
+  c ?= input;
   
   c.firstname = c.firstname + " something new.";
   c.lost = " do not expect this !!!";
   
-  output MERGE c;
+  std::save("stdout",c);
+  
+  output ?= c;
   
 END;
