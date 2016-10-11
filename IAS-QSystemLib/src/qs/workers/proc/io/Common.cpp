@@ -249,14 +249,23 @@ void Common::buildContext(const API::Message* pMessage,
 
 }
 /*************************************************************************/
+const String& Common::getFormat(const API::Attributes* pAttributes)const{
+
+	if(pAttributes->isSet(".FMT"))
+		return pAttributes->getValue(".FMT");
+
+	return pAttributes->getFormat();
+}
+/*************************************************************************/
 void Common::parse(API::Message* pMessage, DM::DataObjectPtr& dmData){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pMessage);
 
 	try{
 
-		pFmtFactory->getFormatter(pMessage->getAttributes()->getFormat())->
+		pFmtFactory->getFormatter(getFormat(pMessage->getAttributes()))->
 				read(dmData,*(pMessage->getContent()), pMessage->getAttributes());
+
 
 	}catch(Exception& e){
 		if(LogLevel::INSTANCE.isData()){
@@ -290,8 +299,9 @@ void Common::serialize(const DM::DataObject* dmData, API::Message* pMessage){
 	if(!pAttributes->isSet(API::Attributes::CA_Format))
 		pAttributes->setFormat("JSON");
 
-	pFmtFactory->getFormatter(pAttributes->getFormat())->
+	pFmtFactory->getFormatter(getFormat(pAttributes))->
 			write(dmData,*(pMessage->getContent()),pAttributes);
+
 
 	if(QS::LogLevel::INSTANCE.isData()){
 		StringStream ssTmp;

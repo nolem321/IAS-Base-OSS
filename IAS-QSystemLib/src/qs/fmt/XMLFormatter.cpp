@@ -113,6 +113,11 @@ void XMLFormatter::write(const DM::DataObject* dmData,
 
 	ptrXMLHelper->save(ostream,ptrDocument);
 
+	if(pAttributes){
+		pAttributes->setValue(CElementName,ptrDocument->getElement());
+		pAttributes->setValue(CElementURI,ptrDocument->getURI());
+	}
+
 	tsrSerialization.addSample(ts);
 }
 /*************************************************************************/
