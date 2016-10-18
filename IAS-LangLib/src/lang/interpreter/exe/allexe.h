@@ -28,6 +28,8 @@
 
 #include "expr/BooleanExpr.h"
 #include "stmt/Assignment.h"
+#include "stmt/ConditionalAssignment.h"
+#include "stmt/Create.h"
 #include "stmt/LeftSide.h"
 #include "stmt/IfThenElse.h"
 #include "stmt/Statement.h"

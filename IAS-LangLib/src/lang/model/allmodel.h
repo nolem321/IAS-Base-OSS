@@ -76,6 +76,8 @@
 #include "stmt/CallNode.h"
 #include "stmt/CatchListNode.h"
 #include "stmt/CatchNode.h"
+#include "stmt/ConditionalAssignmentNode.h"
+#include "stmt/CreateNode.h"
 #include "stmt/DeleteNode.h"
 #include "stmt/ForLoopNode.h"
 #include "stmt/IfThenElseNode.h"

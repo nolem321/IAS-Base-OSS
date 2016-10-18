@@ -88,6 +88,7 @@ void Lexer::init(){
 	hmKeywords["COPYOF"]=Token::T_COPYOF;
 	hmKeywords["DETACH"]=Token::T_DETACH;
 	hmKeywords["SIZEOF"]=Token::T_SIZEOF;
+	hmKeywords["CREATE"]=Token::T_CREATE;
 	hmKeywords["DELETE"]=Token::T_DELETE;
 	hmKeywords["TYPE"]=Token::T_TYPE;
 	hmKeywords["TYPENS"]=Token::T_TYPENS;
@@ -178,7 +179,7 @@ void Lexer::handleStep(){
 		case S_Eq:         handleState_Eq(c); break;
 		case S_Colon:      handleState_Colon(c); break;
 		case S_Slash:      handleState_Slash(c); break;
-
+		case S_QuestionMark:   handleState_QuestionMark(c); break;
 		case S_LineComment:    handleState_LineComment(c); break;
 		case S_BlockComment:   handleState_BlockComment(c); break;
 
@@ -218,6 +219,7 @@ void Lexer::handleState_Start(unsigned char c){
 		case '>': iCurrentState=S_Greater; return;
 		case '"': iCurrentState=S_String; return;
 		case '{': iCurrentState=S_SpecSymbol; return;
+		case '?': iCurrentState=S_QuestionMark; return;
 	}
 
 	if(isdigit(c)){
@@ -418,6 +420,19 @@ void Lexer::handleState_Colon(unsigned char c){
 	}else{
 		getActiveWrapper()->ungetChar();
 		aTokenInfo.setToken(Token::T_COLON);
+	}
+
+}
+/*************************************************************************/
+void Lexer::handleState_QuestionMark(unsigned char c){
+	IAS_TRACER;
+
+	iCurrentState=S_End;
+
+	if(c == '='){
+		aTokenInfo.setToken(Token::T_CONDASSIGN);
+	}else{
+		IAS_THROW(ParseErrorException(String("'?=' expected.")));
 	}
 
 }

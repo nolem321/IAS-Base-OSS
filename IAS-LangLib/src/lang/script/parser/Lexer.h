@@ -65,6 +65,7 @@ protected:
 		S_Eq,
 		S_Colon,
 		S_SpecSymbol,
+		S_QuestionMark,
 
 		S_Slash,
 		S_BlockComment,
@@ -84,6 +85,7 @@ protected:
 	void handleState_Less(unsigned char c);
 	void handleState_Eq(unsigned char c);
 	void handleState_Colon(unsigned char c);
+	void handleState_QuestionMark(unsigned char c);
 	void handleState_Slash(unsigned char c);
 	void handleState_BlockComment(unsigned char c);
 	void handleState_LineComment(unsigned char c);

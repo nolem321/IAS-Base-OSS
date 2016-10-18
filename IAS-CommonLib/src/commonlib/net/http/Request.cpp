@@ -383,12 +383,14 @@ const String& Request::MethodToString(Method iMethod){
 	static const String strDELETE("DELETE");
 	static const String strPOST("POST");
 	static const String strHEADER("HEADER");
+	static const String strCONNECT("CONNECT");
 
 	switch(iMethod){
 		case HM_GET:    return strGET;
 		case HM_DELETE: return strDELETE;
 		case HM_POST:   return strPOST;
 		case HM_HEADER: return strHEADER;
+		case HM_CONNECT: return strCONNECT;
 	}
 
 	IAS_THROW(BadUsageException("Unknown HTTP method code:")<<iMethod);
@@ -419,6 +421,11 @@ Request::Method Request::StringToMethod(const String& strMethod){
 			if(strMethod.compare("HEADER"))
 				IAS_THROW(BadUsageException("Unknown HTTP method: ")<<strMethod);
 			return HM_HEADER;
+
+		case 'C':
+			if(strMethod.compare("CONNECT"))
+				IAS_THROW(BadUsageException("Unknown HTTP method: ")<<strMethod);
+			return HM_CONNECT;
 
 		default:
 			IAS_THROW(BadUsageException("Unknown HTTP method: ")<<strMethod);

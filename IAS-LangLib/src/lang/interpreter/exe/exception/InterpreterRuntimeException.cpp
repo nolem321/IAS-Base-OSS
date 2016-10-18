@@ -38,6 +38,18 @@ InterpreterRuntimeException::~InterpreterRuntimeException() throw(){
 
 }
 /*************************************************************************/
+void InterpreterRuntimeException::setStatementSource(const String& strSource, const String& strName){
+	IAS_TRACER;
+
+	InterpreterException::setStatementSource(strSource, strName);
+
+	org::invenireaude::lang::builtin::RuntimeException* dmRuntimeException =
+			org::invenireaude::lang::builtin::DataFactory::GetInstance()->getRuntimeExceptionType()->cast(dmValue);
+
+	dmRuntimeException->setInfo(getInfo());
+
+}
+/*************************************************************************/
 const char* InterpreterRuntimeException::getName(){
 	IAS_TRACER;
 	return "InterpreterRuntimeException";

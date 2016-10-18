@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns0:customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
- <firstname>Jan</firstname>
+ <firstname>Jan something new.</firstname>
  <lastname>Kowalski</lastname>
  <age>102</age>
  <address>

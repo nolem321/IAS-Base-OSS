@@ -85,21 +85,19 @@ int main(int argc, char* argv[]) {
 		IAS_TEST_EXE("com::examples::basic::cast", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::sort", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::merge", "customer.xml");
+		IAS_TEST_EXE("com::examples::basic::create", "customer.xml");
+		IAS_TEST_EXE("com::examples::basic::condassign", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::newfuncalls", "customer.xml");
 
 		IAS_TEST_EXE("com::examples::basic::inlinetypes", "customer.xml");
 
 		/**/
 
-
-
-
-
-
 		/* old stuff for fun : IAS_TEST_EXE("com::examples::test", "customer.xml");*/
 
 		//ptrSuite->run(argc == 1 ? "" : argv[1]);
-		ptrSuite->run("com::examples::basic::merge");
+		ptrSuite->run("com::examples::basic::create");
+
 		//ptrSuite->run("");
 
 		ptrSuite->printResults(std::cout);

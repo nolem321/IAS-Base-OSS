@@ -231,40 +231,42 @@ namespace yy {
         T_SIZEOF = 293,
         T_COPYOF = 294,
         T_DETACH = 295,
-        T_DELETE = 296,
-        T_EXTERNAL = 297,
-        T_TYPE = 298,
-        T_TYPENS = 299,
-        T_ISSET = 300,
-        T_ISNULL = 301,
-        T_ISTYPE = 302,
-        T_ISINSTANCE = 303,
-        T_STRLEN = 304,
-        T_OPEN_SQUARE = 305,
-        T_CLOSE_SQUARE = 306,
-        T_PLUS = 307,
-        T_MINUS = 308,
-        T_ASTERISK = 309,
-        T_SLASH = 310,
-        T_PERCENT = 311,
-        T_COMMA = 312,
-        T_COLON = 313,
-        T_DOUBLECOLON = 314,
-        T_DOT = 315,
-        T_SEMICOLON = 316,
-        T_EQ = 317,
-        T_GREATER = 318,
-        T_GREATER_EQ = 319,
-        T_LESS = 320,
-        T_LESS_EQ = 321,
-        T_DIFF = 322,
-        T_ASSIGN = 323,
-        T_SYMBOL = 324,
-        T_STRING = 325,
-        T_INTEGER = 326,
-        T_FLOAT = 327,
-        T_BOOLEAN = 328,
-        T_NULL = 329
+        T_CREATE = 296,
+        T_DELETE = 297,
+        T_EXTERNAL = 298,
+        T_TYPE = 299,
+        T_TYPENS = 300,
+        T_ISSET = 301,
+        T_ISNULL = 302,
+        T_ISTYPE = 303,
+        T_ISINSTANCE = 304,
+        T_STRLEN = 305,
+        T_OPEN_SQUARE = 306,
+        T_CLOSE_SQUARE = 307,
+        T_PLUS = 308,
+        T_MINUS = 309,
+        T_ASTERISK = 310,
+        T_SLASH = 311,
+        T_PERCENT = 312,
+        T_COMMA = 313,
+        T_COLON = 314,
+        T_DOUBLECOLON = 315,
+        T_DOT = 316,
+        T_SEMICOLON = 317,
+        T_EQ = 318,
+        T_GREATER = 319,
+        T_GREATER_EQ = 320,
+        T_LESS = 321,
+        T_LESS_EQ = 322,
+        T_DIFF = 323,
+        T_ASSIGN = 324,
+        T_CONDASSIGN = 325,
+        T_SYMBOL = 326,
+        T_STRING = 327,
+        T_INTEGER = 328,
+        T_FLOAT = 329,
+        T_BOOLEAN = 330,
+        T_NULL = 331
       };
     };
 
@@ -555,13 +557,13 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 516,     ///< Last index in yytable_.
-      yynnts_ = 50,  ///< Number of nonterminal symbols.
+      yylast_ = 575,     ///< Last index in yytable_.
+      yynnts_ = 52,  ///< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 75  ///< Number of tokens.
+      yyntokens_ = 77  ///< Number of tokens.
     };
 
 
@@ -572,7 +574,7 @@ namespace yy {
 
 
 } // yy
-#line 576 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:372
+#line 578 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:372
 
 
 

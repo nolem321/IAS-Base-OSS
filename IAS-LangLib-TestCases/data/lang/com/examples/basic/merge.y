@@ -29,6 +29,18 @@ DEFINE Customer : "abc" AS BEGIN
  age       AS String;
  address   AS ARRAY OF Address : "abc";
 END;
+			
+PROGRAM testit()
+BEGIN
+  
+  VAR c AS Customer : "abc";
+  
+   BEGIN
+     IF c.firstname == "aaa" THEN
+   RETURN ;
+   END;
+
+END;
 				  				 
 PROGRAM com::examples::basic::merge(VAR p1     AS Integer, 
 			 			    	    VAR input  AS Customer : "http://www.examples.org/akc", 
@@ -57,13 +69,20 @@ BEGIN
 
   VAR c AS Customer : "abc";
   
-  c ?= input;
+ TRY BEGIN
+   testit();
+  END CATCH(VAR e AS AnyType) BEGIN
+   std::save("stdout","HERE");
+   std::save("stdout",e);
+  END;
+  
+  c MERGE input;
   
   c.firstname = c.firstname + " something new.";
   c.lost = " do not expect this !!!";
   
   std::save("stdout",c);
   
-  output ?= c;
+  output MERGE c;
   
 END;

@@ -39,7 +39,8 @@ public:
 		HM_GET,
 		HM_POST,
 		HM_HEADER,
-		HM_DELETE
+		HM_DELETE,
+		HM_CONNECT
 	};
 
 	Method  getMethod()const;

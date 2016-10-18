@@ -74,6 +74,8 @@
 #include "stmt/CallNodeHandler.h"
 #include "stmt/CatchListNodeHandler.h"
 #include "stmt/CatchNodeHandler.h"
+#include "stmt/ConditionalAssignmentNodeHandler.h"
+#include "stmt/CreateNodeHandler.h"
 #include "stmt/DeleteNodeHandler.h"
 #include "stmt/ForLoopNodeHandler.h"
 #include "stmt/IfThenElseNodeHandler.h"
@@ -175,6 +177,8 @@ void CallbackRegister::init(){
 	registerCallback<Model::Stmt::CallNode>(IAS_DFT_FACTORY<Stmt::CallNodeHandler>::Create());
 	registerCallback<Model::Stmt::CatchNode>(IAS_DFT_FACTORY<Stmt::CatchNodeHandler>::Create());
 	registerCallback<Model::Stmt::CatchListNode>(IAS_DFT_FACTORY<Stmt::CatchListNodeHandler>::Create());
+	registerCallback<Model::Stmt::ConditionalAssignmentNode>(IAS_DFT_FACTORY<Stmt::ConditionalAssignmentNodeHandler>::Create());
+	registerCallback<Model::Stmt::CreateNode>(IAS_DFT_FACTORY<Stmt::CreateNodeHandler>::Create());
 	registerCallback<Model::Stmt::DeleteNode>(IAS_DFT_FACTORY<Stmt::DeleteNodeHandler>::Create());
 	registerCallback<Model::Stmt::ForLoopNode>(IAS_DFT_FACTORY<Stmt::ForLoopNodeHandler>::Create());
 	registerCallback<Model::Stmt::IfThenElseNode>(IAS_DFT_FACTORY<Stmt::IfThenElseNodeHandler>::Create());
