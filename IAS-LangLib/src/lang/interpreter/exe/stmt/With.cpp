@@ -47,8 +47,7 @@ With::With(Expr::XPath::XPathExprFamily *pExpr):
 	const DM::PropertyList& lstProperties(pComplexType->getProperties());
 
 	for(int iIdx=0;iIdx<lstProperties.getSize();iIdx++)
-		addVariable(
-				IAS_DFT_FACTORY<Dec::VariableDeclaration>::Create(
+		addVariable(IAS_DFT_FACTORY<Dec::VariableDeclaration>::Create(
 						lstProperties[iIdx]->getName(),
 						lstProperties[iIdx]->getType(),
 						lstProperties[iIdx]->isMulti())

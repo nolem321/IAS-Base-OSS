@@ -97,7 +97,7 @@ void DataObjectList::add(::IAS::DM::DataObject* pDataObject){
 void DataObjectList::set(int iIdx, ::IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 
-	if(! pDataObject->getType()->isAssignableTo(pType)){
+	if(pDataObject && !pDataObject->getType()->isAssignableTo(pType)){
 			StringStream ssInfo;
 			ssInfo<<"Bad type for a list:";
 			ssInfo<<pDataObject->getType()->getName()<<":";
@@ -109,8 +109,8 @@ void DataObjectList::set(int iIdx, ::IAS::DM::DataObject* pDataObject){
 		IAS_THROW(RuntimeException("Out of range."));
 	}
 
-	if(at(iIdx))
-		unsetParentIfEligible(at(iIdx));
+	if(lstDataObject[iIdx])
+		unsetParentIfEligible(lstDataObject[iIdx]);
 
 	if(pDataObject)
 		setParentIfEligible(pDataObject);

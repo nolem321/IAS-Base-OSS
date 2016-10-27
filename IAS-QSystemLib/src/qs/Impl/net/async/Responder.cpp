@@ -43,7 +43,9 @@ Responder::~Responder() throw(){
 /*************************************************************************/
 bool Responder::respond(API::Message* pMessage, const API::Destination& refDestination){
 
-	Conversation::Key key = TypeTools::StringToInt(refDestination.getName());
+	Conversation::Key key = TypeTools::StringToInt(refDestination.getName().substr(21));
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(), "RKEY: "<<key);
 
 	Engine::AutoResume ptrConversation(getSession()->getEngine()->getAvailableForWriting(key));
 

@@ -125,6 +125,7 @@ private:
 
 	static API::Session::TransactionMode StringToTransactionMode(const String& strMode);
 
+	const String& getFormat(const API::Attributes* pAttributes)const;
 };
 /*************************************************************************/
 }

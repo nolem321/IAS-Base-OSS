@@ -40,6 +40,8 @@ public:
 
 	InterpreterRuntimeException(org::invenireaude::lang::builtin::RuntimeException* dmRuntimeException, const String& strInfo);
 
+	virtual void setStatementSource(const String& strSource, const String& strName);
+
 	virtual ~InterpreterRuntimeException() throw();
 
 	virtual const char*  getName();

@@ -48,6 +48,17 @@ void LeftSide::assignValue(Context *pCtx, Expr::Expr* pExpr) const{
 
 }
 /*************************************************************************/
+void LeftSide::mergeValue(Context *pCtx, Expr::Expr* pExpr) const{
+	IAS_TRACER;
+
+	Expr::ExprResultSetter rs(ptrXPathExprFamily->getTargetObjectSetter(pCtx));
+
+	DM::DataObjectPtr dmResult;
+	pExpr->evaluate(pCtx,dmResult);
+
+	rs.merge(dmResult);
+}
+/*************************************************************************/
 }
 }
 }

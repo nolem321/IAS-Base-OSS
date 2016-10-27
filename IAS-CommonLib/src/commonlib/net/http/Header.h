@@ -33,6 +33,11 @@ public:
 
 	virtual ~Header() throw();
 
+	typedef std::pair<String,String> NameValuePair;
+	typedef std::list<NameValuePair, AllocatorFactory<NameValuePair, &MemoryManager::GetAllocator > > NameValuePairList;
+
+	typedef NameValuePairList::const_iterator const_iterator;
+
 	enum Version{
 		HV_1_0 = 0,
 		HV_1_1 = 1,
@@ -52,8 +57,15 @@ public:
 	void    setContentLength(const String& strContentLength);
 	bool    isSetContentLength()const;
 
+	void    addCustomHeader(const NameValuePair& nameValue);
+
 	virtual void parse(std::istream& is)=0;
 	virtual void serialize(std::ostream& os)=0;
+
+	class Parser{
+	public:
+		static Header::NameValuePair ParseNameValue(const char* sBuffer);
+	};
 
 protected:
 	Header();
@@ -63,6 +75,8 @@ protected:
 	size_t        iConentLength;
 
 	String        strTransferEncoding;
+
+	NameValuePairList lstCustomHeaders;
 
 	friend class Factory<Header>;
 };

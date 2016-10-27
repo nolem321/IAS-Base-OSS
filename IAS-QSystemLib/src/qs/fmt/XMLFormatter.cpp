@@ -31,13 +31,13 @@ namespace Fmt {
 const String& XMLFormatter::CElementEncoding("XMLfEnc");
 const String& XMLFormatter::CElementName("XMLfName");
 const String& XMLFormatter::CElementURI("XMLfURI");
+const String& XMLFormatter::CEnvFirstNS("."+DM::XML::XMLHelper::CEnvFirstNS);
 
 /*************************************************************************/
 XMLFormatter::XMLFormatter(const DM::DataFactory* pDataFactory):pDataFactory(pDataFactory){
 	IAS_TRACER;
 
 	IAS_CHECK_IF_NULL(pDataFactory);
-	ptrXMLHelper=IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory);
 
 }
 /*************************************************************************/
@@ -59,6 +59,8 @@ void XMLFormatter::read(DM::DataObjectPtr& dmData,
 	TimeSample ts(::IAS::QS::LogLevel::INSTANCE.isProfile());
 	ts.start();
 
+	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper(
+			IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory));
 
 	IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readStream(istream));
 
@@ -86,6 +88,9 @@ void XMLFormatter::write(const DM::DataObject* dmData,
 
 	String strValue;
 
+	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper(
+			IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory));
+
 	//TODO rething this cast/DM API Legacy is painful.
 	IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocument(
 		IAS_DFT_FACTORY<DM::XML::XMLDocument>::Create(const_cast< ::IAS::DM::DataObject*>(dmData)));
@@ -99,9 +104,19 @@ void XMLFormatter::write(const DM::DataObject* dmData,
 
 		if(pAttributes->isSet(CElementEncoding))
 			ptrDocument->setEncoding(pAttributes->getValue(CElementEncoding));
+
+		if(pAttributes->isSet(CEnvFirstNS) && pAttributes->getValue(CEnvFirstNS).compare("N") == 0)
+			ptrXMLHelper->setEmptyFirstNS(true);
+		else
+			ptrXMLHelper->setEmptyFirstNS(false);
 	}
 
 	ptrXMLHelper->save(ostream,ptrDocument);
+
+	if(pAttributes){
+		pAttributes->setValue(CElementName,ptrDocument->getElement());
+		pAttributes->setValue(CElementURI,ptrDocument->getURI());
+	}
 
 	tsrSerialization.addSample(ts);
 }

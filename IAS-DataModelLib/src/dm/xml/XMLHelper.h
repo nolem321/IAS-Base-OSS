@@ -85,15 +85,15 @@ public:
 	void setEmptyFirstNS(bool bEmptyFirstNS);
 	void setPrefixElements(bool bPrefixElements);
 
-	static const String XMLPayloadElement;
+	static const String CEnvNULLAction;
+	static const String CEnvFirstNS;
+	static const String CXMLPayloadElement;
 
 protected:
 	XMLHelper(const ::IAS::DM::DataFactory *pDataFactory);
 
 	const ::IAS::DM::DataFactory *pDataFactory;
 
-	static const String CEnvNULLAction;
-	static const String CEnvFirstNS;
 
 	bool bSkipNullElements;
 	bool bEmptyFirstNS;

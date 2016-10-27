@@ -74,6 +74,9 @@ void ProgramContext::execute(Exe::Context *pCtx){
 
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Execute: "<<pProgram->getName());
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Execute: "<<pProgram->getSourceName());
+
+	bIsInterrupted = false;
+
 	try{
 		pProgram->execute(this);
 	}catch(InterpreterException& e){

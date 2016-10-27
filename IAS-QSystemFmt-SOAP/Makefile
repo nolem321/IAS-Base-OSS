@@ -1,6 +1,7 @@
 #########################################################################
 ARTIFACT=IASQSystemFmt-SOAP
 ARTIFACT_ALT_NAMES+=qsfmt_SOAP.so
+ARTIFACT_ALT_NAMES+=qsfmt_SOAP12.so
 #########################################################################
 DEP_PROJECTS+=IAS-CommonLib
 DEP_PROJECTS+=IAS-DataModelLib

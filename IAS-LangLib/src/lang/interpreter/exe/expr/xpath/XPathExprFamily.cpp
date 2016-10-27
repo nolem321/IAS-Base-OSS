@@ -92,7 +92,18 @@ void XPathExprFamily::deleteDataObject(Context* pCtx)const{
 	DM::DataObjectPtr dm;
 	ptrExpr->evaluate(pCtx,dm);
 
-	return ptrXPathAccessor->deleteDataObject(dm,pCtx);
+	ptrXPathAccessor->deleteDataObject(dm,pCtx);
+}
+/*************************************************************************/
+DM::DataObject* XPathExprFamily::createDataObject(Context* pCtx)const{
+	IAS_TRACER;
+
+	DM::DataObjectPtr dm;
+	ptrExpr->evaluate(pCtx,dm);
+
+	DM::DataObjectPtr dmNew(getType()->createDataObject());
+	ptrXPathAccessor->getTargetObjectSetter(dm,pCtx).assign(dmNew);
+	return dmNew;
 }
 /*************************************************************************/
 bool XPathExprFamily::isArray() const{

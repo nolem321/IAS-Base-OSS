@@ -36,25 +36,44 @@ namespace XML {
 
 const String XMLHelper::CEnvNULLAction("IAS_DM_XML_SKIPNULL");
 const String XMLHelper::CEnvFirstNS("IAS_DM_XML_NS0");
-const String XMLHelper::XMLPayloadElement("xmlPayload");
-/*************************************************************************/
-XMLHelper::XMLHelper(const ::IAS::DM::DataFactory *pDataFactory):
-		pDataFactory(pDataFactory),
+const String XMLHelper::CXMLPayloadElement("xmlPayload");
+
+
+struct XMLHelperDefaults {
+
+	XMLHelperDefaults():
 		bSkipNullElements(false),
 		bEmptyFirstNS(false),
 		bPrefixElements(false){
+
+		String strNULLAction;
+
+		bSkipNullElements = EnvTools::GetEnv(XMLHelper::CEnvNULLAction,strNULLAction) &&
+								(!strNULLAction.compare("Y") || !strNULLAction.compare("y"));
+
+		String strFirstNS;
+
+		if(EnvTools::GetEnv(XMLHelper::CEnvFirstNS,strFirstNS))
+			bEmptyFirstNS =	(!strFirstNS.compare("N") || !strFirstNS.compare("n"));
+
+	};
+
+	bool bSkipNullElements;
+	bool bEmptyFirstNS;
+	bool bPrefixElements;
+
+};
+
+static XMLHelperDefaults TheXMLHelperDefaults;
+
+/*************************************************************************/
+XMLHelper::XMLHelper(const ::IAS::DM::DataFactory *pDataFactory):
+		pDataFactory(pDataFactory),
+		bSkipNullElements(TheXMLHelperDefaults.bSkipNullElements),
+		bEmptyFirstNS(TheXMLHelperDefaults.bEmptyFirstNS),
+		bPrefixElements(TheXMLHelperDefaults.bPrefixElements){
 	IAS_TRACER;
 	IAS_CHECK_IF_VALID(pDataFactory);
-
-	String strNULLAction;
-
-	bSkipNullElements = EnvTools::GetEnv(CEnvNULLAction,strNULLAction) &&
-							(!strNULLAction.compare("Y") || !strNULLAction.compare("y"));
-
-	String strFirstNS;
-
-	if(EnvTools::GetEnv(CEnvFirstNS,strFirstNS))
-		bEmptyFirstNS =	(!strFirstNS.compare("N") || !strFirstNS.compare("n"));
 }
 /*************************************************************************/
 XMLHelper::~XMLHelper() throw(){

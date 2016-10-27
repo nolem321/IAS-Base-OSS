@@ -51,6 +51,7 @@ public:
 	bool isSet(Context* pCtx)const;
 	bool isNull(Context* pCtx)const;
 	void deleteDataObject(Context* pCtx)const;
+	DM::DataObject* createDataObject(Context* pCtx)const;
 
 protected:
 	XPathExprFamily(Expr* pExpr, XPathAccessor  *pXPathAccessor);

@@ -46,6 +46,7 @@ public:
 	virtual ~LeftSide() throw();
 
 	void assignValue(Context *pCtx, Expr::Expr* pExpr) const;
+	void mergeValue(Context *pCtx, Expr::Expr* pExpr) const;
 
 protected:
 	LeftSide(Expr::XPath::XPathExprFamily   *pXPathExprFamily);

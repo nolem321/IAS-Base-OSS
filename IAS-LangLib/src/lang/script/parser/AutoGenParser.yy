@@ -90,6 +90,10 @@ using namespace Parser;
 
 %token	T_CALL                  "CALL"
 
+%token	T_SORT                  "SORT"
+%token	T_MERGE                 "MERGE"
+%token	T_USING                 "USING"
+
 %token	T_FOR                   "FOR"
 %token	T_TO                    "TO"
 %token	T_STEP                  "STEP"
@@ -124,6 +128,7 @@ using namespace Parser;
 %token	T_SIZEOF                "SIZEOF"
 %token	T_COPYOF                "COPYOF"
 %token	T_DETACH                "DETACH"
+%token	T_CREATE				"CREATE"
 %token	T_DELETE				"DELETE"
 
 %token  T_EXTERNAL              "EXTERNAL"
@@ -161,6 +166,7 @@ using namespace Parser;
 %token	T_DIFF                  "<>"
 
 %token	T_ASSIGN                "= (assignment)"
+%token	T_CONDASSIGN            "?= (assignment)"
 
 %token	<sval>			T_SYMBOL
 %token	<sval>			T_STRING
@@ -174,13 +180,17 @@ using namespace Parser;
 %type <pParametersNode>         parametersListPar
 %type <pStatementNode>          statement
 %type <pStatementNode>          assignment
+%type <pStatementNode>          condassign
+%type <pStatementNode>          merge
 %type <pStatementNode>          forLoop
 %type <pStatementNode>          whileLoop
 %type <pStatementNode>          with
 %type <pStatementNode>          ifThenElse
 %type <pStatementNode>          call
 %type <pStatementNode>          external
+%type <pStatementNode>          create
 %type <pStatementNode>          delete
+%type <pStatementNode>          sort
 %type <pStatementNode>          return
 %type <pStatementNode>          throw
 %type <pStatementNode>          tryCatch
@@ -323,18 +333,24 @@ declaration : T_VAR T_SYMBOL T_AS T_ARRAY T_OF T_SYMBOL T_COLON T_STRING
 
 statement: statementsListBeginEnd        { $$ =$1; } ;
 statement: assignment                    { $$ =$1; } ;
+statement: condassign                    { $$ =$1; } ;
+statement: merge                         { $$ =$1; } ;
 statement: forLoop                       { $$ =$1; } ;
 statement: whileLoop                     { $$ =$1; } ;
 statement: with                          { $$ =$1; } ;
 statement: ifThenElse                    { $$ =$1; } ;
 statement: call                          { $$ =$1; } ;
 statement: external                      { $$ =$1; } ;
+statement: create                        { $$ =$1; } ;
 statement: delete                        { $$ =$1; } ;
 statement: return                        { $$ =$1; } ;
+statement: sort                          { $$ =$1; } ;
 statement: throw                         { $$ =$1; } ;
 statement: tryCatch                      { $$ =$1; } ;
 
 assignment: lvalue T_ASSIGN expr  { $$ = IAS_DFT_FACTORY<Stmt::AssignmentNode>::Create($1,$3); } ;
+condassign: lvalue T_CONDASSIGN xpathAccess  { $$ = IAS_DFT_FACTORY<Stmt::ConditionalAssignmentNode>::Create($1,$3); } ;
+merge:      lvalue T_MERGE  expr  { $$ = IAS_DFT_FACTORY<Stmt::MergeNode>::Create($1,$3); } ;
 
 lvalue : xpathAccess { $$ = IAS_DFT_FACTORY<Stmt::LeftSideNode>::Create($1); } ; 
 
@@ -441,10 +457,11 @@ ifThenElse: T_IF logicalExpr T_THEN statement   { $$ = IAS_DFT_FACTORY<Stmt::IfT
 ifThenElse: T_IF logicalExpr T_THEN statement T_ELSE statement
 										 { $$ = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create($2,$4,$6); } ;
 
-
 call : qname exprListPar { $$ = IAS_DFT_FACTORY<Stmt::CallNode>::Create($1,$2); };
 
 external : T_EXTERNAL qname exprListPar { $$ = IAS_DFT_FACTORY<Stmt::CallNode>::Create($2,$3); };
+create :   T_CREATE	  xpathAccess  { $$ = IAS_DFT_FACTORY<Stmt::CreateNode>::Create($2); }
+create :   T_CREATE	  xpathAccess statementsListBeginEnd { $$ = IAS_DFT_FACTORY<Stmt::CreateNode>::Create($2,$3); }
 delete :   T_DELETE	  xpathAccess  { $$ = IAS_DFT_FACTORY<Stmt::DeleteNode>::Create($2); }
 
 return: T_RETURN { $$ = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create(); } ;
@@ -453,6 +470,7 @@ return: T_RETURN expr  { $$ = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create($2); } ;
 //throw: T_THROW       { $$ = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create(); } ;
 throw: T_THROW expr  { $$ = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create($2); } ;
 
+sort: T_SORT xpathAccess T_USING qname { $$ = IAS_DFT_FACTORY<Stmt::SortNode>::Create($2,$4); } ;
 
 tryCatch: T_TRY statementsListBeginEnd catchList { $$ = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create($2,$3);  }
 catchList: catchList catch              { $$ = $1; $$->addCatchNode($2);           }

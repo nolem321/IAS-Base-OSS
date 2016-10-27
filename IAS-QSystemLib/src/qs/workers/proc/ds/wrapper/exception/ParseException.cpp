@@ -18,7 +18,6 @@
 #include "ParseException.h"
 
 #include <commonlib/commonlib.h>
-#include <sqlite3.h>
 
 #include<qs/log/LogLevel.h>
 

@@ -77,6 +77,10 @@ Receiver::Receiver(Session* pSession):
 	iCounter(0),
 	myDestination("__FAKE__"){
 	IAS_TRACER;
+
+	Mutex mutex;
+	Mutex::Locker locker(mutex);
+	const EligibleAttributesMap* hmEligibleAttributes = EligibleAttributesMap::GetInstance();
 }
 
 /*************************************************************************/

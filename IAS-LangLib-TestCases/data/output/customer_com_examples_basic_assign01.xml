@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.examples.org/akc" xsi:type="Customer">
+<ns0:customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
  <firstname>test1</firstname>
- <middlename xsi:type="Name">2000-02-03T10:14:29</middlename>
+ <middlename xsi:type="ns0:Name">2000-02-03T10:14:29</middlename>
  <lastname>Kowalski</lastname>
  <age>949569169</age>
  <age1 xsi:nil="true"/>
@@ -13,4 +13,4 @@
  <address/>
  <address xsi:nil="true"/>
  <mailingAddress/>
-</customer>
+</ns0:customer>

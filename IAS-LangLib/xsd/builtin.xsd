@@ -5,8 +5,10 @@
  xmlns:lang="http://www.invenireaude.org/lang/builtin">
 	
 <xsi:complexType name="Exception">
+      <xsi:sequence>
+		<xsi:element name="info"   type="xsi:string" minOccurs="0" maxOccurs="1"/>    
+      </xsi:sequence>
 	<xsi:attribute name="name"   type="xsi:string" use="required" />	
-	<xsi:attribute name="info"   type="xsi:string" use="required" />
 </xsi:complexType>	
 
 <xsi:complexType name="RuntimeException">

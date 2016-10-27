@@ -167,7 +167,8 @@ void Common::applyContext(const ::org::invenireaude::qsystem::workers::Ext::Cont
 		const workers::Attribute *pAttribute=lstAttributes.at(iIdx);
 		const String& strName(pAttribute->getName());
 
-		//TODO if(strName[0] != '.')
+		//TODO Must be done in QS modules.
+		//if(strName[0] != '.')
 		pAttributes->setValue(pAttribute->getName(), pAttribute->getValue());
 	}
 
@@ -248,11 +249,31 @@ void Common::buildContext(const API::Message* pMessage,
 
 }
 /*************************************************************************/
+const String& Common::getFormat(const API::Attributes* pAttributes)const{
+
+	if(pAttributes->isSet(".FMT"))
+		return pAttributes->getValue(".FMT");
+
+	return pAttributes->getFormat();
+}
+/*************************************************************************/
 void Common::parse(API::Message* pMessage, DM::DataObjectPtr& dmData){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pMessage);
-	pFmtFactory->getFormatter(pMessage->getAttributes()->getFormat())->
-			read(dmData,*(pMessage->getContent()), pMessage->getAttributes());
+
+	try{
+
+		pFmtFactory->getFormatter(getFormat(pMessage->getAttributes()))->
+				read(dmData,*(pMessage->getContent()), pMessage->getAttributes());
+
+
+	}catch(Exception& e){
+		if(LogLevel::INSTANCE.isData()){
+			IAS_LOG(true,"Cannot parse: "<<MiscTools::StreamToString(*pMessage->getContent()));
+		}
+
+		throw;
+	}
 
 	if(QS::LogLevel::INSTANCE.isData()){
 		StringStream ssTmp;
@@ -278,8 +299,9 @@ void Common::serialize(const DM::DataObject* dmData, API::Message* pMessage){
 	if(!pAttributes->isSet(API::Attributes::CA_Format))
 		pAttributes->setFormat("JSON");
 
-	pFmtFactory->getFormatter(pAttributes->getFormat())->
+	pFmtFactory->getFormatter(getFormat(pAttributes))->
 			write(dmData,*(pMessage->getContent()),pAttributes);
+
 
 	if(QS::LogLevel::INSTANCE.isData()){
 		StringStream ssTmp;

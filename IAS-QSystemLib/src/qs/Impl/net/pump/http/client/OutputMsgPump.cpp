@@ -102,6 +102,10 @@ OutputMsgPump::OutputMsgPump(::IAS::Net::IBlockIO* pBlockIO, Message* pMessage):
 		ptrRequest->setSOAPAction(pAttributes->getValue("IAS_SOAP_ACTION"));
 	}
 
+	if(pAttributes->isSet("IAS_HTTP_CUSTOM_HEADER")){
+		ptrRequest->addCustomHeader(::IAS::Net::HTTP::Header::Parser::ParseNameValue("IAS_HTTP_CUSTOM_HEADER"));
+	}
+
 	ptrOutputPump = IAS_DFT_FACTORY< ::IAS::Net::HTTP::HeaderOutputPump>::Create< ::IAS::Net::HTTP::Request*, IAS::Net::IBlockIO* >(ptrRequest,pBlockIO);
 }
 /*************************************************************************/

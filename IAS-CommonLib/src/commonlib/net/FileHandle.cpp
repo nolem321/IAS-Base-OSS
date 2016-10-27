@@ -200,6 +200,8 @@ bool FileHandle::waitForData(WaitMode iMode){
 				 &set,
 				 &timeout);
 
+	 IAS_LOG(LogLevel::INSTANCE.isInfo(),"rc="<<iRC);
+
 	 switch(iRC){
 	 	 case -1:
 	 		 IAS_THROW(SystemException("select: ")<<iFileDescriptor)

@@ -59,7 +59,7 @@ API::Message* Receiver::receive(int iTimeWait, API::Attributes* pSelector){
 	IAS_DFT_FACTORY<Message>::PtrHolder ptrMessage(ptrConversation->getMessage());
 
 	StringStream ssValue;
-	ssValue<<ptrConversation->getKey();
+	ssValue<<"asrvhttp://localhost/"<<ptrConversation->getKey();
 	ptrMessage->getAttributes()->setReplyTo(ssValue.str());
 
 	return ptrMessage.pass();

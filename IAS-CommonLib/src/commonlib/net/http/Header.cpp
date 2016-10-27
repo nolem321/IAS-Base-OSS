@@ -83,6 +83,37 @@ bool  Header::isSetContentLength()const{
 	return iConentLength != SIZE_MAX;
 }
 /*************************************************************************/
+void Header::addCustomHeader(const NameValuePair& nameValue){
+	IAS_TRACER;
+	this->lstCustomHeaders.push_back(nameValue);
+}
+
+/*************************************************************************/
+Header::NameValuePair Header::Parser::ParseNameValue(const char* sBuffer){
+	IAS_TRACER;
+
+	NameValuePair result;
+	const char *s=sBuffer;
+	const char *c=sBuffer;
+
+	while(*c && *c != ':')
+		c++;
+
+	if(*c != ':')
+		IAS_THROW(BadUsageException("HTTP Request Parser Error: missing ':'"));
+
+	//*c++=0;
+	result.first=String(s,c-s);
+
+	c++;
+	while(isblank(*c))
+		c++;
+
+	result.second=c;
+
+	return result;
+}
+/*************************************************************************/
 }
 }
 }

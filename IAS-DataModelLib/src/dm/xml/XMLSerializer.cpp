@@ -226,8 +226,8 @@ void XMLSerializer::serializeElement(const DataObject* pDataObject,
 							const DataObject *pChild = pDataObject->getDataObject(pProperty);
 							const String& strPropertyName(pProperty->getName());
 
-							if(strPropertyName.compare(XMLHelper::XMLPayloadElement) == 0){
-								pWriter->writeString(pDataObject->getString(XMLHelper::XMLPayloadElement));
+							if(strPropertyName.compare(XMLHelper::CXMLPayloadElement) == 0){
+								pWriter->writeString(pDataObject->getString(XMLHelper::CXMLPayloadElement));
 							}else
 								serializeElement(pChild,
 									         	 strPropertyName,

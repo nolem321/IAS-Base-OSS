@@ -45,7 +45,7 @@ public:
 			this->iLine=iLine;
 	}
 
-	void setStatementSource(const String& strSource, const String& strName);
+	virtual void setStatementSource(const String& strSource, const String& strName);
 
 	virtual ~InterpreterException() throw();
 	virtual const char*  getName();

@@ -39,7 +39,8 @@ public:
 		HM_GET,
 		HM_POST,
 		HM_HEADER,
-		HM_DELETE
+		HM_DELETE,
+		HM_CONNECT
 	};
 
 	Method  getMethod()const;
@@ -99,7 +100,7 @@ protected:
 
 	CookiesList   lstCookies;
 
-	class Parser{
+	class Parser : public Header::Parser{
 	public:
 
 		Parser(Request& request, std::istream& in);
@@ -111,8 +112,7 @@ protected:
 		void processNameValuePair();
 		void parseNameValue(char* sBuffer);
 
-		String strName;
-		String strValue;
+		NameValuePair nameValue;
 		Request& request;
 		std::istream& is;
 	};

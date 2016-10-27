@@ -32,9 +32,10 @@ namespace Fmt {
 using namespace IAS::DM::XML;
 
 /*************************************************************************/
-Serializer::Serializer(DM::XML::XMLHelper* pXMLHelper, LibXMLWriter *pWriter, QS::API::Attributes *pAttributes):
+Serializer::Serializer(DM::XML::XMLHelper* pXMLHelper, LibXMLWriter *pWriter, const String& strSOAPNS, QS::API::Attributes *pAttributes):
 		XMLSerializer(pXMLHelper,pWriter),
 		pAttributes(pAttributes),
+		strSOAPNS(strSOAPNS),
 		pDocument(NULL){
 
 	IAS_TRACER;
@@ -49,10 +50,10 @@ Serializer::~Serializer() throw(){
 /*************************************************************************/
 void Serializer::write_soap_envelope(){
 	IAS_TRACER;
-
+	
 	IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"SOAP Envelope");
 
-	pWriter->startElementNS("soap","Envelope","http://schemas.xmlsoap.org/soap/envelope/");
+	pWriter->startElementNS("soap","Envelope", strSOAPNS);
 
 	write_soap_header();
 	write_soap_body();
@@ -67,6 +68,24 @@ void Serializer::write_soap_header(){
 	IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"SOAP Header");
 
 	pWriter->startElementNS("soap","Header","");
+
+	if (pAttributes)
+		if (pAttributes->isSet("IAS_SOAP_WSA_TO") || pAttributes->isSet("IAS_SOAP_WSA_ACTION")){
+			pWriter->writeAttributeNS("xmlns","wsa","http://www.w3.org/2005/08/addressing","");
+
+			if (pAttributes->isSet("IAS_SOAP_WSA_TO")) {
+				pWriter->startElementNS("wsa","To","");
+				pWriter->writeString(pAttributes->getValue("IAS_SOAP_WSA_TO"));
+				pWriter->endElement();
+			}
+
+			if (pAttributes->isSet("IAS_SOAP_WSA_ACTION")) {
+				pWriter->startElementNS("wsa","Action","");
+				pWriter->writeString(pAttributes->getValue("IAS_SOAP_WSA_ACTION"));
+				pWriter->endElement();
+			}
+		}
+
 	pWriter->endElement();
 }
 /*************************************************************************/

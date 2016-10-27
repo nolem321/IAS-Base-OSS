@@ -73,11 +73,15 @@
 #include "stmt/CallNodeHandler.h"
 #include "stmt/CatchNodeHandler.h"
 #include "stmt/CatchListNodeHandler.h"
+#include "stmt/ConditionalAssignmentNodeHandler.h"
+#include "stmt/CreateNodeHandler.h"
 #include "stmt/DeleteNodeHandler.h"
 #include "stmt/ForLoopNodeHandler.h"
 #include "stmt/IfThenElseNodeHandler.h"
 #include "stmt/LeftSideNodeHandler.h"
+#include "stmt/MergeNodeHandler.h"
 #include "stmt/ReturnNodeHandler.h"
+#include "stmt/SortNodeHandler.h"
 #include "stmt/StatementNodeHandler.h"
 #include "stmt/StatementsListNodeHandler.h"
 #include "stmt/TryCatchNodeHandler.h"
@@ -170,11 +174,15 @@ void CallbackRegister::init(){
 	registerCallback<Model::Stmt::CallNode>(IAS_DFT_FACTORY<Stmt::CallNodeHandler>::Create());
 	registerCallback<Model::Stmt::CatchNode>(IAS_DFT_FACTORY<Stmt::CatchNodeHandler>::Create());
 	registerCallback<Model::Stmt::CatchListNode>(IAS_DFT_FACTORY<Stmt::CatchListNodeHandler>::Create());
+	registerCallback<Model::Stmt::ConditionalAssignmentNode>(IAS_DFT_FACTORY<Stmt::ConditionalAssignmentNodeHandler>::Create());
+	registerCallback<Model::Stmt::CreateNode>(IAS_DFT_FACTORY<Stmt::CreateNodeHandler>::Create());
 	registerCallback<Model::Stmt::DeleteNode>(IAS_DFT_FACTORY<Stmt::DeleteNodeHandler>::Create());
 	registerCallback<Model::Stmt::ForLoopNode>(IAS_DFT_FACTORY<Stmt::ForLoopNodeHandler>::Create());
 	registerCallback<Model::Stmt::IfThenElseNode>(IAS_DFT_FACTORY<Stmt::IfThenElseNodeHandler>::Create());
 	registerCallback<Model::Stmt::LeftSideNode>(IAS_DFT_FACTORY<Stmt::LeftSideNodeHandler>::Create());
+	registerCallback<Model::Stmt::MergeNode>(IAS_DFT_FACTORY<Stmt::MergeNodeHandler>::Create());
 	registerCallback<Model::Stmt::ReturnNode>(IAS_DFT_FACTORY<Stmt::ReturnNodeHandler>::Create());
+	registerCallback<Model::Stmt::SortNode>(IAS_DFT_FACTORY<Stmt::SortNodeHandler>::Create());
 	registerCallback<Model::Stmt::StatementNode>(IAS_DFT_FACTORY<Stmt::StatementNodeHandler>::Create());
 	registerCallback<Model::Stmt::StatementsListNode>(IAS_DFT_FACTORY<Stmt::StatementsListNodeHandler>::Create());
 	registerCallback<Model::Stmt::TryCatchNode>(IAS_DFT_FACTORY<Stmt::TryCatchNodeHandler>::Create());

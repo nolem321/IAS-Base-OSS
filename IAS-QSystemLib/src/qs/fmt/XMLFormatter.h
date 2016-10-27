@@ -47,21 +47,20 @@ public:
 						   std::istream&       istream,
 						   QS::API::Attributes *pAttributes=NULL);
 
+	static const String& CElementName;
+	static const String& CElementURI;
+	static const String& CElementEncoding;
+	static const String& CEnvFirstNS;
+
 protected:
 	XMLFormatter(const DM::DataFactory* pDataFactory);
 
 	const DM::DataFactory* pDataFactory;
 
-	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper;
-
 	TimeSamplesResults tsrParsing;
 	TimeSamplesResults tsrSerialization;
 
 	friend class Factory<XMLFormatter>;
-
-	static const String& CElementName;
-	static const String& CElementURI;
-	static const String& CElementEncoding;
 
 };
 

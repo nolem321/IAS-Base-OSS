@@ -57,7 +57,7 @@ void MatchExecute::computeDM(::org::invenireaude::qsystem::workers::Ext::Context
 					 	      DM::DataObjectPtr& dmData){
 	IAS_TRACER;
 
-	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"==MatchExecute starts.");
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"==MatchExecute starts: "<<dmData->getType()->getFullName());
 
 	ptrProgramSet->execute(dmContext,dmData);
 
