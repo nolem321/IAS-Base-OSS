@@ -58,6 +58,7 @@ public:
 	RegistryMapping io;
 	RegistryMapping ds;
 	RegistryMapping ecs;
+	RegistryMapping apps;
 
 protected:
 	Registry();

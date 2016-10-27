@@ -46,7 +46,8 @@
  	<xsi:sequence>    		     		  
 		<xsi:element name="io"     type="io:Registry"   minOccurs="0" maxOccurs="1"/>
  		<xsi:element name="ds"     type="ds:Registry"   minOccurs="0" maxOccurs="1"/>	
- 		<xsi:element name="ec"     type="ec:Registry"   minOccurs="0" maxOccurs="1"/>				
+ 		<xsi:element name="ec"     type="ec:Registry"   minOccurs="0" maxOccurs="1"/>
+ 		<xsi:element name="apps"   type="Registry"      minOccurs="0" maxOccurs="1"/>
 	</xsi:sequence>	 
   </xsi:complexType>
     

@@ -86,6 +86,9 @@ void Registry::loadRegistry(const String& strFileName){
 
 	if(dmRegistry->isSetEc())
 		insertRegistry(dmRegistry->getEc(),ecs);
+
+	if(dmRegistry->isSetApps())
+		insertRegistry(dmRegistry->getApps(),apps);
 }
 /*************************************************************************/
 void Registry::insertRegistry(const org::invenireaude::qsystem::workers::Registry* pRegistry,
