@@ -1,0 +1,5 @@
+#Thu Oct 27 09:43:44 CEST 2016
+FILES+=qs/lang/ldap/ModuleProxy
+FILES+=qs/lang/ldap/SimpleQuery
+FILES+=tools/ldap/Connector
+FILES+=tools/ldap/Environment
