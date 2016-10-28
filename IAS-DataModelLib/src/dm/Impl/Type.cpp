@@ -132,6 +132,9 @@ bool Type::isAssignableTo(const ::IAS::DM::Type* pType) const{
 	if(pType == this)
 		return true;
 
+	if(dynamic_cast<const void*>(pType) == dynamic_cast<const void*>(this))
+		return true;
+
 	if(pType->getTypeEnum() == AnyType && pType->isRootType())
 		return true;
 
