@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi:schema  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+ targetNamespace="http://www.invenireaude.org/lang/mod/ldap"
+ xmlns:ldap="http://www.invenireaude.org/lang/mod/ldap">
+
+  <xsi:complexType name="QueryResult">
+	<xsi:sequence>
+	  <xsi:element name="cn" type="xsi:string"/>			    
+	  <xsi:element name="dn" type="xsi:string"/>	
+	  <xsi:element name="o" type="xsi:string"/>		    
+  	</xsi:sequence>     
+  </xsi:complexType> 
+  	
+ </xsi:schema>

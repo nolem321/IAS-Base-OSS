@@ -20,9 +20,14 @@
 #include <lang/model/dec/ResultDeclarationNode.h>
 #include <lang/interpreter/exe/exception/InterpreterProgramException.h>
 
+#include <org/invenireaude/lang/mod/ldap/QueryResult.h>
+#include <org/invenireaude/lang/mod/ldap/DataFactory.h>
+
 #include <tools/ldap/Environment.h>
 
+
 using namespace ::IAS::Lang::Interpreter;
+using namespace ::org::invenireaude::lang::mod::ldap;
 
 namespace IAS {
 namespace QS  {
@@ -59,8 +64,19 @@ void SimpleQuery::executeExternal(Exe::Context *pCtx) const{
 	StringList lstResult;
 	IAS::Tools::LDAP::Environment::GetInstance()->lookup(strConnection)->query(strQuery, lstResult);
 
-	for(StringList::const_iterator it=lstResult.begin(); it != lstResult.end(); it++)
-		pParameters->setString(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),*it);
+	DM::DataObjectList& lstDMResult(pParameters->getList(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable));
+
+	IAS_LOG(true, lstDMResult.getType()->getFullName());
+	IAS_LOG(true, dynamic_cast<const void*>(lstDMResult.getType()));
+	IAS_LOG(true, dynamic_cast<const void*>(DataFactory::GetInstance()->getQueryResultType()));
+
+	for(StringList::const_iterator it=lstResult.begin(); it != lstResult.end(); it++){
+		Ext::QueryResultPtr dmQueryResult(DataFactory::GetInstance()->createQueryResult());
+
+		dmQueryResult->setDn("dn_"+*it);
+
+		lstDMResult.add(dmQueryResult);
+	}
 
 }
 /*************************************************************************/

@@ -21,6 +21,11 @@
 #include "SimpleQuery.h"
 
 
+#include <org/invenireaude/lang/mod/ldap/QueryResult.h>
+#include <org/invenireaude/lang/mod/ldap/DataFactory.h>
+
+using namespace ::org::invenireaude::lang::mod::ldap;
+
 namespace IAS  {
 namespace QS  {
 namespace Lang {
@@ -46,6 +51,8 @@ void ModuleProxy::cleanUpImpl(){
 /*************************************************************************/
 ModuleProxy* ModuleProxy::Create(){
 	IAS_TRACER;
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"ModuleProxy::Create()");
+	DataFactory::GetInstance()->getContaingDataFactory();
 	return IAS_DFT_FACTORY<ModuleProxy>::Create();
 }
 /*************************************************************************/
