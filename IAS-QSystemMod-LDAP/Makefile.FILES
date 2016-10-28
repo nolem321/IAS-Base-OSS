@@ -1,4 +1,7 @@
-#Thu Oct 27 09:43:44 CEST 2016
+#Fri Oct 28 11:47:53 CEST 2016
+FILES+=Impl/DataFactory
+FILES+=Impl/org/invenireaude/lang/mod/ldap/DataObjects
+FILES+=org/invenireaude/lang/mod/ldap/DataFactory
 FILES+=qs/lang/ldap/ModuleProxy
 FILES+=qs/lang/ldap/SimpleQuery
 FILES+=tools/ldap/Connector
