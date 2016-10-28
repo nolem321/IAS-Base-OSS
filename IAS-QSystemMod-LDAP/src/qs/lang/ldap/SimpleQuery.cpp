@@ -59,6 +59,7 @@ void SimpleQuery::executeExternal(Exe::Context *pCtx) const{
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
+	const String strBinding = pParameters->getString("strBinding");
 	const String strQuery = pParameters->getString("strQuery");
 
 	StringList lstResult;
@@ -66,14 +67,24 @@ void SimpleQuery::executeExternal(Exe::Context *pCtx) const{
 
 	DM::DataObjectList& lstDMResult(pParameters->getList(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable));
 
-	IAS_LOG(true, lstDMResult.getType()->getFullName());
-	IAS_LOG(true, dynamic_cast<const void*>(lstDMResult.getType()));
-	IAS_LOG(true, dynamic_cast<const void*>(DataFactory::GetInstance()->getQueryResultType()));
-
 	for(StringList::const_iterator it=lstResult.begin(); it != lstResult.end(); it++){
 		Ext::QueryResultPtr dmQueryResult(DataFactory::GetInstance()->createQueryResult());
 
-		dmQueryResult->setDn("dn_"+*it);
+
+		const DM::PropertyList& lstProperties(dmQueryResult->getType()->asComplexType()->getProperties());
+
+		//TypeTools::Tokenize()
+
+		String strName;
+		String strValue;
+
+		try{
+
+			dmQueryResult->setString(lstProperties.getProperty(strName), strValue);
+
+		}catch(ItemNotFoundException& e){
+			IAS_LOG(LogLevel::INSTANCE.isInfo(),"Missing property: "<<strName);
+		}
 
 		lstDMResult.add(dmQueryResult);
 	}
