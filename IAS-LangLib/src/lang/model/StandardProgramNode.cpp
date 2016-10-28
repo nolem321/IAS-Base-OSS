@@ -33,7 +33,7 @@ using namespace Stmt;
 StandardProgramNode::StandardProgramNode(Dec::QualifiedNameNode*        pQualifiedNameNode,
 		  	  	  	  	  	  	  	  	 StatementsListNode*            pStatementListNode,
 		  	  	  	  	  	  	  	  	 Dec::ParametersNode*           pParametersNode):
- ProgramNode(pQualifiedNameNode,pParametersNode){
+ ProgramNode(pQualifiedNameNode,pParametersNode,false){
 IAS_TRACER;
 	this->ptrStatementListNode=pStatementListNode;
 }
@@ -42,7 +42,7 @@ StandardProgramNode::StandardProgramNode(Dec::QualifiedNameNode*        pQualifi
 		  	  	  	  	  	  	  	  	 StatementsListNode*            pStatementListNode,
 		  	  	  	  	  	  	  	  	 Dec::ParametersNode*           pParametersNode,
 		  	  	  	  	  	  	  	  	 Dec::DeclarationNode*          pResultDeclartionNode):
-ProgramNode(pQualifiedNameNode,pParametersNode){
+ProgramNode(pQualifiedNameNode,pParametersNode,false){
 
 	IAS_TRACER;
 

@@ -32,7 +32,7 @@ ExternalProgramNode::ExternalProgramNode(Dec::QualifiedNameNode*        pQualifi
 										 const String&                  strExternalDefinition,
 		  	  	  	  	  	  	  	  	 Dec::ParametersNode*           pParametersNode,
 		  	  	  	  	  	  	  	  	 const StringList&          lstParameters):
- ProgramNode(pQualifiedNameNode,pParametersNode),
+ ProgramNode(pQualifiedNameNode,pParametersNode,true),
  lstParameters(lstParameters){
 IAS_TRACER;
 
@@ -44,7 +44,7 @@ ExternalProgramNode::ExternalProgramNode(Dec::QualifiedNameNode*        pQualifi
 		  	  	  	  	  	  	  	  	 Dec::ParametersNode*           pParametersNode,
 		  	  	  	  	  	  	  	  	 Dec::DeclarationNode*          pResultDeclartionNode,
 		  	  	  	  	  	  	  	  	 const StringList&          lstParameters):
-ProgramNode(pQualifiedNameNode,pParametersNode),
+ProgramNode(pQualifiedNameNode,pParametersNode,true),
 lstParameters(lstParameters){
 
 	IAS_TRACER;
@@ -55,7 +55,6 @@ lstParameters(lstParameters){
 /*************************************************************************/
 ExternalProgramNode::~ExternalProgramNode() throw(){
 	IAS_TRACER;
-
 }
 /*************************************************************************/
 void ExternalProgramNode::init(const String& strExternalDefinition){

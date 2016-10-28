@@ -110,6 +110,10 @@ protected:
 
 	String createPrintableSignature(const TypeList& lstTypes)const;
 
+	bool bInitialized;
+
+	void initialize();
+
 	friend class ::IAS::Factory<ExecStore>;
 };
 

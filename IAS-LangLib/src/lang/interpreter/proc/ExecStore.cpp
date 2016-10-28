@@ -47,7 +47,8 @@ namespace Interpreter {
 namespace Proc {
 
 /*************************************************************************/
-ExecStore::ExecStore(const ::IAS::Lang::Model::Model* pModel, ::IAS::DM::DataFactory  *pDataFactory){
+ExecStore::ExecStore(const ::IAS::Lang::Model::Model* pModel, ::IAS::DM::DataFactory  *pDataFactory):
+		bInitialized(false){
 	IAS_TRACER;
 
 	IAS_CHECK_IF_VALID(pModel);
@@ -57,6 +58,8 @@ ExecStore::ExecStore(const ::IAS::Lang::Model::Model* pModel, ::IAS::DM::DataFac
 	this->pDataFactory=pDataFactory;
 
 	ptrModuleStore=IAS_DFT_FACTORY<Extern::ModuleStore>::Create(pDataFactory);
+
+
 }
 /*************************************************************************/
 ExecStore::~ExecStore() throw(){
@@ -70,6 +73,9 @@ Exe::Program *ExecStore::getExecutable(const String& strName,
 	IAS_TRACER;
 	Exe::Program *pResult;
 
+	if(!bInitialized)
+		initialize();
+
 	if(!getExecutableImpl(strName, lstTypes, pResult))
 		IAS_THROW(ItemNotFoundException(String(strName)+createPrintableSignature(lstTypes)));
 
@@ -81,7 +87,11 @@ Exe::Program *ExecStore::getExecutable(const String& strName,
 									   const StringList& lstSearchPath){
 	IAS_TRACER;
 
+	if(!bInitialized)
+		initialize();
+
 	Exe::Program *pResult;
+
 	if(getExecutableImpl(strName, lstTypes, pResult))
 		return pResult;
 
@@ -100,6 +110,9 @@ Exe::Program *ExecStore::getExecutable(const String& strName,
 ::IAS::Lang::Interpreter::Exe::Program *ExecStore::getExecutable(const Model::ProgramNode* pProgramNode){
 
 	IAS_TRACER;
+
+	if(!bInitialized)
+		initialize();
 
 	if(hmExecutables.count(pProgramNode) == 0){
     	buildExecutable(pProgramNode);
@@ -265,6 +278,29 @@ void ExecStore::defineType(const Model::Dec::TypeDefinitionNode* pTypeDefinition
 Extern::ModuleStore* ExecStore::getExternalModules()const{
 	IAS_TRACER;
 	return ptrModuleStore;
+}
+/*************************************************************************/
+void ExecStore::initialize(){
+
+	IAS_TRACER;
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"\n\n BUIDING \n");
+
+	 Model::Model::ProgramList lstPrograms;
+	 pModel->getAllPrograms(lstPrograms);
+
+	 bInitialized = true;
+
+    for(Model::Model::ProgramList::const_iterator it = lstPrograms.begin();
+   	it != lstPrograms.end(); it++)
+    	if((*it)->isExternal()){
+
+    	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Building: "<<((*it)->getQualifiedNameNode()->getQualifiedName()));
+
+   		buildExecutable(*it);
+    }
+
+
 }
 /*************************************************************************/
 }

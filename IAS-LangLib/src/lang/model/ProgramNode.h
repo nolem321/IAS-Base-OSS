@@ -45,9 +45,12 @@ public:
 
 	bool isReturningResult()const {return bIsReturningResult; } ;
 
+	bool isExternal() const;
+
 protected:
 	ProgramNode(Dec::QualifiedNameNode*    pQualifiedNameNode,
-			    Dec::ParametersNode*      pParametersNode);
+			    Dec::ParametersNode*      pParametersNode,
+				bool bIsExternal);
 
 	IAS_DFT_FACTORY<Dec::QualifiedNameNode>::PtrHolder   ptrQualifiedNameNode;
 	IAS_DFT_FACTORY<Dec::ParametersNode>::PtrHolder      ptrParametersNode;
@@ -55,6 +58,7 @@ protected:
 	void addResultDeclarationNode(Dec::DeclarationNode*     pResultDeclartionNode);
 
 	bool bIsReturningResult;
+	bool bIsExternal;
 
 	friend class ::IAS::Factory<ProgramNode>;
 };

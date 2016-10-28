@@ -29,8 +29,10 @@ namespace Model {
 
 /*************************************************************************/
 ProgramNode::ProgramNode(Dec::QualifiedNameNode*   pQualifiedNameNode,
-						 Dec::ParametersNode*      pParametersNode):
-		   	      bIsReturningResult(false){
+						 Dec::ParametersNode*      pParametersNode,
+						 bool bIsExternal):
+		   	      bIsReturningResult(false),
+				  bIsExternal(bIsExternal){
 IAS_TRACER;
 this->ptrQualifiedNameNode=pQualifiedNameNode;
 this->ptrParametersNode=pParametersNode;
@@ -38,6 +40,10 @@ this->ptrParametersNode=pParametersNode;
 /*************************************************************************/
 ProgramNode::~ProgramNode() throw(){
 	IAS_TRACER;
+}
+/*************************************************************************/
+bool ProgramNode::isExternal() const{
+	return bIsExternal;
 }
 /*************************************************************************/
 void ProgramNode::addResultDeclarationNode(Dec::DeclarationNode*     pResultDeclartionNode){
