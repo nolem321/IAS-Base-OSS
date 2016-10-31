@@ -6,6 +6,8 @@ IAS-LangLib
 IAS-QSystemLib
 IAS-QSystemMod-SQLite
 IAS-QSystemMod-FCGI
+IAS-QSystemMod-LDAP
+IAS-QSystemMod-SOAP
 IAS-QSystemExe
 IAS-ServiceManagerLib
 IAS-ServiceManagerExe
