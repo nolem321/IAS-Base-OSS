@@ -1,5 +1,5 @@
 /*
- * File: Connector.h
+ * File: Connection.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -17,54 +17,51 @@
  */
 
 
-#ifndef _IAS_Tools_LDAP_Connector_H_
-#define _IAS_Tools_LDAP_Connector_H_
+#ifndef _IAS_Tools_LDAP_Handle_Connection_H_
+#define _IAS_Tools_LDAP_Handle_Connection_H_
 
 #include <commonlib/commonlib.h>
 
-#include "handle/Connection.h"
-#include "handle/QueryResult.h"
-
-#include <org/invenireaude/qsystem/workers/Connection.h>
+#include "../myldap.h"
 
 namespace IAS {
 namespace Tools {
 namespace LDAP {
+namespace Handle {
+
+class QueryResult;
 
 /*************************************************************************/
-/** The Connector class.
+/** The Connection class.
  *
  */
-class Connector {
+class Connection {
 public:
 
-	virtual ~Connector() throw();
+	virtual ~Connection() throw();
 
-	void query(const String& strSearchBase, const String& strQuery, EntryList& lstResult);
+	void setProtocol(int iProtocol = USED_LDAP_VERSION);
 
-	bool isValid();
+	void authorize(const String& strUser, const String& strPassword);
+	QueryResult* query(const String& strSearchBase, const String& strQuery);
+
+	::LDAP* getLDAPConn(){ return ldConn;};
 
 protected:
-	Connector(const String& strName);
+	Connection(const String& strHost, const int iPort);
 
-	String strName;
+	String strHost;
+	const  int iPort;
 
-	IAS_DFT_FACTORY<Handle::Connection>::PtrHolder ptrConnection;
+  ::LDAP* ldConn;
 
-    Mutex mutex;
-
-    bool bValid;
-
-    org::invenireaude::qsystem::workers::Ext::ConnectionPtr dmConnection;
-
-    void connect();
-
-	friend class Factory<Connector>;
+  friend class Factory<Connection>;
 };
 
 /*************************************************************************/
 }
 }
 }
+}
 
-#endif /* _IAS_Tools_LDAP_Connector_H_ */
+#endif /* _IAS_Tools_LDAP_Handle_Connection_H_ */

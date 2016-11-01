@@ -1,5 +1,5 @@
 /*
- * File: Connector.h
+ * File: QueryResult.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -17,54 +17,66 @@
  */
 
 
-#ifndef _IAS_Tools_LDAP_Connector_H_
-#define _IAS_Tools_LDAP_Connector_H_
+#ifndef _IAS_Tools_LDAP_Handle_QueryResult_H_
+#define _IAS_Tools_LDAP_Handle_QueryResult_H_
 
 #include <commonlib/commonlib.h>
 
-#include "handle/Connection.h"
-#include "handle/QueryResult.h"
-
-#include <org/invenireaude/qsystem/workers/Connection.h>
+#include "../myldap.h"
 
 namespace IAS {
 namespace Tools {
 namespace LDAP {
+namespace Handle {
+
+class Connection;
 
 /*************************************************************************/
-/** The Connector class.
+/** The QueryResult class.
  *
  */
-class Connector {
+class QueryResult {
 public:
 
-	virtual ~Connector() throw();
+	virtual ~QueryResult() throw();
 
-	void query(const String& strSearchBase, const String& strQuery, EntryList& lstResult);
-
-	bool isValid();
+	void getEntries(EntryList& lstResult);
 
 protected:
-	Connector(const String& strName);
 
-	String strName;
+  QueryResult(LDAPMessage *msg, ::LDAP* ldConn);
 
-	IAS_DFT_FACTORY<Handle::Connection>::PtrHolder ptrConnection;
+  ::LDAP*     ldConn;
+  LDAPMessage *msg;
 
-    Mutex mutex;
+  struct MemHolder {
+	  MemHolder(char *p);
+	  MemHolder& operator=(char *p);
+	 ~MemHolder();
+	 char *p;
+  };
 
-    bool bValid;
+  struct BerHolder {
+	 ~BerHolder();
+	 BerElement *p;
+  };
 
-    org::invenireaude::qsystem::workers::Ext::ConnectionPtr dmConnection;
+  struct BerValHolder {
+	  BerValHolder(berval **p);
+	 ~BerValHolder();
+	 berval **p;
+  };
 
-    void connect();
+  void readEntry(LDAPMessage *entry, EntryList& resultEntryList);
+  void readAttribute(LDAPMessage *entry, const char* sAttrName, Entry& resultEntry);
 
-	friend class Factory<Connector>;
+  friend class Factory<QueryResult>;
 };
 
 /*************************************************************************/
 }
 }
 }
+}
 
-#endif /* _IAS_Tools_LDAP_Connector_H_ */
+#endif /* _IAS_Tools_LDAP_Handle_QueryResult_H_ */

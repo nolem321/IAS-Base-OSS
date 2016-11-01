@@ -59,36 +59,33 @@ void SimpleQuery::executeExternal(Exe::Context *pCtx) const{
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String strBinding = pParameters->getString("strBinding");
+	const String strSearchBase = pParameters->getString("strSearchBase");
 	const String strQuery = pParameters->getString("strQuery");
 
-	StringList lstResult;
-	IAS::Tools::LDAP::Environment::GetInstance()->lookup(strConnection)->query(strQuery, lstResult);
+	IAS::Tools::LDAP::EntryList lstResult;
+	IAS::Tools::LDAP::Environment::GetInstance()->lookup(strConnection)->query(strSearchBase, strQuery, lstResult);
 
 	DM::DataObjectList& lstDMResult(pParameters->getList(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable));
 
-	for(StringList::const_iterator it=lstResult.begin(); it != lstResult.end(); it++){
+	for (IAS::Tools::LDAP::EntryList::const_iterator it = lstResult.begin(); it != lstResult.end(); ++it) {
 		Ext::QueryResultPtr dmQueryResult(DataFactory::GetInstance()->createQueryResult());
-
-
 		const DM::PropertyList& lstProperties(dmQueryResult->getType()->asComplexType()->getProperties());
 
-		//TypeTools::Tokenize()
+		for (IAS::Tools::LDAP::Entry::const_iterator itAttr = it->begin(); itAttr != it->end(); ++itAttr) {
+			
+			// FIXME: only first value of attribute returned now, it->second.size() >= 1 ?
+			String strName = itAttr->first;
+			String strValue = itAttr->second.front();
 
-		String strName;
-		String strValue;
-
-		try{
-
-			dmQueryResult->setString(lstProperties.getProperty(strName), strValue);
-
-		}catch(ItemNotFoundException& e){
-			IAS_LOG(LogLevel::INSTANCE.isInfo(),"Missing property: "<<strName);
+			try {
+				dmQueryResult->setString(lstProperties.getProperty(strName), strValue);
+			} catch(ItemNotFoundException& e) {
+				IAS_LOG(LogLevel::INSTANCE.isInfo(), "Missing property: "<<strName);
+			}
 		}
 
 		lstDMResult.add(dmQueryResult);
 	}
-
 }
 /*************************************************************************/
 Extern::Statement* SimpleQuery::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){

@@ -28,29 +28,50 @@ namespace LDAP {
 
 /*************************************************************************/
 Connector::Connector(const String& strName):
-	strName(strName){
+	strName(strName),
+	bValid(false){
 	IAS_TRACER;
 
-	const org::invenireaude::qsystem::workers::Connection* pConnection = Registry::GetInstance()->apps.lookup(strName);
+    dmConnection = Registry::GetInstance()->apps.lookup(strName)->duplicateConnection();
 
-	if(pConnection->getProtocol().compare("ldap") != 0)
-		IAS_THROW(BadUsageException("LDAP connection expected for: " + strName));
+    if(dmConnection->getProtocol().compare("ldap") != 0) {
+      IAS_THROW(BadUsageException("LDAP connection expected for: " + strName));
+    }
 
-	IAS_LOG(LogLevel::INSTANCE.isInfo(), "Connecting to: "<<pConnection->getHost()<<":"<<pConnection->getPort());
-
-
+    connect();
 }
 /*************************************************************************/
 Connector::~Connector() throw(){
 	IAS_TRACER;
+ }
+/*************************************************************************/
+void Connector::query(const String& strSearchBase, const String& strQuery, EntryList& lstResult){
+	IAS_TRACER;
+  
+	Mutex::Locker locker(mutex);
+
+	if(!bValid)
+		connect();
+
+	bValid = false;
+
+	IAS_DFT_FACTORY<Handle::QueryResult>::PtrHolder ptrQueryResult(
+			ptrConnection->query(strSearchBase, strQuery));
+
+	ptrQueryResult->getEntries(lstResult);
+
+	bValid = true;
 }
 /*************************************************************************/
-void Connector::query(const String& strQuery, StringList& lstResult){
+void Connector::connect(){
 	IAS_TRACER;
 
-	lstResult.push_back("result 1");
-	lstResult.push_back("result 2");
+	ptrConnection = IAS_DFT_FACTORY<Handle::Connection>::Create(dmConnection->getHost(), dmConnection->getPort());
+	ptrConnection->setProtocol();
+	ptrConnection->authorize(dmConnection->getUser(), dmConnection->getPassword());
 
+
+	bValid = true;
 }
 /*************************************************************************/
 }
