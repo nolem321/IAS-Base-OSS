@@ -5,4 +5,8 @@
   <street>Nowacka</street>
   <block>100</block>
  </address>
+ <address>
+  <street>Nowalijek</street>
+  <block>11</block>
+ </address>
 </ns0:customer>

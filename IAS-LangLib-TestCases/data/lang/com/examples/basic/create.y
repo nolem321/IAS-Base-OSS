@@ -24,10 +24,18 @@ BEGIN
  
   
  CREATE output.address;  
-
+ VAR    street_ AS String;
+ 
+ street_ = "Nowalijek";
+ 
  CREATE output.address BEGIN
    block = 100;
    street = "Nowacka";
+ END;
+
+ CREATE output.address BEGIN
+   block = input.address[0].block;
+   street = street_;
  END;
  
 END;
