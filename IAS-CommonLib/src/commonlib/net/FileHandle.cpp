@@ -108,10 +108,10 @@ IBlockIO::Result FileHandle::read(void *pData, size_t iBufferLen, size_t& iDataS
 
 
 	if(iTimeout >= 0)
-	if(!waitForData(WM_Read)){
-		iDataSize=0;
-		return RC_OK;
-	}
+		if(!waitForData(WM_Read)){
+			iDataSize=0;
+			return RC_OK;
+		}
 
 	ssize_t iResult = 0;
 
