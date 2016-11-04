@@ -77,7 +77,7 @@ Queue::Queue():
 Queue::~Queue(){
 	IAS_TRACER;
 
-	IAS_THROW(InternalException("Queue destroyed."))
+	//IAS_THROW(InternalException("Queue destroyed."))
 }
 /*************************************************************************/
 Queue* Queue::open(){

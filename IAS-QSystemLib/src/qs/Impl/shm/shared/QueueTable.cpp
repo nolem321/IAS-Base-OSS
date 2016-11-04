@@ -46,7 +46,7 @@ QueueTable::QueueTable(size_t iSize):
 QueueTable::~QueueTable(){
 	IAS_TRACER;
 
-	IAS_THROW(InternalException("QueueTable destroyed."))
+	//IAS_THROW(InternalException("QueueTable destroyed."))
 }
 /*************************************************************************/
 Queue* QueueTable::createTemporary(){
