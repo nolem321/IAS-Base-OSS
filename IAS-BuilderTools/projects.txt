@@ -7,7 +7,7 @@ IAS-QSystemLib
 IAS-QSystemMod-SQLite
 IAS-QSystemMod-FCGI
 IAS-QSystemMod-LDAP
-IAS-QSystemMod-SOAP
+IAS-QSystemFmt-SOAP
 IAS-QSystemExe
 IAS-ServiceManagerLib
 IAS-ServiceManagerExe
@@ -15,3 +15,4 @@ IAS-QSystemMod-ServiceManager
 IAS-QSystemMod-DB2
 IAS-QSystemMod-Oracle
 IAS-QSystemMod-WMQ
+IAS-QSystemFmt-MQPCF

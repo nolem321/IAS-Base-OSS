@@ -2,10 +2,10 @@ CCPP=g++
 CCPPDEPSCMD=g++ -MM -MG 
 #
 # Use += here since global settings are already set.
-CPPFLAGS+= -D__IAS_NO_TRACER__ -m64 -fPIC -g -O3 -std=c++11 `pkg-config --cflags libcurl`
+CPPFLAGS+= -D__IAS_NO_TRACER__ -m64 -fPIC -g -O3 -std=c++11 
 CPPFLAGS+=-I/usr/include/libxml2
 LNFLAGS+=-O3 -m64 -fPIC
-LNLIBS+=`pkg-config --libs libcurl` -lxml2  -lpthread
+LNLIBS+=-lxml2  -lpthread
 
 INSTALL=install -Dm755
 
