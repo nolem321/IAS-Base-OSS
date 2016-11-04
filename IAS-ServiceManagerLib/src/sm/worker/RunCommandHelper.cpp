@@ -1,5 +1,5 @@
 /*
- * File: IAS-ServiceManagerLib/src/sm/worker/IteratorForSelected.cpp
+ * File: IAS-ServiceManagerLib/src/sm/worker/RunCommandHelper.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,11 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "IteratorForSelected.h"
+#include "RunCommandHelper.h"
 
 #include <commonlib/commonlib.h>
+
 #include "sm/cfg/Config.h"
 #include "sm/cfg/dataobjects.h"
+#include "exe/Handler.h"
+#include "Process.h"
 
 using namespace ::org::invenireaude::sm::cfg;
 
@@ -28,31 +31,43 @@ namespace SM {
 namespace Worker {
 
 /*************************************************************************/
-IteratorForSelected::IteratorForSelected(const Cfg::ServiceIdxList& lstServiceIdx, const Cfg::Config *pConfig, IWorker* pWorker)
-	:	lstServiceIdx(lstServiceIdx){
-	IAS_TRACER;
-	Iterator::init(pConfig, pWorker);
-}
-
-/*************************************************************************/
-IteratorForSelected::~IteratorForSelected() throw(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-void IteratorForSelected::executeImpl(){
+RunCommandHelper::RunCommandHelper(const ::IAS::SM::Cfg::Config *pConfig) {
 	IAS_TRACER;
 
-	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Execute starts");
-
-	for(Cfg::ServiceIdxList::const_iterator it = lstServiceIdx.begin();
-		it != lstServiceIdx.end();
-		it++){
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Execute for service name: "<<(pConfig->getService(*it))->getName());
-		executeServiceAction(pConfig->getService(*it));
-	}
+	this->pConfig = pConfig;
+	ptrExeHandler  = IAS_DFT_FACTORY<Exe::Handler>::Create();
 
 }
 /*************************************************************************/
+RunCommandHelper::~RunCommandHelper() throw () {
+	IAS_TRACER;
+}
+/*************************************************************************/
+void RunCommandHelper::run(const String& strServiceName) {
+	IAS_TRACER;
+
+	IAS_LOG(true,"Starting ...");
+
+	const ::org::invenireaude::sm::cfg::Service *pService = pConfig->getService(strServiceName);
+	const Command* pCommand = pService->getStartCmd();
+
+	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
+
+	IAS_DFT_FACTORY<SYS::Proc::Executor>::PtrHolder ptrExecutor(ptrExeHandler->createExecutor(dmResourceGrp->getExe(), pCommand));
+
+	IAS_DFT_FACTORY<Process>::PtrHolder ptrProcess(IAS_DFT_FACTORY<Process>::Create(ptrExecutor));
+
+	StringPairList lstVariables;
+	pConfig->buildEnvList(pService, lstVariables);
+
+	//ptrProcess->updateEnvironment(lstVariables);
+
+	ptrProcess->start();
+	ptrProcess->wait();
+
+}
+/*************************************************************************/
+
 }
 }
 }

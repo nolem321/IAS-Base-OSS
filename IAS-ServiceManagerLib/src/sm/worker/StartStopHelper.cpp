@@ -46,26 +46,6 @@ StartStopHelper::~StartStopHelper() throw () {
 	IAS_TRACER;
 }
 /*************************************************************************/
-static void _buildEnvList(const ::org::invenireaude::sm::cfg::Ext::VariableList& lstDMVariables,
-			              StringPairList& lstVariables){
-
-	for (int iIdx = 0; iIdx < lstDMVariables.size(); ++iIdx) {
-
-		const Variable* pVariable = lstDMVariables.at(iIdx);
-
-		if(!pVariable->isSetName())
-			IAS_THROW(BadUsageException("Variable name not set in RG specification."));
-
-		String strName(pVariable->getName());
-		String strValue;
-
-		if(pVariable->isSetName())
-			strValue=pVariable->getValue();
-
-		lstVariables.push_back(std::pair<String,String>(strName,strValue));
-	}
-}
-/*************************************************************************/
 void StartStopHelper::startInstance(const ::org::invenireaude::sm::cfg::Service* pService, int iIdx) const {
 	IAS_TRACER;
 
@@ -73,9 +53,7 @@ void StartStopHelper::startInstance(const ::org::invenireaude::sm::cfg::Service*
 	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
 
 	StringPairList lstVariables;
-	if(dmResourceGrp->isSetEnv())
-		_buildEnvList(dmResourceGrp->getEnv()->getVarsList(),lstVariables);
-
+	pConfig->buildEnvList(pService, lstVariables);
 
 	String strLogFilesBase(pConfig->getLogFilesBase(pService));
 
@@ -155,8 +133,7 @@ void StartStopHelper::stopInstance(const ::org::invenireaude::sm::cfg::Service* 
 	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
 
 	StringPairList lstVariables;
-	if(dmResourceGrp->isSetEnv())
-		_buildEnvList(dmResourceGrp->getEnv()->getVarsList(),lstVariables);
+	pConfig->buildEnvList(pService, lstVariables);
 
 	String strLogFilesBase(pConfig->getLogFilesBase(pService));
 

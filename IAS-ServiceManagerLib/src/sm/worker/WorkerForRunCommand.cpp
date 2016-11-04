@@ -1,5 +1,5 @@
 /*
- * File: IAS-ServiceManagerLib/src/sm/worker/IteratorForSelected.cpp
+ * File: IAS-ServiceManagerLib/src/sm/worker/WorkerForRunCommand.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,11 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "IteratorForSelected.h"
+#include "WorkerForRunCommand.h"
 
 #include <commonlib/commonlib.h>
+
 #include "sm/cfg/Config.h"
 #include "sm/cfg/dataobjects.h"
+#include "exe/Handler.h"
+#include "StartStopHelper.h"
 
 using namespace ::org::invenireaude::sm::cfg;
 
@@ -28,31 +31,28 @@ namespace SM {
 namespace Worker {
 
 /*************************************************************************/
-IteratorForSelected::IteratorForSelected(const Cfg::ServiceIdxList& lstServiceIdx, const Cfg::Config *pConfig, IWorker* pWorker)
-	:	lstServiceIdx(lstServiceIdx){
+WorkerForRunCommand::WorkerForRunCommand(const ::IAS::SM::Cfg::Config *pConfig) {
 	IAS_TRACER;
-	Iterator::init(pConfig, pWorker);
-}
-
-/*************************************************************************/
-IteratorForSelected::~IteratorForSelected() throw(){
-	IAS_TRACER;
+	this->pConfig = pConfig;
+	ptrStartStopHelper = IAS_DFT_FACTORY<StartStopHelper>::Create(pConfig);
 }
 /*************************************************************************/
-void IteratorForSelected::executeImpl(){
+WorkerForRunCommand::~WorkerForRunCommand() throw () {
 	IAS_TRACER;
-
-	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Execute starts");
-
-	for(Cfg::ServiceIdxList::const_iterator it = lstServiceIdx.begin();
-		it != lstServiceIdx.end();
-		it++){
-		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Execute for service name: "<<(pConfig->getService(*it))->getName());
-		executeServiceAction(pConfig->getService(*it));
-	}
-
 }
 /*************************************************************************/
+void WorkerForRunCommand::work(const ::org::invenireaude::sm::cfg::Service* pService) {
+	IAS_TRACER;
+
+	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
+	int iCount = dmResourceGrp->getCount();
+
+	for (int iIdx = 0; iIdx < iCount; iIdx++) {
+		ptrStartStopHelper->startInstance(pService, iIdx);
+	}/* FOR: instances */
+}
+/*************************************************************************/
+
 }
 }
 }

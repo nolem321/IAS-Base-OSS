@@ -1,4 +1,4 @@
-#Thu May  5 15:02:48 CEST 2016
+#Thu Nov  3 13:13:31 CET 2016
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/sm/api/DataObjects
 FILES+=Impl/org/invenireaude/sm/cfg/DataObjects
@@ -23,6 +23,7 @@ FILES+=sm/worker/Iterator
 FILES+=sm/worker/IteratorForAll
 FILES+=sm/worker/IteratorForSelected
 FILES+=sm/worker/Process
+FILES+=sm/worker/RunCommandHelper
 FILES+=sm/worker/StartStopHelper
 FILES+=sm/worker/WorkerForDMDsp
 FILES+=sm/worker/WorkerForStart

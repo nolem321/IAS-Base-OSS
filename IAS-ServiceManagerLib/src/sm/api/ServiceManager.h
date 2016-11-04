@@ -36,6 +36,9 @@ public:
 	virtual ~ServiceManager() throw();
 
 	void startServices(const Cfg::GrpAttrPairList& lstGrpAttrPair);
+
+	void runServiceCommand(const String& strServiceName);
+
 	void stopServices(const Cfg::GrpAttrPairList& lstGrpAttrPair, bool bAsync = false);
 
 	void printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrPair);

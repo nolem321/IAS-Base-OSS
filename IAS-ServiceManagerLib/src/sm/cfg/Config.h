@@ -67,6 +67,8 @@ public:
 	void copyServiceConfig(::org::invenireaude::sm::cfg::Ext::ServiceConfigPtr& ptrServiceConfig)const;
 	void copyDeploymentConfig(::org::invenireaude::sm::cfg::Ext::DeploymentConfigPtr& ptrDeploymentConfig)const;
 
+	void buildEnvList(const ::org::invenireaude::sm::cfg::Service* pService, StringPairList& lstVariables)const;
+
 protected:
 	Config(const String& strCfgDirs);
 

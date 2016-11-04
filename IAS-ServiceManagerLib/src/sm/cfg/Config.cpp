@@ -216,7 +216,7 @@ void Config::indexItems() {
 		const ResourceGroup* pCurResouceGrp = lstResourceGroup.at(iResourceGrpIdx);
 
 		if (hmResourceGrpByName.count(pCurResouceGrp->getName()) > 0)
-			IAS_THROW(BadUsageException("hmResourceGrpByName.count(pCurResouceGrp->getName()) > 0"));
+			IAS_THROW(BadUsageException("SM Resource group already exists: " + pCurResouceGrp->getName()));
 
 		hmResourceGrpByName[pCurResouceGrp->getName()] = pCurResouceGrp;
 	}
@@ -230,7 +230,7 @@ void Config::indexItems() {
 		IAS_LOG(LogLevel::INSTANCE.isInfo(),"ServiceName="<<pCurService->getName());
 
 		if (hmServicesByName.count(pCurService->getName()) > 0)
-			IAS_THROW(BadUsageException("hmServicesByName.count(pCurService->getName()) > 0"));
+			IAS_THROW(BadUsageException("SM Service name already exists: " + pCurService->getName()));
 
 		hmServicesByName[pCurService->getName()] = pCurService;
 
@@ -383,6 +383,36 @@ void Config::copyDeploymentConfig(::org::invenireaude::sm::cfg::Ext::DeploymentC
 
 	Mutex::Locker locker(const_cast<Config*>(this)->mutexDMChange);
 	ptrDeploymentConfig=dmDeploymentConfig->duplicateDeploymentConfig();
+}
+/*************************************************************************/
+void Config::buildEnvList(const ::org::invenireaude::sm::cfg::Service* pService,
+			              StringPairList& lstVariables)const{
+
+	IAS_TRACER;
+
+	const ResourceGroup* dmResourceGrp = getMergedServiceResourceGrps(pService);
+
+	if(!dmResourceGrp->isSetEnv())
+		return;
+
+	const ::org::invenireaude::sm::cfg::Ext::VariableList& lstDMVariables(
+			dmResourceGrp->getEnv()->getVarsList());
+
+	for (int iIdx = 0; iIdx < lstDMVariables.size(); ++iIdx) {
+
+		const Variable* pVariable = lstDMVariables.at(iIdx);
+
+		if(!pVariable->isSetName())
+			IAS_THROW(BadUsageException("Variable name not set in RG specification."));
+
+		String strName(pVariable->getName());
+		String strValue;
+
+		if(pVariable->isSetName())
+			strValue=pVariable->getValue();
+
+		lstVariables.push_back(std::pair<String,String>(strName,strValue));
+	}
 }
 /*************************************************************************/
 }

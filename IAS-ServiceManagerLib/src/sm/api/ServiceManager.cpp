@@ -26,6 +26,9 @@
 #include "sm/worker/WorkerForDMDsp.h"
 #include "sm/worker/WorkerForSupervisor.h"
 
+#include "sm/worker/RunCommandHelper.h"
+
+
 #include "sm/mon/Monitor.h"
 #include "sm/mon/ServiceStatus.h"
 #include "sm/cfg/dataobjects.h"
@@ -175,6 +178,18 @@ void ServiceManager::fillGrpAttrPairList(const ::org::invenireaude::sm::api::Ext
 const Cfg::Config* ServiceManager::getConfig() const {
 	IAS_TRACER;
 	return ptrConfig;
+}
+/*************************************************************************/
+void ServiceManager::runServiceCommand(const String& strServiceName) {
+	IAS_TRACER;
+
+	const ::org::invenireaude::sm::cfg::Service* pService = ptrConfig->getService(strServiceName);
+
+	IAS_DFT_FACTORY<Worker::RunCommandHelper>::PtrHolder ptrRunCommandHelper(
+			IAS_DFT_FACTORY<Worker::RunCommandHelper>::Create(ptrConfig));
+
+	ptrRunCommandHelper->run(strServiceName);
+
 }
 /*************************************************************************/
 }
