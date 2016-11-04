@@ -1,4 +1,4 @@
-#Mon Feb  2 20:33:26 CET 2015
+#Thu Nov  3 13:01:46 CET 2016
 FILES+=sm/cmdline/DisplayParameters
 FILES+=sm/cmdline/GrpAttrFeature
 FILES+=sm/cmdline/MonitorParameters
@@ -8,5 +8,6 @@ FILES+=sm/cmdline/StartParameters
 FILES+=sm/cmdline/StopParameters
 MAINFILES+=sm_dsp_service
 MAINFILES+=sm_mon_service
+MAINFILES+=sm_run_service_cmd
 MAINFILES+=sm_start_service
 MAINFILES+=sm_stop_service
