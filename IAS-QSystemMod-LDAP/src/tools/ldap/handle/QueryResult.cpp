@@ -56,8 +56,10 @@ QueryResult::MemHolder::MemHolder(char *p):p(p){
 }
 
 QueryResult::MemHolder& QueryResult::MemHolder::operator=(char *p){
+
 	if(this->p)
-		ldap_memfree(p);
+		ldap_memfree(this->p);
+
 	this->p = p;
 	return *this;
 }
