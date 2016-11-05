@@ -67,6 +67,23 @@ const String& Connection::getHost()const{
 	return strHost;
 }
 /*************************************************************************/
+String Connection::convertDestinationToResource(const String& strDestination){
+
+	if(pBlockIOWrapperFactory->getConnection()->isSetProxy() &&
+	   !pBlockIOWrapperFactory->getConnection()->isSetSsl()){
+
+		StringStream ssResult;
+		ssResult<<"http://"<<pBlockIOWrapperFactory->getConnection()->getHost();
+		ssResult<<strDestination;
+
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Proxy Resource: "<<ssResult.str());
+
+		return ssResult.str();
+	}
+
+	return strDestination;
+}
+/*************************************************************************/
 BlockIOWrapperFactory* Connection::getBlockIOWrapperFactory()const{
 	IAS_TRACER;
 	return pBlockIOWrapperFactory;

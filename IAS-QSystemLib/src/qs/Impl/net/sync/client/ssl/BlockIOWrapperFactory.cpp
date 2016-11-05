@@ -26,6 +26,8 @@
 #include <org/invenireaude/qsystem/workers/SSLCertificate.h>
 #include <org/invenireaude/qsystem/workers/SSLCertificateFile.h>
 
+#include <commonlib/net/http/http.h>
+
 using namespace ::org::invenireaude::qsystem::workers;
 namespace IAS {
 namespace QS {
@@ -58,7 +60,8 @@ BlockIOWrapperFactory::~BlockIOWrapperFactory() throw(){
 class BlockIOWrapper : public Sync::BlockIOWrapper{
 public:
 	BlockIOWrapper(IAS::Net::SSL::Context* pContext, IAS::Net::FileHandle* pFileHandle):
-		Sync::BlockIOWrapper(pFileHandle){
+		Sync::BlockIOWrapper(pFileHandle),
+		pFileHandle(pFileHandle){
 
 		ptrBIO = IAS_DFT_FACTORY<IAS::Net::SSL::BlockIO>::Create(pFileHandle);
 		ptrSecureLayer=IAS_DFT_FACTORY<IAS::Net::SSL::SecureLayerClient>::Create(pContext,ptrBIO.getPointer());
@@ -73,9 +76,14 @@ public:
 		return ptrSecureLayer;
 	};
 
+	inline IAS::Net::FileHandle* getFileHandle()const{
+		return pFileHandle;
+	};
+
 protected:
 	IAS_DFT_FACTORY<IAS::Net::SSL::BlockIO>::PtrHolder            ptrBIO;
 	IAS_DFT_FACTORY<IAS::Net::SSL::SecureLayerClient>::PtrHolder  ptrSecureLayer;
+	IAS::Net::FileHandle* pFileHandle;
 };
 /*************************************************************************/
 Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
@@ -86,6 +94,37 @@ Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
 
 	bool bVerifyPeer = dmConnection->getSsl()->isSetVerifyPeerCert() && dmConnection->getSsl()->getVerifyPeerCert();
 
+
+	IAS::Net::IBlockIO* pBlockIO = ptrWrapper->getFileHandle();
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Using Proxy: "<<dmConnection->isSetProxy());
+
+	if(dmConnection->isSetProxy()) {
+		IAS_DFT_FACTORY<IAS::Net::HTTP::Request>::PtrHolder ptrRequest(IAS_DFT_FACTORY<IAS::Net::HTTP::Request>::Create());
+
+		ptrRequest->setMethod(IAS::Net::HTTP::Request::HM_CONNECT);
+		ptrRequest->setResource(dmConnection->getHost()+":443");
+		ptrRequest->setHost(dmConnection->getHost());
+
+		IAS_DFT_FACTORY<IAS::Net::HTTP::HeaderOutputPump>::PtrHolder ptrPumpOut(
+				IAS_DFT_FACTORY<IAS::Net::HTTP::HeaderOutputPump>::Create(ptrRequest, pBlockIO));
+
+		while(ptrPumpOut->pump() != IAS::Net::IBlockIO::RC_OK)
+		/* repeat */;
+
+		IAS_DFT_FACTORY<IAS::Net::HTTP::Response>::PtrHolder ptrResponse(IAS_DFT_FACTORY<IAS::Net::HTTP::Response>::Create());
+
+		IAS_DFT_FACTORY<IAS::Net::HTTP::HeaderInputPump>::PtrHolder ptrPumpIn(
+				IAS_DFT_FACTORY<IAS::Net::HTTP::HeaderInputPump>::Create(ptrResponse, pBlockIO));
+
+		while(ptrPumpIn->pump() != IAS::Net::IBlockIO::RC_OK)
+		/* repeat */;
+
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Proxy Status: "<<ptrResponse->getStatus());
+
+		if(ptrResponse->getStatus() != IAS::Net::HTTP::Response::HS_OK)
+			IAS_THROW(BadUsageException("Proxy returned non-200 status!"));
+	}
 
 	ptrWrapper->getSecureLayer()->connect();
 

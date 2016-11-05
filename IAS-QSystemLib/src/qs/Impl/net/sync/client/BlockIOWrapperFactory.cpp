@@ -20,6 +20,7 @@
 
 #include <commonlib/commonlib.h>
 #include <org/invenireaude/qsystem/workers/ClientIP.h>
+#include <org/invenireaude/qsystem/workers/Proxy.h>
 
 namespace IAS {
 namespace QS {
@@ -28,9 +29,33 @@ namespace Sync{
 namespace Client {
 
 /*************************************************************************/
+String BlockIOWrapperFactory::getHost(const ::org::invenireaude::qsystem::workers::Connection* dmConnection){
+
+	if(dmConnection->isSetProxy()){
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Proxy IP: "<<dmConnection->getProxy()->getHost());
+		return dmConnection->getProxy()->getHost();
+	}
+
+	return dmConnection->getHost();
+}
+/*************************************************************************/
+int BlockIOWrapperFactory::getPort(const ::org::invenireaude::qsystem::workers::Connection* dmConnection){
+
+	if(dmConnection->isSetProxy()){
+
+		int iPort = dmConnection->getProxy()->isSetPort() ? dmConnection->getProxy()->getPort() : 8080;
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Proxy Port: "<<iPort);
+
+		return iPort;
+	}
+
+	return dmConnection->isSetPort() ? dmConnection->getPort() : 50000;
+}
+/*************************************************************************/
 BlockIOWrapperFactory::BlockIOWrapperFactory(const ::org::invenireaude::qsystem::workers::Connection* dmConnection):
 		Sync::BlockIOWrapperFactory(dmConnection),
-		IAS::Net::Client(IAS::Net::Peer(dmConnection->getHost(), dmConnection->isSetPort() ? dmConnection->getPort() : 50000)){
+		IAS::Net::Client(IAS::Net::Peer(getHost(dmConnection),getPort(dmConnection))),
+		bHasProxy(dmConnection->isSetProxy()){
 	IAS_TRACER;
 
 	if(dmConnection->isSetClient()){
@@ -56,6 +81,10 @@ BlockIOWrapperFactory::~BlockIOWrapperFactory() throw(){
 Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
 	IAS_TRACER;
 	return IAS_DFT_FACTORY<BlockIOWrapper>::Create(connect());
+}
+/*************************************************************************/
+bool BlockIOWrapperFactory::hasProxy()const{
+	return bHasProxy;
 }
 /*************************************************************************/
 }

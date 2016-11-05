@@ -41,8 +41,15 @@ public:
 
 	virtual Sync::BlockIOWrapper* createBlockIOWrapper()const;
 
+	inline bool hasProxy()const;
+
 protected:
 	BlockIOWrapperFactory(const ::org::invenireaude::qsystem::workers::Connection* dmConnection);
+
+	String getHost(const ::org::invenireaude::qsystem::workers::Connection* dmConnection);
+	int getPort(const ::org::invenireaude::qsystem::workers::Connection* dmConnection);
+
+	bool bHasProxy;
 
 	friend class Factory<BlockIOWrapperFactory>;
 };

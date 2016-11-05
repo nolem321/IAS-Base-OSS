@@ -45,6 +45,8 @@ public:
 
 	BlockIOWrapperFactory* getBlockIOWrapperFactory()const;
 
+	String convertDestinationToResource(const String& strDestination);
+
 protected:
 	Connection(const Net::System* pSystem, BlockIOWrapperFactory* pBlockIOWrapperFactory);
 
