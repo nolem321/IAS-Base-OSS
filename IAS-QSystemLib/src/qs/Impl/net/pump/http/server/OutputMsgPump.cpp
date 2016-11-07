@@ -56,9 +56,19 @@ OutputMsgPump::OutputMsgPump(::IAS::Net::IBlockIO* pBlockIO, Message* pMessage):
 		ptrResponse->setContentType("application/text; charset=UTF-8");
 	}
 
-	if(pAttributes->isSet("IAS_HTTP_SET_COOKIE")){
-		ptrResponse->addCookieSpecification(pAttributes->getValue("IAS_HTTP_SET_COOKIE"));
+	const String& strSetCookieAttr = "IAS_HTTP_SET_COOKIE";
+
+	if(pAttributes->isSet(strSetCookieAttr)){
+
+		String     strSpecification(pAttributes->getValue(strSetCookieAttr));
+		StringList lstSettings;
+
+		TypeTools::Tokenize(strSpecification, lstSettings, '\n');
+
+		for(StringList::const_iterator it = lstSettings.begin(); it != lstSettings.end(); it++)
+			ptrResponse->addCookieSpecification((*it).c_str());
 	}
+
 	ptrOutputPump = IAS_DFT_FACTORY< ::IAS::Net::HTTP::HeaderOutputPump>::Create< ::IAS::Net::HTTP::Response*, IAS::Net::IBlockIO* >(ptrResponse,pBlockIO);
 }
 /*************************************************************************/
