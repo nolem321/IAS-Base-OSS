@@ -64,12 +64,19 @@ void Message::write(FCGX_Stream* pFCGXStream){
 
 	int iNumBytes=0;
 
-	//TODO (M) more than one new cookie ?
-
 	const String& strSetCookieAttr = "IAS_HTTP_SET_COOKIE";
 
-	if(ptrAttributes->isSet(strSetCookieAttr))
-		FCGX_FPrintF(pFCGXStream, "Set-Cookie: %s\r\n",ptrAttributes->getValue(strSetCookieAttr).c_str());
+	if(ptrAttributes->isSet(strSetCookieAttr)){
+
+		String     strSpecification(ptrAttributes->getValue(strSetCookieAttr));
+		StringList lstSettings;
+
+		TypeTools::Tokenize(strSpecification, lstSettings, '\n');
+
+		for(StringList::const_iterator it = lstSettings.begin(); it != lstSettings.end(); it++)
+			FCGX_FPrintF(pFCGXStream, "Set-Cookie: %s\r\n", (*it).c_str());
+
+	}
 
 	const String& strRedirectAttr = "IAS_HTTP_REDIRECT";
 
