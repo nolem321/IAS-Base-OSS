@@ -137,7 +137,10 @@ void Update::execute(::IAS::DM::DataObjectPtr& dm){
 		return;
 
 	ptrUpdate->feedInputs(dm);
-	ptrUpdate->execute();;
+
+	TimeSample ts(true);
+	ptrUpdate->execute();
+	tsrExe.addSample(ts);
 }
 /*************************************************************************/
 }

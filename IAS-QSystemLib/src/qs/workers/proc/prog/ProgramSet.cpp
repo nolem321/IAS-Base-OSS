@@ -18,6 +18,8 @@
 #include "ProgramSet.h"
 #include<qs/log/LogLevel.h>
 
+#include <iomanip>
+
 #include <lang/interpreter/exe/ProgramContext.h>
 #include <lang/interpreter/exe/Program.h>
 #include <lang/interpreter/exe/dec/Parameters.h>
@@ -62,7 +64,7 @@ ProgramSet::~ProgramSet() throw(){
 		IAS_LOG(LogLevel::INSTANCE.isProfile() , "*** Script Performance Report ***");
 
 	for(ProgramMap::const_iterator it = hmPrograms.begin(); it != hmPrograms.end(); it++)
-		IAS_LOG(LogLevel::INSTANCE.isProfile() ,it->second->strName<<it->second->tsrExe);
+		IAS_LOG(LogLevel::INSTANCE.isProfile() ,std::setw(60) << it->second->strName<<" : \t"<<it->second->tsrExe);
 
 	}
 }

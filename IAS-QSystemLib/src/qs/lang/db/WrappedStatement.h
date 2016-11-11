@@ -46,9 +46,6 @@ protected:
 	WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy);
 
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
-	//TODO some old stuff - reuse statements
-	//ThreadSpecificOwner< IAS_DFT_FACTORY<DS::API::Statement>, DS::API::Statement>::Pointer   ptrStatement;
-
 
 	String strSpecification;
 	String strDataSource;

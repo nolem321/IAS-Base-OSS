@@ -79,7 +79,9 @@ void Delete::execute(::IAS::DM::DataObjectPtr& dm){
 	IAS_TRACER;
 
 	ptrDelete->feedInputs(dm);
-	ptrDelete->execute();;
+	TimeSample ts(true);
+	ptrDelete->execute();
+	tsrExe.addSample(ts);
 }
 /*************************************************************************/
 }

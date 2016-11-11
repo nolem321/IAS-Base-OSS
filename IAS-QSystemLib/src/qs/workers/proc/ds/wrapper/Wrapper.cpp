@@ -47,6 +47,10 @@ Wrapper::Wrapper():
 /*************************************************************************/
 Wrapper::~Wrapper() throw(){
 	IAS_TRACER;
+
+	if(bReusable){
+		IAS_LOG(LogLevel::INSTANCE.isProfile() , strSQLText<<"\n"<<tsrExe);
+	}
 }
 /*************************************************************************/
 Wrapper* Wrapper::Create(::IAS::DS::API::Session* pSession,

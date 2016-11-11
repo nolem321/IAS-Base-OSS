@@ -35,11 +35,14 @@ DictionaryStore::~DictionaryStore() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
+DM::DataObject* DictionaryStore::getValue(const String& strDictionary, const String& strKey, unsigned int iTimeoutMS){
+	IAS_TRACER;
+	Mutex::Locker locker(mutex);
+	return lookup(strDictionary,iTimeoutMS)->getValue(strKey)->duplicate();
+}
+/*************************************************************************/
 Dictionary* DictionaryStore::lookup(const String& strDictionary, unsigned int iTimeoutMS){
 	IAS_TRACER;
-
-	Mutex::Locker locker(mutex);
-
 
 	if(hmDictionaries.count(strDictionary) == 0){
 
@@ -84,13 +87,13 @@ void DictionaryStore::create(const workers::dict::Dictionary* dmDictionary){
 
 	String strDictionary(dmDictionary->getName());
 
-	if(hmDictionaries.count(strDictionary)==0)
-		hmDictionaries[strDictionary]=IAS_DFT_FACTORY<Dictionary>::Create(strDictionary);
-
-	Dictionary *pDictionary = hmDictionaries.at(strDictionary);
-
 
 	//TODO clear & swap
+	//if(hmDictionaries.count(strDictionary)==0)
+
+	hmDictionaries[strDictionary]=IAS_DFT_FACTORY<Dictionary>::Create(strDictionary);
+
+	Dictionary *pDictionary = hmDictionaries.at(strDictionary);
 
 	const workers::dict::Ext::ItemList& lstItems(dmDictionary->getItemsList());
 
@@ -99,8 +102,7 @@ void DictionaryStore::create(const workers::dict::Dictionary* dmDictionary){
 	for(int iIdx=0; iIdx < lstItems.size(); iIdx++){
 		const workers::dict::Item *dmItem(lstItems.at(iIdx));
 
-		pDictionary->setValue(dmItem->getKey(), dmItem->getValue());
-
+		pDictionary->setValue(dmItem->getKey(), dmItem->getValue()->duplicate());
 	}
 
 	cndWaitForDictionary.broadcast();

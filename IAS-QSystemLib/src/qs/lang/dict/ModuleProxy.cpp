@@ -21,7 +21,6 @@
 #include <commonlib/commonlib.h>
 
 #include "GetValue.h"
-#include "SetValue.h"
 #include "CreateDictionary.h"
 
 namespace IAS {
@@ -40,7 +39,6 @@ ModuleProxy::~ModuleProxy() throw(){
 /*************************************************************************/
 void ModuleProxy::setupImpl(){
 	IAS_TRACER;
-	registerSymbol("SetValue",  &(SetValue::Create));
 	registerSymbol("GetValue", 	&(GetValue::Create));
 	registerSymbol("CreateDictionary", 	&(CreateDictionary::Create));
 }

@@ -61,7 +61,13 @@ void SelectOnce::execute(::IAS::DM::DataObjectPtr& dm){
 	IAS_TRACER;
 
 	ptrSelect->feedInputs(dm);
+
+	TimeSample ts(true);
+
 	ptrSelect->execute();
+
+	tsrExe.addSample(ts);
+
 	AutoClose ac(ptrSelect);
 
 	if(ptrSelect->next()){

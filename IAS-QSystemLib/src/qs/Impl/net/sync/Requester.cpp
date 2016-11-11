@@ -54,7 +54,7 @@ bool Requester::request(API::Message* pMessage){
 	Message* pNetMessage=dynamic_cast<Message*>(pMessage);
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isDetailedInfo(),"TODO ! generate ID ?.");
-	pNetMessage->getAttributes()->setReplyTo("Net");
+	pNetMessage->getAttributes()->setReplyTo("http://localhost/");
 
 	Session *pSession = getSession();
 

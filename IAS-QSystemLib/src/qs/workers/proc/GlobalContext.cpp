@@ -1,4 +1,5 @@
 /*
+
  * File: IAS-QSystemLib/src/qs/workers/proc/GlobalContext.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski

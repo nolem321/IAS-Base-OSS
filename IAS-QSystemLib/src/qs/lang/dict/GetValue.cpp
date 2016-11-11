@@ -66,7 +66,7 @@ void GetValue::executeExternal(Exe::Context *pCtx) const{
 	try{
 
 		pParameters->setDataObject(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
-				pWorkContext->getGlobalContext()->getDictionaryStore()->lookup(strDictName, iTimeoutMS)->getValue(strItemKey)->duplicate());
+				pWorkContext->getGlobalContext()->getDictionaryStore()->getValue(strDictName, strItemKey, iTimeoutMS));
 
 	}catch(Exception& e){
 

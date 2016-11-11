@@ -138,6 +138,8 @@ protected:
 							  bool bOptional);
 
 
+	TimeSamplesResults tsrExe;
+
 	bool bReusable;
 };
 /*************************************************************************/

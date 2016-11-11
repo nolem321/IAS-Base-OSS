@@ -1,4 +1,4 @@
-#Thu Aug  4 07:55:12 CEST 2016
+#Fri Nov 11 13:12:35 CET 2016
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -189,7 +189,6 @@ FILES+=qs/lang/db/WrappedStatement
 FILES+=qs/lang/dict/CreateDictionary
 FILES+=qs/lang/dict/GetValue
 FILES+=qs/lang/dict/ModuleProxy
-FILES+=qs/lang/dict/SetValue
 FILES+=qs/lang/ec/ModuleProxy
 FILES+=qs/lang/ec/ReadAll
 FILES+=qs/lang/ec/Update

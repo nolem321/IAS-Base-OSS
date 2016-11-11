@@ -42,7 +42,7 @@ public:
 	virtual ~DictionaryStore() throw();
 
 
-	Dictionary* lookup(const String& strDictionary, unsigned int iTimeoutMS = 0);
+	DM::DataObject* getValue(const String& strDictionary, const String& strKey, unsigned int iTimeoutMS = 0);
 
 	void create(const org::invenireaude::qsystem::workers::dict::Dictionary* dmDictionary);
 
@@ -52,6 +52,8 @@ protected:
 
 	Mutex       mutex;
 	Condition   cndWaitForDictionary;
+
+	Dictionary* lookup(const String& strDictionary, unsigned int iTimeoutMS = 0);
 
 	typedef HashMapStringToPointer<Dictionary> DictionariesMap;
 

@@ -135,7 +135,9 @@ void Call::execute(::IAS::DM::DataObjectPtr& dm){
 	IAS_TRACER;
 
 	ptrCall->feedInputs(dm);
+	TimeSample ts(true);
 	ptrCall->execute();
+	tsrExe.addSample(ts);
 	ptrCall->fetch(dm);
 }
 /*************************************************************************/

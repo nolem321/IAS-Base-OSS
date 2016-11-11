@@ -141,7 +141,9 @@ void Insert::execute(::IAS::DM::DataObjectPtr& dm){
 	IAS_TRACER;
 
 	ptrInsert->feedInputs(dm);
+	TimeSample ts(true);
 	ptrInsert->execute();
+	tsrExe.addSample(ts);
 }
 /*************************************************************************/
 }

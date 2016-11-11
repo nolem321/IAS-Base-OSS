@@ -36,8 +36,6 @@ public:
 
 	virtual ~Dictionary() throw();
 
-
-
 	void setValue(const String& strKey, DM::DataObject* dm);
 	DM::DataObject* getValue(const String& strKey);
 
