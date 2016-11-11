@@ -23,7 +23,7 @@ namespace Impl {
 
 /*************************************************************************/
 MemoryManager* MemoryManager::TheInstance(NULL);
-ThreadSpecific<Allocator> PtrDataAllocator;
+//ThreadSpecific<Allocator> PtrDataAllocator;
 /*************************************************************************/
 MemoryManager::MemoryManager(){
 	IAS_TRACER;
@@ -31,7 +31,7 @@ MemoryManager::MemoryManager(){
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Default settings.");
 
 	pAllocatorForData=IAS_DFT_FACTORY< ::IAS::MemoryManager >::Create();
-	PtrDataAllocator.SetPointer(pAllocatorForData);
+//	PtrDataAllocator.SetPointer(pAllocatorForData);
 
 	pAllocatorForTypes=IAS_DFT_FACTORY< ::IAS::MemoryManager >::Create();
 }
@@ -42,9 +42,12 @@ MemoryManager::~MemoryManager() throw(){
 /*************************************************************************/
 void MemoryManager::setAllocatorForData(IAS::Allocator* pAllocator){
 	IAS_TRACER;
+
+//	IAS_LOG(true,"NN:"<<(void*)pAllocator);
+//	IAS_MY_STACK().printStack(std::cerr);
 	IAS_CHECK_IF_NULL(pAllocator);
 	this->pAllocatorForData=pAllocator;
-	PtrDataAllocator.SetPointer(pAllocatorForData);
+//	PtrDataAllocator.SetPointer(pAllocatorForData);
 }
 /*************************************************************************/
 IAS::Allocator* MemoryManager::GetAllocatorForData(){
@@ -76,10 +79,11 @@ IAS::Allocator* MemoryManager::getAllocatorForData() {
 
 	//TODO (M) revise this thread specific implementation - it looks like prototyping.
 
-	if(! PtrDataAllocator.GetPointer())
-		PtrDataAllocator.SetPointer(IAS_DFT_FACTORY< ::IAS::MemoryManager >::Create());
+//	if(! PtrDataAllocator.GetPointer())
+//		PtrDataAllocator.SetPointer(IAS_DFT_FACTORY< ::IAS::MemoryManager >::Create());
 
-	return PtrDataAllocator.GetPointer();
+//	return PtrDataAllocator.GetPointer();
+	return pAllocatorForData;
 }
 /*************************************************************************/
 IAS::Allocator* MemoryManager::getAllocatorForTypes() {
