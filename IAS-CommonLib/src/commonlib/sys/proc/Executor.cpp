@@ -27,7 +27,9 @@ namespace SYS {
 namespace Proc {
 
 /*************************************************************************/
-Executor::Executor(const String& strCommand):strCommand(strCommand){
+Executor::Executor(const String& strCommand):
+		strCommand(strCommand),
+		bApplyEnv(false){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -40,22 +42,37 @@ void Executor::appendArg(const String& strArg){
 	lstArgs.push_back(strArg);
 }
 /*************************************************************************/
+void Executor::setApplyEnv(bool bApplyEnv){
+	IAS_TRACER;
+	IAS_LOG(LogLevel::INSTANCE.bIsInfo,"ApplyEnv: "<<bApplyEnv);
+	this->bApplyEnv=bApplyEnv;
+}
+/*************************************************************************/
 void Executor::run(){
 	IAS_TRACER;
 
+	StringList lstFinalArgs;
 	const char* *argv = (const char**)malloc((2+lstArgs.size())*sizeof(const char*));
 
-	if(lstArgs.size() > 16)
-		IAS_THROW(InternalException("lstArgs.size > 16"));
+	for(StringList::const_iterator it=lstArgs.begin(); it != lstArgs.end(); it++){
+
+		if(bApplyEnv)
+			lstFinalArgs.push_back(EnvTools::Substitute(*it));
+		else
+			lstFinalArgs.push_back(*it);
+	}
+
+	if(lstFinalArgs.size() > 16)
+		IAS_THROW(InternalException("lstFinalArgs.size > 16"));
 
 	argv[0]=strCommand.c_str();
 	int iIdx = 1;
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Will execute: "<<strCommand);
 
-	for(ArgsList::const_iterator it = lstArgs.begin();
-		it != lstArgs.end();
-	    it++,iIdx++){
+	for(ArgsList::const_iterator it = lstFinalArgs.begin();
+		it != lstFinalArgs.end();
+	    it++, iIdx++){
 		argv[iIdx] = (*it).c_str();
 		IAS_LOG(LogLevel::INSTANCE.isInfo(),"argv["<<iIdx<<"]="<<(*it));
 	}

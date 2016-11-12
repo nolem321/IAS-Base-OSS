@@ -41,12 +41,15 @@ public:
 	void appendArg(const String& strArg);
 	virtual void run();
 
+	void setApplyEnv(bool bApplyEnv);
+
 protected:
 
 	String strCommand;
-	typedef std::list<String> ArgsList;
-	ArgsList                  lstArgs;
 
+	typedef StringList ArgsList;
+	ArgsList           lstArgs;
+	bool bApplyEnv;
 };
 
 /*************************************************************************/

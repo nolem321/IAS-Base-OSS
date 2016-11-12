@@ -100,7 +100,7 @@ Header::NameValuePair Header::Parser::ParseNameValue(const char* sBuffer){
 		c++;
 
 	if(*c != ':')
-		IAS_THROW(BadUsageException("HTTP Request Parser Error: missing ':'"));
+		IAS_THROW(BadUsageException(String("HTTP Request Parser Error: missing ':'") +  s));
 
 	//*c++=0;
 	result.first=String(s,c-s);
