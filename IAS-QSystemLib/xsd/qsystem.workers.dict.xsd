@@ -31,9 +31,10 @@
 
  <xsi:complexType name="Dictionary">  		
   	<xsi:sequence>
-  	  <xsi:element name="name"   type="xsi:string"  minOccurs="1" maxOccurs="1"/>
-  	  <xsi:element name="valid"  type="xsi:time"    minOccurs="0" maxOccurs="1"/>
-  	  <xsi:element name="items"  type="dict:Item"   minOccurs="0" maxOccurs="unbounded"/>
+  	  <xsi:element name="name"          type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="description"   type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+  	  <xsi:element name="valid"         type="xsi:time"    minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="items"         type="dict:Item"   minOccurs="0" maxOccurs="unbounded"/>
   	</xsi:sequence>
  </xsi:complexType>
  

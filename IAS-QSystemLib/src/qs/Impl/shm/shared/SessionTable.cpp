@@ -42,7 +42,7 @@ SessionTable::SessionTable(size_t iSize):
 /*************************************************************************/
 SessionTable::~SessionTable(){
 	IAS_TRACER;
-	IAS_THROW(InternalException("SessionTable destroyed."))
+	//IAS_THROW(InternalException("SessionTable destroyed."))
 }
 /*************************************************************************/
 Session* SessionTable::createTransacted(){

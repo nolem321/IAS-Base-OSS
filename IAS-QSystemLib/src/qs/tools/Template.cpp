@@ -59,8 +59,13 @@ bool Template::Arguments::getImpl(const String& strKey, String& strValue) {
 		return true;
 	}
 
-	if(!dmData->isSet(strKey))
-	return false;
+	try{
+		if(!dmData->isSet(strKey))
+			return false;
+	}catch(ItemNotFoundException& e){
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"unknow property: "<<strKey);
+		return false;
+	}
 
 	strValue = dmData->getString(strKey);
 

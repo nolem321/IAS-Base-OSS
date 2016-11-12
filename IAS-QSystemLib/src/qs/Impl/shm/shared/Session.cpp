@@ -52,7 +52,7 @@ Session::Session():
 /*************************************************************************/
 Session::~Session(){
 	IAS_TRACER;
-	IAS_THROW(InternalException("Session destroyed."))
+	//IAS_THROW(InternalException("Session destroyed."))
 }
 /*************************************************************************/
 void Session::setupTransacted(){
