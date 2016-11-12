@@ -48,6 +48,8 @@ ExecutorSimpleFactory::~ExecutorSimpleFactory() throw(){
 
 	const DM::Default::Ext::StringList& lstArgs(pCommand->getArgsList());
 
+	ptrExecutor->setApplyEnv(true);
+
 	for(int iIdx = 0; iIdx<lstArgs.size(); iIdx++)
 		ptrExecutor->appendArg(lstArgs.at(iIdx));
 

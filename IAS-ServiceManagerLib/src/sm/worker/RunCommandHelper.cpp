@@ -23,6 +23,8 @@
 #include "sm/cfg/dataobjects.h"
 #include "exe/Handler.h"
 #include "Process.h"
+#include "StartStopHelper.h"
+#include "WorkerForStop.h"
 
 using namespace ::org::invenireaude::sm::cfg;
 
@@ -53,6 +55,12 @@ void RunCommandHelper::run(const String& strServiceName) {
 
 	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
 
+
+	IAS_DFT_FACTORY<WorkerForStop>::PtrHolder ptrWorkerForStop(
+			WorkerForStop::Create(pConfig));
+
+	ptrWorkerForStop->work(pService);
+
 	IAS_DFT_FACTORY<SYS::Proc::Executor>::PtrHolder ptrExecutor(ptrExeHandler->createExecutor(dmResourceGrp->getExe(), pCommand));
 
 	IAS_DFT_FACTORY<Process>::PtrHolder ptrProcess(IAS_DFT_FACTORY<Process>::Create(ptrExecutor));
@@ -60,7 +68,8 @@ void RunCommandHelper::run(const String& strServiceName) {
 	StringPairList lstVariables;
 	pConfig->buildEnvList(pService, lstVariables);
 
-	//ptrProcess->updateEnvironment(lstVariables);
+	lstVariables.push_back(std::pair<String,String>(StartStopHelper::CEnvIndex, TypeTools::IntToString(0)));
+	ptrProcess->updateEnvironment(lstVariables);
 
 	ptrProcess->start();
 	ptrProcess->wait();

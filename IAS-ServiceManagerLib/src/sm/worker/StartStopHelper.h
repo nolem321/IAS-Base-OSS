@@ -42,6 +42,7 @@ public:
 	virtual void startInstance(const ::org::invenireaude::sm::cfg::Service* pService, int iIdx)const;
 	virtual void stopInstance(const ::org::invenireaude::sm::cfg::Service* pService, int iIdx, bool bKillGroups = false)const;
 
+	static const String& CEnvIndex;
 
 protected:
 	StartStopHelper(const ::IAS::SM::Cfg::Config *pConfig);
@@ -55,6 +56,7 @@ private:
 
 	static Mutex mutexUserMsgs;
 	friend class ::IAS::Factory<StartStopHelper>;
+
 
 };
 

@@ -403,7 +403,7 @@ void Config::buildEnvList(const ::org::invenireaude::sm::cfg::Service* pService,
 		const Variable* pVariable = lstDMVariables.at(iIdx);
 
 		if(!pVariable->isSetName())
-			IAS_THROW(BadUsageException("Variable name not set in RG specification."));
+			IAS_THROW(BadUsageException("Variable name is missing in RG specification."));
 
 		String strName(pVariable->getName());
 		String strValue;

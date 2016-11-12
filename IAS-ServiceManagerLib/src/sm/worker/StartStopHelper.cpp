@@ -34,7 +34,9 @@ namespace IAS {
 namespace SM {
 namespace Worker {
 
+/*************************************************************************/
 Mutex StartStopHelper::mutexUserMsgs;
+const String& StartStopHelper::CEnvIndex("SM_INSTANCE_IDX");
 /*************************************************************************/
 StartStopHelper::StartStopHelper(const ::IAS::SM::Cfg::Config *pConfig) {
 	IAS_TRACER;
@@ -54,6 +56,8 @@ void StartStopHelper::startInstance(const ::org::invenireaude::sm::cfg::Service*
 
 	StringPairList lstVariables;
 	pConfig->buildEnvList(pService, lstVariables);
+
+	lstVariables.push_back(std::pair<String,String>(CEnvIndex,TypeTools::IntToString(iIdx)));
 
 	String strLogFilesBase(pConfig->getLogFilesBase(pService));
 
