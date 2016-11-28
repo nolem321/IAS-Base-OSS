@@ -36,8 +36,6 @@ class EligibleAttributesMap : public std::set<String>,
 	public:
 	EligibleAttributesMap(){
 
-	  Mutex::Locker locker(mutex);
-
       //insert("HTTP_DNT");
 	  //insert("HTTP_USER_AGENT");
 	  //insert("HTTP_ACCEPT_ENCODING");
@@ -69,7 +67,7 @@ class EligibleAttributesMap : public std::set<String>,
 	}
 
 protected:
-	Mutex mutex;
+
 };
 /*************************************************************************/
 Receiver::Receiver(Session* pSession):
@@ -78,7 +76,7 @@ Receiver::Receiver(Session* pSession):
 	myDestination("__FAKE__"){
 	IAS_TRACER;
 
-	Mutex mutex;
+	static Mutex mutex;
 	Mutex::Locker locker(mutex);
 	const EligibleAttributesMap* hmEligibleAttributes = EligibleAttributesMap::GetInstance();
 }
