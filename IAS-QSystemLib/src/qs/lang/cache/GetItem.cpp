@@ -60,7 +60,7 @@ void GetItem::executeExternal(Exe::Context *pCtx) const{
 	try{
 
 		pParameters->setDataObject(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),
-							   pWorkContext->caches.getBucket(strCacheName)->at(strItemKey));
+							   pWorkContext->caches.getBucket(strCacheName)->at(strItemKey)->duplicate());
 	}catch(Exception& e){
 
 		//TODO (H) use exceptions from the cache namespace.
