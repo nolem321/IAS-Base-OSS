@@ -130,6 +130,10 @@ int Sort::CallHelper::partition(int iLeftIdx, int iRightIdx){
 /*************************************************************************/
 void Sort::CallHelper::sort(){
 	IAS_TRACER;
+
+	if(lstArray.size() <= 1)
+		return;
+
 	sort(0, lstArray.size() - 1);
 }
 /*************************************************************************/
