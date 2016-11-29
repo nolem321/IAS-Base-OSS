@@ -166,7 +166,7 @@ void PersistentCacheStorage::createOrUpdateBucketItem(WorkerCache::Bucket* pBuck
 	Item *dmItem=dmBucket->createItems();
 
 	dmItem->setKey(pValue->getKey());
-	dmItem->setValue(pValue->getValue());
+	dmItem->setValue(pValue->getValue()->duplicate());
 
 	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());
 	ptrProgramSet->execute(strPackage+"::createOrUpdateBucketItem",dmContext,dmBucket);
