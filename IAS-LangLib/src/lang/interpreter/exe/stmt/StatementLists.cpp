@@ -35,7 +35,6 @@ StatementLists::StatementLists() throw(){
 /*************************************************************************/
 StatementLists::~StatementLists() throw(){
 	IAS_TRACER;
-	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Deleted:"<<(void*)this<<","<<this->lstStatements.size());
 }
 /*************************************************************************/
 void StatementLists::addStatement(Statement* pStatement){
