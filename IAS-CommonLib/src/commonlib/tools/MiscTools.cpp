@@ -275,7 +275,7 @@ void MiscTools::Base64ToBinary(const String& strInput, unsigned char *sData, siz
 
   iDataLen = 0;
 
-  while (iLeft-- && ( strInput[ii] != '=') && isBase64(strInput[ii])) {
+  while (iLeft-- && ( strInput[ii] != '=') && isBase64((unsigned char)strInput[ii])) {
     bytes4[i++] = strInput[ii]; ii++;
     if (i ==4) {
       for (i = 0; i <4; i++)
@@ -334,7 +334,7 @@ void MiscTools::Base64ToString(const String& strInput, String& strOutput){
 	  int ii = 0;
 	  unsigned char bytes4[4], bytes3[3];
 
-	  while (iLeft-- && ( strInput[ii] != '=') && isBase64(strInput[ii])) {
+	  while (iLeft-- && ( strInput[ii] != '=') && isBase64((unsigned char)strInput[ii])) {
 	    bytes4[i++] = strInput[ii]; ii++;
 	    if (i ==4) {
 	      for (i = 0; i <4; i++)
