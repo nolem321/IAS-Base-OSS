@@ -50,6 +50,7 @@ public:
 	static const String& CElementName;
 	static const String& CElementURI;
 	static const String& CElementEncoding;
+	static const String& CPrefixElements;
 	static const String& CEnvFirstNS;
 
 protected:

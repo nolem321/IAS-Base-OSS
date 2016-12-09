@@ -31,6 +31,7 @@ namespace Fmt {
 const String& XMLFormatter::CElementEncoding("XMLfEnc");
 const String& XMLFormatter::CElementName("XMLfName");
 const String& XMLFormatter::CElementURI("XMLfURI");
+const String& XMLFormatter::CPrefixElements("XMLfPrefixAll");
 const String& XMLFormatter::CEnvFirstNS("."+DM::XML::XMLHelper::CEnvFirstNS);
 
 /*************************************************************************/
