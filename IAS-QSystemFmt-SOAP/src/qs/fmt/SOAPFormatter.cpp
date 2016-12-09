@@ -30,6 +30,7 @@ namespace IAS {
 namespace QS {
 namespace Fmt {
 
+
 /*************************************************************************/
 SOAPFormatter::SOAPFormatter(const DM::DataFactory* pDataFactory, const String& strNS):
 		pDataFactory(pDataFactory),
@@ -57,7 +58,6 @@ void SOAPFormatter::read(DM::DataObjectPtr& dmData,
 			IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory));
 
 	ptrXMLHelper->setEmptyFirstNS(false);
-	ptrXMLHelper->setPrefixElements(true);
 
 	IAS_DFT_FACTORY<Parser>::PtrHolder ptrParser(IAS_DFT_FACTORY<Parser>::Create(ptrXMLHelper,
 			IAS_DFT_FACTORY<DM::XML::LibXMLLexerForStream>::Create<std::istream&>(istream),
@@ -89,7 +89,6 @@ void SOAPFormatter::write(const DM::DataObject* dmData,
 			IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pDataFactory));
 
 	ptrXMLHelper->setEmptyFirstNS(false);
-	ptrXMLHelper->setPrefixElements(true);
 
 	IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDocument(
 		IAS_DFT_FACTORY<DM::XML::XMLDocument>::Create(const_cast< ::IAS::DM::DataObject*>(dmData)));
@@ -108,6 +107,9 @@ void SOAPFormatter::write(const DM::DataObject* dmData,
 					ptrXMLHelper->setEmptyFirstNS(true);
 				else
 					ptrXMLHelper->setEmptyFirstNS(false);
+		
+		if (pAttributes->isSet(XMLFormatter::CPrefixElements) && pAttributes->getValue(XMLFormatter::CPrefixElements).compare("Y") == 0)
+			ptrXMLHelper->setPrefixElements(true);
 
 	}
 

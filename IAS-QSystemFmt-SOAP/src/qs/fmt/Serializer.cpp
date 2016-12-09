@@ -69,7 +69,7 @@ void Serializer::write_soap_header(){
 
 	pWriter->startElementNS("soap","Header","");
 
-	if (pAttributes)
+	if (pAttributes) {
 		if (pAttributes->isSet("IAS_SOAP_WSA_TO") || pAttributes->isSet("IAS_SOAP_WSA_ACTION")){
 			pWriter->writeAttributeNS("xmlns","wsa","http://www.w3.org/2005/08/addressing","");
 
@@ -85,6 +85,12 @@ void Serializer::write_soap_header(){
 				pWriter->endElement();
 			}
 		}
+		if (pAttributes->isSet("IAS_SOAP_WSSE_SECURITY")) {
+				pWriter->startElementNS("wsse","Security","");
+				pWriter->writeAttributeNS("xmlns", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "");
+				pWriter->endElement();
+		}
+	}
 
 	pWriter->endElement();
 }
