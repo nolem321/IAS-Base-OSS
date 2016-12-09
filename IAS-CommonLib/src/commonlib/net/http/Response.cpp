@@ -163,7 +163,7 @@ void Response::Parser::parse(){
 
 	s=c;
 
-	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"Status info: "<<s);
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Status info: "<<s);
 
 	while(is.good()){
 		is.getline(sBuffer,iBufSize,'\r');
@@ -173,6 +173,8 @@ void Response::Parser::parse(){
 
 		if(!is.good())
 			IAS_THROW(BadUsageException("HTTP Response Parser Error: content reader failed."))
+
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Line: "<<sBuffer);
 
 		if(*sBuffer == 0){
 
@@ -184,7 +186,7 @@ void Response::Parser::parse(){
 		}else if(isblank(*sBuffer)){
 
 			if(strName.empty())
-				IAS_THROW(BadUsageException("HTTP Response Parser Error: the line start with a blank but no header value earlier."))
+				IAS_THROW(BadUsageException("HTTP Response Parser Error: the line starts with a blank but no header value earlier."))
 			strValue+=sBuffer+1;
 
 		} else {
@@ -211,6 +213,8 @@ void Response::Parser::processNameValuePair(){
 	else if(!strName.compare("Content-Length")){ response.setContentLength(strValue); }
 	else if(!strName.compare("Content-type")){ response.setContentType(strValue); }
 	else if(!strName.compare("Content-length")){ response.setContentLength(strValue); }
+	else if(!strName.compare("content-type")){ response.setContentType(strValue); }
+	else if(!strName.compare("content-length")){ response.setContentLength(strValue); }
 
 	strName.clear();
 	//TODO (H) do not ignore
