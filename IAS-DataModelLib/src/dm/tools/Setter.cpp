@@ -327,9 +327,10 @@ void Setter::unset(DM::DataObjectPtr& dm){
 	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"unset: "<<strXPath);
 
 	// this may be faster than dm=getParent(dm,false);dm->unset(lstPath.back().pProperty);
-	if(lstPath.size())
-		dm->unset(strXPath);
-	else
+	if(lstPath.size()){
+		if(isSet(dm))
+			dm->unset(strXPath);
+	}else
 		dm=0;
 
 }

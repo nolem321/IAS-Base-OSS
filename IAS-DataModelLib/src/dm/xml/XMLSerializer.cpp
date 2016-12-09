@@ -173,11 +173,17 @@ void XMLSerializer::serializeElement(const DataObject* pDataObject,
 
 	/* xsi:type */
 	if(bXSIType){
-		String strAttrValue(getURIPrefix(pType->getURI()));
-		if(!strAttrValue.empty())
-			strAttrValue+=":";
-		strAttrValue+=pType->getName();
-		pWriter->writeAttributeNS(String("xsi"),String("type"),strAttrValue,String(""));
+		String typeURI(pType->getURI()); 
+		if(typeURI.empty()) {
+			pWriter->writeAttributeNS(String("xsi"),String("type"),pType->getName(),String(""));
+		} else {
+			String strAttrValue(getURIPrefix(typeURI));
+			if (!strAttrValue.empty()) {
+				strAttrValue+=":";
+			}
+			strAttrValue+=pType->getName();
+			pWriter->writeAttributeNS(String("xsi"),String("type"),strAttrValue,String(""));
+		}
 	}
 
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isDetailedInfo(),"Enum:["<<pType->getTypeEnum()<<"]")
