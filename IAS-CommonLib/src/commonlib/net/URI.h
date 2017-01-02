@@ -63,7 +63,10 @@ public:
 
 	inline URI& operator=(const URI& other){ copy(other); return *this; };
 
+	bool hasValue(const String& strName)const;
 	const String& getValue(const String& strName)const;
+
+	void addValue(const String& strName, const String& strValue);
 
 protected:
 

@@ -268,6 +268,10 @@ void URI::parseQuery(){
 
 }
 /*************************************************************************/
+bool URI::hasValue(const String& strName)const{
+  return hmValues.find(strName) != hmValues.end();
+}
+/*************************************************************************/
 const String& URI::getValue(const String& strName)const{
 	IAS_TRACER;
 
@@ -279,6 +283,17 @@ const String& URI::getValue(const String& strName)const{
 
 	return it->second;
 
+}
+/*************************************************************************/
+void URI::addValue(const String& strName, const String& strValue){
+	IAS_TRACER;
+
+	ValuesMap::const_iterator it=hmValues.find(strName);
+	if(it != hmValues.end()) {
+		IAS_THROW(AlreadyExists(String("Query value:[")+strName+String("] already exists with value:[")+it->second+String("], multivalues not supported.")));
+	}
+
+  hmValues[strName] = strValue;
 }
 /*************************************************************************/
 void URI::setDefaultPort(){
