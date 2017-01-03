@@ -105,7 +105,7 @@ int ExecuteSystemCmd::execute(const String& strCommand, const StringList& lstArg
 
 			int iStatus;
 
-			if(::waitpid(iPid,&iStatus,0) == -1)
+			if( (::waitpid(iPid, &iStatus,0) == -1) && (errno != ECHILD))
 				IAS_THROW(SystemException("wait()"));
 
 			if(!WIFEXITED(iStatus))
