@@ -41,6 +41,7 @@ FILES+=qs/fmt/DelimitedFormatter
 FILES+=qs/fmt/FmtFactory
 FILES+=qs/fmt/JSONFormatter
 FILES+=qs/fmt/JSONPureFormatter
+FILES+=qs/fmt/URLEncodeFormatter
 FILES+=qs/fmt/StringFormatter
 FILES+=qs/fmt/TemplateFormatter
 FILES+=qs/fmt/XMLFormatter

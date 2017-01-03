@@ -22,6 +22,7 @@
 #include "Lexer.h"
 
 #include "exception/ParseException.h"
+#include <lang/model/dec/ResultDeclarationNode.h>
 
 namespace IAS {
 namespace QS {
@@ -45,7 +46,24 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	bool bQuote=pLexer->isQuoted();
 
-	strSQLText+="CALL ";
+	bool bIsFunction = false;
+
+//	try{
+//		dm->getType()->asComplexType()
+//					->getProperties().getProperty(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable)
+//					;
+//		bIsFunction = true;
+//	}catch(ItemNotFoundException& e){};
+
+	IAS_LOG(true,dm->getType()->getFullName());
+	IAS_LOG(true,dm->getType()->asComplexType()->getProperties().getSize());
+
+	if(!bIsFunction){
+		strSQLText+="CALL ";
+	}else{
+		String strTag(tabInputSetters.addXPath("result",SettersTable::M_OUTPUT));
+		strSQLText+="BEGIN " + strTag + " := ";
+	}
 
 	if(bQuote)
 		strSQLText+='"';
@@ -114,8 +132,11 @@ Call::Call(::IAS::DS::API::Session* pSession,
 	if(iToken != Lexer::T_END)
 		IAS_THROW(ParseException(String("Expected end of input, got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
 
-
-	strSQLText+=")";
+	if(!bIsFunction){
+		strSQLText+=") ";
+	}else{
+		strSQLText+="); END; ";
+	}
 
 	ptrCall->setSQLText(strSQLText);
 	ptrCall->prepare();
