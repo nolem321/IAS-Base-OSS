@@ -42,6 +42,22 @@ String Tools::ComputeSHA256(const String& strValue){
 	 MiscTools::BinarytoHex(hash,SHA256_DIGEST_LENGTH,strResult);
 	 return strResult;
 }
+/***********************************************************************/
+String Tools::ComputeSHA256(const void *pData, size_t iDataLen){
+
+	 IAS_TRACER;
+	 unsigned char hash[SHA256_DIGEST_LENGTH];
+
+	 SHA256_CTX sha256;
+
+	 SHA256_Init(&sha256);
+	 SHA256_Update(&sha256, pData, iDataLen);
+	 SHA256_Final(hash, &sha256);
+
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,SHA256_DIGEST_LENGTH,strResult);
+	 return strResult;
+}
 /*************************************************************************/
 
 

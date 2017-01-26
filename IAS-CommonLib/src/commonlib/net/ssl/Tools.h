@@ -34,7 +34,7 @@ class Tools {
 public:
 
 	static String ComputeSHA256(const String& strValue);
-
+	static String ComputeSHA256(const void *pData, size_t iDataLen);
 };
 
 /*************************************************************************/
