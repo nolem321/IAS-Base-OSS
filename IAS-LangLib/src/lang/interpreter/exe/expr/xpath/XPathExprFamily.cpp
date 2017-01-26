@@ -165,11 +165,14 @@ XPathExprFamily* XPathExprFamily::Create(Expr* pExpr,
 		break;
 
 	case DM::Type::DataObjectType:
+	case DM::Type::RawType:
 	case DM::Type::AnyType:
 		ptrResult = IAS_DFT_FACTORY<XPathDataObjectExpr>::Create(pExpr,pXPathAccessor);
 		break;
 
 	default:
+		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isError()," No factory for XPathExpr:" << pValueProperty->getName() << ", multi=" <<pValueProperty->isMulti() << ", array=" <<pXPathAccessor->isArrayExp());
+
 		IAS_THROW(InternalException("No factory for operator!"));
 	}
 

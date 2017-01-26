@@ -46,6 +46,7 @@
 #include "StrToLower.h"
 #include "StrToUpper.h"
 #include "StrToSHA256.h"
+#include "BinaryToSHA256.h"
 #include "StrLen.h"
 #include "SysLog.h"
 
@@ -99,6 +100,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("StrToLower",&(StrToLower::Create));
 	registerSymbol("StrToUpper",&(StrToUpper::Create));
 	registerSymbol("StrToSHA256",&(StrToSHA256::Create));
+	registerSymbol("BinaryToSHA256",&(BinaryToSHA256::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 
