@@ -238,12 +238,12 @@ void Setter::setFloat(DataObjectPtr& dm,Float fValue)const{
 	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),strXPath<<"="<<fValue);
 
 	if(lstPath.size())
-		getParent(dm,true)->setInteger(lstPath.back().pProperty,fValue);
+		getParent(dm,true)->setFloat(lstPath.back().pProperty,fValue);
 	else{
 		if(!dm)
 			dm=pType->createDataObject(fValue);
 		else
-			dm->setInteger(fValue);
+			dm->setFloat(fValue);
 	}
 
 }

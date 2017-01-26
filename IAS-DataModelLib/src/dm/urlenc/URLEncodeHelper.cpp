@@ -24,6 +24,8 @@
 #include "../../dm/PropertyList.h"
 #include "../../dm/Type.h"
 
+#include <algorithm>
+
 namespace IAS {
 namespace DM {
 namespace URLEnc {
@@ -75,6 +77,7 @@ DM::DataObjectPtr URLEncodeHelper::load(std::istream& is, const DM::Type* pTypeH
           IAS_THROW(URLEncodeHelperException("Nested structures not implemented in URLEncode."));
         } else {
           String eltValue(uri.getValue(propName));
+          std::replace(eltValue.begin(), eltValue.end(), '+', ' ');
           IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Property '" << propName << "' found with value='" << eltValue << "'");
           dm->setDataObject(pProperty, eltType->createDataObject(eltValue));
         }

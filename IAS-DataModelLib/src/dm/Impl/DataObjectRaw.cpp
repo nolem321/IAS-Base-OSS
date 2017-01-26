@@ -44,8 +44,8 @@ DataObjectRaw::~DataObjectRaw() throw(){
 void DataObjectRaw::setString(const ::IAS::String& strValue){
 	IAS_TRACER;
 	//TODO Base64
-	ptrRawContentValue->reserve(strValue.length()+1);
-	strncpy(ptrRawContentValue->getBuffer<char>(),strValue.c_str(),strValue.length()+1);
+	ptrRawContentValue->reserve(strValue.length());
+	strncpy(ptrRawContentValue->getBuffer<char>(),strValue.c_str(),strValue.length());
 }
 /*************************************************************************/
 void DataObjectRaw::toRaw( RawContent* pRawContent)const{
