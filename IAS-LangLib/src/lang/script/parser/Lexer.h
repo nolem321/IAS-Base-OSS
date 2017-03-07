@@ -100,6 +100,7 @@ private:
 	typedef  std::map<String, TokenType> KeywordsMap;
 
 	KeywordsMap hmKeywords;
+	KeywordsMap hmConstants;
 
 	int     iEscCharValue;
 	int     iEscCharLen;

@@ -49,7 +49,7 @@
 
 #line 51 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:412
 // Unqualified %code blocks.
-#line 63 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:413
+#line 65 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:413
 
 #include "Parser.h"
 #include "Lexer.h"
@@ -399,42 +399,42 @@ namespace yy {
     {
             case 71: // T_SYMBOL
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 405 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
 
       case 72: // T_STRING
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 412 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
 
       case 73: // T_INTEGER
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 419 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
 
       case 74: // T_FLOAT
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 426 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
 
       case 75: // T_BOOLEAN
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 433 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
 
       case 76: // T_NULL
 
-#line 228 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
+#line 230 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:614
         { std::cout<<"D:"<<*(yysym.value.sval)<<"\n"; _SVAL_DELETE((yysym.value.sval)); }
 #line 440 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:614
         break;
@@ -568,7 +568,7 @@ namespace yy {
 
 
     // User initialization code.
-    #line 24 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:741
+    #line 26 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:741
 {
   // Initialize the initial location.
   yyla.location.begin.filename = yyla.location.end.filename = new std::string("waisted");
@@ -682,13 +682,13 @@ namespace yy {
           switch (yyn)
             {
   case 5:
-#line 236 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 238 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { myParser.addTypeDefinition((yystack_[0].value.pTypeDefinitionNode)); }
 #line 688 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 6:
-#line 237 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 239 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     {
     (yystack_[0].value.pProgramNode)->setSourceLocation(myParser.getLexer()->getCachedLocation()); 
 	myParser.addProgram((yystack_[0].value.pProgramNode)); 
@@ -697,7 +697,7 @@ namespace yy {
     break;
 
   case 7:
-#line 243 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 245 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     {  myParser.open((yystack_[1].value.pQualifiedNameNode)->getQualifiedName()); 
            	 IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Free((yystack_[1].value.pQualifiedNameNode)); 
            	 }
@@ -705,7 +705,7 @@ namespace yy {
     break;
 
   case 8:
-#line 248 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 250 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[5].value.sval)); _SVAL_DELETE((yystack_[5].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); }
@@ -713,7 +713,7 @@ namespace yy {
     break;
 
   case 9:
-#line 253 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 255 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode);
 				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[2].value.pTypeInfo));
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[8].value.sval)); _SVAL_DELETE((yystack_[8].value.sval)); 
@@ -722,7 +722,7 @@ namespace yy {
     break;
 
   case 10:
-#line 259 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 261 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 				  
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[3].value.sval)); _SVAL_DELETE((yystack_[3].value.sval)); 
 				  (yylhs.value.pTypeDefinitionNode)->setNamespace(*(yystack_[1].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
@@ -730,7 +730,7 @@ namespace yy {
     break;
 
   case 11:
-#line 264 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 266 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create(); 
 				  (yylhs.value.pTypeDefinitionNode)->setBaseTypeNode((yystack_[1].value.pTypeInfo));
 				  (yylhs.value.pTypeDefinitionNode)->setName(*(yystack_[7].value.sval)); _SVAL_DELETE((yystack_[7].value.sval)); 
@@ -739,56 +739,56 @@ namespace yy {
     break;
 
   case 12:
-#line 271 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 273 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 745 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 13:
-#line 274 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 276 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeInfo) = IAS_DFT_FACTORY<Dec::TypeInfoNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 751 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 14:
-#line 276 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 278 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[1].value.pTypeDefinitionNode); }
 #line 757 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 15:
-#line 277 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 279 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();  }
 #line 763 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 16:
-#line 279 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 281 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = (yystack_[2].value.pTypeDefinitionNode); (yylhs.value.pTypeDefinitionNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
 #line 769 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 17:
-#line 280 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 282 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pTypeDefinitionNode) = IAS_DFT_FACTORY<Dec::TypeDefinitionNode>::Create();}
 #line 775 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 18:
-#line 282 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 284 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 781 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 19:
-#line 283 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 285 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
 												                _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 788 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 20:
-#line 285 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 287 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval)); 
 												 (yylhs.value.pDeclarationNode)->setIsArray(true); 
 												 _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
@@ -796,7 +796,7 @@ namespace yy {
     break;
 
   case 21:
-#line 288 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 290 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); 
 																  (yylhs.value.pDeclarationNode)->setIsArray(true); 
 												                  _SVAL_DELETE((yystack_[6].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
@@ -804,85 +804,85 @@ namespace yy {
     break;
 
   case 22:
-#line 294 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 296 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[3].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[2].value.pParametersNode)); }
 #line 810 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 23:
-#line 297 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 299 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<StandardProgramNode>::Create((yystack_[4].value.pQualifiedNameNode),(yystack_[1].value.pStatementsListNode),(yystack_[3].value.pParametersNode),(yystack_[2].value.pDeclarationNode)); }
 #line 816 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 24:
-#line 300 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
-    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[5].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[4].value.pParametersNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
+#line 302 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[5].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[4].value.pParametersNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE_StringList((yystack_[1].value.pStringList));}
 #line 822 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 25:
-#line 303 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
-    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[6].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[5].value.pParametersNode),(yystack_[4].value.pDeclarationNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[1].value.pStringList));}
+#line 305 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+    { (yylhs.value.pProgramNode) = IAS_DFT_FACTORY<ExternalProgramNode>::Create((yystack_[6].value.pQualifiedNameNode),*(yystack_[2].value.sval),(yystack_[5].value.pParametersNode),(yystack_[4].value.pDeclarationNode),*(yystack_[1].value.pStringList)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE_StringList((yystack_[1].value.pStringList));}
 #line 828 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 26:
-#line 305 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 307 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 834 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 27:
-#line 306 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 308 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 840 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 28:
-#line 307 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 309 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 846 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 29:
-#line 308 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 310 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval));  (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 852 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 30:
-#line 310 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 312 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pParametersNode) = (yystack_[1].value.pParametersNode); }
 #line 858 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 31:
-#line 311 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 313 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create();  }
 #line 864 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 32:
-#line 313 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 315 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pParametersNode) = (yystack_[2].value.pParametersNode); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
 #line 870 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 33:
-#line 314 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 316 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pParametersNode) = IAS_DFT_FACTORY<Dec::ParametersNode>::Create(); (yylhs.value.pParametersNode)->addDeclaration((yystack_[0].value.pDeclarationNode)); }
 #line 876 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 34:
-#line 316 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 318 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementsListNode) = (yystack_[1].value.pStatementsListNode); }
 #line 882 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 35:
-#line 318 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 320 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { 
 (yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); 
 (yystack_[1].value.pStatementNode)->setSourceLocation(myParser.getLexer()->getCachedLocation());
@@ -892,433 +892,433 @@ namespace yy {
     break;
 
   case 36:
-#line 323 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 325 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementsListNode) = (yystack_[2].value.pStatementsListNode); (yylhs.value.pStatementsListNode)->addDeclaration((yystack_[1].value.pDeclarationNode)); }
 #line 898 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 37:
-#line 324 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 326 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementsListNode) = IAS_DFT_FACTORY<Stmt::StatementsListNode>::Create(); }
 #line 904 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 38:
-#line 326 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 328 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 910 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 39:
-#line 327 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 329 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[4].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 916 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 40:
-#line 329 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 331 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[4].value.sval),*(yystack_[0].value.sval));     (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[4].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 922 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 41:
-#line 331 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 333 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pDeclarationNode) = IAS_DFT_FACTORY<Dec::DeclarationNode>::Create(*(yystack_[6].value.sval),*(yystack_[2].value.sval),*(yystack_[0].value.sval)); (yylhs.value.pDeclarationNode)->setIsArray(true); _SVAL_DELETE((yystack_[6].value.sval));  _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 928 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 42:
-#line 334 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 336 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementsListNode); }
 #line 934 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 43:
-#line 335 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 337 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 940 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 44:
-#line 336 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 338 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 946 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 45:
-#line 337 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 339 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 952 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 46:
-#line 338 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 340 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 958 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 47:
-#line 339 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 341 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 964 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 48:
-#line 340 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 342 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 970 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 49:
-#line 341 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 343 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 976 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 50:
-#line 342 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 344 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 982 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 51:
-#line 343 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 345 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 988 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 52:
-#line 344 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 346 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 994 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 53:
-#line 345 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 347 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 1000 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 54:
-#line 346 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 348 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 1006 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 55:
-#line 347 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 349 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 1012 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 56:
-#line 348 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 350 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 1018 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 57:
-#line 349 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 351 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) =(yystack_[0].value.pStatementNode); }
 #line 1024 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 58:
-#line 351 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 353 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::AssignmentNode>::Create((yystack_[2].value.pLeftSideNode),(yystack_[0].value.pExprNode)); }
 #line 1030 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 59:
-#line 352 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 354 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ConditionalAssignmentNode>::Create((yystack_[2].value.pLeftSideNode),(yystack_[0].value.pXPathAccessNode)); }
 #line 1036 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 60:
-#line 353 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 355 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::MergeNode>::Create((yystack_[2].value.pLeftSideNode),(yystack_[0].value.pExprNode)); }
 #line 1042 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 61:
-#line 355 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 357 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLeftSideNode) = IAS_DFT_FACTORY<Stmt::LeftSideNode>::Create((yystack_[0].value.pXPathAccessNode)); }
 #line 1048 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 62:
-#line 362 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 364 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
 #line 1054 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 63:
-#line 363 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 365 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::AdditionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1060 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 64:
-#line 364 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 366 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SubtractionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1066 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 65:
-#line 366 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 368 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
 #line 1072 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 66:
-#line 367 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 369 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::MultiplyNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1078 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 67:
-#line 368 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 370 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DivisionNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1084 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 68:
-#line 369 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 371 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ModuloNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1090 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 69:
-#line 371 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 373 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
 #line 1096 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 70:
-#line 373 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 375 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = (yystack_[0].value.pExprNode); }
 #line 1102 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 71:
-#line 374 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 376 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::XPath::XPathExprNode>::Create((yystack_[0].value.pXPathAccessNode)); }
 #line 1108 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 72:
-#line 376 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 378 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = (yystack_[1].value.pExprNode); }
 #line 1114 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 73:
-#line 377 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 379 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_INTEGER,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1120 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 74:
-#line 378 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 380 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_FLOAT,*(yystack_[0].value.sval));   _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1126 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 75:
-#line 379 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 381 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_STRING,*(yystack_[0].value.sval));  _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1132 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 76:
-#line 380 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 382 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_BOOLEAN,*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1138 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 77:
-#line 381 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 383 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstNode>::Create(Expr::ConstNode::CN_NULL,*(yystack_[0].value.sval));    _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1144 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 78:
-#line 383 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 385 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[2].value.sval),*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[2].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1150 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 79:
-#line 385 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 387 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::ConstructorNode>::Create(*(yystack_[3].value.sval),*(yystack_[1].value.sval), (yystack_[0].value.pStatementsListNode)); _SVAL_DELETE((yystack_[3].value.sval)); _SVAL_DELETE((yystack_[1].value.sval)); }
 #line 1156 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 80:
-#line 388 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 390 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CastNode>::Create((yystack_[3].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
 #line 1162 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 81:
-#line 390 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 392 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::FunCallNode>::Create((yystack_[1].value.pQualifiedNameNode), (yystack_[0].value.pExprListNode)); }
 #line 1168 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 82:
-#line 391 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 393 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::CopyOfNode>::Create((yystack_[1].value.pXPathAccessNode)); }
 #line 1174 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 83:
-#line 392 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 394 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::DetachNode>::Create((yystack_[1].value.pXPathAccessNode)); }
 #line 1180 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 84:
-#line 393 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 395 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::NegativeNode>::Create((yystack_[0].value.pExprNode)); }
 #line 1186 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 85:
-#line 394 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 396 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::SizeOfNode>::Create((yystack_[1].value.pXPathAccessNode));}
 #line 1192 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 86:
-#line 395 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 397 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNode>::Create((yystack_[1].value.pExprNode));}
 #line 1198 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 87:
-#line 396 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 398 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::GetTypeNSNode>::Create((yystack_[1].value.pExprNode));}
 #line 1204 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 88:
-#line 397 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 399 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprNode) = IAS_DFT_FACTORY<Expr::StrLenNode>::Create((yystack_[1].value.pExprNode));}
 #line 1210 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 89:
-#line 399 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 401 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1216 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 90:
-#line 401 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 403 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalDiffNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1222 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 91:
-#line 402 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 404 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1228 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 92:
-#line 403 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 405 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalEqLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1234 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 93:
-#line 404 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 406 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalGtNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1240 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 94:
-#line 405 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 407 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalLessNode>::Create((yystack_[2].value.pExprNode),(yystack_[0].value.pExprNode)); }
 #line 1246 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 95:
-#line 408 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 410 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsTypeNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
 #line 1252 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 96:
-#line 411 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 413 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::RelationalIsInstanceNode>::Create((yystack_[4].value.pExprNode),(yystack_[1].value.pTypeInfo)); }
 #line 1258 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 97:
-#line 413 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 415 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
 #line 1264 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 98:
-#line 414 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 416 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = (yystack_[1].value.pLogicalExprNode); }
 #line 1270 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 99:
-#line 415 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 417 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalNotNode>::Create((yystack_[0].value.pLogicalExprNode)); }
 #line 1276 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 100:
-#line 416 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 418 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsSetNode>::Create((yystack_[1].value.pXPathAccessNode)); }
 #line 1282 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 101:
-#line 417 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 419 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::IsNullNode>::Create((yystack_[1].value.pXPathAccessNode)); }
 #line 1288 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 102:
-#line 419 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 421 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
 #line 1294 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 103:
-#line 420 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 422 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalAndNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
 #line 1300 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 104:
-#line 422 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 424 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
 #line 1306 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 105:
-#line 423 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 425 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = IAS_DFT_FACTORY<Expr::LogicalOrNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pLogicalExprNode)); }
 #line 1312 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 106:
-#line 425 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 427 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pLogicalExprNode) = (yystack_[0].value.pLogicalExprNode); }
 #line 1318 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 107:
-#line 428 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 430 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
 								IAS_DFT_FACTORY<Expr::XPath::XPathVariableAccessNode>::Create(
 										(*((yystack_[0].value.pXPathNode)->getElements().begin()))->getName()),(yystack_[0].value.pXPathNode));}
@@ -1326,212 +1326,212 @@ namespace yy {
     break;
 
   case 108:
-#line 432 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 434 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathAccessNode) = IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::Create(
 						IAS_DFT_FACTORY<Expr::XPath::XPathExprAccessNode>::Create((yystack_[2].value.pExprNode)),(yystack_[0].value.pXPathNode)); }
 #line 1333 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 109:
-#line 435 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 437 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathNode) = (yystack_[2].value.pXPathNode); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1339 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 110:
-#line 437 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 439 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathNode) = (yystack_[5].value.pXPathNode); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
 #line 1345 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 111:
-#line 439 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 441 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addSingleElement(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1351 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 112:
-#line 441 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 443 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pXPathNode) = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); (yylhs.value.pXPathNode)->addMultiElement(*(yystack_[3].value.sval),(yystack_[1].value.pExprNode)); _SVAL_DELETE((yystack_[3].value.sval)); }
 #line 1357 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 113:
-#line 444 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 446 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create("",(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); }
 #line 1363 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 114:
-#line 445 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 447 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WithNode>::Create(*(yystack_[4].value.sval),(yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pStatementNode)); _SVAL_DELETE((yystack_[4].value.sval)); }
 #line 1369 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 115:
-#line 447 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 449 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::WhileLoopNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
 #line 1375 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 116:
-#line 450 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 452 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[6].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
 #line 1381 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 117:
-#line 453 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 455 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ForLoopNode>::Create((yystack_[8].value.pXPathAccessNode),(yystack_[0].value.pStatementNode),(yystack_[6].value.pExprNode),(yystack_[4].value.pExprNode),(yystack_[2].value.pExprNode)); }
 #line 1387 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 118:
-#line 455 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 457 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[2].value.pLogicalExprNode),(yystack_[0].value.pStatementNode)); }
 #line 1393 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 119:
-#line 458 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 460 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::IfThenElseNode>::Create((yystack_[4].value.pLogicalExprNode),(yystack_[2].value.pStatementNode),(yystack_[0].value.pStatementNode)); }
 #line 1399 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 120:
-#line 460 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 462 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
 #line 1405 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 121:
-#line 462 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 464 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CallNode>::Create((yystack_[1].value.pQualifiedNameNode),(yystack_[0].value.pExprListNode)); }
 #line 1411 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 122:
-#line 463 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 465 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CreateNode>::Create((yystack_[0].value.pXPathAccessNode)); }
 #line 1417 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 123:
-#line 464 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 466 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::CreateNode>::Create((yystack_[1].value.pXPathAccessNode),(yystack_[0].value.pStatementsListNode)); }
 #line 1423 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 124:
-#line 465 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 467 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::DeleteNode>::Create((yystack_[0].value.pXPathAccessNode)); }
 #line 1429 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 125:
-#line 467 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 469 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create(); }
 #line 1435 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 126:
-#line 468 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 470 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create((yystack_[0].value.pExprNode)); }
 #line 1441 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 127:
-#line 471 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 473 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create((yystack_[0].value.pExprNode)); }
 #line 1447 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 128:
-#line 473 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 475 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::SortNode>::Create((yystack_[2].value.pXPathAccessNode),(yystack_[0].value.pQualifiedNameNode)); }
 #line 1453 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 129:
-#line 475 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 477 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStatementNode) = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create((yystack_[1].value.pStatementsListNode),(yystack_[0].value.pCatchListNode));  }
 #line 1459 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 130:
-#line 476 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 478 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pCatchListNode) = (yystack_[1].value.pCatchListNode); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode));           }
 #line 1465 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 131:
-#line 477 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 479 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pCatchListNode) = IAS_DFT_FACTORY<Stmt::CatchListNode>::Create(); (yylhs.value.pCatchListNode)->addCatchNode((yystack_[0].value.pCatchNode)); }
 #line 1471 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 132:
-#line 480 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 482 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pCatchNode) = IAS_DFT_FACTORY<Stmt::CatchNode>::Create((yystack_[2].value.pDeclarationNode),(yystack_[0].value.pStatementsListNode)); }
 #line 1477 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 133:
-#line 482 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 484 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create(); }
 #line 1483 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 134:
-#line 483 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 485 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprListNode)=(yystack_[1].value.pExprListNode); }
 #line 1489 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 135:
-#line 485 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 487 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprListNode)=(yystack_[2].value.pExprListNode); (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
 #line 1495 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 136:
-#line 486 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 488 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pExprListNode) = IAS_DFT_FACTORY<Expr::ExprListNode>::Create();  (yylhs.value.pExprListNode)->addExprNode((yystack_[0].value.pExprNode)); }
 #line 1501 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 137:
-#line 488 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
-    { (yylhs.value.pStringList) = new StringList; }
+#line 490 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+    { (yylhs.value.pStringList) = new StringList;}
 #line 1507 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 138:
-#line 489 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 491 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pStringList)=(yystack_[1].value.pStringList); }
 #line 1513 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 139:
-#line 491 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
-    { (yylhs.value.pStringList)=(yystack_[2].value.pStringList); (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 493 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+    { (yylhs.value.pStringList)=(yystack_[2].value.pStringList); (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval));}
 #line 1519 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 140:
-#line 492 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
-    { (yylhs.value.pStringList) = new StringList;  (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); }
+#line 494 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+    { (yylhs.value.pStringList) = new StringList; (yylhs.value.pStringList)->push_back(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1525 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 141:
-#line 495 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 497 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pQualifiedNameNode)= IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Create(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1531 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
 
   case 142:
-#line 496 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
+#line 498 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:859
     { (yylhs.value.pQualifiedNameNode)=(yystack_[2].value.pQualifiedNameNode); (yylhs.value.pQualifiedNameNode)->addNextSymbol(*(yystack_[0].value.sval)); _SVAL_DELETE((yystack_[0].value.sval)); }
 #line 1537 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:859
     break;
@@ -2130,21 +2130,21 @@ namespace yy {
   const unsigned short int
    AutoGenParser ::yyrline_[] =
   {
-       0,   233,   233,   233,   235,   236,   237,   242,   247,   252,
-     258,   263,   270,   273,   276,   277,   279,   280,   282,   283,
-     285,   288,   293,   296,   299,   302,   305,   306,   307,   308,
-     310,   311,   313,   314,   316,   318,   323,   324,   326,   327,
-     328,   330,   334,   335,   336,   337,   338,   339,   340,   341,
-     342,   343,   344,   345,   346,   347,   348,   349,   351,   352,
-     353,   355,   362,   363,   364,   366,   367,   368,   369,   371,
-     373,   374,   376,   377,   378,   379,   380,   381,   383,   384,
-     387,   390,   391,   392,   393,   394,   395,   396,   397,   399,
-     401,   402,   403,   404,   405,   407,   410,   413,   414,   415,
-     416,   417,   419,   420,   422,   423,   425,   428,   431,   435,
-     436,   439,   440,   444,   445,   447,   449,   452,   455,   457,
-     460,   462,   463,   464,   465,   467,   468,   471,   473,   475,
-     476,   477,   479,   482,   483,   485,   486,   488,   489,   491,
-     492,   495,   496
+       0,   235,   235,   235,   237,   238,   239,   244,   249,   254,
+     260,   265,   272,   275,   278,   279,   281,   282,   284,   285,
+     287,   290,   295,   298,   301,   304,   307,   308,   309,   310,
+     312,   313,   315,   316,   318,   320,   325,   326,   328,   329,
+     330,   332,   336,   337,   338,   339,   340,   341,   342,   343,
+     344,   345,   346,   347,   348,   349,   350,   351,   353,   354,
+     355,   357,   364,   365,   366,   368,   369,   370,   371,   373,
+     375,   376,   378,   379,   380,   381,   382,   383,   385,   386,
+     389,   392,   393,   394,   395,   396,   397,   398,   399,   401,
+     403,   404,   405,   406,   407,   409,   412,   415,   416,   417,
+     418,   419,   421,   422,   424,   425,   427,   430,   433,   437,
+     438,   441,   442,   446,   447,   449,   451,   454,   457,   459,
+     462,   464,   465,   466,   467,   469,   470,   473,   475,   477,
+     478,   479,   481,   484,   485,   487,   488,   490,   491,   493,
+     494,   497,   498
   };
 
   // Print the state stack on the debug stream.
@@ -2234,7 +2234,7 @@ namespace yy {
 
 } // yy
 #line 2237 "src/lang/script/parser/AutoGenParser.cpp" // lalr1.cc:1167
-#line 498 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:1168
+#line 500 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:1168
 
 
 

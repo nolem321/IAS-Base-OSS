@@ -111,10 +111,10 @@ void Lexer::init(){
 	hmKeywords["DEFINE"]=Token::T_DEFINE;
 	hmKeywords["EXTENSION"]=Token::T_EXTENSION;
 
-	hmKeywords["TRUE"]=Token::T_BOOLEAN;
-	hmKeywords["FALSE"]=Token::T_BOOLEAN;
+	hmConstants["TRUE"]=Token::T_BOOLEAN;
+	hmConstants["FALSE"]=Token::T_BOOLEAN;
 
-	hmKeywords["NULL"]=Token::T_NULL;
+	hmConstants["NULL"]=Token::T_NULL;
 
 }
 
@@ -328,15 +328,22 @@ void Lexer::handleState_Symbol(unsigned char c){
 		getActiveWrapper()->ungetChar();
 		iCurrentState=S_End;
 
-		KeywordsMap::const_iterator it=hmKeywords.find(aTokenInfo.getInfo());
+		KeywordsMap::const_iterator it = hmKeywords.find(aTokenInfo.getInfo());
 
-		if(it == hmKeywords.end()){
-			aTokenInfo.setToken(Token::T_SYMBOL,true);
+		if(it != hmKeywords.end()){
+			aTokenInfo.setToken(it->second,false);
 		}else{
-			aTokenInfo.setToken(it->second,true);
+
+			it = hmConstants.find(aTokenInfo.getInfo());
+
+			if(it != hmConstants.end()){
+				aTokenInfo.setToken(it->second,true);
+			}else{
+				aTokenInfo.setToken(Token::T_SYMBOL,true);
+			};
+
 		}
 	}
-
 }
 /*************************************************************************/
 void Lexer::handleState_Integer(unsigned char c){

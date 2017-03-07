@@ -88,7 +88,6 @@ Exe::Expr::XPath::XPathExprFamily* SortNodeHandler::createVarExpr(CallbackCtx *p
 
 	CallbackSignature::Result aResultTmp;
 	CallbackRegister::SubCall(pXPathAccessNode, pCtx, aResultTmp);
-	IAS_LOG(true,aResultTmp.pXPathExprFamily);
 
 	return aResultTmp.pXPathExprFamily;
 }

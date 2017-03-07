@@ -6,7 +6,9 @@
 #include <string>
 #include <commonlib/commonlib.h>
 #include <lang/model/allmodel.h>
-#define _SVAL_DELETE(p) (delete p)
+
+#define _SVAL_DELETE(p) { delete (String*)p; }
+#define _SVAL_DELETE_StringList(p) { delete (StringList*)p; }
 
 /* IAS_DFT_FACTORY<String>::Free(p) */
 namespace IAS{
@@ -297,10 +299,10 @@ program : T_PROGRAM qname parametersListPar programResult statementsListBeginEnd
 			{ $$ = IAS_DFT_FACTORY<StandardProgramNode>::Create($2,$5,$3,$4); };
 
 program : T_PROGRAM qname parametersListPar T_EXTERNAL T_STRING externalParametersPar T_SEMICOLON 
-			{ $$ = IAS_DFT_FACTORY<ExternalProgramNode>::Create($2,*$5,$3,*$6); _SVAL_DELETE($5); _SVAL_DELETE($6);};
+			{ $$ = IAS_DFT_FACTORY<ExternalProgramNode>::Create($2,*$5,$3,*$6); _SVAL_DELETE($5); _SVAL_DELETE_StringList($6);};
 
 program : T_PROGRAM qname parametersListPar programResult T_EXTERNAL T_STRING externalParametersPar T_SEMICOLON 
-			{ $$ = IAS_DFT_FACTORY<ExternalProgramNode>::Create($2,*$6,$3,$4,*$7); _SVAL_DELETE($6); _SVAL_DELETE($7);};
+			{ $$ = IAS_DFT_FACTORY<ExternalProgramNode>::Create($2,*$6,$3,$4,*$7); _SVAL_DELETE($6); _SVAL_DELETE_StringList($7);};
 
 programResult : T_RETURNS T_SYMBOL { $$ = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*$2); _SVAL_DELETE($2); }
 programResult : T_RETURNS T_SYMBOL T_COLON T_STRING { $$ = IAS_DFT_FACTORY<Dec::ResultDeclarationNode>::Create(*$2,*$4); _SVAL_DELETE($2); _SVAL_DELETE($4);}
@@ -485,11 +487,11 @@ exprListPar : T_OPEN_PAR T_CLOSE_PAR { $$ = IAS_DFT_FACTORY<Expr::ExprListNode>:
 exprList : exprList T_COMMA expr  { $$=$1; $$->addExprNode($3); };
 		| expr    { $$ = IAS_DFT_FACTORY<Expr::ExprListNode>::Create();  $$->addExprNode($1); };
 
-externalParametersPar : T_OPEN_PAR T_CLOSE_PAR { $$ = new StringList; }
+externalParametersPar : T_OPEN_PAR T_CLOSE_PAR { $$ = new StringList;}
 		| T_OPEN_PAR externalParameters T_CLOSE_PAR{ $$=$2; }  
 
-externalParameters : externalParameters T_COMMA T_STRING  { $$=$1; $$->push_back(*$3); };
-		| T_STRING    { $$ = new StringList;  $$->push_back(*$1); };
+externalParameters : externalParameters T_COMMA T_STRING  { $$=$1; $$->push_back(*$3); _SVAL_DELETE($3);};
+		| T_STRING    { $$ = new StringList; $$->push_back(*$1); _SVAL_DELETE($1); };
 
 		
 qname : T_SYMBOL { $$= IAS_DFT_FACTORY<Dec::QualifiedNameNode>::Create(*$1); _SVAL_DELETE($1); }

@@ -45,7 +45,9 @@
 #include <string>
 #include <commonlib/commonlib.h>
 #include <lang/model/allmodel.h>
-#define _SVAL_DELETE(p) (delete p)
+
+#define _SVAL_DELETE(p) { delete (String*)p; }
+#define _SVAL_DELETE_StringList(p) { delete (StringList*)p; }
 
 /* IAS_DFT_FACTORY<String>::Free(p) */
 namespace IAS{
@@ -56,7 +58,7 @@ class Parser;
 }}}}
 
 
-#line 60 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 62 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
 
 
 # include <cstdlib> // std::abort
@@ -128,7 +130,7 @@ class Parser;
 
 
 namespace yy {
-#line 132 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 134 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
 
 
 
@@ -142,7 +144,7 @@ namespace yy {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 32 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:377
+    #line 34 "src/lang/script/parser/AutoGenParser.yy" // lalr1.cc:377
 
   ::IAS::String                                  *sval;
   ::IAS::StringList                              *pStringList;
@@ -173,7 +175,7 @@ namespace yy {
   ::IAS::Lang::Model::Dec::TypeDefinitionNode    *pTypeDefinitionNode;
   
 
-#line 177 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 179 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -591,7 +593,7 @@ namespace yy {
 
 
 } // yy
-#line 595 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 597 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
 
 
 
