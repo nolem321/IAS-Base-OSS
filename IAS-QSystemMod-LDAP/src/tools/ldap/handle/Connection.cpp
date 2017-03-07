@@ -42,7 +42,7 @@ Connection::Connection(const String& strHost, const int iPort):
 	uri.setHost(strHost);
 	uri.setPort(iPort);
 
-	String strURI((String)uri);
+	String strURI(uri.getURIString());
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(), "Connecting to: " << strURI);
 
