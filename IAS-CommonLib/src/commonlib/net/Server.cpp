@@ -66,7 +66,7 @@ void Server::bind(){
 		int optval = 1;
 		setsockopt(iSocket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
 
-		IAS_LOG(LogLevel::INSTANCE.isInfo()||true,"Server: "<<iSocket<<", addr="
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Server: "<<iSocket<<", addr="
 					<<inet_ntoa(((struct sockaddr_in*)((*it)->ai_addr))->sin_addr)
 					<<", port="<<(ntohs(((struct sockaddr_in*)((*it)->ai_addr))->sin_port))
 					<<", family="<<((struct sockaddr_in*)((*it)->ai_addr))->sin_family);
@@ -103,7 +103,7 @@ FileHandle* Server::accept()const{
 	if(iFileDescriptor < 0)
 		IAS_THROW(SystemException("accept:"));
 
-	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo()||true,"accepted:"<<peerLocal<<", fd="<<iFileDescriptor);
+	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"accepted:"<<peerLocal<<", fd="<<iFileDescriptor);
 
 	char sTmp[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &(sinRemote.sin_addr), sTmp, INET_ADDRSTRLEN);

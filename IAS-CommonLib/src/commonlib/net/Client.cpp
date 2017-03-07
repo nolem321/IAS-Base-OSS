@@ -63,12 +63,12 @@ FileHandle* Client::connect()const{
 		if((iSocket = socket((*itLocal)->ai_family, (*itLocal)->ai_socktype, (*itLocal)->ai_protocol)) < 0)
 			IAS_THROW(SystemException("socket(): ")<<peerLocal);
 
-		IAS_LOG(LogLevel::INSTANCE.isInfo()||true,"Local: "<<peerLocal);
+		IAS_LOG(LogLevel::INSTANCE.isInfo(),"Local: "<<peerLocal);
 
 
 		if(::bind(iSocket, (*itLocal)->ai_addr, (*itLocal)->ai_addrlen) == 0){
 
-			IAS_LOG(LogLevel::INSTANCE.isInfo()||true,"Remote: "<<peerRemote);
+			IAS_LOG(LogLevel::INSTANCE.isInfo(),"Remote: "<<peerRemote);
 
 			if(::connect(iSocket, (*itRemote)->ai_addr, (*itRemote)->ai_addrlen) == 0){
 
