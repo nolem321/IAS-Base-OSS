@@ -132,7 +132,7 @@ Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
 
 	if(dmConnection->getSsl()->isSetVerifyPeerIP() && dmConnection->getSsl()->getVerifyPeerIP()){
 		String strPeerCN(ptrWrapper->getSecureLayer()->getPeerCertifcate()->getSubjectCN());
-		IAS_LOG(LogLevel::INSTANCE.isData()||true,strPeerCN<<" ? "<<getRemote());
+		IAS_LOG(LogLevel::INSTANCE.isData(),strPeerCN<<" ? "<<getRemote());
 
 		if(strPeerCN.compare(getRemote().getAddress()) != 0)
 			IAS_THROW(BadUsageException("Certificate does not match the remote hostname, CN=")<<strPeerCN<<", connection: "<<getRemote())

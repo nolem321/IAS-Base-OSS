@@ -277,6 +277,9 @@ void EventCounter::readAll(DM::DataObjectList& dmRecordsList,
 		IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"found: "<<pKeys + pSample->iKeyOffset<<" count: "<<record.iCount);
 
 		dmRecordsList.add(dmRecord);
+
+		if(bReset)
+			pSample->tsUpdate = 0;
 	}
 
 

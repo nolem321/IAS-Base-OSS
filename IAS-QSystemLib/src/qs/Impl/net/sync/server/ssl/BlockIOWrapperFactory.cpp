@@ -91,7 +91,7 @@ Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
 
 	if(bVerifyPeer){
 		String strPeerCN(ptrWrapper->getSecureLayer()->getPeerCertifcate()->getSubjectCN());
-		IAS_LOG(LogLevel::INSTANCE.isData()||true,strPeerCN);
+		IAS_LOG(LogLevel::INSTANCE.isData(),strPeerCN);
 	}
 
 	//TODO if(dmBlockIOWrapperFactory->getSsl()->isSetVerifyPeerIP() && dmBlockIOWrapperFactory->getSsl()->getVerifyPeerIP())

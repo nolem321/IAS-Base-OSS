@@ -40,44 +40,44 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	IAS_TRACER;
 
+	bool bIsFunction = false;
+
 	ptrCall=pSession->createCall();
 
-	pLexer->assetNext(Lexer::T_SYMBOL);
+	Lexer::Token iToken = pLexer->nextToken();
+
+	if(iToken == Lexer::T_INTO){
+
+		bIsFunction = true;
+
+		pLexer->assetNext(Lexer::T_SYMBOL);
+
+		String strXPath(pLexer->getXPathValue());
+		String strTag(tabInputSetters.addXPath(strXPath, SettersTable::M_OUTPUT));
+
+		strSQLText = "BEGIN " + strTag + " := ";
+
+		pLexer->nextToken();
+
+	}else{
+		strSQLText = "CALL ";
+	};
+
+	pLexer->assetToken(Lexer::T_SYMBOL);
 
 	bool bQuote=pLexer->isQuoted();
 
-	bool bIsFunction = false;
-
-//	try{
-//		dm->getType()->asComplexType()
-//					->getProperties().getProperty(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable)
-//					;
-//		bIsFunction = true;
-//	}catch(ItemNotFoundException& e){};
-
-	IAS_LOG(true,dm->getType()->getFullName());
-	IAS_LOG(true,dm->getType()->asComplexType()->getProperties().getSize());
-
-	if(!bIsFunction){
-		strSQLText+="CALL ";
-	}else{
-		String strTag(tabInputSetters.addXPath("result",SettersTable::M_OUTPUT));
-		strSQLText+="BEGIN " + strTag + " := ";
-	}
-
-	if(bQuote)
-		strSQLText+='"';
+	//if(bQuote)
+	//	strSQLText+='"';
 
 	strSQLText+=pLexer->getValue();
 
-	if(bQuote)
-		strSQLText+='"';
+	//if(bQuote)
+	//	strSQLText+='"';
+
+	int iCount=0;
 
 	pLexer->assetNext(Lexer::T_OPENPAR);
-	strSQLText+=" (";
-
-	Lexer::Token iToken;
-	int iCount=0;
 
 	while((iToken=pLexer->nextToken()) != Lexer::T_END){
 
@@ -87,6 +87,8 @@ Call::Call(::IAS::DS::API::Session* pSession,
 		if(iCount){
 			pLexer->assetToken(Lexer::T_COMMA);
 			pLexer->nextToken();
+		}else{
+			strSQLText+="(";
 		}
 
 		pLexer->assetToken(Lexer::T_SYMBOL);
@@ -97,18 +99,22 @@ Call::Call(::IAS::DS::API::Session* pSession,
 		iToken=pLexer->nextToken();
 		SettersTable::Mode iMode;
 
-		switch(iToken){
+		switch(iToken){strSQLText+='"';
+
 			case Lexer::T_ARROW:
 				iMode=SettersTable::M_INPUT;
 			break;
+
 			case Lexer::T_LE_EQ:
 				iMode=SettersTable::M_OUTPUT;
 			break;
+
 			case Lexer::T_DIFF:
 				iMode=SettersTable::M_INPUT_OUTPUT;
-			break;
+				break;
 			default:
-				IAS_THROW(ParseException(String("Expected => / <= / <> , got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
+
+			IAS_THROW(ParseException(String("Expected => / <= / <> , got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
 		}
 
 		String strTag(tabInputSetters.addXPath(strXPath,iMode));
@@ -126,17 +132,16 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	}
 
+	if(iCount)
+		strSQLText += ")";
 
 	iToken=pLexer->nextToken();
 
+	if(bIsFunction)
+		strSQLText += "; END;";
+
 	if(iToken != Lexer::T_END)
 		IAS_THROW(ParseException(String("Expected end of input, got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
-
-	if(!bIsFunction){
-		strSQLText+=") ";
-	}else{
-		strSQLText+="); END; ";
-	}
 
 	ptrCall->setSQLText(strSQLText);
 	ptrCall->prepare();

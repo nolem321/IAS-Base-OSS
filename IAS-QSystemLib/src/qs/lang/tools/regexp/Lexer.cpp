@@ -122,7 +122,7 @@ Lexer::Token Lexer::nextToken(){
 		   }
 	}
 
-	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isDetailedInfo()||true,"Token: "<<iToken);
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isDetailedInfo(),"Token: "<<iToken);
 	return iToken;
 }
 /*************************************************************************/

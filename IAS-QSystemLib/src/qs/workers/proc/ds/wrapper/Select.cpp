@@ -115,9 +115,9 @@ void Select::parseResultAndFromAndWhere(Lexer* pLexer,
 
 	pLexer->assetNext(Lexer::T_SYMBOL);
 
-	strSQLText+=" FROM \"";
+	strSQLText+=" FROM ";
 	strSQLText+=pLexer->getValue();
-	strSQLText+="\"";
+	strSQLText+="";
 
 	//TODO add order by
 
