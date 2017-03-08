@@ -12,7 +12,7 @@ include ../IAS-BuilderTools/Makefile
 -include $(CPPDEPS)
 #########################################################################
 -include Makefile.$(IAS_PLATFORM)
-LD_LIBRARY_PATH:=../IAS-CommonLib/out/lib
+LD_LIBRARY_PATH:=../IAS-CommonLib/out/lib:$(LD_LIBRARY_PATH)
 LD_LIBRARY_PATH:=../IAS-DataModelLib/out/lib:$(LD_LIBRARY_PATH):/usr/local/lib
 
 all : makedirs $(CPPEXES) 
