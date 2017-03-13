@@ -81,7 +81,7 @@ const String& XMLSerializer::getURIPrefix(const String& strURI){
 void XMLSerializer::listURIs(){
 	IAS_TRACER;
 
-	if(hmURI.size())
+	//if(hmURI.size())
 		pWriter->writeAttributeNS(String("xmlns"),"xsi","http://www.w3.org/2001/XMLSchema-instance",String(""));
 
 	for(URIMap::iterator it = hmURI.begin();
