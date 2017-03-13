@@ -23,19 +23,11 @@ PROGRAM com::examples::basic::create(VAR p1     AS Integer,
 BEGIN
  
   
- CREATE output.address;  
- VAR    street_ AS String;
- 
- street_ = "Nowalijek";
- 
- CREATE output.address BEGIN
-   block = 100;
-   street = "Nowacka";
+ WHILE SIZEOF(input.address) > 0 DO BEGIN
+   VAR a AS Address : "http://www.examples.org/akc";
+   a = input.address[0];
+   DELETE input.address[0];
+   output.address = a;
  END;
 
- CREATE output.address BEGIN
-   block = input.address[0].block;
-   street = street_;
- END;
- 
 END;
