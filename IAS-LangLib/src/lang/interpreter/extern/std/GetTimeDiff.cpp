@@ -49,12 +49,12 @@ void GetTimeDiff::executeExternal(Exe::Context *pCtx) const{
 
 	Timestamp ts(tsOne-tsTwo);
 
-	unsigned short iHour;
-	unsigned short iMin;
-	unsigned short iSec;
-	unsigned int iUsec;
+	short iHour;
+	short iMin;
+	short iSec;
+	int iUsec;
 
-	ts.getTime(iHour,iMin,iSec,iUsec);
+	ts.getTime(iHour, iMin, iSec, iUsec);
 
 	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,((long)ts)*1000+iUsec/1000);
 

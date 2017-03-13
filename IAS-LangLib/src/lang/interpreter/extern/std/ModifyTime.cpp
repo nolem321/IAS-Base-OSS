@@ -50,10 +50,10 @@ void ModifyTime::executeExternal(Exe::Context *pCtx) const{
 
 	DateTime tsValue = pParameters->getDateTime("tTime");
 
-	unsigned short iHour;
-	unsigned short iMinute;
-	unsigned short iSecond;
-	unsigned int   iUSec=0;
+	short iHour;
+	short iMinute;
+	short iSecond;
+	int   iUSec=0;
 
 	tsValue.getTime(iHour,iMinute,iSecond,iUSec);
 

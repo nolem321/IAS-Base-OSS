@@ -50,9 +50,9 @@ void ModifyDate::executeExternal(Exe::Context *pCtx) const{
 
 	DateTime tsValue = pParameters->getDateTime("tTime");
 
-	unsigned short iYear;
-	unsigned short iMonth;
-	unsigned short iDay;
+	short iYear;
+	short iMonth;
+	short iDay;
 
 	tsValue.getDate(iYear,iMonth,iDay);
 

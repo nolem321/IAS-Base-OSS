@@ -46,9 +46,9 @@ void GetMonth::executeExternal(Exe::Context *pCtx) const{
 
 	Date aDate(pParameters->getDate("date"));
 
-	unsigned short iYear;
-	unsigned short iMonth;
-	unsigned short iDay;
+	short iYear;
+	short iMonth;
+	short iDay;
 	aDate.getDate(iYear,iMonth,iDay);
 
 	pParameters->setInteger(Model::Dec::ResultDeclarationNode::CStrResultVariable,iMonth);
