@@ -55,18 +55,18 @@ public:
 	void fromPosixTime(time_t aValue);
 	void fromPosixTime(struct tm& aValue);
 
-	void setDate(unsigned short iYear, unsigned short iMonth, unsigned short iDay);
-	void setTime(unsigned short iHour, unsigned short iMin,   unsigned short iSec, unsigned short iUSec = 0);
+	void setDate(short iYear, short iMonth, short iDay);
+	void setTime(short iHour, short iMin,   short iSec, short iUSec = 0);
 
-	void setDateTime(unsigned short iYear, unsigned short iMonth, unsigned short iDay,
-					 unsigned short iHour, unsigned short iMin,   unsigned short iSec, unsigned short iUSec = 0);
+	void setDateTime(short iYear, short iMonth, short iDay,
+					 short iHour, short iMin,   short iSec, short iUSec = 0);
 
-	void getDate(unsigned short &iYear, unsigned short &iMonth, unsigned short &iDay)const;
+	void getDate(short &iYear, short &iMonth, short &iDay)const;
 
-	void getTime(unsigned short &iHour, unsigned short &iMin, unsigned short &iSec,unsigned int& iUsec)const;
+	void getTime(short &iHour, short &iMin, short &iSec, int& iUsec)const;
 
-	void getDateTime(unsigned short &iYear, unsigned short &iMonth, unsigned short &iDay,
-			     	 unsigned short &iHour, unsigned short &iMin, unsigned short &iSec,unsigned int& iUsec)const;
+	void getDateTime(short &iYear, short &iMonth, short &iDay,
+			     	 short &iHour, short &iMin, short &iSec, int& iUsec)const;
 
 	Timestamp& operator=(const Timestamp& other){ assign(other); return *this;}
 

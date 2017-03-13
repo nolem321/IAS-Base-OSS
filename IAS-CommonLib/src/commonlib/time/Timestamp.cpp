@@ -105,8 +105,8 @@ void Timestamp::assign(const Timestamp& other) {
 	theValue = other.theValue;
 }
 /*************************************************************************/
-void Timestamp::setDate(unsigned short iYear, unsigned short iMonth,
-		unsigned short iDay) {
+void Timestamp::setDate( short iYear,  short iMonth,
+		 short iDay) {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -121,8 +121,8 @@ void Timestamp::setDate(unsigned short iYear, unsigned short iMonth,
 	theValue.tv_sec=mktime(&tmpTime);
 }
 /*************************************************************************/
-void Timestamp::setTime(unsigned short iHour, unsigned short iMin,
-		unsigned short iSec, unsigned short iUSec) {
+void Timestamp::setTime( short iHour,  short iMin,
+		 short iSec,  short iUSec) {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -139,8 +139,8 @@ void Timestamp::setTime(unsigned short iHour, unsigned short iMin,
 	theValue.tv_usec=iUSec;
 }
 /*************************************************************************/
-void Timestamp::setDateTime(unsigned short iYear, unsigned short iMonth, unsigned short iDay,
-							unsigned short iHour, unsigned short iMin,unsigned short iSec, unsigned short iUSec) {
+void Timestamp::setDateTime( short iYear,  short iMonth,  short iDay,
+							 short iHour,  short iMin, short iSec,  short iUSec) {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -161,8 +161,8 @@ void Timestamp::setDateTime(unsigned short iYear, unsigned short iMonth, unsigne
 	theValue.tv_usec=iUSec;
 }
 /*************************************************************************/
-void Timestamp::getDate(unsigned short &iYear, unsigned short &iMonth,
-		unsigned short &iDay) const {
+void Timestamp::getDate( short &iYear,  short &iMonth,
+		 short &iDay) const {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -175,7 +175,7 @@ void Timestamp::getDate(unsigned short &iYear, unsigned short &iMonth,
 
 }
 /*************************************************************************/
-void Timestamp::getTime(unsigned short &iHour, unsigned short &iMin,unsigned short &iSec, unsigned int& iUSec) const {
+void Timestamp::getTime( short &iHour,  short &iMin, short &iSec,  int& iUSec) const {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -188,8 +188,8 @@ void Timestamp::getTime(unsigned short &iHour, unsigned short &iMin,unsigned sho
 	iUSec=theValue.tv_usec;
 }
 /*************************************************************************/
-void Timestamp::getDateTime(unsigned short &iYear, unsigned short &iMonth,	unsigned short &iDay,
-							unsigned short &iHour, unsigned short &iMin, unsigned short &iSec, unsigned int& iUSec) const {
+void Timestamp::getDateTime( short &iYear,  short &iMonth,	 short &iDay,
+							 short &iHour,  short &iMin,  short &iSec,  int& iUSec) const {
 	IAS_TRACER;
 
 	struct tm tmpTime;
