@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/lang/db/WrappedStatement.cpp
+ * File: IAS-QSystemLib/src/qs/lang/db/Commit.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "WrappedStatement.h"
+#include "Commit.h"
 #include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
@@ -51,50 +51,38 @@ namespace Lang {
 namespace DB {
 
 /*************************************************************************/
-WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Commit::Commit(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
-	if(lstParamaters.size() != 2)
-		IAS_THROW(BadUsageException("TODO exception, wrong parameters in DataSource Statement."));
+	if(lstParamaters.size() != 1)
+		IAS_THROW(BadUsageException("TODO exception, wrong parameters in DataSource Commit Statement."));
 
 	StringList::const_iterator it=lstParamaters.begin();
 	strDataSource=*it++;
-	strSpecification=*it++;
 }
 /*************************************************************************/
-WrappedStatement::~WrappedStatement() throw(){
+Commit::~Commit() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
+void Commit::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObjectPtr dmInput(pCtx->getBlockVariables(0));
-
 	DM::DataObjectPtr dmResult;
 
 	try{
 
 		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
-		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer()),pDriver);
-		ptrWrapper->execute(dmInput);
 
-	}catch(DS::API::ConstraintViolationException& e){
-
-		org::invenireaude::qsystem::workers::ds::Ext::ExceptionPtr dmException(
-					org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance()->createConstraintViolationException());
-
-		dmException->setName("ConstraintViolationException");
-		dmException->setInfo(e.toString());
-
-		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
+		pDriver->getSession()->commit();
 
 	}catch(Exception& e){
 
 		org::invenireaude::qsystem::workers::ds::Ext::ExceptionPtr dmException(
 				org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance()->createException());
 
-		dmException->setName("WrappedStatementException");
+		dmException->setName("DatabaseException");
 		dmException->setInfo(e.toString());
 
 		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
@@ -102,9 +90,9 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* Commit::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<WrappedStatement>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<Commit>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

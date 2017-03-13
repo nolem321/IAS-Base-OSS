@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/lang/db/ModuleProxy.cpp
+ * File: IAS-QSystemLib/src/qs/api/exception/BackoutHandledException.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,52 +15,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "ModuleProxy.h"
-#include<qs/log/LogLevel.h>
+#include "BackoutHandledException.h"
 
 #include <commonlib/commonlib.h>
 
-#include "WrappedStatement.h"
-#include "Commit.h"
-#include "Rollback.h"
+#include<qs/log/LogLevel.h>
 
-namespace IAS {
-namespace QS {
-namespace Lang {
-namespace DB {
+namespace IAS{
+namespace QS{
+namespace API{
+/*************************************************************************/
+BackoutHandledException::BackoutHandledException(){
+	IAS_TRACER;		
+}
+/*************************************************************************/
+BackoutHandledException::BackoutHandledException(const String& strItemName){
+	IAS_TRACER;
+	this->setInfo(strItemName);
+}
+/*************************************************************************/
+BackoutHandledException::~BackoutHandledException() throw(){
+	IAS_TRACER;
+
+}
+/*************************************************************************/
+const char* BackoutHandledException::getName(){
+	IAS_TRACER;
+	return "BackoutHandledException";
+}
 
 /*************************************************************************/
-ModuleProxy::ModuleProxy(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-ModuleProxy::~ModuleProxy() throw(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-void ModuleProxy::setupImpl(){
-	IAS_TRACER;
-	registerSymbol("WrappedStatement",  &(WrappedStatement::Create));
-	registerSymbol("Commit",            &(Commit::Create));
-	registerSymbol("Rollback",          &(Rollback::Create));
-}
-/*************************************************************************/
-void ModuleProxy::cleanUpImpl(){
-	IAS_TRACER;
-}
-/*************************************************************************/
-ModuleProxy* ModuleProxy::Create(){
-	IAS_TRACER;
-	return IAS_DFT_FACTORY<ModuleProxy>::Create();
-}
-/*************************************************************************/
 }
 }
-}
-}
-/*************************************************************************/
-void* ias_qs_lang_db_proxy(){
-	IAS_TRACER;
-	return ::IAS::QS::Lang::DB::ModuleProxy::Create();
-}
-/*************************************************************************/
+} /* namespace IAS */

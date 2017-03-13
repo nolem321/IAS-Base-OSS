@@ -22,6 +22,8 @@
 #include<qs/log/LogLevel.h>
 
 namespace IAS{
+namespace QS{
+namespace API{
 /*************************************************************************/
 EndOfDataException::EndOfDataException(){
 	IAS_TRACER;		
@@ -43,4 +45,6 @@ const char* EndOfDataException::getName(){
 }
 
 /*************************************************************************/
+}
+}
 } /* namespace IAS */

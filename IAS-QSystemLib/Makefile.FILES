@@ -1,4 +1,4 @@
-#Fri Nov 11 13:12:35 CET 2016
+#Tue Mar  7 15:33:29 CET 2017
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -36,14 +36,14 @@ FILES+=org/invenireaude/qsystem/workers/stats/DataFactory
 FILES+=org/invenireaude/qsystem/workers/txm/DataFactory
 FILES+=qs/api/Attributes
 FILES+=qs/api/Environment
-FILES+=qs/api/exception/EndOfDataException
+FILES+=qs/api/exception/BackoutHandledException
 FILES+=qs/fmt/DelimitedFormatter
 FILES+=qs/fmt/FmtFactory
 FILES+=qs/fmt/JSONFormatter
 FILES+=qs/fmt/JSONPureFormatter
-FILES+=qs/fmt/URLEncodeFormatter
 FILES+=qs/fmt/StringFormatter
 FILES+=qs/fmt/TemplateFormatter
+FILES+=qs/fmt/URLEncodeFormatter
 FILES+=qs/fmt/XMLFormatter
 FILES+=qs/Impl/base/Attributes
 FILES+=qs/Impl/Environment
@@ -185,7 +185,9 @@ FILES+=qs/lang/cache/FetchBucket
 FILES+=qs/lang/cache/GetItem
 FILES+=qs/lang/cache/ModuleProxy
 FILES+=qs/lang/cache/ReleaseBucket
+FILES+=qs/lang/db/Commit
 FILES+=qs/lang/db/ModuleProxy
+FILES+=qs/lang/db/Rollback
 FILES+=qs/lang/db/WrappedStatement
 FILES+=qs/lang/dict/CreateDictionary
 FILES+=qs/lang/dict/GetValue

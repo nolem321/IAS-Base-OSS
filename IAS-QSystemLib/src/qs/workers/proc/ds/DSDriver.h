@@ -60,11 +60,12 @@ public:
 		DSDriver* pDriver;
 	};
 
+	::IAS::DS::API::Session* getSession();
+
 protected:
 	DSDriver(const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter,
 			 WCM::WorkContextManager* pWorkContextManager);
 
-	::IAS::DS::API::Session* getSession();
 	const DM::DataFactory*  getDataFactory();
 
 private:

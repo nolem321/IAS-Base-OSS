@@ -49,6 +49,7 @@
 #include <qs/Impl/Environment.h>
 
 #include "../exception/RollbackMeException.h"
+#include <qs/api/exception/BackoutHandledException.h>
 
 #include <qs/workers/proc/stats/LogicStatsStore.h>
 #include <qs/workers/proc/stats/LogicStats.h>
@@ -183,6 +184,11 @@ void ProcessorWorker::iterate(){
 			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"** End of data !");
 			ptrWorkContext->commit();
 			bStop=true;
+		}catch(QS::API::BackoutHandledException& e){
+			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),"Exception:"<<e.toString());
+			UserMessage(UI::Messages::MSGE_Rollback)<<e.getName()<<e.getInfo();
+			ptrWorkContext->commit();
+			bStop=false;
 		}catch(RollbackMeException& e ){
 			IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),"Exception:"<<e.toString());
 			UserMessage(UI::Messages::MSGE_Rollback)<<e.getName()<<e.getInfo();
