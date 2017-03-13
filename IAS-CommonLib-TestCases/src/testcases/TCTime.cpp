@@ -95,13 +95,13 @@ void TCTime::testTimestampConversion(const String& strInput,
 	String strTmp(ts.toString(strOFormat));
 
 	if(true){
-		unsigned short iYear;
-		unsigned short iMon;
-		unsigned short iDay;
-		unsigned short iHour;
-		unsigned short iMin;
-		unsigned short iSec;
-		unsigned int ifSec;
+		 short iYear;
+		 short iMon;
+		 short iDay;
+		 short iHour;
+		 short iMin;
+		 short iSec;
+		 int ifSec;
 		ts.getDateTime(iYear,iMon,iDay,iHour,iMin,iSec,ifSec);
 		std::cout<<strTmp<<","<<iYear<<std::endl;
 	}
