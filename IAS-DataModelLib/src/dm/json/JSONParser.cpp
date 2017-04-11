@@ -252,7 +252,8 @@ DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeH
 			const ValuesTable* pValues=it->second;
 
 			if(pValues->empty())
-				IAS_THROW(InternalException("JSON empty values table ?"))
+				continue;
+				//IAS_THROW(InternalException("JSON empty values table ?"))
 
 			if(pProperty->isMulti()){
 				DataObjectList& lstDM=dm->getList(pProperty);
