@@ -19,8 +19,14 @@
 #include <commonlib/memory/memory.h>
 #include "Tools.h"
 #include "SSLException.h"
+
 #include <commonlib/exception/ItemNotFoundException.h>
+#include <commonlib/exception/BadUsageException.h>
+
 #include <commonlib/tools/MiscTools.h>
+
+#include <openssl/evp.h>
+#include <openssl/hmac.h>
 
 namespace IAS {
 namespace Net {
@@ -57,6 +63,30 @@ String Tools::ComputeSHA256(const void *pData, size_t iDataLen){
 	 String strResult;
 	 MiscTools::BinarytoHex(hash,SHA256_DIGEST_LENGTH,strResult);
 	 return strResult;
+}
+/***********************************************************************/
+String Tools::ComputeHmacSHA256(const String& strKey, const void *pData, size_t iDataLen){
+
+	 IAS_TRACER;
+	 unsigned char hash[EVP_MAX_MD_SIZE];
+	 unsigned int  iOutputLen;
+
+	 if(HMAC(EVP_sha256(), strKey.c_str(), strKey.length(), (const unsigned char*)pData, iDataLen, hash, &iOutputLen) == NULL)
+		 IAS_THROW(BadUsageException("ComputeHmacSHA256 has failed."));
+
+	 return String((char*)hash,iOutputLen);
+}
+/***********************************************************************/
+String Tools::ComputeHmacSHA256(const String& strKey, const String& strValue){
+
+	 IAS_TRACER;
+	 unsigned char hash[EVP_MAX_MD_SIZE];
+	 unsigned int  iOutputLen;
+
+	 if(HMAC(EVP_sha256(), strKey.c_str(), strKey.length(), (const unsigned char*)strValue.c_str(), strValue.length(), hash, &iOutputLen) == NULL)
+		 IAS_THROW(BadUsageException("ComputeHmacSHA256 has failed."));
+
+	 return String((char*)hash,iOutputLen);
 }
 /*************************************************************************/
 

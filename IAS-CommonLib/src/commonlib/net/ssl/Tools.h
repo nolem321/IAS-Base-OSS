@@ -35,6 +35,10 @@ public:
 
 	static String ComputeSHA256(const String& strValue);
 	static String ComputeSHA256(const void *pData, size_t iDataLen);
+
+	static String ComputeHmacSHA256(const String& strKey, const String& strValue);
+	static String ComputeHmacSHA256(const String& strKey, const void *pData, size_t iDataLen);
+
 };
 
 /*************************************************************************/
