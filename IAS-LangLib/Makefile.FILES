@@ -1,4 +1,4 @@
-#Wed Jan 25 19:29:41 CET 2017
+#Fri Apr  7 11:57:04 CEST 2017
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -193,6 +193,7 @@ FILES+=lang/interpreter/extern/Statement
 FILES+=lang/interpreter/extern/std/Base64ToBinary
 FILES+=lang/interpreter/extern/std/BinaryToBase64
 FILES+=lang/interpreter/extern/std/BinaryToHex
+FILES+=lang/interpreter/extern/std/BinaryToHMAC256
 FILES+=lang/interpreter/extern/std/BinaryToSHA256
 FILES+=lang/interpreter/extern/std/DateTimeToString
 FILES+=lang/interpreter/extern/std/ExecuteAdHoc
@@ -218,6 +219,7 @@ FILES+=lang/interpreter/extern/std/Replace
 FILES+=lang/interpreter/extern/std/Save
 FILES+=lang/interpreter/extern/std/StandardModuleProxy
 FILES+=lang/interpreter/extern/std/StrLen
+FILES+=lang/interpreter/extern/std/StrToHMAC256
 FILES+=lang/interpreter/extern/std/StrToLower
 FILES+=lang/interpreter/extern/std/StrToSHA256
 FILES+=lang/interpreter/extern/std/StrToUpper

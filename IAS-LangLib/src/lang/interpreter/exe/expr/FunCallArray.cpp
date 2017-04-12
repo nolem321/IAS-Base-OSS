@@ -55,7 +55,12 @@ void FunCallArray::evaluate(Context *pCtx, ExprResultSetter& refResult)const{
 			pProgram));
 
 	ptrExprList->evaluate(pCtx,ptrContext->getParameters(),true);
+
+	IAS_LOG(false, "CALLTRACE> "<<pProgram->getName()<<DM::XML::XMLHelper::Stringify(pCtx->getDataFactory(),ptrContext->getParameters()));
+
 	ptrContext->execute(pCtx);
+
+	IAS_LOG(false, "CALLTRACE< "<<pProgram->getName()<<DM::XML::XMLHelper::Stringify(pCtx->getDataFactory(),ptrContext->getParameters()));
 
 	if(refResult.getProperty()->isMulti()){
 			refResult.assignList(ptrContext->getResultAsList());

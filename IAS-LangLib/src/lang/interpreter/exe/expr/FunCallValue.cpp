@@ -50,9 +50,14 @@ void FunCallValue::evaluate(IAS::Lang::Interpreter::Exe::Context* pCtx, IAS::DM:
 			pProgram));
 
 	ptrExprList->evaluate(pCtx,ptrContext->getParameters(),true);
+
+	IAS_LOG(Lang::LogLevel::INSTANCE.isLogic(), "CALLTRACE: >> "<<pProgram->getName()<<DM::XML::XMLHelper::Stringify(pCtx->getDataFactory(),ptrContext->getParameters()));
+
 	ptrContext->execute(pCtx);
 
 	refOutput=ptrContext->getResult();
+
+	IAS_LOG(Lang::LogLevel::INSTANCE.isLogic(), "CALLTRACE: << ");
 }
 /*************************************************************************/
 }

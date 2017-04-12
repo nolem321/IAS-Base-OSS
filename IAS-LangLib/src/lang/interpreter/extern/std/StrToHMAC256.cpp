@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Call.cpp
+ * File: IAS-LangLib/src/lang/interpreter/extern/std/StrToHMAC256.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,45 +15,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Call.h"
+#include "StrToHMAC256.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
+#include <commonlib/net/ssl/Tools.h>
 
-#include "../expr/ExprList.h"
-#include "../Context.h"
-#include "../ProgramContext.h"
-#include "../Program.h"
+#include <lang/interpreter/exe/Context.h>
+#include <lang/model/dec/ResultDeclarationNode.h>
+
+#include <dm/datamodel.h>
 
 namespace IAS {
 namespace Lang {
 namespace Interpreter {
-namespace Exe {
-namespace Stmt {
+namespace Extern {
+namespace Std {
 
 /*************************************************************************/
-Call::Call(Program* pProgram, Expr::ExprList* pExprList):
-	pProgram(pProgram),
-	ptrExprList(pExprList){
+StrToHMAC256::StrToHMAC256(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Call::~Call() throw(){
+StrToHMAC256::~StrToHMAC256() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void Call::execute(Exe::Context *pCtx) const{
+void StrToHMAC256::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
-
-	IAS_DFT_FACTORY<ProgramContext>::PtrHolder ptrContext(
-			IAS_DFT_FACTORY<ProgramContext>::Create(pCtx->getDataFactory(),pProgram));
-	ptrExprList->evaluate(pCtx,ptrContext->getParameters());
-
-	IAS_LOG(Lang::LogLevel::INSTANCE.isLogic(), "CALLTRACE: >> "<<pProgram->getName()<<DM::XML::XMLHelper::Stringify(pCtx->getDataFactory(),ptrContext->getParameters()));
-
-	ptrContext->execute(pCtx);
-
-	IAS_LOG(Lang::LogLevel::INSTANCE.isLogic(), "CALLTRACE: << ");
+	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
+	const String strKey      = pParameters->getString("strKey");
+	const String strArgument = pParameters->getString("strArgument");
+	pParameters->setString(Model::Dec::ResultDeclarationNode::CStrResultVariable, Net::SSL::Tools::ComputeHmacSHA256(strKey, strArgument));
+}
+/*************************************************************************/
+Statement* StrToHMAC256::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+	IAS_TRACER;
+	return IAS_DFT_FACTORY<StrToHMAC256>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
