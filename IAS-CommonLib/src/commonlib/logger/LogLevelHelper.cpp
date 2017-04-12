@@ -86,6 +86,9 @@ void LogLevelHelper::ReadWordSettings(LogLevelBase   *ptrLogLevel, const char *s
 	IAS_DBGLEVEL_CHECKWORD("+data",  bIsData,    true);
 	IAS_DBGLEVEL_CHECKWORD("-data",  bIsData,    false);
 
+	IAS_DBGLEVEL_CHECKWORD("+logic",  bIsData,    true);
+	IAS_DBGLEVEL_CHECKWORD("-logic",  bIsData,    false);
+
 }
 
 /*************************************************************************/

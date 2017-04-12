@@ -52,6 +52,8 @@ public:
 		inline bool isExceptionThrow()       { return this->bIsExceptionThrow;      };
 		inline bool isReportedExceptions()   { return this->bIsReportedExceptions; };
 		inline bool isData()        { return this->bIsData;       };
+		inline bool isLogic()        { return this->bIsLogic;       };
+
 	/*************************************************************************/	
 		
 		LogLevelBase(const char *sEnvVarName,
@@ -75,6 +77,7 @@ public:
 	 bool bIsMemoryTrace;
 	 bool bIsProfile;
 	 bool bIsData;
+	 bool bIsLogic;
 };
 
 /*************************************************************************/
