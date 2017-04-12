@@ -1,9 +1,11 @@
-#Tue Mar  7 15:33:29 CET 2017
+#Thu Apr  6 16:32:08 CEST 2017
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
 FILES+=ds/api/exception/RuntimeException
+FILES+=ds/Impl/Connection
 FILES+=ds/Impl/Environment
+FILES+=ds/Impl/Session
 FILES+=ds/Impl/System
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/qsystem/DataObjects
@@ -37,6 +39,7 @@ FILES+=org/invenireaude/qsystem/workers/txm/DataFactory
 FILES+=qs/api/Attributes
 FILES+=qs/api/Environment
 FILES+=qs/api/exception/BackoutHandledException
+FILES+=qs/api/exception/EndOfDataException
 FILES+=qs/fmt/DelimitedFormatter
 FILES+=qs/fmt/FmtFactory
 FILES+=qs/fmt/JSONFormatter

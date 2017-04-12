@@ -67,7 +67,8 @@ SharedMemorySegment::SharedMemorySegment():
 System::~System(){
 	IAS_TRACER;
 
-	IAS_THROW(InternalException("System destroyed."))
+	IAS_LOG(LogLevel::INSTANCE.isError(),"Internal Error : System destroyed.");
+
 }
 /*************************************************************************/
 }

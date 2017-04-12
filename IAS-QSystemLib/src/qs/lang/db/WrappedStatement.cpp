@@ -54,7 +54,7 @@ namespace DB {
 WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
-	if(lstParamaters.size() != 2)
+	if(lstParamaters.size() < 2)
 		IAS_THROW(BadUsageException("TODO exception, wrong parameters in DataSource Statement."));
 
 	StringList::const_iterator it=lstParamaters.begin();

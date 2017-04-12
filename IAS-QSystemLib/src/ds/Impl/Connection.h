@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/ds/api/Environment.h
+ * File: IAS-QSystemLib/src/ds/Impl/Connection.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,53 +15,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_DS_API_Environment_H_
-#define _IAS_DS_API_Environment_H_
+#ifndef _IAS_DS_Impl_Connection_H_
+#define _IAS_DS_Impl_Connection_H_
 
-#include <commonlib/commonlib.h>
-
+#include <ds/api/Connection.h>
 #include <org/invenireaude/qsystem/workers/ds/Parameter.h>
 
 namespace IAS {
 namespace DS {
-namespace API {
-
-class Connection;
-class Content;
-class ContentManager;
-class Message;
-
+namespace Impl {
+class System;
 /*************************************************************************/
-/** The Environment class.
+/** The Connection class.
  *
  */
-class Environment {
+class Connection :
+		public virtual API::Connection{
+
 public:
 
-	virtual ~Environment() throw(){};
+	virtual ~Connection() throw();
 
+	inline String getName()const {return dmParameter->getName();}
 
-	virtual Connection* connect(const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter)=0;
+	const ::org::invenireaude::qsystem::workers::ds::Parameter* getParameter()const{
+		return dmParameter;
+	}
 
-	static Environment* GetInstance();
-
-	virtual void shutdown() = 0;
-
-	enum ObjectMode {
-
-		OM_DEFAULT = 0,
-		OM_TEXT    = 1,
-		OM_BINARY  = 2,
-		OM_CLOB    = 3,
-		OM_BLOB    = 4
-
-	};
+	const System *getSystem()const;
 
 protected:
 
-	//Environment(){};
+	Connection(const System *pSystem, const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter);
 
-	friend class Factory<Environment>;
+	::org::invenireaude::qsystem::workers::ds::Ext::ParameterPtr dmParameter;
+
+private:
+
+	const System *pSystem;
 };
 
 /*************************************************************************/
@@ -69,4 +60,4 @@ protected:
 }
 }
 
-#endif /* _IAS_DS_API_Environment_H_ */
+#endif /* _IAS_DS_Impl_Connection_H_ */

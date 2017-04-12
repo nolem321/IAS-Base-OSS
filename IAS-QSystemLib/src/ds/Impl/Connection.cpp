@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/ds/api/Statement.h
+ * File: IAS-QSystemLib/src/ds/Impl/Connection.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,36 +15,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_DS_API_Statement_H_
-#define _IAS_DS_API_Statement_H_
+#include "Connection.h"
 
 #include <commonlib/commonlib.h>
+#include <qs/log/LogLevel.h>
+#include <org/invenireaude/qsystem/workers/Connection.h>
 
-#include "Environment.h"
+#include "System.h"
 
 namespace IAS {
 namespace DS {
-namespace API {
+namespace Impl {
 
 /*************************************************************************/
-/** The Consumer class.
- *
- */
-class Statement  {
-public:
-
-	virtual ~Statement() throw(){};
-
-	virtual void setSQLText(const String& strSQLText)=0;
-
-	virtual void prepare()=0;
-	virtual void execute()=0;
-
-};
-
+Connection::Connection(const System* pSystem, const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter):
+	dmParameter(dmParameter->duplicateParameter()),
+	pSystem(pSystem){
+	IAS_TRACER;
+}
+/*************************************************************************/
+Connection::~Connection() throw(){
+	IAS_TRACER;
+	IAS_LOG(::IAS::QS::LogLevel::INSTANCE.bIsInfo,"DS Connection cleanup.")
+}
+/*************************************************************************/
+const System* Connection::getSystem()const{
+	IAS_TRACER;
+	return pSystem;
+}
 /*************************************************************************/
 }
 }
 }
-
-#endif /* _IAS_QS_API_Consumer_H_ */

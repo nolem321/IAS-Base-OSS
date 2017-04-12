@@ -22,12 +22,22 @@
  	</xsi:complexContent>
  </xsi:complexType> 
  
+ <xsi:simpleType name="ObjectMode">
+ 	<xsi:restriction base="xsi:string">
+ 	  <xsi:enumeration value="CLOB"/>
+ 	  <xsi:enumeration value="BLOB"/>
+ 	  <xsi:enumeration value="TEXT"/>
+ 	  <xsi:enumeration value="BINARY"/> 	  
+ 	</xsi:restriction>
+ </xsi:simpleType> 
+ 
  <xsi:complexType name="Parameter">  		 
     	<xsi:sequence>
 	  		<xsi:element name="connection"      type="Connection"  		minOccurs="0" maxOccurs="1"/>
 	  		<xsi:element name="txnMode"         type="TransactionMode"  minOccurs="0" maxOccurs="1" />
-  			<xsi:element name="xaResource"      type="xsi:string"  minOccurs="0" maxOccurs="1" />
-  			<xsi:element name="objectFormatter" type="xsi:string"  minOccurs="0" maxOccurs="1" />
+  			<xsi:element name="xaResource"      type="xsi:string"   minOccurs="0" maxOccurs="1" />
+  			<xsi:element name="objectFormatter" type="xsi:string"   minOccurs="0" maxOccurs="1" />
+  			<xsi:element name="objectMode"      type="ds:ObjectMode"  minOccurs="0" maxOccurs="1" />
   		</xsi:sequence>	 	
   		   <xsi:attribute name="name"       type="xsi:string"  use="required" />  		   
   </xsi:complexType>
