@@ -49,7 +49,7 @@ void LogicalOrNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Cal
 	IAS_TYPEID_CHECK(Model::Expr::LogicalOrNode, pNode);
 	const Model::Expr::LogicalOrNode *pOrNode = IAS_DYNAMICCAST_CONST(Model::Expr::LogicalOrNode, pNode);
 
-	handleBinary(pOrNode->getLeftExpr(),pOrNode->getRightExpr(),pCtx,aResult," AND ");
+	handleBinary(pOrNode->getLeftExpr(),pOrNode->getRightExpr(),pCtx,aResult," OR ");
 }
 /*************************************************************************/
 }
