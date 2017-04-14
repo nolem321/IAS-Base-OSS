@@ -74,7 +74,9 @@ String Tools::ComputeHmacSHA256(const String& strKey, const void *pData, size_t 
 	 if(HMAC(EVP_sha256(), strKey.c_str(), strKey.length(), (const unsigned char*)pData, iDataLen, hash, &iOutputLen) == NULL)
 		 IAS_THROW(BadUsageException("ComputeHmacSHA256 has failed."));
 
-	 return String((char*)hash,iOutputLen);
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,iOutputLen,strResult);
+	 return strResult;
 }
 /***********************************************************************/
 String Tools::ComputeHmacSHA256(const String& strKey, const String& strValue){
@@ -86,7 +88,9 @@ String Tools::ComputeHmacSHA256(const String& strKey, const String& strValue){
 	 if(HMAC(EVP_sha256(), strKey.c_str(), strKey.length(), (const unsigned char*)strValue.c_str(), strValue.length(), hash, &iOutputLen) == NULL)
 		 IAS_THROW(BadUsageException("ComputeHmacSHA256 has failed."));
 
-	 return String((char*)hash,iOutputLen);
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,iOutputLen,strResult);
+	 return strResult;
 }
 /*************************************************************************/
 
