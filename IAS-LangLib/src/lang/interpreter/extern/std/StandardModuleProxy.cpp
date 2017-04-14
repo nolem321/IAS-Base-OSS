@@ -103,8 +103,8 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("StrToUpper",&(StrToUpper::Create));
 	registerSymbol("StrToSHA256",&(StrToSHA256::Create));
 	registerSymbol("BinaryToSHA256",&(BinaryToSHA256::Create));
-	registerSymbol("StrToHMAC256",&(StrToSHA256::Create));
-	registerSymbol("BinaryToHMAC256",&(BinaryToSHA256::Create));
+	registerSymbol("StrToHMAC256",&(StrToHMAC256::Create));
+	registerSymbol("BinaryToHMAC256",&(BinaryToHMAC256::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 
