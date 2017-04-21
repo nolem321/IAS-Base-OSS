@@ -33,6 +33,7 @@
 
 #include "expr/AdditionNode.h"
 #include "expr/CastNode.h"
+#include "expr/CondValueNode.h"
 #include "expr/ConstNode.h"
 #include "expr/ConstructorNode.h"
 #include "expr/CopyOfNode.h"
@@ -67,6 +68,8 @@
 #include "expr/StrLenNode.h"
 #include "expr/SubtractionNode.h"
 #include "expr/UnaryOperNode.h"
+#include "expr/XPathOrValueNode.h"
+
 #include "expr/xpath/XPathExprNode.h"
 #include "expr/xpath/XPathExprAccessNode.h"
 #include "expr/xpath/XPathVariableAccessNode.h"

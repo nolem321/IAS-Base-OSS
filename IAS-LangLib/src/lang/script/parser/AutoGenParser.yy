@@ -169,6 +169,7 @@ using namespace Parser;
 
 %token	T_ASSIGN                "= (assignment)"
 %token	T_CONDASSIGN            "?= (assignment)"
+%token	T_QMARK                 "?"
 
 %token	<sval>			T_SYMBOL
 %token	<sval>			T_STRING
@@ -388,6 +389,12 @@ exprPrimary: T_NEW T_SYMBOL T_COLON T_STRING statementsListBeginEnd
 
 exprPrimary: T_OPEN_PAR exprPrimaryOrXPath T_AS baseType T_CLOSE_PAR
 		{ $$ = IAS_DFT_FACTORY<Expr::CastNode>::Create($2,$4); };
+
+exprPrimary: T_OPEN_PAR xpathAccess T_OR exprPrimaryOrXPath T_CLOSE_PAR
+		{ $$ = IAS_DFT_FACTORY<Expr::XPathOrValueNode>::Create($2,$4); };
+
+exprPrimary: T_OPEN_PAR logicalExpr T_QMARK exprPrimaryOrXPath T_COLON exprPrimaryOrXPath T_CLOSE_PAR
+		{ $$ = IAS_DFT_FACTORY<Expr::CondValueNode>::Create($2,$4,$6); };
  
 exprPrimary:  qname exprListPar                    { $$ = IAS_DFT_FACTORY<Expr::FunCallNode>::Create($1, $2); };
 exprPrimary:  T_COPYOF T_OPEN_PAR xpathAccess T_CLOSE_PAR { $$ = IAS_DFT_FACTORY<Expr::CopyOfNode>::Create($3); };

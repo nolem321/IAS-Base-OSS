@@ -31,6 +31,7 @@
 #include "dec/TypeDefinitionNodeHandler.h"
 
 #include "expr/CastNodeHandler.h"
+#include "expr/CondValueNodeHandler.h"
 #include "expr/ConstNodeHandler.h"
 #include "expr/ConstructorNodeHandler.h"
 #include "expr/CopyOfNodeHandler.h"
@@ -63,6 +64,7 @@
 #include "expr/AdditionNodeHandler.h"
 #include "expr/StrLenNodeHandler.h"
 #include "expr/UnaryOperNodeHandler.h"
+#include "expr/XPathOrValueNodeHandler.h"
 #include "expr/xpath/XPathAccessNodeHandler.h"
 #include "expr/xpath/XPathExprAccessNodeHandler.h"
 #include "expr/xpath/XPathVariableAccessNodeHandler.h"
@@ -124,6 +126,7 @@ void CallbackRegister::init(){
 	registerCallback<Model::Dec::TypeDefinitionNode>(IAS_DFT_FACTORY<Dec::TypeDefinitionNodeHandler>::Create());
 
 	registerCallback<Model::Expr::CastNode>(IAS_DFT_FACTORY<Expr::CastNodeHandler>::Create());
+	registerCallback<Model::Expr::CondValueNode>(IAS_DFT_FACTORY<Expr::CondValueNodeHandler>::Create());
 	registerCallback<Model::Expr::ConstNode>(IAS_DFT_FACTORY<Expr::ConstNodeHandler>::Create());
 	registerCallback<Model::Expr::ConstructorNode>(IAS_DFT_FACTORY<Expr::ConstructorNodeHandler>::Create());
 	registerCallback<Model::Expr::DivisionNode>(IAS_DFT_FACTORY<Expr::DivisionNodeHandler>::Create());
@@ -162,6 +165,8 @@ void CallbackRegister::init(){
 	registerCallback<Model::Expr::ModuloNode>(IAS_DFT_FACTORY<Expr::ModuloNodeHandler>::Create());
 
 	registerCallback<Model::Expr::UnaryOperNode>(IAS_DFT_FACTORY<Expr::UnaryOperNodeHandler>::Create());
+	registerCallback<Model::Expr::XPathOrValueNode>(IAS_DFT_FACTORY<Expr::XPathOrValueNodeHandler>::Create());
+
 	registerCallback<Model::Expr::XPath::XPathExprNode>(IAS_DFT_FACTORY<Expr::XPath::XPathExprNodeHandler>::Create());
 	registerCallback<Model::Expr::XPath::XPathExprAccessNode>(IAS_DFT_FACTORY<Expr::XPath::XPathExprAccessNodeHandler>::Create());
 	registerCallback<Model::Expr::XPath::XPathVariableAccessNode>(IAS_DFT_FACTORY<Expr::XPath::XPathVariableAccessNodeHandler>::Create());

@@ -439,7 +439,8 @@ void Lexer::handleState_QuestionMark(unsigned char c){
 	if(c == '='){
 		aTokenInfo.setToken(Token::T_CONDASSIGN);
 	}else{
-		IAS_THROW(ParseErrorException(String("'?=' expected.")));
+		getActiveWrapper()->ungetChar();
+		aTokenInfo.setToken(Token::T_QMARK);
 	}
 
 }

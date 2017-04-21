@@ -32,6 +32,7 @@
 #include "dec/TypeDefinitionNodeHandler.h"
 
 #include "expr/CastNodeHandler.h"
+#include "expr/CondValueNodeHandler.h"
 #include "expr/ConstNodeHandler.h"
 #include "expr/ConstructorNodeHandler.h"
 #include "expr/CopyOfNodeHandler.h"
@@ -64,6 +65,7 @@
 #include "expr/AdditionNodeHandler.h"
 #include "expr/StrLenNodeHandler.h"
 #include "expr/UnaryOperNodeHandler.h"
+#include "expr/XPathOrValueNodeHandler.h"
 #include "expr/xpath/XPathAccessNodeHandler.h"
 #include "expr/xpath/XPathExprAccessNodeHandler.h"
 #include "expr/xpath/XPathVariableAccessNodeHandler.h"
