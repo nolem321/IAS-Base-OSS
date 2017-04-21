@@ -1,0 +1,104 @@
+Exception in thread "LocalReportsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.createWriter(LocalReportsHistory.java:163)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.startUp(LocalReportsHistory.java:78)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "ProblemsDatabaseProblemsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.createInitialIndex(ProblemsDatabaseProblemsHistory.java:123)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.startUp(ProblemsDatabaseProblemsHistory.java:107)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "LocalReportsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.createWriter(LocalReportsHistory.java:163)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.startUp(LocalReportsHistory.java:78)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "ProblemsDatabaseProblemsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.createInitialIndex(ProblemsDatabaseProblemsHistory.java:123)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.startUp(ProblemsDatabaseProblemsHistory.java:107)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "LocalReportsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.createWriter(LocalReportsHistory.java:163)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.startUp(LocalReportsHistory.java:78)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "ProblemsDatabaseProblemsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.createInitialIndex(ProblemsDatabaseProblemsHistory.java:123)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.startUp(ProblemsDatabaseProblemsHistory.java:107)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "LocalReportsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/local-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.createWriter(LocalReportsHistory.java:163)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.LocalReportsHistory.startUp(LocalReportsHistory.java:78)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more
+Exception in thread "ProblemsDatabaseProblemsHistory STARTING" java.lang.RuntimeException: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at com.google.common.base.Throwables.propagate(Throwables.java:160)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:58)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.lucene.index.IndexFormatTooOldException: Format version is not supported (resource: ChecksumIndexInput(MMapIndexInput(path="/data/dia/Workspaces/Xtext/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/remote-history/segments_1"))): 1071082519 (needs to be between -1 and -11). This version of Lucene only supports indexes created with release 1.9 and later.
+	at org.apache.lucene.index.SegmentInfos.read(SegmentInfos.java:275)
+	at org.apache.lucene.index.IndexFileDeleter.<init>(IndexFileDeleter.java:182)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1178)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.createInitialIndex(ProblemsDatabaseProblemsHistory.java:123)
+	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ProblemsDatabaseProblemsHistory.startUp(ProblemsDatabaseProblemsHistory.java:107)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	... 2 more

@@ -22,19 +22,26 @@ PROGRAM com::examples::basic::condexpr(VAR p1     AS Integer,
 			 			    	         VAR output AS Customer : "http://www.examples.org/akc")
 BEGIN
  
- VAR tmp AS Customer : "http://www.examples.org/akc";
- 
- tmp = COPYOF(input);
- 
- DELETE tmp.lastname;
- DELETE tmp.address[0].street;
- 
- output.firstname ?= tmp.firstname;
- output.lastname ?= tmp.lastname;
+ output.firstname = "Jan";
  
  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
-   block  ?= tmp.address[0].block;
-   street ?= tmp.address[0].street;
+   block  = 10001;
+   street = ( 22 == 3 ? "True" : "False");
+ END;
+
+ output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
+   block  = 10002;
+   street = ( 2 == 2 ? "True" : "False");
+ END;
+ 
+  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
+   block  = 10003;
+   street = ( output.firstname OR ("Nie!" AS Name : "http://www.examples.org/akc") );
+ END;
+
+ output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
+   block  = 10002;
+    street = ( output.lastname OR "Tak!" );
  END;
  
 END;
