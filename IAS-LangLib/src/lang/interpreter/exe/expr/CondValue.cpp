@@ -43,10 +43,6 @@ CondValue::CondValue(const DM::DataFactory* pDataFactory,
 
 	setType(ptrExprTrue->getType());
 
-	if(! ptrExprFalse->getType()->isAssignableTo(getType())){
-		IAS_THROW(ScriptUsageException("Inconsistent value types for a conditional expression."));
-	}
-
 }
 /*************************************************************************/
 CondValue::~CondValue() throw(){

@@ -41,10 +41,6 @@ XPathOrValue::XPathOrValue(const DM::DataFactory* pDataFactory,
 
 	setType(ptrVarExpr->getType());
 
-	if(! ptrDefault->getType()->isAssignableTo(getType())){
-		IAS_THROW(ScriptUsageException("Bad default value type for a conditional expression."));
-	}
-
 }
 /*************************************************************************/
 XPathOrValue::~XPathOrValue() throw(){
