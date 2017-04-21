@@ -14,7 +14,15 @@
   <block>10003</block>
  </address>
  <address>
-  <street>Tak!</street>
+  <street>1</street>
   <block>10002</block>
+ </address>
+ <address>
+  <street>True</street>
+  <block>10003</block>
+ </address>
+ <address>
+  <street>0</street>
+  <block>10003</block>
  </address>
 </ns0:customer>

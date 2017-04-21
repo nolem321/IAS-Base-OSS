@@ -41,7 +41,18 @@ BEGIN
 
  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
    block  = 10002;
-    street = ( output.lastname OR "Tak!" );
+    street = ( output.lastname OR 1 );
  END;
  
+ output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
+   block  = 10003;
+   street = ( (2 == 2) ? "True" : 0);
+ END;
+ 
+  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
+   block  = 10003;
+   street = ( (2 <> 2) ? "True" : 0);
+ END;
+ 
+  
 END;
