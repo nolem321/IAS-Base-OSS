@@ -26,12 +26,12 @@ BEGIN
  
  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
    block  = 10001;
-   street = ( 22 == 3 ? "True" : "False");
+   street = ( (22 == 3) ? "True" : "False");
  END;
 
  output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
    block  = 10002;
-   street = ( 2 == 2 ? "True" : "False");
+   street = ( (2 == 2) ? "True" : "False");
  END;
  
   output.address = NEW Address : "http://www.examples.org/akc" BEGIN  
