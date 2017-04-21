@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.examples.org/types" xmlns:ns1="http://www.examples.org/akcf" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
+ <firstname>Jan</firstname>
+ <middlename>Johny</middlename>
+ <lastname>Kowalski</lastname>
+ <age>102</age>
+ <age1 xsi:nil="true"/>
+ <address>
+  <street>Miodowa</street>
+  <block>11</block>
+ </address>
+ <address/>
+ <address xsi:nil="true"/>
+ <address>
+  <street>Typowa Typowa</street>
+  <block>102</block>
+ </address>
+ <address xsi:type="ns1:Address">
+  <street>SubStreet</street>
+  <block>201</block>
+ </address>
+ <address xsi:type="ns2:SubAddress">
+  <info xsi:type="ns2:ExampleTypeDef">Extra delivery</info>
+  <alternate xsi:type="ns1:Address">
+   <street>SubStreet</street>
+   <block>201</block>
+  </alternate>
+ </address>
+ <mailingAddress/>
+</ns0:customer>

@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
 	IAS_TRACER;
 	IAS::Logger::GetInstance();
 
-	std::cout << "Starting\n";
+	std::cout << "Starting: \n"<<IAS::EnvTools::GetEnv("IAS_LANG_SRC_DIRS")<<"\n";
 
 	try {
 
@@ -87,6 +87,7 @@ int main(int argc, char* argv[]) {
 		IAS_TEST_EXE("com::examples::basic::merge", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::create", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::condassign", "customer.xml");
+		IAS_TEST_EXE("com::examples::basic::condexpr", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::newfuncalls", "customer.xml");
 
 		IAS_TEST_EXE("com::examples::basic::inlinetypes", "customer.xml");
@@ -96,9 +97,9 @@ int main(int argc, char* argv[]) {
 		/* old stuff for fun : IAS_TEST_EXE("com::examples::test", "customer.xml");*/
 
 		//ptrSuite->run(argc == 1 ? "" : argv[1]);
-		ptrSuite->run("com::examples::basic::create");
+		//ptrSuite->run("com::examples::basic::condexpr");
 
-		//ptrSuite->run("");
+		ptrSuite->run("");
 
 		ptrSuite->printResults(std::cout);
 

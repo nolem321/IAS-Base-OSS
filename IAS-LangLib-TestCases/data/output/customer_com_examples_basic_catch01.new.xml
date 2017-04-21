@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns0:customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
+ <firstname>Jan</firstname>
+ <middlename>Johny</middlename>
+ <lastname>Kowalski</lastname>
+ <age>101</age>
+ <age1 xsi:nil="true"/>
  <address>
   <street>Miodowa</street>
-  <block>11</block>
+  <block>109</block>
  </address>
  <address/>
  <address xsi:nil="true"/>
+ <mailingAddress/>
 </ns0:customer>
