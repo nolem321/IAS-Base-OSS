@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 			return 1;
 
 		IAS_DFT_FACTORY<API::ServiceManager>::PtrHolder ptrServiceManager(IAS_DFT_FACTORY<API::ServiceManager>::Create());
-		ptrServiceManager->runServiceCommand(argv[1]);
+		ptrServiceManager->runServiceCommand(argv[1], true);
 
 
 	} catch (IAS::SystemException& e) {
