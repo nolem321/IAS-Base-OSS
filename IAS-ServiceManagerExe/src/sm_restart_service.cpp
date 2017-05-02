@@ -45,7 +45,7 @@ int main(int argc, char* argv[]){
 
 		if(ptrParameters->isDisplayOnEnd()){
 			sleep(1);
-			ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList());
+			ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList(), ptrParameters->isFailedOnly());
 		}
 
 	}catch(IAS::SystemException& e){

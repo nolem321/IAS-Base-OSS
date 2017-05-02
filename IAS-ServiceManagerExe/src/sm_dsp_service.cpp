@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 			return 1;
 
 		IAS_DFT_FACTORY<API::ServiceManager>::PtrHolder ptrServiceManager(IAS_DFT_FACTORY<API::ServiceManager>::Create());
-		ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList());
+		ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList(), ptrParameters->isFailedOnly());
 
 	} catch (IAS::SystemException& e) {
 		std::cerr << "System Exception:\n";

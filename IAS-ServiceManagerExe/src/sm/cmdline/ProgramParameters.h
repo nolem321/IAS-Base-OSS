@@ -36,6 +36,7 @@ public:
 	virtual bool checkAndShowHelp(std::ostream& os);
 
 	virtual bool isDisplayOnEnd()const;
+	virtual bool isFailedOnly()const;
 
 protected:
 	ProgramParameters()throw();
