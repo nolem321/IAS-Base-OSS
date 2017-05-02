@@ -33,7 +33,8 @@ namespace SM {
 namespace Worker {
 
 /*************************************************************************/
-RunCommandHelper::RunCommandHelper(const ::IAS::SM::Cfg::Config *pConfig) {
+RunCommandHelper::RunCommandHelper(const ::IAS::SM::Cfg::Config *pConfig, bool bSuppressDebug):
+		bSuppressDebug(bSuppressDebug){
 	IAS_TRACER;
 
 	this->pConfig = pConfig;
@@ -67,6 +68,11 @@ void RunCommandHelper::run(const String& strServiceName) {
 
 	StringPairList lstVariables;
 	pConfig->buildEnvList(pService, lstVariables);
+
+	if(bSuppressDebug)
+		for(StringPairList::iterator it=lstVariables.begin(); it != lstVariables.end(); it++)
+			if(it->first.find("IAS_DBG") != String::npos)
+				it = lstVariables.erase(it);
 
 	lstVariables.push_back(std::pair<String,String>(StartStopHelper::CEnvIndex, TypeTools::IntToString(0)));
 	ptrProcess->updateEnvironment(lstVariables);

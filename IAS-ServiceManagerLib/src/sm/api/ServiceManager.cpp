@@ -180,13 +180,13 @@ const Cfg::Config* ServiceManager::getConfig() const {
 	return ptrConfig;
 }
 /*************************************************************************/
-void ServiceManager::runServiceCommand(const String& strServiceName) {
+void ServiceManager::runServiceCommand(const String& strServiceName, bool bSuppressDebug) {
 	IAS_TRACER;
 
 	const ::org::invenireaude::sm::cfg::Service* pService = ptrConfig->getService(strServiceName);
 
 	IAS_DFT_FACTORY<Worker::RunCommandHelper>::PtrHolder ptrRunCommandHelper(
-			IAS_DFT_FACTORY<Worker::RunCommandHelper>::Create(ptrConfig));
+			IAS_DFT_FACTORY<Worker::RunCommandHelper>::Create(ptrConfig, bSuppressDebug));
 
 	ptrRunCommandHelper->run(strServiceName);
 

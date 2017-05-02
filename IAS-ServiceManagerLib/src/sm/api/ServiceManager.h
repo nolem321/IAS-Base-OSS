@@ -37,7 +37,7 @@ public:
 
 	void startServices(const Cfg::GrpAttrPairList& lstGrpAttrPair);
 
-	void runServiceCommand(const String& strServiceName);
+	void runServiceCommand(const String& strServiceName, bool bSuppressDebug);
 
 	void stopServices(const Cfg::GrpAttrPairList& lstGrpAttrPair, bool bAsync = false);
 

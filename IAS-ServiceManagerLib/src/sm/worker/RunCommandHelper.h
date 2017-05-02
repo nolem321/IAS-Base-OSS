@@ -42,11 +42,11 @@ public:
     void run(const String& strServiceName);
 
 protected:
-	RunCommandHelper(const ::IAS::SM::Cfg::Config *pConfig);
+	RunCommandHelper(const ::IAS::SM::Cfg::Config *pConfig, bool bSuppressDebug);
 
 	const ::IAS::SM::Cfg::Config *pConfig;
 	IAS_DFT_FACTORY<Exe::Handler>::PtrHolder ptrExeHandler;
-
+	bool bSuppressDebug;
 	friend class ::IAS::Factory<RunCommandHelper>;
 };
 
