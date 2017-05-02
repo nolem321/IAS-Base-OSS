@@ -50,14 +50,11 @@ public:
 
 protected:
 	Sort(Expr::XPath::XPathExprFamily  *pListExpr,
-		 Program* pProgram,
-		 bool bReverse);
+		 Program* pProgram);
 
 	IAS_DFT_FACTORY<Expr::XPath::XPathExprFamily>::PtrHolder ptrListExpr;
 
 	Program* pProgram;
-
-	bool bReverse;
 
 	class CallHelper {
 		public:

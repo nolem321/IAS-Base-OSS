@@ -95,6 +95,7 @@ using namespace Parser;
 %token	T_SORT                  "SORT"
 %token	T_MERGE                 "MERGE"
 %token	T_USING                 "USING"
+%token	T_INDEX                 "INDEX"
 
 %token	T_FOR                   "FOR"
 %token	T_TO                    "TO"
@@ -147,6 +148,9 @@ using namespace Parser;
 %token	T_OPEN_SQUARE           "["
 %token	T_CLOSE_SQUARE          "]"
 
+%token	T_DOUBLE_OPEN_SQUARE           "[["
+%token	T_DOUBLE_CLOSE_SQUARE          "]]"
+
 %token	T_PLUS             "+"
 %token	T_MINUS            "-"
 
@@ -194,6 +198,7 @@ using namespace Parser;
 %type <pStatementNode>          create
 %type <pStatementNode>          delete
 %type <pStatementNode>          sort
+%type <pStatementNode>          index
 %type <pStatementNode>          return
 %type <pStatementNode>          throw
 %type <pStatementNode>          tryCatch
@@ -342,6 +347,7 @@ statement: forLoop                       { $$ =$1; } ;
 statement: whileLoop                     { $$ =$1; } ;
 statement: with                          { $$ =$1; } ;
 statement: ifThenElse                    { $$ =$1; } ;
+statement: index                         { $$ =$1; } ;
 statement: call                          { $$ =$1; } ;
 statement: external                      { $$ =$1; } ;
 statement: create                        { $$ =$1; } ;
@@ -444,6 +450,9 @@ xpathAccess : exprPrimary T_DOT xpath
 xpath: xpath T_DOT T_SYMBOL              { $$ = $1; $$->addSingleElement(*$3); _SVAL_DELETE($3); }
 xpath: xpath T_DOT T_SYMBOL T_OPEN_SQUARE
                      expr  T_CLOSE_SQUARE{ $$ = $1; $$->addMultiElement(*$3,$5); _SVAL_DELETE($3); }
+
+xpath: xpath T_DOT T_SYMBOL T_DOUBLE_OPEN_SQUARE
+                     expr  T_DOUBLE_CLOSE_SQUARE{ $$ = $1; $$->addHashIndexElement(*$3,$5); _SVAL_DELETE($3); }
                      
 xpath: T_SYMBOL { $$ = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); $$->addSingleElement(*$1); _SVAL_DELETE($1); }
 xpath: T_SYMBOL T_OPEN_SQUARE
@@ -480,6 +489,8 @@ return: T_RETURN expr  { $$ = IAS_DFT_FACTORY<Stmt::ReturnNode>::Create($2); } ;
 throw: T_THROW expr  { $$ = IAS_DFT_FACTORY<Stmt::ThrowNode>::Create($2); } ;
 
 sort: T_SORT xpathAccess T_USING qname { $$ = IAS_DFT_FACTORY<Stmt::SortNode>::Create($2,$4); } ;
+
+index: T_INDEX xpathAccess T_USING xpathAccess { $$ = IAS_DFT_FACTORY<Stmt::IndexNode>::Create($2,$4);};
 
 tryCatch: T_TRY statementsListBeginEnd catchList { $$ = IAS_DFT_FACTORY<Stmt::TryCatchNode>::Create($2,$3);  }
 catchList: catchList catch              { $$ = $1; $$->addCatchNode($2);           }

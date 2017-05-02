@@ -41,6 +41,7 @@ public:
 
 	void addSingleElement(const String& strName);
 	void addMultiElement(const String& strName, Expr* pExpr);
+	void addHashIndexElement(const String& strName, Expr* pExpr);
 
 
 	const DM::Property* getValueProperty() const;
@@ -66,6 +67,7 @@ protected:
 		inline const String& getName() const { return strName;};
 		inline Expr* getMultiExpr() { return ptrExpr; };
 		inline bool isMulti() const { return bIsMulti; };
+		inline bool isHashReference() const { return bIsHashIndex; };
 
 		const DM::Property *getProperty() const ;
 
@@ -73,12 +75,13 @@ protected:
 
 	protected:
 		Element(String strName);
-		Element(String strName,Expr* pExpr);
+		Element(String strName,Expr* pExpr, bool bIsHashIndex = false);
 
 		virtual ~Element(){};
 
 		String   strName;
 		bool     bIsMulti;
+		bool     bIsHashIndex;
 		IAS_DFT_FACTORY<Expr>::PtrHolder ptrExpr;
 		const DM::Property *pProperty;
 

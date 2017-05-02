@@ -69,6 +69,7 @@ void Lexer::init(){
 	hmKeywords["SORT"]=Token::T_SORT;
 	hmKeywords["USING"]=Token::T_USING;
 	hmKeywords["MERGE"]=Token::T_MERGE;
+	hmKeywords["INDEX"]=Token::T_INDEX;
 
 	hmKeywords["AS"]=Token::T_AS;
 	hmKeywords["OF"]=Token::T_OF;
@@ -170,15 +171,17 @@ void Lexer::handleStep(){
 		case S_String:     handleState_String(c); break;
 		case S_StringEsc:  handleState_StringEsc(c); break;
 
-		case S_Symbol:     handleState_Symbol(c); break;
-		case S_SpecSymbol: handleState_SpecSymbol(c); break;
-		case S_Integer:    handleState_Integer(c); break;
-		case S_Float:      handleState_Float(c); break;
-		case S_Greater:    handleState_Greater(c); break;
-		case S_Less:       handleState_Less(c); break;
-		case S_Eq:         handleState_Eq(c); break;
-		case S_Colon:      handleState_Colon(c); break;
-		case S_Slash:      handleState_Slash(c); break;
+		case S_Symbol:      handleState_Symbol(c); break;
+		case S_SpecSymbol:  handleState_SpecSymbol(c); break;
+		case S_OpenSquare:  handleState_OpenSquare(c); break;
+		case S_CloseSquare: handleState_CloseSquare(c); break;
+		case S_Integer:     handleState_Integer(c); break;
+		case S_Float:       handleState_Float(c); break;
+		case S_Greater:     handleState_Greater(c); break;
+		case S_Less:        handleState_Less(c); break;
+		case S_Eq:          handleState_Eq(c); break;
+		case S_Colon:       handleState_Colon(c); break;
+		case S_Slash:          handleState_Slash(c); break;
 		case S_QuestionMark:   handleState_QuestionMark(c); break;
 		case S_LineComment:    handleState_LineComment(c); break;
 		case S_BlockComment:   handleState_BlockComment(c); break;
@@ -199,9 +202,6 @@ void Lexer::handleState_Start(unsigned char c){
 		case '(': aTokenInfo.setToken(Token::T_OPEN_PAR); iCurrentState=S_End; return;
 		case ')': aTokenInfo.setToken(Token::T_CLOSE_PAR); iCurrentState=S_End; return;
 
-		case '[': aTokenInfo.setToken(Token::T_OPEN_SQUARE); iCurrentState=S_End; return;
-		case ']': aTokenInfo.setToken(Token::T_CLOSE_SQUARE); iCurrentState=S_End; return;
-
 		case '+': aTokenInfo.setToken(Token::T_PLUS); iCurrentState=S_End; return;
 		case '-': aTokenInfo.setToken(Token::T_MINUS); iCurrentState=S_End; return;
 
@@ -211,6 +211,9 @@ void Lexer::handleState_Start(unsigned char c){
 		case ',': aTokenInfo.setToken(Token::T_COMMA); iCurrentState=S_End; return;
 		case '.': aTokenInfo.setToken(Token::T_DOT); iCurrentState=S_End; return;
 		case ';': aTokenInfo.setToken(Token::T_SEMICOLON); iCurrentState=S_End; return;
+
+		case '[': iCurrentState=S_OpenSquare; return;
+		case ']': iCurrentState=S_CloseSquare; return;
 
 		case '/': iCurrentState=S_Slash; return;
 		case ':': iCurrentState=S_Colon; return;
@@ -270,6 +273,34 @@ void Lexer::handleState_SpecSymbol(unsigned char c){
 
 	}else{
 		aTokenInfo.addChar(c);
+	}
+
+}
+/*************************************************************************/
+void Lexer::handleState_OpenSquare(unsigned char c){
+	IAS_TRACER;
+
+	iCurrentState=S_End;
+
+	if(c == '['){
+		aTokenInfo.setToken(Token::T_DOUBLE_OPEN_SQUARE);
+	}else{
+		getActiveWrapper()->ungetChar();
+		aTokenInfo.setToken(Token::T_OPEN_SQUARE);
+	}
+
+}
+/*************************************************************************/
+void Lexer::handleState_CloseSquare(unsigned char c){
+	IAS_TRACER;
+
+	iCurrentState=S_End;
+
+	if(c == ']'){
+		aTokenInfo.setToken(Token::T_DOUBLE_CLOSE_SQUARE);
+	}else{
+		getActiveWrapper()->ungetChar();
+		aTokenInfo.setToken(Token::T_CLOSE_SQUARE);
 	}
 
 }

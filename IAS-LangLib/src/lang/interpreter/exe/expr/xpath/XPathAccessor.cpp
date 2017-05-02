@@ -22,6 +22,7 @@
 
 #include <lang/interpreter/exe/exception/NullObjectReferenceException.h>
 #include <lang/interpreter/exe/exception/PropertyNotSetException.h>
+#include <lang/interpreter/exe/exception/InterpreterRuntimeException.h>
 
 
 #include "../../Context.h"
@@ -34,19 +35,18 @@ namespace Expr {
 namespace XPath {
 /*************************************************************************/
 XPathAccessor::Element::Element(String strName):
-	pProperty(NULL){
-	IAS_TRACER;
-	this->strName=strName;
-	bIsMulti=false;
-}
+	pProperty(NULL),
+	ptrExpr(NULL),
+	strName(strName),
+	bIsMulti(false),
+	bIsHashIndex(false){}
 /*************************************************************************/
-XPathAccessor::Element::Element(String strName, Expr* pExpr){
-	IAS_TRACER;
-	this->strName=strName;
-	ptrExpr=pExpr;
-	bIsMulti=true;
-	pProperty=NULL;
-}
+XPathAccessor::Element::Element(String strName, Expr* pExpr, bool bIsHashIndex):
+	pProperty(NULL),
+	ptrExpr(pExpr),
+	strName(strName),
+	bIsMulti(true),
+	bIsHashIndex(bIsHashIndex){}
 /*************************************************************************/
 void XPathAccessor::Element::setProperty(const DM::Property *pProperty){
 	IAS_TRACER;
@@ -85,6 +85,14 @@ void XPathAccessor::addMultiElement(const String& strName,
 	IAS_CHECK_IF_NULL(pExpr);
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),((void*)this)<<" add: "<<strName);
 	addElement(IAS_DFT_FACTORY<Element>::Create(strName,pExpr));
+}
+/*************************************************************************/
+void XPathAccessor::addHashIndexElement(const String& strName,
+									Expr* pExpr){
+	IAS_TRACER;
+	IAS_CHECK_IF_NULL(pExpr);
+	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),((void*)this)<<" add: "<<strName);
+	addElement(IAS_DFT_FACTORY<Element>::Create(strName,pExpr,true));
 }
 /*************************************************************************/
 void XPathAccessor::addElement(XPathAccessor::Element *pElement){
@@ -142,9 +150,16 @@ DM::DataObject* XPathAccessor::getTargetObject(DM::DataObject* pParent, Context 
 			IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 			if((*it)->isMulti()){
-				int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
+
 				DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-				pResult = lstValues.at(iIdx);
+
+				if((*it)->isHashReference()){
+					DM::DataObjectPtr ptrIndex;
+					(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+					pResult = lstValues.at(ptrIndex);
+				}else
+					pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
 			}else{
 
 				try{
@@ -176,9 +191,16 @@ ExprResultSetter XPathAccessor::getTargetObjectSetter(DM::DataObject* pParent, C
 			IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 			if((*it)->isMulti()){
-				int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
+
 				DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-				pResult = lstValues.at(iIdx);
+
+				if((*it)->isHashReference()){
+					DM::DataObjectPtr ptrIndex;
+					(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+					pResult = lstValues.at(ptrIndex);
+				}else
+					pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
 			}else{
 				if(pResult->isSet((*it)->getProperty()))
 					pResult = pResult->getDataObject((*it)->getProperty());
@@ -190,6 +212,10 @@ ExprResultSetter XPathAccessor::getTargetObjectSetter(DM::DataObject* pParent, C
 	}
 
 	if( (*it)->isMulti() ){
+
+		if((*it)->isHashReference())
+			IAS_THROW(BadUsageException("Cannot assign to a hash map index."));
+
 		return ExprResultSetter(pResult,pValueProperty, (*it)->getMultiExpr()->evaluateInt(pCtx));
 	}else{
 		return ExprResultSetter(pResult,pValueProperty);
@@ -209,9 +235,16 @@ DM::DataObjectList& XPathAccessor::getTargetObjectList(DM::DataObject* pParent, 
 			IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 			if((*it)->isMulti()){
-				int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
+
 				DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-				pResult = lstValues.at(iIdx);
+
+				if((*it)->isHashReference()){
+					DM::DataObjectPtr ptrIndex;
+					(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+					pResult = lstValues.at(ptrIndex);
+				}else
+					pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
 			}else{
 				pResult = pResult->getDataObject((*it)->getProperty());
 			}
@@ -234,9 +267,16 @@ void XPathAccessor::deleteDataObject(DM::DataObject* pParent, Context *pCtx)cons
 		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 		if ((*it)->isMulti()) {
-			int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
+
 			DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-			pResult = lstValues.at(iIdx);
+
+			if((*it)->isHashReference()){
+				DM::DataObjectPtr ptrIndex;
+				(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+				pResult = lstValues.at(ptrIndex);
+			}else
+				pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
 		} else {
 			pResult = pResult->getDataObject((*it)->getProperty());
 		}
@@ -244,8 +284,13 @@ void XPathAccessor::deleteDataObject(DM::DataObject* pParent, Context *pCtx)cons
 	}
 
 	if((*it)->isMulti()){
-		int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
-		pResult->getList((*it)->getProperty()).remove(iIdx);
+
+		DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
+
+		if((*it)->isHashReference()){
+			IAS_THROW(InternalException("Delete by hash not implemented yet :)"));
+		}else
+			pResult->getList((*it)->getProperty()).remove((*it)->getMultiExpr()->evaluateInt(pCtx));
 	}else{
 		pResult->unset((*it)->getProperty());
 	}
@@ -279,6 +324,10 @@ bool XPathAccessor::isSet(DM::DataObject* pParent, Context *pCtx)const{
 	}
 
 	if((*it)->isMulti()){
+
+		if((*it)->isHashReference())
+			IAS_THROW(InternalException("isset by hash not implemented yet :)"));
+
 		int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
 		return pResult->getList((*it)->getProperty()).size() > iIdx;
 	}else{
@@ -314,6 +363,10 @@ bool XPathAccessor::isNull(DM::DataObject* pParent, Context *pCtx)const{
 	}
 
 	if((*it)->isMulti()){
+
+		if((*it)->isHashReference())
+			IAS_THROW(BadUsageException("IsNull test does not make sense for hash"));
+
 		int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
 
 		const DM::DataObjectList& lstDataObjects(pResult->getList((*it)->getProperty()));

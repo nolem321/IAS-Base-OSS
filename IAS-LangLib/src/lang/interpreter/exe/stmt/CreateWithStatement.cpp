@@ -65,10 +65,14 @@ void CreateWithStatement::setStatement(Statement* pStatement){
 void CreateWithStatement::execute(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
-	DM::DataObject *dmContext = ptrXPathExprFamily->createDataObject(pCtx);
+	DM::DataObjectPtr dmValue(ptrXPathExprFamily->getType()->createDataObject());
 
-	AutoPopUp autoPopUp(pCtx,dmContext);
-	ptrStatement->execute(pCtx);
+	{
+		AutoPopUp autoPopUp(pCtx,dmValue);
+		ptrStatement->execute(pCtx);
+	}
+
+	ptrXPathExprFamily->getTargetObjectSetter(pCtx).assign(dmValue);
 
 }
 /*************************************************************************/

@@ -84,6 +84,7 @@
 #include "stmt/DeleteNode.h"
 #include "stmt/ForLoopNode.h"
 #include "stmt/IfThenElseNode.h"
+#include "stmt/IndexNode.h"
 #include "stmt/LeftSideNode.h"
 #include "stmt/MergeNode.h"
 #include "stmt/ReturnNode.h"

@@ -80,6 +80,7 @@
 #include "stmt/DeleteNodeHandler.h"
 #include "stmt/ForLoopNodeHandler.h"
 #include "stmt/IfThenElseNodeHandler.h"
+#include "stmt/IndexNodeHandler.h"
 #include "stmt/LeftSideNodeHandler.h"
 #include "stmt/MergeNodeHandler.h"
 #include "stmt/ReturnNodeHandler.h"
@@ -184,6 +185,7 @@ void CallbackRegister::init(){
 	registerCallback<Model::Stmt::DeleteNode>(IAS_DFT_FACTORY<Stmt::DeleteNodeHandler>::Create());
 	registerCallback<Model::Stmt::ForLoopNode>(IAS_DFT_FACTORY<Stmt::ForLoopNodeHandler>::Create());
 	registerCallback<Model::Stmt::IfThenElseNode>(IAS_DFT_FACTORY<Stmt::IfThenElseNodeHandler>::Create());
+	registerCallback<Model::Stmt::IndexNode>(IAS_DFT_FACTORY<Stmt::IndexNodeHandler>::Create());
 	registerCallback<Model::Stmt::LeftSideNode>(IAS_DFT_FACTORY<Stmt::LeftSideNodeHandler>::Create());
 	registerCallback<Model::Stmt::MergeNode>(IAS_DFT_FACTORY<Stmt::MergeNodeHandler>::Create());
 	registerCallback<Model::Stmt::ReturnNode>(IAS_DFT_FACTORY<Stmt::ReturnNodeHandler>::Create());

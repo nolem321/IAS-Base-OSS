@@ -65,6 +65,8 @@ protected:
 		S_Eq,
 		S_Colon,
 		S_SpecSymbol,
+		S_OpenSquare,
+		S_CloseSquare,
 		S_QuestionMark,
 
 		S_Slash,
@@ -79,6 +81,8 @@ protected:
 	void handleState_StringEsc(unsigned char c);
 	void handleState_Symbol(unsigned char c);
 	void handleState_SpecSymbol(unsigned char c);
+	void handleState_OpenSquare(unsigned char c);
+	void handleState_CloseSquare(unsigned char c);
 	void handleState_Integer(unsigned char c);
 	void handleState_Float(unsigned char c);
 	void handleState_Greater(unsigned char c);

@@ -42,14 +42,16 @@ public:
 		inline const String& getName() const { return strName;};
 		inline const ExprNode* getMultiExpr() { return ptrExprNode; };
 		inline bool isMulti() const { return bIsMulti; };
+		inline bool isHashIndex() const { return bIsHashIndex; };
 
 	protected:
 		Element(String strName);
-		Element(String strName,ExprNode* pExprNode);
+		Element(String strName,ExprNode* pExprNode, bool bIsHashIndex = false);
 
 		virtual ~Element(){};
 		String   strName;
 		bool     bIsMulti;
+		bool     bIsHashIndex;
 
 		IAS_DFT_FACTORY<ExprNode>::PtrHolder ptrExprNode;
 
@@ -64,6 +66,7 @@ public:
 
 	void addSingleElement(const String& strName);
 	void addMultiElement(const String& strName, ExprNode* pExprNode);
+	void addHashIndexElement(const String& strName, ExprNode* pExprNode);
 
 protected:
 

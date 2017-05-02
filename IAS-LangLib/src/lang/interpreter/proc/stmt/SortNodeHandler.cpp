@@ -57,8 +57,6 @@ void SortNodeHandler::call(const Model::Node* pNode,
 	const Model::Expr::XPath::XPathAccessNode   *pListXPathAccessNode    = pSortNode->getListXPathAccessNode();
 	const Model::Dec::QualifiedNameNode         *pQualifiedNameNode      = pSortNode->getQualifiedNameNode();
 
-	bool bReverse = pSortNode->isDescending();
-
 	IAS_DFT_FACTORY<Exe::Expr::XPath::XPathExprFamily>::PtrHolder ptrListExpr(createVarExpr(pCtx,pListXPathAccessNode));
 
 	Exe::Program *pProgram = NULL;
@@ -77,7 +75,7 @@ void SortNodeHandler::call(const Model::Node* pNode,
 		IAS_THROW(BadUsageException("Sort function must return a boolean result."));
 
 
-	aResult.pStatement = IAS_DFT_FACTORY<Exe::Stmt::Sort>::Create(ptrListExpr.pass(), pProgram, bReverse);
+	aResult.pStatement = IAS_DFT_FACTORY<Exe::Stmt::Sort>::Create(ptrListExpr.pass(), pProgram);
 
 	aResult.pStatement->setSourceLine(pSortNode->getSourceLocation().getLineNumber());
 }

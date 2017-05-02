@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/export/text/stmt/SortNodeHandler.cpp
+ * File: IAS-LangLib/src/lang/printer/stmt/IndexNodeHandler.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "SortNodeHandler.h"
+#include "IndexNodeHandler.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
@@ -25,42 +25,40 @@
 
 namespace IAS {
 namespace Lang {
-namespace Export{
-namespace Text {
+namespace Printer {
 namespace Stmt {
 
 /*************************************************************************/
-SortNodeHandler::SortNodeHandler(){
+IndexNodeHandler::IndexNodeHandler() {
 	IAS_TRACER;
 }
 
 /*************************************************************************/
-SortNodeHandler::~SortNodeHandler() throw(){
+IndexNodeHandler::~IndexNodeHandler() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void SortNodeHandler::call(const Model::Node* pNode,
+void IndexNodeHandler::call(const Model::Node* pNode,
 						    CallbackCtx *pCtx,
-						    CallbackSignature::Result& aResult){
+						    std::ostream& os){
 	IAS_TRACER;
 
-	IAS_TYPEID_CHECK(Model::Stmt::SortNode, pNode);
-	const Model::Stmt::SortNode *pSortNode = IAS_DYNAMICCAST_CONST(Model::Stmt::SortNode, pNode);
+	IAS_TYPEID_CHECK(Model::Stmt::IndexNode, pNode);
+	const Model::Stmt::IndexNode *pIndexNode = IAS_DYNAMICCAST_CONST(Model::Stmt::IndexNode, pNode);
 
-	const Model::Expr::XPath::XPathAccessNode   *pListXPathAccessNode = pSortNode->getListXPathAccessNode();
+	const Model::Expr::XPath::XPathAccessNode   *pListXPathAccessNode = pIndexNode->getListXPathAccessNode();
+	const Model::Expr::XPath::XPathAccessNode   *pIndexXPathAccessNode = pIndexNode->getIndexXPathAccessNode();
 
-	const Model::Dec::QualifiedNameNode         *pQualifiedNameNode  = pSortNode->getQualifiedNameNode();
+	printIndent(pCtx,os);
+	os<<"INDEX ";
+	CallbackRegister::SubCall(pListXPathAccessNode, pCtx, os);
 
-	printKeyword(aResult,"SORT ");
-	CallbackRegister::SubCall(pListXPathAccessNode,pCtx,aResult);
+	os<<" WITH ";
+	CallbackRegister::SubCall(pIndexXPathAccessNode,pCtx,os);
 
-	if(pQualifiedNameNode){
-		printKeyword(aResult," USING ");
-		CallbackRegister::SubCall(pQualifiedNameNode,pCtx,aResult);
-	}
+
 }
 /*************************************************************************/
-}
 }
 }
 }

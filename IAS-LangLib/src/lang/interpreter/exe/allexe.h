@@ -32,6 +32,7 @@
 #include "stmt/Create.h"
 #include "stmt/LeftSide.h"
 #include "stmt/IfThenElse.h"
+#include "stmt/Index.h"
 #include "stmt/Statement.h"
 #include "stmt/StatementLists.h"
 #include "stmt/WhileLoop.h"

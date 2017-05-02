@@ -61,8 +61,14 @@ void XPathNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Callbac
 
 		if((*it)->isMulti()){
 			aResult.ssOutput<<"[";
+			if((*it)->isHashIndex())
+				aResult.ssOutput<<"[";
+
 			CallbackRegister::SubCall((*it)->getMultiExpr(),pCtx,aResult);
 			aResult.ssOutput<<"]";
+
+			if((*it)->isHashIndex())
+				aResult.ssOutput<<"]";
 		}
 	};
 

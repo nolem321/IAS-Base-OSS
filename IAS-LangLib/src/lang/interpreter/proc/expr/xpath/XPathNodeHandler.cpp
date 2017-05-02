@@ -63,7 +63,12 @@ void XPathNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Callbac
 			CallbackRegister::SubCall((*it)->getMultiExpr(),pCtx,aTmpResult);
 			IAS_DFT_FACTORY<Exe::Expr::Expr>::PtrHolder ptrExpr(aTmpResult.pExpr);
 
-			ptrAccessor->addMultiElement((*it)->getName(),ptrExpr.pass());
+			if((*it)->isHashIndex())
+				ptrAccessor->addHashIndexElement((*it)->getName(),ptrExpr.pass());
+			else
+				ptrAccessor->addMultiElement((*it)->getName(),ptrExpr.pass());
+
+
 		}else{
 			ptrAccessor->addSingleElement((*it)->getName());
 		}

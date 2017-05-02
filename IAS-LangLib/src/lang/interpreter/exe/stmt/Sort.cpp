@@ -37,11 +37,9 @@ namespace Stmt {
 
 /*************************************************************************/
 Sort::Sort(Expr::XPath::XPathExprFamily  *pListExpr,
-		 Program* pProgram,
-		 bool bReverse):
+		 Program* pProgram):
 		  ptrListExpr(pListExpr),
-		  pProgram(pProgram),
-		  bReverse(bReverse){
+		  pProgram(pProgram){
 
 	IAS_TRACER;
 

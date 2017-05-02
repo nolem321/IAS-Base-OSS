@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/expr/tymczasowy.h
+ * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Index.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,43 +15,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_Lang_Interpreter_Exe_Expr_tymczasowy_H_
-#define _IAS_Lang_Interpreter_Exe_Expr_tymczasowy_H_
+#ifndef _IAS_AS_Lang_Interpreter_Exe_Stmt_Index_H_
+#define _IAS_AS_Lang_Interpreter_Exe_Stmt_Index_H_
 
-#include "DataObjectExpr.h"
+#include "Statement.h"
+
+#include "../dec/DeclarationBlockFeature.h"
 
 namespace IAS {
 namespace Lang {
 namespace Interpreter {
 namespace Exe {
-namespace Expr {
-class BooleanExpr;
+class Context;
+class Program;
+class ProgramContext;
+
+namespace Expr{
+namespace XPath{
+class XPathExprFamily;
+}
+}
+namespace Stmt {
+class Statement;
+class LeftSide;
 
 /*************************************************************************/
-/** The tymczasowy class.
- *
- */
-class tymczasowy : public virtual DataObjectExpr {
-
+/** The class. */
+ class Index : public Statement {
 public:
 
-	virtual ~tymczasowy() throw();
+	virtual ~Index() throw();
 
-	virtual void evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const;
+	virtual void execute(Exe::Context *pCtx)const;
 
 protected:
-	tymczasowy(const DM::DataFactory*  pDataFactory,
-			     BooleanExpr      *pCondition,
-			     Expr* pExprTrue,
-				 Expr* pExprFalse);
+	Index(Expr::XPath::XPathExprFamily  *pListExpr,
+		  const String& strXPath);
 
-	IAS_DFT_FACTORY<BooleanExpr>::PtrHolder            ptrCondition;
-	IAS_DFT_FACTORY<Expr>::PtrHolder                   ptrExprTrue;
-	IAS_DFT_FACTORY<Expr>::PtrHolder                   ptrExprFalse;
+	IAS_DFT_FACTORY<Expr::XPath::XPathExprFamily>::PtrHolder ptrListExpr;
 
-	friend class ::IAS::Factory<tymczasowy>;
+	const String strXPath;
+	friend class ::IAS::Factory<Index>;
 };
-
 /*************************************************************************/
 }
 }
@@ -59,4 +64,4 @@ protected:
 }
 }
 
-#endif /* _IAS_Lang_Interpreter_Exe_Expr_tymczasowy_H_ */
+#endif /* _IAS_AS_Lang_Interpreter_Exe_Stmt_ASSIGNMENT_H_ */

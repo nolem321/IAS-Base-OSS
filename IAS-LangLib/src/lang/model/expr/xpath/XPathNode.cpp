@@ -30,18 +30,17 @@ namespace XPath {
 
 
 /*************************************************************************/
-XPathNode::Element::Element(String strName){
-	IAS_TRACER;
-	this->strName=strName;
-	bIsMulti=false;
-}
+XPathNode::Element::Element(String strName):
+		strName(strName),
+		ptrExprNode(NULL),
+		bIsMulti(false),
+		bIsHashIndex(false){}
 /*************************************************************************/
-XPathNode::Element::Element(String strName, ExprNode* pExprNode){
-	IAS_TRACER;
-	this->strName=strName;
-	ptrExprNode=pExprNode;
-	bIsMulti=true;
-}
+XPathNode::Element::Element(String strName, ExprNode* pExprNode, bool bIsHashIndex):
+	strName(strName),
+	ptrExprNode(pExprNode),
+	bIsMulti(true),
+	bIsHashIndex(bIsHashIndex){}
 /*************************************************************************/
 XPathNode::XPathNode(){
 	IAS_TRACER;
@@ -63,6 +62,13 @@ void XPathNode::addMultiElement(const String& strName,
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pExprNode);
 	addElement(IAS_DFT_FACTORY<Element>::Create(strName,pExprNode));
+}
+/*************************************************************************/
+void XPathNode::addHashIndexElement(const String& strName,
+									ExprNode* pExprNode){
+	IAS_TRACER;
+	IAS_CHECK_IF_NULL(pExprNode);
+	addElement(IAS_DFT_FACTORY<Element>::Create(strName,pExprNode, true));
 }
 /*************************************************************************/
 void XPathNode::addElement(XPathNode::Element *pElement){

@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/model/stmt/SortNode.h
+ * File: IAS-LangLib/src/lang/model/stmt/IndexNode.h
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,8 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _IAS_AS_Lang_Model_Stmt_SortNode_H_
-#define _IAS_AS_Lang_Model_Stmt_SortNode_H_
+#ifndef _IAS_AS_Lang_Model_Stmt_IndexNode_H_
+#define _IAS_AS_Lang_Model_Stmt_IndexNode_H_
 
 #include <commonlib/commonlib.h>
 #include "StatementNode.h"
@@ -44,24 +44,22 @@ namespace Stmt  {
 
 /*************************************************************************/
 /** The class. */
- class SortNode : public StatementNode{
+ class IndexNode : public StatementNode{
 public:
 
-	virtual ~SortNode() throw();
+	virtual ~IndexNode() throw();
 
-	const Dec::QualifiedNameNode*                  getQualifiedNameNode()      const { return ptrQualifiedNameNode; };
 	const Expr::XPath::XPathAccessNode*            getListXPathAccessNode()    const { return ptrListXPathAccessNode; };
-
-	bool hasQualifiedNameNode()const { return !ptrQualifiedNameNode.isNull(); }
+	const Expr::XPath::XPathAccessNode*            getIndexXPathAccessNode()   const { return ptrIndexXPathAccessNode; };
 
 protected:
-	SortNode(Expr::XPath::XPathAccessNode       *pListXPathAccessNode,
-			 Dec::QualifiedNameNode             *pQualifiedNameNode);
+	IndexNode(Expr::XPath::XPathAccessNode       *pListXPathAccessNode,
+			  Expr::XPath::XPathAccessNode       *pIndexXPathAccessNode);
 
 	IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::PtrHolder     ptrListXPathAccessNode;
-	IAS_DFT_FACTORY<Dec::QualifiedNameNode>::PtrHolder           ptrQualifiedNameNode;
+	IAS_DFT_FACTORY<Expr::XPath::XPathAccessNode>::PtrHolder     ptrIndexXPathAccessNode;
 
-	friend class ::IAS::Factory<SortNode>;
+	friend class ::IAS::Factory<IndexNode>;
 };
 
 /*************************************************************************/

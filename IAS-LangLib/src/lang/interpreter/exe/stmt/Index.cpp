@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/expr/tymczasowy.cpp
+ * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Index.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,50 +15,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "tymczasowy.h"
+#include "Index.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
-#include "xpath/XPathAccessor.h"
 #include "../Context.h"
-#include "xpath/XPathExprFamily.h"
-#include "BooleanExpr.h"
-#include <lang/exception/ScriptUsageException.h>
+#include "../Program.h"
+#include "../ProgramContext.h"
+
+#include "../expr/xpath/XPathExprFamily.h"
+#include "../expr/xpath/XPathAccessor.h"
+#include "Statement.h"
+#include "LeftSide.h"
+#include "../exception/NullObjectReferenceException.h"
 
 namespace IAS {
 namespace Lang {
 namespace Interpreter {
 namespace Exe {
-namespace Expr {
+namespace Stmt {
 
 /*************************************************************************/
-tymczasowy::tymczasowy(const DM::DataFactory* pDataFactory,
-						 BooleanExpr      *pCondition,
-					     Expr* pExprTrue,
-						 Expr* pExprFalse):
-		ptrCondition(pCondition),
-		ptrExprTrue(pExprTrue),
-		ptrExprFalse(pExprFalse){
+Index::Index(Expr::XPath::XPathExprFamily  *pListExpr,
+		     const String& strXPath):
+		  ptrListExpr(pListExpr),
+		  strXPath(strXPath){
+
 	IAS_TRACER;
 
-	setType(ptrExprTrue->getType());
-
-	if(! ptrExprFalse->getType()->isAssignableTo(getType())){
-		IAS_THROW(ScriptUsageException("Inconsistent value types for a conditional expression."));
-	}
-
+	IAS_CHECK_IF_NULL(ptrListExpr);
 }
 /*************************************************************************/
-tymczasowy::~tymczasowy() throw(){
+Index::~Index() throw(){
 	IAS_TRACER;
 }
+
 /*************************************************************************/
-void tymczasowy::evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const{
+void Index::execute(Context *pCtx) const{
 	IAS_TRACER;
-	if(ptrCondition->evaluateBoolean(pCtx))
-		ptrExprTrue->evaluate(pCtx,refResult);
-	else
-		ptrExprFalse->evaluate(pCtx,refResult);
+
+	DM::DataObjectPtr dmContext;
+
+	DM::DataObjectList& lstArray(ptrListExpr->getTargetObjectList(pCtx));
+
+	lstArray.hashWith(strXPath);
+
 }
 /*************************************************************************/
 }

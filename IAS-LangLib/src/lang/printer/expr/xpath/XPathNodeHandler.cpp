@@ -55,9 +55,9 @@ void XPathNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, std::os
 		os<<(*it)->getName();
 
 		if((*it)->isMulti()){
-			os<<"[";
+			os<<((*it)->isHashIndex() ? "[[" : "[");
 			CallbackRegister::SubCall((*it)->getMultiExpr(),pCtx,os);
-			os<<"]";
+			os<<((*it)->isHashIndex() ? "]]" : "]");
 		}
 	};
 

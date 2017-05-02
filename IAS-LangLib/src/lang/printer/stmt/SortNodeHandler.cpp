@@ -49,8 +49,6 @@ void SortNodeHandler::call(const Model::Node* pNode,
 	const Model::Expr::XPath::XPathAccessNode   *pListXPathAccessNode = pSortNode->getListXPathAccessNode();
 	const Model::Dec::QualifiedNameNode         *pQualifiedNameNode  = pSortNode->getQualifiedNameNode();
 
-	bool bDescending = pSortNode->isDescending();
-
 	printIndent(pCtx,os);
 	os<<"SORT ";
 	CallbackRegister::SubCall(pListXPathAccessNode, pCtx, os);
@@ -58,7 +56,7 @@ void SortNodeHandler::call(const Model::Node* pNode,
 	if(pQualifiedNameNode){
 		os<<"\n";
 		printIndent(pCtx,os);
-		os<<" WITH ";
+		os<<" USING ";
 		CallbackRegister::SubCall(pQualifiedNameNode,pCtx,os);
 	}
 
