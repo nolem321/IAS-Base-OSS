@@ -21,6 +21,8 @@
 #include "../../dm/Impl/DataObjectBasic.h"
 #include "../../dm/Impl/MemoryManager.h"
 
+#include "StringContent.h"
+
 namespace IAS {
 namespace DM {
 namespace Impl {
@@ -55,17 +57,6 @@ public:
 protected:
 	DataObjectString(const Type *pType);
 
-
-	typedef std::basic_string< char,
-				std::char_traits<char>,
-				DataAllocator< char >
-			> StringContentBase;
-
-	class StringContent : public StringContentBase {
-		public:
-		 inline StringContent(const String& other):StringContentBase(other.c_str()){}
-		 operator String() const { return String(c_str()); };
-	};
 
 
 	StringContent strValue;

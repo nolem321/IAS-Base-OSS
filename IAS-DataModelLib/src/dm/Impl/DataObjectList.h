@@ -24,6 +24,8 @@
 #include "../../dm/Impl/MemoryManager.h"
 #include "../../dm/Impl/TypeRefFeature.h"
 
+#include "StringContent.h"
+
 namespace IAS {
 namespace DM {
 namespace Impl {
@@ -53,6 +55,11 @@ public:
 	virtual const ::IAS::DM::DataObject* operator [](int iIdx) const;
 
 	virtual const ::IAS::DM::Type*   getType() const;
+
+	virtual void hashWith(const String& strXPath);
+	virtual ::IAS::DM::DataObject* at(const ::IAS::DM::DataObject* pKey);
+	virtual const ::IAS::DM::DataObject* at(const ::IAS::DM::DataObject* pKey) const;
+
 protected:
 	DataObjectList(const IAS::DM::Type *pType, 	IAS::DM::DataObject *pParent);
 
@@ -60,6 +67,22 @@ protected:
 			DataAllocator< ::IAS::DM::DataObjectPtr >  >DataObjectVector;
 
 	DataObjectVector lstDataObject;
+
+	typedef HashMapWithStringKey<::IAS::DM::DataObject*, DataAllocator< ::IAS::DM::DataObjectPtr > >
+		HashMap;
+
+	struct Hash{
+		StringContent strHashXPath;
+		HashMap hmObjects;
+
+		void insert(::IAS::DM::DataObject*);
+		void remove(::IAS::DM::DataObject*);
+		Hash();
+		virtual ~Hash();
+	};
+
+	DataAllocator< Hash >::PtrHolder ptrHash;
+
 
 	friend class ::IAS::Factory<DataObjectList>;
 };

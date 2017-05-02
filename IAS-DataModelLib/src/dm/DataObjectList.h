@@ -18,6 +18,7 @@
 #ifndef _IAS_DM_DATAOBJECTLIST_H_
 #define _IAS_DM_DATAOBJECTLIST_H_
 
+#include <commonlib/commonlib.h>
 
 namespace IAS {
 namespace DM {
@@ -34,6 +35,15 @@ public:
 	virtual int         size() const = 0;
 	virtual DataObject* at(int iIdx)  = 0;
 	virtual const DataObject* at(int iIdx) const  = 0;
+
+	/*
+	 * Hashing
+	 */
+
+	virtual void hashWith(const String& strXPath) = 0;
+
+	virtual DataObject* at(const DataObject* pKey)  = 0;
+	virtual const DataObject* at(const DataObject* pKey) const  = 0;
 
 	virtual void        remove(int iIdx)  = 0;
 	virtual void        add(DataObject* pDataObject) = 0;

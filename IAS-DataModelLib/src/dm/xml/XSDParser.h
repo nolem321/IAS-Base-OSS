@@ -106,7 +106,8 @@ protected:
 		enum Stage{
 			STAGE_NONE,
 			STAGE_DEFINE,
-			STAGE_DEFINED
+			STAGE_PROPERTIES,
+			STAGE_DEFINED,
 		};
 
 		virtual ~TypeInfo(){};
@@ -138,7 +139,7 @@ protected:
 	TypeInfoStack stackTypeInfo;
 	unsigned int  iInlineCount;
 
-	DM::Type* defineType(TypeInfo* pTypeInfo);
+	DM::Type* defineType(TypeInfo* pTypeInfo, bool bSkipProperties = false);
 	void createProperties(TypeInfo* pTypeInfo);
 	void defineTypes();
 	void defineTargetNSElements();
@@ -147,7 +148,7 @@ protected:
 
 	virtual void lookupURI(const String& strTypePrefix, String& strResult);
 	void updateInlineTypeName(PropertyInfo* pPropertyInfo);
-	void verfifyExisting(const ::IAS::DM::Type* pBaseType, TypeInfo* pTypeInfo);
+	bool verfifyExisting(const ::IAS::DM::Type* pBaseType, TypeInfo* pTypeInfo);
 
 	static const String StrXSDSchema;
 

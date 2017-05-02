@@ -762,34 +762,37 @@ void XSDParser::setWorkingDir(const String& strDir){
 	this->strWorkingDir=strDir;
 }
 /*************************************************************************/
-void XSDParser::verfifyExisting(const ::IAS::DM::Type* pBaseType,
+bool XSDParser::verfifyExisting(const ::IAS::DM::Type* pBaseType,
 		TypeInfo* pTypeInfo) {
 
 	IAS_TRACER;
 
-	DM::Type* pNewType = pTypeInfo->pType = pDataFactory->getType(
-			strTargetNamespace, pTypeInfo->strName);
+	try{
+		pTypeInfo->pType=getConvertedType(strTargetNamespace, pTypeInfo->strName);
+	}catch(ItemNotFoundException& e){
+		return false;
+	};
 
-	if (pNewType->isRootType() != (pBaseType == NULL))
+	if (pTypeInfo->pType->isRootType() != (pBaseType == NULL))
 		IAS_THROW(BadUsageException(
 					strTargetNamespace + "#" + pTypeInfo->strName
 					+ " alread defined with different specification (is root type)"));
 
-	if (!pNewType->isRootType()
+	if (!pTypeInfo->pType->isRootType()
 			&& (pBaseType->getURI().compare(pTypeInfo->strBaseTypeURI) != 0
 					|| pBaseType->getName().compare(pTypeInfo->strBaseTypeName)!= 0))
-	IAS_THROW(BadUsageException(
+			IAS_THROW(BadUsageException(
 					strTargetNamespace + "#" + pTypeInfo->strName
 					+ " alread defined with different specification (base type name)"));
 
 
-	if(pNewType->isDataObjectType()){
+	if(pTypeInfo->pType->isDataObjectType()){
 
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Verify props1: "<<pTypeInfo->lstPropertyInfo.size());
 
 		//IAS_MY_STACK().printStack(std::cerr);
 
-		int iExpected = pNewType->asComplexType()->getProperties().getSize();
+		int iExpected = pTypeInfo->pType->asComplexType()->getProperties().getSize();
 		if(pBaseType)
 			iExpected -= pBaseType->asComplexType()->getProperties().getSize();
 
@@ -799,28 +802,34 @@ void XSDParser::verfifyExisting(const ::IAS::DM::Type* pBaseType,
 			IAS_THROW(BadUsageException(strTargetNamespace + "#" + pTypeInfo->strName
 					+ " alread defined with different specification (properties)"));
 	}
+
+	return true;
 }
 
 /*************************************************************************/
-DM::Type* XSDParser::defineType(TypeInfo* pTypeInfo){
+DM::Type* XSDParser::defineType(TypeInfo* pTypeInfo, bool bSkipProperties){
 	IAS_TRACER;
 
 	IAS_CHECK_IF_NULL(pTypeInfo);
 
+
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
-			"New type:"<<pTypeInfo->strName);
+			" New type:"<<pTypeInfo->strName<<" "<<bSkipProperties<<" "<<pTypeInfo->pType);
 
+	if(pTypeInfo->iStage == TypeInfo::STAGE_DEFINE)
+		IAS_THROW(XMLHelperException("Cycle detected for a type definition of: "+strTargetNamespace+":"+pTypeInfo->strName));
 
-	if(pTypeInfo->iStage == TypeInfo::STAGE_DEFINE){
-		StringStream ssInfo;
-		ssInfo<<"Cycle detected for a type definition of: ";
-		ssInfo<<strTargetNamespace<<":"<<pTypeInfo->strName;
-		IAS_THROW(XMLHelperException(ssInfo.str()));
-	};
+	if(pTypeInfo->iStage == TypeInfo::STAGE_PROPERTIES){
+		if(!bSkipProperties){
+			createProperties(pTypeInfo);
+			pTypeInfo->iStage=TypeInfo::STAGE_DEFINED;
+		}else{
+			return pTypeInfo->pType;
+		}
+	}
 
 	if(pTypeInfo->iStage == TypeInfo::STAGE_DEFINED){
-		DM::Type *pType = pDataFactory->getType(strTargetNamespace,pTypeInfo->strName);
-		return pType;
+		return pTypeInfo->pType;
 	};
 
 	pTypeInfo->iStage=TypeInfo::STAGE_DEFINE;
@@ -828,43 +837,37 @@ DM::Type* XSDParser::defineType(TypeInfo* pTypeInfo){
 	const ::IAS::DM::Type *pBaseType = NULL;
 
 	if(!(pTypeInfo->strBaseTypeName.empty())){
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
+						"Base !"<<pTypeInfo->strBaseTypeName);
+
+		if(pTypeInfo->strBaseTypeURI.compare(strTargetNamespace) == 0
+				&& hmTypeInfo.count(pTypeInfo->strBaseTypeName) > 0)
+			 pBaseType = defineType(hmTypeInfo[pTypeInfo->strBaseTypeName]);
+
 		try{
-
-			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Base type:"
-						<<pTypeInfo->strBaseTypeURI<<":"
-						<<pTypeInfo->strBaseTypeName);
-
-
-			pBaseType=getConvertedType(pTypeInfo->strBaseTypeURI,
-									   pTypeInfo->strBaseTypeName);
-
+			 pBaseType = getConvertedType(pTypeInfo->strBaseTypeURI, pTypeInfo->strBaseTypeName);
 		}catch(ItemNotFoundException& e){
 
-			IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Type not found, try in info table.");
-
-			if(hmTypeInfo.count(pTypeInfo->strBaseTypeName) > 0)
-				pBaseType=defineType(hmTypeInfo[pTypeInfo->strBaseTypeName]);
-			else{
-				StringStream ssInfo;
-				ssInfo<<"Cannot find a type definition for: ";
-				ssInfo<<pTypeInfo->strBaseTypeURI<<":"<<pTypeInfo->strBaseTypeName;
-				IAS_THROW(XMLHelperException(ssInfo.str()));
-			}
+			if(pTypeInfo->strBaseTypeURI.compare(strTargetNamespace) != 0 || hmTypeInfo.count(pTypeInfo->strBaseTypeName) == 0)
+				IAS_THROW(XMLHelperException("Cannot find a type definition for: "+pTypeInfo->strBaseTypeURI+":"+pTypeInfo->strBaseTypeName));
 		};
+
 		IAS_CHECK_IF_VALID(pBaseType);
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Base:"<<(void*)pBaseType);
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Base:"<<pBaseType->getURI());
+
 	}; /* IF: has BaseType */
 
 	DM::Type* pNewType= NULL;
 
-	try{
-		pNewType = pTypeInfo->pType=pDataFactory->getType(strTargetNamespace, pTypeInfo->strName);
-		verfifyExisting(pBaseType, pTypeInfo);
+	if(verfifyExisting(pBaseType, pTypeInfo)){
 
-	}catch(ItemNotFoundException& e){
+		pNewType = pTypeInfo->pType = getConvertedType(strTargetNamespace, pTypeInfo->strName);
+		pTypeInfo->iStage=TypeInfo::STAGE_DEFINED;
 
-		pNewType=pTypeInfo->pType=pDataFactory->defineType(strTargetNamespace,
+	}else{
+
+		pNewType = pTypeInfo->pType=pDataFactory->defineType(strTargetNamespace,
 														   pTypeInfo->strName,
 														   pBaseType);
 
@@ -875,10 +878,15 @@ DM::Type* XSDParser::defineType(TypeInfo* pTypeInfo){
 		if(pTypeInfo->iMaxLength != Type::CDftMaxLength)
 			pNewType->setRestrictionMaxLength(pTypeInfo->iMaxLength);
 
-		createProperties(pTypeInfo);
+		pTypeInfo->iStage=TypeInfo::STAGE_PROPERTIES;
+
+		if(!bSkipProperties){
+			createProperties(pTypeInfo);
+			pTypeInfo->iStage=TypeInfo::STAGE_DEFINED;
+		}
+
 	}
 
-	pTypeInfo->iStage=TypeInfo::STAGE_DEFINED;
 	return pNewType;
 
 }
@@ -891,7 +899,7 @@ void XSDParser::createProperties(TypeInfo* pTypeInfo){
 
 
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
-			"Create properties for:"<<":"<<pTypeInfo->strName<<" "<<pTypeInfo->lstPropertyInfo.size());
+			" Create properties for:"<<":"<<pTypeInfo->strName<<" "<<pTypeInfo->lstPropertyInfo.size());
 
 	if(pTypeInfo->lstPropertyInfo.size() == 0)
 		return;
@@ -909,16 +917,12 @@ void XSDParser::createProperties(TypeInfo* pTypeInfo){
 		IAS_CHECK_IF_NULL(pPropertyInfo);
 
 		if(pPropertyInfo->strTypeURI.compare(this->strTargetNamespace) == 0 &&
-			hmTypeInfo.count(pPropertyInfo->strTypeName) > 0){
-			TypeInfo *pPropertyTypeInfo = hmTypeInfo[pPropertyInfo->strTypeName];
-			IAS_CHECK_IF_NULL(pPropertyTypeInfo);
+			hmTypeInfo.count(pPropertyInfo->strTypeName) > 0)
+				defineType(hmTypeInfo[pPropertyInfo->strTypeName],true);
 
-			if( pPropertyTypeInfo->iStage == TypeInfo::STAGE_NONE)
-				 defineType(hmTypeInfo[pPropertyInfo->strTypeName]);
-		}
 
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),
-						"Property for:"<<":"<<pTypeInfo->strName<<" : "<<pPropertyInfo->strName<<" : "<<
+				"Property for:"<<":"<<pTypeInfo->strName<<" : "<<pPropertyInfo->strName<<" : "<<
 						pPropertyInfo->strTypeURI << ":" << pPropertyInfo->strTypeName << ":" << pPropertyInfo->bIsMulti);
 
 		DM::Type* pPropertyType = getConvertedType(pPropertyInfo->strTypeURI, pPropertyInfo->strTypeName);
@@ -944,8 +948,6 @@ void XSDParser::defineTypes(){
 		TypeInfo* pTypeInfo = it->second;
 		defineType(pTypeInfo);
 	}
-
-
 }
 /*************************************************************************/
 void XSDParser::defineTargetNSElements(){
