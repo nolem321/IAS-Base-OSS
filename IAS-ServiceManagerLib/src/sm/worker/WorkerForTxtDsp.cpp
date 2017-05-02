@@ -34,11 +34,12 @@ namespace SM {
 namespace Worker {
 
 /*************************************************************************/
-WorkerForTxtDsp::WorkerForTxtDsp(const Cfg::Config *pConfig, const Mon::Monitor* pMonitor) {
+WorkerForTxtDsp::WorkerForTxtDsp(const Cfg::Config *pConfig, const Mon::Monitor* pMonitor, bool bFailedOnly) {
 	IAS_TRACER;
 
 	this->pConfig = pConfig;
 	this->pMonitor = pMonitor;
+	this->bFailedOnly = bFailedOnly;
 	ptrExeHandler = IAS_DFT_FACTORY<Exe::Handler>::Create();
 
 }
@@ -50,24 +51,35 @@ WorkerForTxtDsp::~WorkerForTxtDsp() throw () {
 void WorkerForTxtDsp::work(const ::org::invenireaude::sm::cfg::Service* pService) {
 	IAS_TRACER;
 
-	std::ostream& os = pConfig->getOutput();
-	os.width(40);
-	os << pService->getName();
-	os.width(0);
-	os << " : ";
+	StringStream ssLine;
 
 	const Mon::ServiceStatus* pServiceStatus = pMonitor->getServiceStatus(pService);
 
 	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
 	int iCount = dmResourceGrp->getCount();
 
+
+
+	bool hasFailed = false;
+
 	for (int iIdx = 0; iIdx < iCount; iIdx++) {
 
 		const Mon::ServiceStatus::InstanceStatus *pInstanceStatus = pServiceStatus->getInstanceStatus(iIdx);
-		os << (pInstanceStatus->bIsRunning ? " X" : (pInstanceStatus->bIsStarted ? " !" : " ?"));
+		ssLine << (pInstanceStatus->bIsRunning ? " X" : (pInstanceStatus->bIsStarted ? " !" : " ?"));
+		hasFailed |=  !pInstanceStatus->bIsRunning && pInstanceStatus->bIsStarted;
+
 	}
 
-	os << std::endl;
+	if(bFailedOnly && !hasFailed)
+		return;
+
+	std::ostream& os = pConfig->getOutput();
+	os.width(40);
+	os << pService->getName();
+	os.width(0);
+	os << " : ";
+
+	os << ssLine.str() << std::endl;
 
 }
 /*************************************************************************/

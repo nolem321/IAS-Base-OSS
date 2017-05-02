@@ -86,7 +86,7 @@ void ServiceManager::stopServices(const Cfg::GrpAttrPairList& lstGrpAttrPair,  b
 	ptrIterator->execute();
 }
 /*************************************************************************/
-void ServiceManager::printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrPair) {
+void ServiceManager::printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrPair,  bool bFailedOnly) {
 	IAS_TRACER;
 
 	Cfg::ServiceIdxList lstSelectedServices;
@@ -96,7 +96,7 @@ void ServiceManager::printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrP
 	ptrMonitor->refresh();
 
 	IAS_DFT_FACTORY<Worker::WorkerForTxtDsp>::PtrHolder ptrWorker(
-			IAS_DFT_FACTORY<Worker::WorkerForTxtDsp>::Create(ptrConfig.getPointer(), ptrMonitor.getPointer()));
+			IAS_DFT_FACTORY<Worker::WorkerForTxtDsp>::Create(ptrConfig.getPointer(), ptrMonitor.getPointer(), bFailedOnly));
 
 	IAS_DFT_FACTORY<Worker::Iterator>::PtrHolder ptrIterator(Worker::Iterator::Create(ptrConfig, ptrWorker, lstSelectedServices));
 

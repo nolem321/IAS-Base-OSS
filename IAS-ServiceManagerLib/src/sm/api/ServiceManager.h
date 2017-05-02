@@ -41,7 +41,7 @@ public:
 
 	void stopServices(const Cfg::GrpAttrPairList& lstGrpAttrPair, bool bAsync = false);
 
-	void printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrPair);
+	void printServicesStatus(const Cfg::GrpAttrPairList& lstGrpAttrPair,  bool bFailedOnly = false);
 
 	void prepareServicesStatus(const ::org::invenireaude::sm::api::Ext::GrpAttrPairList& lstGrpAttrPair,
 							   ::org::invenireaude::sm::api::Ext::ServiceStatusList& lstServiceStatus);

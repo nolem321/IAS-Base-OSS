@@ -45,7 +45,7 @@ public:
 	virtual void work(const ::org::invenireaude::sm::cfg::Service* pService);
 
 protected:
-	WorkerForTxtDsp(const ::IAS::SM::Cfg::Config *pConfig, const ::IAS::SM::Mon::Monitor* pMonitor);
+	WorkerForTxtDsp(const ::IAS::SM::Cfg::Config *pConfig, const ::IAS::SM::Mon::Monitor* pMonitor, bool bFailedOnly = false);
 
 private:
 
@@ -53,6 +53,8 @@ private:
 
 	const ::IAS::SM::Cfg::Config *pConfig;
 	const ::IAS::SM::Mon::Monitor* pMonitor;
+
+	bool bFailedOnly;
 
 	friend class ::IAS::Factory<WorkerForTxtDsp>;
 };
