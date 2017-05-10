@@ -310,9 +310,15 @@ bool XPathAccessor::isSet(DM::DataObject* pParent, Context *pCtx)const{
 		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 		if ((*it)->isMulti()) {
-			int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
 			DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-			pResult = lstValues.at(iIdx);
+
+			if((*it)->isHashReference()){
+				DM::DataObjectPtr ptrIndex;
+				(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+				pResult = lstValues.at(ptrIndex);
+			}else
+				pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
 		} else {
 
 			if(! pResult->isSet((*it)->getProperty()))
@@ -325,11 +331,22 @@ bool XPathAccessor::isSet(DM::DataObject* pParent, Context *pCtx)const{
 
 	if((*it)->isMulti()){
 
-		if((*it)->isHashReference())
-			IAS_THROW(InternalException("isset by hash not implemented yet :)"));
+		if((*it)->isHashReference()){
+			DM::DataObjectPtr ptrIndex;
+			(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+			try{
+				pResult->getList((*it)->getProperty()).at(ptrIndex);
+				return true;
+			}catch(DM::NotFoundException& e){
+				return false;
+			}
+
+		}else{
 
 		int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
 		return pResult->getList((*it)->getProperty()).size() > iIdx;
+		}
+
 	}else{
 		return pResult->isSet((*it)->getProperty());
 	}
