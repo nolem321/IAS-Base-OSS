@@ -20,6 +20,7 @@
 
 #include "../../dm/DataObject.h"
 #include "../../dm/Impl/exception/RuntimeException.h"
+#include "../../dm/Impl/exception/NotFoundException.h"
 #include "../../dm/Impl/Type.h"
 #include "../../dm/log/LogLevel.h"
 
@@ -76,6 +77,7 @@ void DataObjectList::remove(int iIdx){
 	}
 
 	lstDataObject.erase(lstDataObject.begin()+=iIdx);
+
 }
 /*************************************************************************/
 void DataObjectList::add(::IAS::DM::DataObject* pDataObject){
@@ -189,7 +191,7 @@ void DataObjectList::hashWith(const String& strXPath){
 	HashMap::iterator it = ptrHash->hmObjects.find(strKey);
 
 	if(it == ptrHash->hmObjects.end())
-		IAS_THROW(RuntimeException("Hash: " + strKey));
+		IAS_THROW(NotFoundException("Hash: " + strKey));
 
 	return it->second;
 }
