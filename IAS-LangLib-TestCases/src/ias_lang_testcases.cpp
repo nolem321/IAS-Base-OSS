@@ -84,6 +84,7 @@ int main(int argc, char* argv[]) {
 		IAS_TEST_EXE("com::examples::basic::withsingle", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::cast", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::sort", "customer.xml");
+		IAS_TEST_EXE("com::examples::basic::index", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::merge", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::create", "customer.xml");
 		IAS_TEST_EXE("com::examples::basic::condassign", "customer.xml");
@@ -99,7 +100,7 @@ int main(int argc, char* argv[]) {
 		//ptrSuite->run(argc == 1 ? "" : argv[1]);
 		//ptrSuite->run("com::examples::basic::condexpr");
 
-		ptrSuite->run("");
+		ptrSuite->run("com::examples::basic::index");
 
 		ptrSuite->printResults(std::cout);
 

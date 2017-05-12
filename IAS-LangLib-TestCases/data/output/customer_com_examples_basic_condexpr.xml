@@ -2,6 +2,27 @@
 <ns0:customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://www.examples.org/akc" xsi:type="ns0:Customer">
  <firstname>Jan</firstname>
  <address>
-  <block>11</block>
+  <street>False</street>
+  <block>10001</block>
+ </address>
+ <address>
+  <street>True</street>
+  <block>10002</block>
+ </address>
+ <address>
+  <street xsi:type="ns0:Name">Jan</street>
+  <block>10003</block>
+ </address>
+ <address>
+  <street>1</street>
+  <block>10002</block>
+ </address>
+ <address>
+  <street>True</street>
+  <block>10003</block>
+ </address>
+ <address>
+  <street>0</street>
+  <block>10003</block>
  </address>
 </ns0:customer>
