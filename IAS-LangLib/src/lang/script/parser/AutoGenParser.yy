@@ -458,6 +458,8 @@ xpath: T_SYMBOL { $$ = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); $$->ad
 xpath: T_SYMBOL T_OPEN_SQUARE
          expr  T_CLOSE_SQUARE{ $$ = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); $$->addMultiElement(*$1,$3); _SVAL_DELETE($1); }
                      
+xpath: T_SYMBOL T_DOUBLE_OPEN_SQUARE
+                     expr  T_DOUBLE_CLOSE_SQUARE{ $$ = IAS_DFT_FACTORY<Expr::XPath::XPathNode>::Create(); $$->addHashIndexElement(*$1,$3); _SVAL_DELETE($1); }
            
 with : T_WITH xpathAccess T_DO statement     { $$ = IAS_DFT_FACTORY<Stmt::WithNode>::Create("",$2,$4); } ;
 with : T_WITH T_SYMBOL T_AS xpathAccess T_DO statement     { $$ = IAS_DFT_FACTORY<Stmt::WithNode>::Create(*$2,$4,$6); _SVAL_DELETE($2); } ;
