@@ -46,6 +46,8 @@ public:
 
 	const String& getTargetNamespace()const;
 
+	static const String StrXSDSchema;
+
 protected:
 
 	XSDParser(XSDHelper* pXSDHelper, LibXMLLexer *pLibXMLLexer);
@@ -150,7 +152,6 @@ protected:
 	void updateInlineTypeName(PropertyInfo* pPropertyInfo);
 	bool verfifyExisting(const ::IAS::DM::Type* pBaseType, TypeInfo* pTypeInfo);
 
-	static const String StrXSDSchema;
 
 	friend class ::IAS::Factory<XSDParser>;
 };

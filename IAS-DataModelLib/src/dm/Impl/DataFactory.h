@@ -71,6 +71,8 @@ protected:
 	void storeType(const HashMapKey& aKey, ::IAS::DM::Type* pType);
 
 	void declareUserType(const HashMapKey& aKey, ::IAS::DM::Type* pType);
+	void declareXSDType(::IAS::DM::Type* pType, const String& strXSDType);
+
 	void declareDefaultType(::IAS::DM::Type* pType);
 	void declareBuiltInType(::IAS::DM::Type* pType);
 

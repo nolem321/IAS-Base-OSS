@@ -33,6 +33,8 @@
 #include "../../dm/Impl/TypeList.h"
 #include "../../dm/log/LogLevel.h"
 
+#include "../xml/XSDParser.h"
+
 namespace IAS {
 namespace DM {
 const String DataFactory::BuildInTypesNamespace ="IAS/DM/Default";
@@ -61,7 +63,17 @@ DataFactory::DataFactory(const DM::DataFactory* pParentFactory)
 		declareDefaultType(Impl::Default::Ext::DateType::GetInstance());
 		declareDefaultType(Impl::Default::Ext::TimeType::GetInstance());
 		declareDefaultType(Impl::Default::Ext::RawType::GetInstance());
+
 		declareDefaultType(Impl::TypeAny::GetInstance());
+
+		declareXSDType(Impl::Default::Ext::IntegerType::GetInstance(), "int");
+		declareXSDType(Impl::Default::Ext::IntegerType::GetInstance(), "integer");
+		declareXSDType(Impl::Default::Ext::StringType::GetInstance(),  "string");
+		declareXSDType(Impl::Default::Ext::BooleanType::GetInstance(), "boolean");
+		declareXSDType(Impl::Default::Ext::FloatType::GetInstance(),   "float");
+		declareXSDType(Impl::Default::Ext::DateTimeType::GetInstance(),"dateTime");
+		declareXSDType(Impl::Default::Ext::DateType::GetInstance(),    "date");
+		declareXSDType(Impl::Default::Ext::RawType::GetInstance(),     "time");
 
 		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"Initialized:"<<(void*)this);
 	}
@@ -168,6 +180,14 @@ void DataFactory::declareDefaultType(::IAS::DM::Type* pType){
    IAS_TRACER;
    declareBuiltInType(pType);
    mapDefaultTypes[pType->getTypeEnum()]=pType;
+}
+/*************************************************************************/
+void DataFactory::declareXSDType(::IAS::DM::Type* pType, const String& strXSDType){
+   IAS_TRACER;
+
+   HashMapKey aKey(::IAS::DM::XML::XSDParser::StrXSDSchema, strXSDType);
+   storeType(aKey, pType);
+
 }
 /*************************************************************************/
 void DataFactory::declareBuiltInType(::IAS::DM::Type* pType){

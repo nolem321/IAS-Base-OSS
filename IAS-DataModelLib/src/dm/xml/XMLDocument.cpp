@@ -52,7 +52,7 @@ void XMLDocument::setDefaultElement(){
 	const DM::Type* pType=ptrRootObject->getType();
 
 	strElement=pType->getName();
-	strElement[0]=tolower(strElement[0]);
+	strElement[0]=tolower((int)(strElement[0]));
 
 	strURI=pType->getURI();
 
