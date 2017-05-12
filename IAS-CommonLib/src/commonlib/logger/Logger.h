@@ -28,7 +28,7 @@
 
 #include <iostream>
 #include <map>
-
+#include <fstream>
 namespace IAS{
 
 /*************************************************************************/
@@ -62,6 +62,19 @@ private:
 						const char* sFile,
 						int         iLine);
 
+	std::fstream ofLog;
+	size_t iLogLines;
+	size_t iLogMaxLines;
+	int    iNumLogs;
+	bool  bPrintPID;
+	bool  bPrintLoc;
+	bool  bPrintRTS;
+
+	const char *sLogBasename;
+
+	void tokenize(const String& strInput, StringList& refOutput, char cDelimiter)  const;
+	void rotateLogs()const;
+	void openLogFile();
 };
 
 }
