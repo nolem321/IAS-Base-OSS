@@ -186,6 +186,9 @@ void DataObjectList::hashWith(const String& strXPath){
 ::IAS::DM::DataObject* DataObjectList::at(const ::IAS::DM::DataObject* pKey){
 	IAS_TRACER;
 
+	if(ptrHash.isNull())
+		IAS_THROW(BadUsageException("Object list is not indexed"));
+
 	String strKey = pKey->toString();
 
 	HashMap::iterator it = ptrHash->hmObjects.find(strKey);
