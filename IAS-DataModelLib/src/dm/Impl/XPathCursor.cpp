@@ -121,7 +121,7 @@ void XPathCursor::moveCurrentToElement(){
 	const ::IAS::DM::Property* pProperty = getElementProperty();
 
 	if(pProperty->isMulti()){
-		const ::IAS::DM::DataObjectList& refList = pDataObject->getList(pProperty);
+		const ::IAS::DM::DataObjectList& refList = pCurrent->getList(pProperty);
 		if(iIdx < 0)
 			IAS_THROW(RuntimeException("xpath error, an index expected !"))
 		pCurrent = refList.at(iIdx);
