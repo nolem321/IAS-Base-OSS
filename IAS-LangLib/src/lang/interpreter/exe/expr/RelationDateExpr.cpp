@@ -69,7 +69,7 @@ public:
 		IAS_TRACER;
 		Date tLeft = ptrLeft->evaluateDate(pCtx);
 		Date tRight = ptrRight->evaluateDate(pCtx);
-		return tLeft <= tRight;
+		return tLeft >= tRight;
 	};
 
 protected:
@@ -86,7 +86,7 @@ public:
 		IAS_TRACER;
 		Date tLeft = ptrLeft->evaluateDate(pCtx);
 		Date tRight = ptrRight->evaluateDate(pCtx);
-		return tLeft >= tRight;
+		return tLeft <= tRight;
 	};
 
 protected:

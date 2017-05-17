@@ -69,7 +69,7 @@ public:
 		IAS_TRACER;
 		Time tLeft = ptrLeft->evaluateTime(pCtx);
 		Time tRight = ptrRight->evaluateTime(pCtx);
-		return tLeft <= tRight;
+		return tLeft >= tRight;
 	};
 
 protected:
@@ -86,7 +86,7 @@ public:
 		IAS_TRACER;
 		Time tLeft = ptrLeft->evaluateTime(pCtx);
 		Time tRight = ptrRight->evaluateTime(pCtx);
-		return tLeft >= tRight;
+		return tLeft <= tRight;
 	};
 
 protected:
