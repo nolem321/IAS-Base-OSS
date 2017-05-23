@@ -113,22 +113,42 @@ bool compare(const DirectoryReader::Entry* first, const DirectoryReader::Entry* 
 	return first->strFile.compare(second->strFile) < 0;
 }
 /*************************************************************************/
+class DirectoryHolder{
+
+public:
+
+	DirectoryHolder(const String& strDir){
+		 if( (pDir = opendir(strDir.c_str())) == NULL)
+			  IAS_THROW(SystemException("opendir() " + strDir));
+	}
+
+	~DirectoryHolder(){
+		if(pDir)
+			closedir(pDir);
+	}
+
+	 operator DIR*(){
+		return pDir;
+	}
+
+protected:
+	   DIR* pDir;
+};
+/*************************************************************************/
 void DirectoryReader::read(){
 	IAS_TRACER;
 
 	lstEntries.clear();
 
-   DIR* pDir;
 
    struct dirent  aDirent;
    struct dirent* pDirent;
 
-   if( (pDir=opendir(strDir.c_str())) == NULL)
-		   IAS_THROW(SystemException(strDir+="opendir"));
+   DirectoryHolder dh(strDir);
 
    pDirent=&aDirent;
 
-   while( readdir_r(pDir,&aDirent,&pDirent) == 0 && pDirent != NULL) {
+   while( readdir_r(dh,&aDirent,&pDirent) == 0 && pDirent != NULL) {
 
 	   IAS_DFT_FACTORY<Entry>::PtrHolder ptrEntry;
 
