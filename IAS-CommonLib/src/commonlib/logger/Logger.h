@@ -47,6 +47,8 @@ public:
 				  int         iLine,
 				  const char* sText);
 
+	void addEntry(const char* sText);
+
 	static inline Logger* GetInstance(){
 		if(!TheInstance){
 			TheInstance = new Logger();

@@ -140,6 +140,7 @@ inline void Logger::addEntryPrefix(const char* sFun,
 
 		}
 
+		if(sFile && sFun){
 		   (*pos).width(60);
 		   (*pos)<<sFile;
 		   (*pos)<<"(";
@@ -150,6 +151,7 @@ inline void Logger::addEntryPrefix(const char* sFun,
 		   (*pos)<<sFun;
 		   (*pos)<<":";
 		   (*pos).width(0);
+		}
 
 	}
 		int iIndent = IAS_MY_STACK().getSize();
@@ -233,5 +235,9 @@ void Logger::addEntry(const char* sFun,
 
 
 }
-
+/*************************************************************************/
+void Logger::addEntry(const char* sText){
+	addEntry(NULL,NULL,0,sText);
+}
+/*************************************************************************/
 }/*namespace IAS */

@@ -44,6 +44,7 @@ public:
 	};
 
 	static void SignalHandler(int iSignal = 0);
+	static void SignalHandlerStopOnly(int iSignal = 0);
 
 	static Signal* GetInstance();
 

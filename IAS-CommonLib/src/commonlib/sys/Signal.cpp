@@ -46,6 +46,16 @@ void Signal::SignalHandler(int iSignal){
 
 }
 /*************************************************************************/
+void Signal::SignalHandlerStopOnly(int iSignal){
+
+	Mutex::Locker locker(_SignalMutex);
+
+	if(bStopping)
+		return;
+
+	bStopping=true;
+}
+/*************************************************************************/
 Signal::Signal(){
 	IAS_TRACER;
 
@@ -58,7 +68,11 @@ Signal::Signal(){
 	if(sigaction(SIGPIPE, &new_action,0) == -1)
 			IAS_THROW(SystemException("Signal SIGPIPE"));
 
-	new_action.sa_handler = Signal::SignalHandler;
+	if(getenv("IAS_SIG_CANCEL_THREADS") && getenv("IAS_SIG_CANCEL_THREADS")[0] == 'N')
+		new_action.sa_handler = Signal::SignalHandlerStopOnly;
+	else
+		new_action.sa_handler = Signal::SignalHandler;
+
 	sigemptyset (&new_action.sa_mask);
 	new_action.sa_flags = SA_RESTART;
 

@@ -26,8 +26,7 @@
 #include "../time/Timestamp.h"
 #include <unistd.h>
 #include <iostream>
-
-static bool  _bPrintTSPID(getenv("IAS_MSG_TSPID"));
+#include "../logger/Logger.h"
 
 namespace IAS{
 
@@ -66,16 +65,9 @@ void UserMessage::show(const String& strText){
 
 	Mutex::Locker locker(mutex);
 
-	if(LogLevel::INSTANCE.isDspMsg()){
+	if(LogLevel::INSTANCE.isDspMsg())
+		Logger::GetInstance()->addEntry(strText.c_str());
 
-		if(_bPrintTSPID){
-
-			Timestamp ts(true);
-			std::cerr<<(ts.toString())<<" :: "<<(long long)(pthread_self())<<" ";
-		}
-
-		std::cerr<<strText<<std::endl;
-	}
 }
 
 }
