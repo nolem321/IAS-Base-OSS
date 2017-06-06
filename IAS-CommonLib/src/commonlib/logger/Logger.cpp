@@ -38,63 +38,45 @@
 #include <iterator>
 #include <algorithm>
 
+#include "outputs/FileSizeLimitedLogger.h"
+#include "outputs/TimeLimitedLogger.h"
+
 namespace IAS{
+
+using namespace LoggerOutputs;
 
 static LOGGER::LoggerFileLock _fileLock;
 Logger* Logger::TheInstance = NULL;
 
+const char* Logger::CEnvPrtPid("IAS_DBG_PRT_PID");
+const char* Logger::CEnvPrtLoc("IAS_DBG_PRT_LOC");
+const char* Logger::CEnvPrtRTS("IAS_DBG_PRT_RTS");
+
+static inline bool _getBoolValue(const char* sEnv){
+	return sEnv && getenv(sEnv) && getenv(sEnv)[0] == 'Y';
+}
 /*************************************************************************/
 Logger::Logger():
-		bPrintPID(getenv("IAS_DBG_PRT_PID") && getenv("IAS_DBG_PRT_PID")[0] == 'Y'),
-		bPrintLoc(getenv("IAS_DBG_PRT_LOC") && getenv("IAS_DBG_PRT_LOC")[0] == 'Y'),
-		bPrintRTS(getenv("IAS_DBG_PRT_RTS") && getenv("IAS_DBG_PRT_RTS")[0] == 'Y'),
-		sLogBasename(getenv("IAS_DBG_LOGFILE")),
-		iLogLines(0),
-		iLogMaxLines(10000),
-		iNumLogs(3)
-	{
-
-	pos=&std::cerr;
-
-	if(sLogBasename){
-		openLogFile();
-
-	if(getenv("IAS_DBG_LOG_MAXLINES"))
-		iLogMaxLines = atoi(getenv("IAS_DBG_LOG_MAXLINES"));
-
-	if(getenv("IAS_DBG_LOG_MAXFILES"))
-		iNumLogs = atoi(getenv("IAS_DBG_LOG_MAXFILES"));
-
-	}
+		bPrintPID(_getBoolValue(CEnvPrtPid)),
+		bPrintLoc(_getBoolValue(CEnvPrtLoc)),
+		bPrintRTS(_getBoolValue(CEnvPrtRTS)),
+		pos(NULL)
+{
+	setup(&std::cerr);
 }
-
 /*************************************************************************/
 Logger::~Logger(){
 }
 /*************************************************************************/
-void Logger::openLogFile(){
-
-	ofLog.open(sLogBasename,std::fstream::in | std::fstream::out | std::fstream::app);
-
-	iLogLines = 0;
-
-	if(ofLog.good()){
-		pos=&ofLog;
-		iLogLines= std::count(std::istreambuf_iterator<char>(ofLog),
-			             std::istreambuf_iterator<char>(), '\n');
-	}
-
+void Logger::setup(std::ostream* pos){
+	this->pos = pos;
 }
 /*************************************************************************/
 inline void Logger::addEntryPrefix(const char* sFun,
 					   			   const char* sFile,
 					   			   int         iLine){
 
-	if(ofLog.is_open() && ofLog.good() && ++iLogLines >= iLogMaxLines){
-		ofLog.close();
-		rotateLogs();
-		openLogFile();
-	}
+	rotateLogs();
 
 	if (bPrintRTS) {
 
@@ -183,26 +165,8 @@ void  Logger::tokenize(const String& strInput, StringList& refOutput, char cDeli
 	}
 }
 /*************************************************************************/
-void Logger::rotateLogs()const{
-
-	char sFilename1[256];
-	char sFilename2[256];
-
-	for(int iIdx = iNumLogs; iIdx > 0; iIdx--){
-		snprintf(sFilename2,256,"%s.%d",sLogBasename,iIdx);
-
-		if(iIdx == iNumLogs)
-			unlink(sFilename2);
-
-		if(iIdx > 1)
-			snprintf(sFilename1,256,"%s.%d",sLogBasename,iIdx - 1);
-		else
-			snprintf(sFilename1,256,"%s",sLogBasename);
-
-		rename(sFilename1,sFilename2);
-	}
+void Logger::rotateLogs(){
 }
-
 /*************************************************************************/
 void Logger::addEntry(const char* sFun,
 					  const char* sFile,
@@ -231,13 +195,26 @@ void Logger::addEntry(const char* sFun,
 	}
 
 	(*pos).flush();
-	//usleep(10000);
-
 
 }
 /*************************************************************************/
 void Logger::addEntry(const char* sText){
 	addEntry(NULL,NULL,0,sText);
+}
+/*************************************************************************/
+Logger* Logger::GetInstance(){
+
+	if (!TheInstance) {
+
+		if(getenv(TimeLimitedLogger::CEnvPeriod))
+			TheInstance = new TimeLimitedLogger();
+		else if(getenv(FileSizeLimitedLogger::CEnvFileBasename))
+			TheInstance = new FileSizeLimitedLogger();
+		else
+			TheInstance = new Logger();
+	}
+
+	return TheInstance;
 }
 /*************************************************************************/
 }/*namespace IAS */

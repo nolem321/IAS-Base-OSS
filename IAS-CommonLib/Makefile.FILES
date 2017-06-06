@@ -1,4 +1,4 @@
-#Sat May  7 15:19:59 CEST 2016
+#Tue Jun  6 15:14:39 CEST 2017
 FILES+=commonlib/configfile/Properties
 FILES+=commonlib/configfile/PropertiesProvider
 FILES+=commonlib/configfile/PropertiesProviderFromFile
@@ -23,6 +23,9 @@ FILES+=commonlib/logger/Logger
 FILES+=commonlib/logger/LoggerFileLock
 FILES+=commonlib/logger/LogLevel
 FILES+=commonlib/logger/LogLevelHelper
+FILES+=commonlib/logger/outputs/FileLogger
+FILES+=commonlib/logger/outputs/FileSizeLimitedLogger
+FILES+=commonlib/logger/outputs/TimeLimitedLogger
 FILES+=commonlib/logger/StackTrace
 FILES+=commonlib/logger/StackTraceContainer
 FILES+=commonlib/logger/Tracer

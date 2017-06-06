@@ -39,7 +39,6 @@ class Logger {
 
 public:
 
-	Logger();
 	virtual ~Logger();
 
 	void addEntry(const char* sFun,
@@ -49,34 +48,38 @@ public:
 
 	void addEntry(const char* sText);
 
-	static inline Logger* GetInstance(){
-		if(!TheInstance){
-			TheInstance = new Logger();
-		}
-		return TheInstance;
-	};
+	static Logger* GetInstance();
+
+protected:
+	Logger();
+
+	void setup(std::ostream* pos);
 
 private:
+
 	static Logger* TheInstance;
 	std::ostream* pos;
+
 
 	void addEntryPrefix(const char* sFun,
 						const char* sFile,
 						int         iLine);
 
 	std::fstream ofLog;
-	size_t iLogLines;
-	size_t iLogMaxLines;
-	int    iNumLogs;
+
 	bool  bPrintPID;
 	bool  bPrintLoc;
 	bool  bPrintRTS;
 
-	const char *sLogBasename;
 
 	void tokenize(const String& strInput, StringList& refOutput, char cDelimiter)  const;
-	void rotateLogs()const;
-	void openLogFile();
+
+	virtual void rotateLogs();
+
+	static const char* CEnvPrtPid;
+	static const char* CEnvPrtLoc;
+	static const char* CEnvPrtRTS;
+
 };
 
 }
