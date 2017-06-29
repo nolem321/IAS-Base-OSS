@@ -320,6 +320,36 @@ bool Setter::isSet(const DM::DataObject* dm)const{
 	return true;
 }
 /*************************************************************************/
+bool Setter::isNotNull(const DM::DataObject* dm)const{
+
+	IAS_TRACER;
+
+	if(lstPath.size()){
+
+		for(ElementList::const_iterator it=lstPath.begin(); it != lstPath.end(); it++){
+
+			if((*it).pProperty->isMulti()){
+
+				const DM::DataObjectList& list(dm->getList((*it).pProperty));
+
+				if((*it).iIdx >= list.size())
+					return false;
+
+				dm=list.at((*it).iIdx);
+
+			}else{
+
+				if(!dm->isSet((*it).pProperty))
+					return false;
+
+				dm=dm->getDataObject((*it).pProperty);
+			}
+		}
+
+	}
+	return dm != NULL;
+}
+/*************************************************************************/
 void Setter::unset(DM::DataObjectPtr& dm){
 
 	IAS_TRACER;

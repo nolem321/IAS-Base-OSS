@@ -53,6 +53,7 @@ public:
 	DM::DataObject* getValue(DM::DataObject* dm)const;
 	const DM::DataObject* getValue(const DM::DataObject* dm)const;
 	bool isSet(const DM::DataObject* dm)const;
+	bool isNotNull(const DM::DataObject* dm)const;
 	void unset(DM::DataObjectPtr& dm);
 
 	DM::DataObject* create(DataObjectPtr& dm)const;
