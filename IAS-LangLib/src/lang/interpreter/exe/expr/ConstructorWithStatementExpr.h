@@ -39,6 +39,8 @@ class Expr;
 		 public ConstructorExpr{
 public:
 
+	virtual ~ConstructorWithStatementExpr()throw();
+
 	virtual void evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const;
 
 	void setStatement(Stmt::Statement* pStatement);
