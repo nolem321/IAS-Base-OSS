@@ -52,6 +52,10 @@ ConstructorWithStatementExpr::ConstructorWithStatementExpr(const IAS::DM::Type *
 	Dec::TypeCreator::pType=const_cast<DM::Type*>(pType);
 }
 /*************************************************************************/
+ConstructorWithStatementExpr::~ConstructorWithStatementExpr()throw(){
+
+}
+/*************************************************************************/
 void ConstructorWithStatementExpr::evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const{
 	IAS_TRACER;
 
