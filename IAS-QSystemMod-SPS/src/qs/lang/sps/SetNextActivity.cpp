@@ -36,7 +36,7 @@ namespace Lang {
 namespace SPS {
 
 /*************************************************************************/
-SetNextActivity::SetNextActivity(const StringList& lstParamaters){
+SetNextActivity::SetNextActivity(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -55,9 +55,9 @@ void SetNextActivity::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* SetNextActivity::Create(const StringList& lstParamaters){
+Extern::Statement* SetNextActivity::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetNextActivity>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SetNextActivity>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -36,7 +36,7 @@ namespace Lang {
 namespace SPS {
 
 /*************************************************************************/
-SetVersion::SetVersion(const StringList& lstParamaters){
+SetVersion::SetVersion(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -55,9 +55,9 @@ void SetVersion::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* SetVersion::Create(const StringList& lstParamaters){
+Extern::Statement* SetVersion::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetVersion>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SetVersion>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

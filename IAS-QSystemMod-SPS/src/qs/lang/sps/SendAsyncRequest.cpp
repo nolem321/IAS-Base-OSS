@@ -46,7 +46,7 @@ namespace SPS {
 
 
 /*************************************************************************/
-SendAsyncRequest::SendAsyncRequest(const StringList& lstParamaters){
+SendAsyncRequest::SendAsyncRequest(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -73,9 +73,9 @@ void SendAsyncRequest::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* SendAsyncRequest::Create(const StringList& lstParamaters){
+Extern::Statement* SendAsyncRequest::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SendAsyncRequest>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SendAsyncRequest>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

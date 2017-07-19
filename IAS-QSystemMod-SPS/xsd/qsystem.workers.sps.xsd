@@ -51,6 +51,21 @@
  </xsi:complexType>
  
  
+  <xsi:complexType name="ProcessActivity"> 	
+     <xsi:sequence>
+ 	   <xsi:element name="id"         type="xsi:integer"/>  	
+ 	   <xsi:element name="activity"    type="xsi:string"/>  	
+      </xsi:sequence>  
+   </xsi:complexType>
+ 
+  <xsi:complexType name="Process"> 	
+  	<xsi:sequence>
+  	   <xsi:element name="id"         type="xsi:integer"/>  	
+ 	   <xsi:element name="name"         type="xsi:string"/>  	
+  	   <xsi:element name="activites"    type="sps:ProcessActivity" minOccurs="0" maxOccurs="unbounded"/>
+  	  </xsi:sequence>
+  </xsi:complexType>
+  
   <xsi:complexType name="ProcessInstance">
  	
  	<xsi:sequence>

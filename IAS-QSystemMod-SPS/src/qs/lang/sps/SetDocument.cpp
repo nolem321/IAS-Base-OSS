@@ -36,7 +36,7 @@ namespace Lang {
 namespace SPS {
 
 /*************************************************************************/
-SetDocument::SetDocument(const StringList& lstParamaters){
+SetDocument::SetDocument(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -55,9 +55,9 @@ void SetDocument::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* SetDocument::Create(const StringList& lstParamaters){
+Extern::Statement* SetDocument::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetDocument>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<SetDocument>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

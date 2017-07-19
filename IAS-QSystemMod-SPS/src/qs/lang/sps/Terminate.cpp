@@ -38,7 +38,7 @@ namespace Lang {
 namespace SPS {
 
 /*************************************************************************/
-Terminate::Terminate(const StringList& lstParamaters){
+Terminate::Terminate(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -57,9 +57,9 @@ void Terminate::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* Terminate::Create(const StringList& lstParamaters){
+Extern::Statement* Terminate::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Terminate>::Create(lstParamaters);
+	return IAS_DFT_FACTORY<Terminate>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
