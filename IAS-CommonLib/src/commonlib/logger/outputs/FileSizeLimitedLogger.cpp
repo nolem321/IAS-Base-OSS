@@ -75,7 +75,7 @@ void FileSizeLimitedLogger::rotateLogs(){
 		return;
 
 	if(++iLogLines < iLogMaxLines)
-		return
+		return;
 
 	ofLog.close();
 
