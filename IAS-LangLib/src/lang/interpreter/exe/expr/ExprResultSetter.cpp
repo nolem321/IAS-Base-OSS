@@ -154,7 +154,14 @@ void _Merge(::IAS::DM::DataObject* dmLeft, const ::IAS::DM::DataObject* dmRight)
 						dmLeft->setString(pPropertyLeft, dmRight->getString(pPropertyRight));
 
 				} else {
-					_Merge(dmLeft->getDataObject(pPropertyLeft), dmRight->getDataObject(pPropertyRight));
+
+					if(!pPropertyLeft->isMulti()){
+
+						if(!dmLeft->isSet(pPropertyLeft))
+							dmLeft->createDataObject(pPropertyLeft);
+
+						_Merge(dmLeft->getDataObject(pPropertyLeft), dmRight->getDataObject(pPropertyRight));
+					}
 				}
 			}
 		}/*IF: isSet */
