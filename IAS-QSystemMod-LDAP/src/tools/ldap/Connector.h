@@ -58,6 +58,7 @@ protected:
     org::invenireaude::qsystem::workers::Ext::ConnectionPtr dmConnection;
 
     void connect();
+    void queryImpl(const String& strSearchBase, const String& strQuery, EntryList& lstResult);
 
 	friend class Factory<Connector>;
 };

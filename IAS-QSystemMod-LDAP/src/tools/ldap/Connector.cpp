@@ -34,8 +34,9 @@ Connector::Connector(const String& strName):
 
     dmConnection = Registry::GetInstance()->apps.lookup(strName)->duplicateConnection();
 
-    if(dmConnection->getProtocol().compare("ldap") != 0) {
-      IAS_THROW(BadUsageException("LDAP connection expected for: " + strName));
+    if(dmConnection->getProtocol().compare("ldap") != 0 &&
+       dmConnection->getProtocol().compare("ldaps") != 0) {
+      IAS_THROW(BadUsageException("LDAP(s) connection expected for: " + strName));
     }
 
     connect();
@@ -46,14 +47,29 @@ Connector::~Connector() throw(){
  }
 /*************************************************************************/
 void Connector::query(const String& strSearchBase, const String& strQuery, EntryList& lstResult){
-	IAS_TRACER;
-  
+
 	Mutex::Locker locker(mutex);
 
+	try{
+
+		queryImpl(strSearchBase, strQuery, lstResult);
+		return;
+
+	}catch(BadUsageException& e){}
+
+	queryImpl(strSearchBase, strQuery, lstResult);
+
+}
+/*************************************************************************/
+void Connector::queryImpl(const String& strSearchBase, const String& strQuery, EntryList& lstResult){
+	IAS_TRACER;
+  
 	if(!bValid)
 		connect();
 
 	bValid = false;
+
+	lstResult.clear();
 
 	IAS_DFT_FACTORY<Handle::QueryResult>::PtrHolder ptrQueryResult(
 			ptrConnection->query(strSearchBase, strQuery));
@@ -66,7 +82,10 @@ void Connector::query(const String& strSearchBase, const String& strQuery, Entry
 void Connector::connect(){
 	IAS_TRACER;
 
-	ptrConnection = IAS_DFT_FACTORY<Handle::Connection>::Create(dmConnection->getHost(), dmConnection->getPort());
+	ptrConnection = IAS_DFT_FACTORY<Handle::Connection>::Create(
+				dmConnection->getProtocol(),
+				dmConnection->getHost(),
+				dmConnection->getPort());
 	ptrConnection->setProtocol();
 	ptrConnection->authorize(dmConnection->getUser(), dmConnection->getPassword());
 

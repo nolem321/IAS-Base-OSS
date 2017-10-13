@@ -27,7 +27,8 @@ namespace Tools {
 namespace LDAP {
 namespace Handle {
 /*************************************************************************/
-Connection::Connection(const String& strHost, const int iPort):
+Connection::Connection(const String& strProtocol, const String& strHost, const int iPort):
+		strProtocol(strProtocol),
 		strHost(strHost),
 		iPort(iPort),
 		ldConn(NULL){
@@ -38,7 +39,7 @@ Connection::Connection(const String& strHost, const int iPort):
 
 	URI uri;
 
-	uri.setProtocol("ldap");
+	uri.setProtocol(strProtocol);
 	uri.setHost(strHost);
 	uri.setPort(iPort);
 

@@ -48,8 +48,9 @@ public:
 	::LDAP* getLDAPConn(){ return ldConn;};
 
 protected:
-	Connection(const String& strHost, const int iPort);
+	Connection(const String& strProtocol, const String& strHost, const int iPort);
 
+	String strProtocol;
 	String strHost;
 	const  int iPort;
 

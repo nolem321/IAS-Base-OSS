@@ -39,6 +39,8 @@ Environment::~Environment() throw(){
 Connector* Environment::lookup(const String& strName){
 	IAS_TRACER;
 
+	Mutex::Locker locker(mutex);
+
 	if(hmConnectors.count(strName) == 0){
 
 		hmConnectors[strName] = IAS_DFT_FACTORY<Connector>::Create(strName);
