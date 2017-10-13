@@ -51,8 +51,9 @@ public:
 
 	org::invenireaude::qsystem::workers::sps::Ext::ProcessInstancePtr loadAndLockProcessInstance(const String& strPID)const;
 
-	void createDocument(const String& strPID,const String& strName, DM::DataObject* dm)const;
-	void saveDocument(const String& strPID,const String& strName, DM::DataObject* dm)const;
+	void createProcessKey(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, const String& strValue)const;
+	void createDocument(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, DM::DataObject* dm)const;
+	void saveDocument(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, DM::DataObject* dm)const;
 
 	org::invenireaude::qsystem::workers::sps::Ext::DocumentsArrayPtr loadDocuments(const String& strPID)const;
 

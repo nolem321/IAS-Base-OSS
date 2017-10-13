@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemMod-SPS/src/qs/lang/sps/SetVersion.cpp
+ * File: IAS-QSystemMod-SPS/src/qs/lang/sps/SetScheduleOn.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "SetVersion.h"
+#include "SetScheduleOn.h"
 #include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
@@ -36,28 +36,28 @@ namespace Lang {
 namespace SPS {
 
 /*************************************************************************/
-SetVersion::SetVersion(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+SetScheduleOn::SetScheduleOn(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
-SetVersion::~SetVersion() throw(){
+SetScheduleOn::~SetScheduleOn() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void SetVersion::executeExternal(Exe::Context *pCtx) const{
+void SetScheduleOn::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String& strVersion = pParameters->getString("version");
+	DateTime tmScheduleOn = pParameters->getString("tm");
 
-	pProcessCacheEntry->getProcessInstance()->setVersion(strVersion);
+	pProcessCacheEntry->setScheduleOn(tmScheduleOn);
 
 }
 /*************************************************************************/
-Extern::Statement* SetVersion::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* SetScheduleOn::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetVersion>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<SetScheduleOn>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

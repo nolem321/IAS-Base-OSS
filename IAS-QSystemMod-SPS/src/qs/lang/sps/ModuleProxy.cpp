@@ -20,10 +20,13 @@
 
 #include <commonlib/commonlib.h>
 
+#include "CreateProcessKey.h"
 #include "GetDocument.h"
 #include "SetDocument.h"
 #include "SendAsyncRequest.h"
 #include "SetNextActivity.h"
+#include "SetFallback.h"
+#include "SetScheduleOn.h"
 #include "SetVersion.h"
 #include "Terminate.h"
 
@@ -43,10 +46,13 @@ ModuleProxy::~ModuleProxy() throw(){
 /*************************************************************************/
 void ModuleProxy::setupImpl(){
 	IAS_TRACER;
+	registerSymbol("CreateProcessKey",   &(CreateProcessKey::Create));
 	registerSymbol("GetDocument",        &(GetDocument::Create));
 	registerSymbol("SetDocument",        &(SetDocument::Create));
 	registerSymbol("SendAsyncRequest",   &(SendAsyncRequest::Create));
 	registerSymbol("SetNextActivity",    &(SetNextActivity::Create));
+	registerSymbol("SetFallback",        &(SetFallback::Create));
+	registerSymbol("SetScheduleOn",      &(SetScheduleOn::Create));
 	registerSymbol("SetVersion",         &(SetVersion::Create));
 	registerSymbol("Terminate",          &(Terminate::Create));
 }

@@ -35,9 +35,10 @@ namespace Logic {
 namespace SPS {
 
 /*************************************************************************/
-CacheBase::CacheBase()throw():
+CacheBase::CacheBase(int iMaxEntries)throw():
 		pOld(&hmEntriesOne),
-		pRecent(&hmEntriesTwo){
+		pRecent(&hmEntriesTwo),
+		iMaxEntries(iMaxEntries){
 	IAS_TRACER;
 }
 /*************************************************************************/

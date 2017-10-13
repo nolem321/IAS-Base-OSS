@@ -57,6 +57,7 @@ ProcessCacheEntry::ProcessCacheEntry(const String& strID,const String& strProces
 	dmProcessInstance->setPending(0);
 	dmProcessInstance->setSeq(1);
 	dmProcessInstance->setState("R");
+	dmProcessInstance->setScheduledOn(iTime);
 	dmProcessInstance->setCreated(iTime);
 	dmProcessInstance->setOldVersion(0);
 	dmProcessInstance->setNewVersion(0);
@@ -121,12 +122,14 @@ void ProcessCacheEntry::step(){
 
 	if(strNextActivity.empty())
 		//TODO exception
-		IAS_THROW(BadUsageException("Target activity was not set"));
+		IAS_THROW(BadUsageException("Target activity was not set: "+dmProcessInstance->getId()));
 
 	int iSequence=dmProcessInstance->getSeq();
 	dmProcessInstance->setSeq(iSequence+1);
 
 	dmProcessInstance->setPending(iNumRequests);
+	iNumRequests = 0;
+	dmProcessInstance->setLatestActivity(dmProcessInstance->getActivity());
 
 	dmProcessInstance->setActivity(strNextActivity);
 
@@ -136,6 +139,17 @@ void ProcessCacheEntry::step(){
 void ProcessCacheEntry::setSetNextActivity(const String& strNextActivity){
 	IAS_TRACER;
 	this->strNextActivity=strNextActivity;
+}
+/*************************************************************************/
+void ProcessCacheEntry::setFallback(const String& strFallbackActivity, const DateTime& tmScheduledOn){
+	IAS_TRACER;
+	dmProcessInstance->setFallbackActivity(strFallbackActivity);
+	dmProcessInstance->setScheduledOn(tmScheduledOn);
+}
+/*************************************************************************/
+void ProcessCacheEntry::setScheduleOn(const DateTime& tmScheduledOn){
+	IAS_TRACER;
+	dmProcessInstance->setScheduledOn(tmScheduledOn);
 }
 /*************************************************************************/
  DM::DataObjectPtr ProcessCacheEntry::getDocument(const String& strName){
@@ -170,6 +184,8 @@ void ProcessCacheEntry::terminate(const String& strInfo){
 
 	//TODO enum/consts with states list.
 
+	dmProcessInstance->setLatestActivity(dmProcessInstance->getActivity());
+
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"PID="<<dmProcessInstance->getId());
 
 	int iSequence=dmProcessInstance->getSeq();
@@ -185,9 +201,17 @@ void ProcessCacheEntry::schedule(){
 	dmProcessInstance->setState("R");
 }
 /*************************************************************************/
+void ProcessCacheEntry::failed(IAS::Lang::Interpreter::Exe::InterpreterProgramException& e){
+	IAS_TRACER;
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"PID="<<dmProcessInstance->getId());
+	dmProcessInstance->setInfo(e.toString().substr(0,2048));
+	dmProcessInstance->setState("F");
+}
+/*************************************************************************/
 void ProcessCacheEntry::enqueueForSchedule(){
 	IAS_TRACER;
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),"PID="<<dmProcessInstance->getId());
+
 	dmProcessInstance->setState("S");
 }
 /*************************************************************************/
@@ -215,7 +239,7 @@ void ProcessCacheEntry::save(ProcessDataStore* pDataStore){
 
 	for(DocumentNameSet::const_iterator it=setModifiedDocuments.begin();
 		it != setModifiedDocuments.end(); it++){
-		pDataStore->saveDocument(dmProcessInstance->getId(),it->first,hmDocuments[it->first]);
+		pDataStore->saveDocument(dmProcessInstance->getId(), dmProcessInstance->getName(), dmProcessInstance->getVersion(), it->first,hmDocuments[it->first]);
 	}
 
 	setModifiedDocuments.clear();
@@ -224,11 +248,21 @@ void ProcessCacheEntry::save(ProcessDataStore* pDataStore){
 
 	for(DocumentNameSet::const_iterator it=setNewDocuments.begin();
 		it != setNewDocuments.end(); it++){
-		pDataStore->createDocument(dmProcessInstance->getId(),it->first,hmDocuments[it->first]);
+		pDataStore->createDocument(dmProcessInstance->getId(), dmProcessInstance->getName(), dmProcessInstance->getVersion(),it->first,hmDocuments[it->first]);
 	}
 
 	setNewDocuments.clear();
 
+	for(ProcessKeysMap::const_iterator it=hmProcessKeys.begin();
+		it != hmProcessKeys.end(); it++){
+		pDataStore->createProcessKey(dmProcessInstance->getId(), dmProcessInstance->getName(), dmProcessInstance->getVersion(), it->first,it->second);
+	}
+
+}
+/*************************************************************************/
+void ProcessCacheEntry::setInfo(const String& strInfo){
+	IAS_TRACER;
+	dmProcessInstance->setInfo(strInfo);
 }
 /*************************************************************************/
 void ProcessCacheEntry::loadDocuments(ProcessDataStore* pDataStore){
@@ -242,7 +276,7 @@ void ProcessCacheEntry::loadDocuments(ProcessDataStore* pDataStore){
 
 	Ext::ProcessDocumentList& lstDocuments(dmArray->getDocumentsList());
 
-	for(int iIdx=0; iIdx<lstDocuments.size();iIdx++){
+	for(int iIdx=0; iIdx<lstDocuments.size(); iIdx++){
 
 		ProcessDocument* dmProcessDocument=lstDocuments.at(iIdx);
 
@@ -251,9 +285,14 @@ void ProcessCacheEntry::loadDocuments(ProcessDataStore* pDataStore){
 
 }
 /*************************************************************************/
+void ProcessCacheEntry::createProcessKey(const String& strName, const String& strValue){
+	IAS_TRACER;
+	hmProcessKeys[strName]=strValue;
+}
+/*************************************************************************/
 bool ProcessCacheEntry::isTerminated()const{
 	IAS_TRACER;
-	return dmProcessInstance->getState().compare("T") == 0;
+	return dmProcessInstance->getState().compare("T") == 0 || dmProcessInstance->getState().compare("F") == 0;
 }
 /*************************************************************************/
 }

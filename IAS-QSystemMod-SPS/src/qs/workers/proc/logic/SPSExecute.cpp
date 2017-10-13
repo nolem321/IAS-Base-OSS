@@ -32,6 +32,7 @@
 
 #include "sps/ProcessCacheEntry.h"
 #include "sps/ProcessCache.h"
+#include "sps/ResultHandler.h"
 
 using namespace ::org::invenireaude::qsystem::workers;
 using namespace ::org::invenireaude::qsystem;
@@ -46,10 +47,12 @@ namespace Logic {
 SPSExecute::SPSExecute(const ::org::invenireaude::qsystem::workers::sps::SPSExecute* dmParameters,
 					   WCM::WorkContextManager* pWorkContextManager):
 	iMaxSteps(1),
-	Execute(dmParameters, pWorkContextManager){
+	Execute(dmParameters,pWorkContextManager){
 	IAS_TRACER;
 
 	SPS::ProcessCache::CreateInstanceSafely();
+
+	ptrProgramSet->setResultHandler(IAS_DFT_FACTORY<SPS::ResultHandler>::Create(pWorkContextManager->getGlobalContext()->getDataFactory()));
 
 	const workers::logic::Ext::ExeNameList& lstExeNames(dmParameters->getLoadList());
 
@@ -73,8 +76,8 @@ String SPSExecute::getProgramName(sps::ProcessInstance* pProcessInstance) {
 
 	ssProgramName << "sps::process::" << pProcessInstance->getName() << "::";
 
-	if(pProcessInstance->isSetVer())
-		ssProgramName<< pProcessInstance->getVer() << "::";
+	if(pProcessInstance->isSetVersion())
+		ssProgramName<< pProcessInstance->getVersion() << "::";
 
 	ssProgramName<<pProcessInstance->getActivity();
 
@@ -93,7 +96,7 @@ void SPSExecute::computeDM(::org::invenireaude::qsystem::workers::Ext::ContextPt
 
 		IAS_LOG(IAS::QS::SPS::LogLevel::INSTANCE.isInfo(),"Successful setup - executing...");
 
-		pProcessCacheEntry=ptrProcessCacheEntry;
+		pProcessCacheEntry = ptrProcessCacheEntry;
 
 		sps::ProcessInstance* pProcessInstance = ptrProcessCacheEntry->getProcessInstance();
 
@@ -106,6 +109,7 @@ void SPSExecute::computeDM(::org::invenireaude::qsystem::workers::Ext::ContextPt
 			String strProgram = getProgramName(pProcessInstance);
 
 			ptrProcessCacheEntry->decNumPending();
+			pProcessInstance->setActivityStarted(DateTime(true));
 			ptrProgramSet->execute(strProgram,dmContext,dmData);
 
 			if(ptrProcessCacheEntry->getNumPending() == 0)

@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemMod-SPS/src/qs/lang/sps/SetVersion.cpp
+ * File: IAS-QSystemLib/src/qs/workers/proc/prog/ResultHandler.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,53 +15,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "SetVersion.h"
+#include "ResultHandler.h"
 #include<qs/log/LogLevel.h>
 
-#include <commonlib/commonlib.h>
-#include <lang/interpreter/exe/Context.h>
-#include <lang/model/dec/ResultDeclarationNode.h>
+#include <lang/interpreter/exe/ProgramContext.h>
+#include <lang/interpreter/exe/Program.h>
+#include <lang/interpreter/exe/dec/Parameters.h>
+#include <lang/tools/parser/LexerIStreamFactoryForFiles.h>
 
-#include <dm/datamodel.h>
+#include "qs/workers/proc/exception/RollbackMeException.h"
 
-#include <org/invenireaude/qsystem/workers/Context.h>
+#include "qs/workers/proc/io/Output.h"
+#include "qs/workers/proc/logic/LogicBase.h"
+
+#include <org/invenireaude/qsystem/workers/Exception.h>
 #include <org/invenireaude/qsystem/workers/DataFactory.h>
 
-using namespace ::IAS::Lang::Interpreter;
 using namespace ::org::invenireaude::qsystem;
 
 namespace IAS {
 namespace QS {
-namespace Lang {
+namespace Workers {
+namespace Proc {
+namespace Logic{
 namespace SPS {
 
 /*************************************************************************/
-SetVersion::SetVersion(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+ResultHandler::ResultHandler(const ::IAS::DM::DataFactory *pDataFactory)throw():
+	DefaultResultHandler(pDataFactory){
+
 	IAS_TRACER;
 }
 /*************************************************************************/
-SetVersion::~SetVersion() throw(){
+ResultHandler::~ResultHandler() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void SetVersion::executeExternal(Exe::Context *pCtx) const{
+void ResultHandler::handleException(::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
+									Lang::Interpreter::Exe::ProgramContext *pProgramContext,
+									Lang::Interpreter::Exe::InterpreterProgramException& e){
 	IAS_TRACER;
 
-	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
 
-	const String& strVersion = pParameters->getString("version");
+	if(pProcessCacheEntry)
+		pProcessCacheEntry->failed(e);
 
-	pProcessCacheEntry->getProcessInstance()->setVersion(strVersion);
-
-}
-/*************************************************************************/
-Extern::Statement* SetVersion::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
-	IAS_TRACER;
-	return IAS_DFT_FACTORY<SetVersion>::Create(lstParamaters, pModuleProxy);
+	//ResultHandlerForIO::handleException(dmContext, pProgramContext, e);
 }
 /*************************************************************************/
 }
 }
 }
 }
-
+}
+}

@@ -50,28 +50,36 @@
   	</xsi:complexContent>		
  </xsi:complexType>
  
- 
   <xsi:complexType name="ProcessActivity"> 	
      <xsi:sequence>
- 	   <xsi:element name="id"         type="xsi:integer"/>  	
- 	   <xsi:element name="activity"    type="xsi:string"/>  	
+ 	   <xsi:element name="id"            type="xsi:integer"/>  	
+ 	   <xsi:element name="version"       type="xsi:string"/>  	
+ 	   <xsi:element name="activity"      type="xsi:string"/>  	
+ 	   <xsi:element name="errorActivity" type="xsi:string"/>  	
       </xsi:sequence>  
    </xsi:complexType>
  
   <xsi:complexType name="Process"> 	
-  	<xsi:sequence>
-  	   <xsi:element name="id"         type="xsi:integer"/>  	
+  	<xsi:sequence>  	   
+  	   <xsi:element name="id"           type="xsi:integer"/>  	
  	   <xsi:element name="name"         type="xsi:string"/>  	
-  	   <xsi:element name="activites"    type="sps:ProcessActivity" minOccurs="0" maxOccurs="unbounded"/>
+	   <xsi:element name="displayName"  type="xsi:string"/>  	
+ 	   <xsi:element name="description"  type="xsi:string"/>  	
+ 	   <xsi:element name="persistance"  type="xsi:boolean"/>  	
+ 	   <xsi:element name="rgName"       type="xsi:string"/> 
+   	   <xsi:element name="activities"    type="sps:ProcessActivity" minOccurs="0" maxOccurs="unbounded"/>
   	  </xsi:sequence>
   </xsi:complexType>
   
-  <xsi:complexType name="ProcessInstance">
+ <xsi:complexType name="ProcessInstance">
  	
  	<xsi:sequence>
  	   
  	   <xsi:element name="oldVersion"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
  	   <xsi:element name="newVersion"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
+ 	   
+ 	   <xsi:element name="activityStarted"   type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
+ 	   <xsi:element name="scheduledOn"       type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
  	   
  	   <xsi:element name="updated"    type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
  	   <xsi:element name="created"    type="xsi:dateTime" minOccurs="0" maxOccurs="1"/>
@@ -79,13 +87,16 @@
  	   <xsi:element name="info" type="xsi:string" minOccurs="0" maxOccurs="1"/>
  	</xsi:sequence>
  	
-  	<xsi:attribute name="id"       type="xsi:string"  use="required"/>
-  	<xsi:attribute name="activity" type="xsi:string"  use="required"/>
-  	<xsi:attribute name="name"     type="xsi:string"  use="required"/>
-  	<xsi:attribute name="ver"      type="xsi:string"  use="required"/>
-  	<xsi:attribute name="seq"      type="xsi:integer" use="required"/>
-  	<xsi:attribute name="pending"  type="xsi:integer" use="required"/>
-  	<xsi:attribute name="state"    type="xsi:string"  use="required"/>
+  	<xsi:attribute name="id"               type="xsi:string"  use="required"/>
+  	<xsi:attribute name="latestActivity"   type="xsi:string"  use="required"/>
+  	<xsi:attribute name="fallbackActivity" type="xsi:string"  use="required"/>  	  	
+  	<xsi:attribute name="activity"   type="xsi:string"  use="required"/>
+  	<xsi:attribute name="name"       type="xsi:string"  use="required"/>
+  	<xsi:attribute name="version"    type="xsi:string"  use="required"/>
+  	<xsi:attribute name="seq"        type="xsi:integer" use="required"/>
+  	<xsi:attribute name="pending"    type="xsi:integer" use="required"/>
+  	<xsi:attribute name="state"      type="xsi:string"  use="required"/>
+  	<xsi:attribute name="errorCount" type="xsi:integer" use="required"/>
   	
  </xsi:complexType>
  
@@ -94,8 +105,21 @@
             <xsi:element name="data" type="xsi:anyType"/>             
         </xsi:sequence>
       <xsi:attribute name="pid"   type="xsi:string" use="required"/>
+ 	  <xsi:attribute name="process"    type="xsi:string"  use="required"/>
+  	  <xsi:attribute name="version"    type="xsi:string"  use="required"/>
       <xsi:attribute name="name" type="xsi:string" use="required"/>      
   </xsi:complexType>
+
+  <xsi:complexType name="ProcessKey">
+        <xsi:sequence> 
+            <xsi:element name="data" type="xsi:string"/>             
+        </xsi:sequence>
+      <xsi:attribute name="pid"   type="xsi:string" use="required"/>
+ 	  <xsi:attribute name="process"    type="xsi:string"  use="required"/>
+  	  <xsi:attribute name="version"    type="xsi:string"  use="required"/>
+      <xsi:attribute name="name" type="xsi:string" use="required"/>      
+  </xsi:complexType>
+
   
   <xsi:complexType name="DocumentsArray">
         <xsi:sequence> 

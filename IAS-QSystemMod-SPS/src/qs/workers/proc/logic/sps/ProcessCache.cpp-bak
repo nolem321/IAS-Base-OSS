@@ -84,7 +84,8 @@ ProcessCacheEntryPtr ProcessCache::getEntry(const String& strID){
 
 		ptrProcessCacheEntry=IAS_DFT_FACTORY<ProcessCacheEntry>::Create(dmProcessInstance);
 		ptrProcessCacheEntry->loadDocuments(ptrDataStore);
-	}
+	}else
+		IAS_THROW(ItemNotFoundException("PID="+strID))
 
 
 	return ptrProcessCacheEntry;
@@ -94,7 +95,7 @@ void ProcessCache::synchronize(ProcessCacheEntry* pProcessCacheEntry){
 	IAS_TRACER;
 	IAS_CHECK_IF_VALID(pProcessCacheEntry);
 
-	pProcessCacheEntry->save(ptrDataStore);
+	//pProcessCacheEntry->save(ptrDataStore);
 }
 /*************************************************************************/
 void ProcessCache::returnToCache(ProcessCacheEntryPtr& ptrProcessCacheEntry){

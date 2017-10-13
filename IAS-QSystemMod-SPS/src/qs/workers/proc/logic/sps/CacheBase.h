@@ -42,7 +42,7 @@ public:
 
 
 protected:
-	CacheBase()throw();
+	CacheBase(int iMaxEntries = CMaxEntries)throw();
 	Mutex 				                      mutex;
 
 	void insert(ProcessCacheEntryPtr ptrCacheEntry);
@@ -61,6 +61,8 @@ private:
 	void swapNoLock();
 
 	static const int CMaxEntries = 10;
+
+	int iMaxEntries;
 
 	friend class Factory<CacheBase>;
 };

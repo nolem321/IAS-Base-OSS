@@ -22,6 +22,7 @@
 
 #include <org/invenireaude/qsystem/workers/sps/ProcessInstance.h>
 #include <org/invenireaude/qsystem/workers/sps/ProcessDocument.h>
+#include <org/invenireaude/qsystem/workers/sps/ProcessKey.h>
 #include <org/invenireaude/qsystem/workers/sps/DataFactory.h>
 #include <org/invenireaude/qsystem/workers/DataFactory.h>
 
@@ -29,6 +30,7 @@
 #include <qs/workers/proc/ProgramProvider.h>
 #include <qs/workers/proc/prog/DefaultResultHandler.h>
 
+#include "ResultHandler.h"
 using namespace org::invenireaude::qsystem::workers::sps;
 
 namespace IAS {
@@ -45,7 +47,7 @@ ProcessDataStore::ProcessDataStore(const String& strDataSource):
 	ptrProgramSet=IAS_DFT_FACTORY<Prog::ProgramSet>::Create(
 			pWorkContext->getGlobalContext()->getDataFactory());
 
-	ptrProgramSet->setResultHandler(IAS_DFT_FACTORY<Proc::Prog::DefaultResultHandler>::Create(pWorkContext->getGlobalContext()->getDataFactory()));
+	ptrProgramSet->setResultHandler(IAS_DFT_FACTORY<SPS::ResultHandler>::Create(pWorkContext->getGlobalContext()->getDataFactory()));
 
 	//TODO error handling try{} catch null problems
 	//TODO error handling when sql specification problem error
@@ -61,6 +63,8 @@ ProcessDataStore::ProcessDataStore(const String& strDataSource):
 		pWorkContext->getGlobalContext()->getProgramProvider()->load("sps::createDocument",ptrProgramSet);
 		pWorkContext->getGlobalContext()->getProgramProvider()->load("sps::saveDocument",ptrProgramSet);
 		pWorkContext->getGlobalContext()->getProgramProvider()->load("sps::loadDocuments",ptrProgramSet);
+		pWorkContext->getGlobalContext()->getProgramProvider()->load("sps::createProcessKey",ptrProgramSet);
+
 	}catch(Exception& e){
 		IAS_LOG(LogLevel::INSTANCE.isError(),e.toString());
 	}
@@ -73,13 +77,6 @@ ProcessDataStore::~ProcessDataStore() throw(){
 /*************************************************************************/
 void ProcessDataStore::createProcessInstance(Ext::ProcessInstancePtr dmProcessInstance)const{
 	IAS_TRACER;
-
-/*	IAS_DFT_FACTORY<WrappedStatement>::PtrHolder ptrStatement(
-			IAS_DFT_FACTORY<WrappedStatement>::Create(strDataSource,strInsertProcessInstance));
-
-	ptrStatement->execute(dmProcessInstance);
-*/
-
 
 	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());
 	ptrProgramSet->execute("sps::createProcessInstance",dmContext,dmProcessInstance);
@@ -128,30 +125,54 @@ void ProcessDataStore::getProcessesToClean(org::invenireaude::qsystem::workers::
 
 }
 /*************************************************************************/
-void ProcessDataStore::saveDocument(const String& strPID,const String& strName, DM::DataObject* dm)const{
+void ProcessDataStore::saveDocument(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, DM::DataObject* dm)const{
 	IAS_TRACER;
 
 	Ext::ProcessDocumentPtr dmProcessDocument(DataFactory::GetInstance()->createProcessDocument());
+
 	dmProcessDocument->setPid(strPID);
+	dmProcessDocument->setProcess(strProcess);
+	dmProcessDocument->setVersion(strVersion);
 	dmProcessDocument->setName(strName);
 	dmProcessDocument->setData(dm);
 
-	IAS_LOG(LogLevel::INSTANCE.isError(),"saving="<<strName);
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"saving="<<strName);
 
 	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());
 	ptrProgramSet->execute("sps::saveDocument",dmContext,dmProcessDocument);
 
 }
 /*************************************************************************/
-void ProcessDataStore::createDocument(const String& strPID,const String& strName, DM::DataObject* dm)const{
+void ProcessDataStore::createProcessKey(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, const String& strValue)const{
+	IAS_TRACER;
+
+
+	Ext::ProcessKeyPtr dmProcessKey(DataFactory::GetInstance()->createProcessKey());
+	dmProcessKey->setPid(strPID);
+	dmProcessKey->setProcess(strProcess);
+	dmProcessKey->setVersion(strVersion);
+	dmProcessKey->setName(strName);
+	dmProcessKey->setData(strValue);
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"saving="<<strName);
+
+
+	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());
+	ptrProgramSet->execute("sps::createProcessKey",dmContext,dmProcessKey);
+
+}
+/*************************************************************************/
+void ProcessDataStore::createDocument(const String& strPID, const String& strProcess, const String& strVersion, const String& strName, DM::DataObject* dm)const{
 	IAS_TRACER;
 
 	Ext::ProcessDocumentPtr dmProcessDocument(DataFactory::GetInstance()->createProcessDocument());
 	dmProcessDocument->setPid(strPID);
+	dmProcessDocument->setProcess(strProcess);
+	dmProcessDocument->setVersion(strVersion);
 	dmProcessDocument->setName(strName);
 	dmProcessDocument->setData(dm);
 
-	IAS_LOG(LogLevel::INSTANCE.isError(),"saving="<<strName);
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"saving="<<strName);
 
 
 	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());
@@ -164,7 +185,7 @@ org::invenireaude::qsystem::workers::sps::Ext::DocumentsArrayPtr ProcessDataStor
 	Ext::DocumentsArrayPtr dmArray=DataFactory::GetInstance()->createDocumentsArray();
 	dmArray->setPid(strPID);
 
-	IAS_LOG(LogLevel::INSTANCE.isError(),"loading="<<strPID);
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"loading="<<strPID);
 
 
 	::org::invenireaude::qsystem::workers::Ext::ContextPtr dmContext(::org::invenireaude::qsystem::workers::DataFactory::GetInstance()->createContext());

@@ -21,6 +21,7 @@
 #include <commonlib/commonlib.h>
 
 #include <org/invenireaude/qsystem/workers/sps/ProcessInstance.h>
+#include <lang/interpreter/exe/exception/InterpreterProgramException.h>
 
 namespace IAS {
 namespace QS {
@@ -54,10 +55,15 @@ public:
 
 	DM::DataObjectPtr getDocument(const String& strName);
 	void setDocument(const String& strName, DM::DataObject* dm);
+	void createProcessKey(const String& strName, const String& strValue);
+	void setInfo(const String& strInfo);
 
+	void setScheduleOn(const DateTime& tmScheduledOn);
 	void setSetNextActivity(const String& strNextActivity);
+	void setFallback(const String& strFallbackActivity, const DateTime& tmScheduledOn);
 
 	void schedule();
+	void failed(IAS::Lang::Interpreter::Exe::InterpreterProgramException& e);
 	void enqueueForSchedule();
 	void enqueueForEvent();
 
@@ -79,11 +85,14 @@ protected:
 
 	org::invenireaude::qsystem::workers::sps::Ext::ProcessInstancePtr dmProcessInstance;
 
-
 	//TODO better structure for modified documents
-	typedef HashMapWithStringKey<bool>                 DocumentNameSet;
+
+	typedef HashMapWithStringKey< String > ProcessKeysMap;
+
+	typedef HashMapWithStringKey<bool>     DocumentNameSet;
 
 	DocumentsMap 		hmDocuments;
+	ProcessKeysMap      hmProcessKeys;
 	DocumentNameSet		setModifiedDocuments;
 	DocumentNameSet		setNewDocuments;
 
