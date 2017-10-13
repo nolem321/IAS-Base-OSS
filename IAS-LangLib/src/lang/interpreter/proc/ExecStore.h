@@ -54,14 +54,15 @@ public:
 
 	virtual ~ExecStore() throw();
 
-	::IAS::Lang::Interpreter::Exe::Program *getExecutable(const String& strName,
-														  const TypeList& lstTypes);
+	::IAS::Lang::Interpreter::Exe::Program *createOrGetExecutable(const String& strName,
+														  	      const TypeList& lstTypes);
 
-	::IAS::Lang::Interpreter::Exe::Program *getExecutable(const String& strName,
-														  const TypeList& lstTypes,
-														  const StringList& lstSearchPath);
+//	::IAS::Lang::Interpreter::Exe::Program *getExecutable(const String& strName,
+//														  const TypeList& lstTypes,
+//														  const StringList& lstSearchPath);
 
-	::IAS::Lang::Interpreter::Exe::Program *getExecutable(const Model::ProgramNode* pProgramNode);
+	::IAS::Lang::Interpreter::Exe::Program *createOrGetExecutable(const Model::ProgramNode* pProgramNode);
+	const ::IAS::Lang::Interpreter::Exe::Program *getExecutable(const Model::ProgramNode* pProgramNode)const;
 
 
 	const DM::Type* resolveType(const String& strType,
@@ -71,6 +72,7 @@ public:
 
 	void findAllMatches(const TypeList& lstTypes, ProgramList& lstOutput);
 
+	void compileAll();
 
 	const ::IAS::Lang::Model::Model* getModel()const{ return pModel;}
 	const ::IAS::DM::DataFactory* getDataFactory()const{ return pDataFactory;}
@@ -109,10 +111,6 @@ protected:
 						  const TypeList& lstTypes)const;
 
 	String createPrintableSignature(const TypeList& lstTypes)const;
-
-	bool bInitialized;
-
-	void initialize();
 
 	friend class ::IAS::Factory<ExecStore>;
 };

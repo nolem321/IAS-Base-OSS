@@ -79,11 +79,16 @@ const Dec::TypeDefinitionNode* Model::getTypeDefinitionNode(const String& strNam
 /*************************************************************************/
 void Model::addProgram(ProgramNode* pProgramNode) {
 	IAS_TRACER;
+
 	IAS_CHECK_IF_VALID(pProgramNode);
 
 	phcProgramNodes.addPointer(pProgramNode);
+
 	const String& strName = pProgramNode->getQualifiedNameNode()->getQualifiedName();
+
 	hmProgramLists[strName].push_back(pProgramNode);
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Add program["<<phcProgramNodes.size()<<"]: "<<strName);
 
 }
 /*************************************************************************/
@@ -110,6 +115,9 @@ void Model::getAllPrograms(Model::ProgramList& refOutput) const {
 		const ProgramNode* pProgramNode = *it;
 		refOutput.push_back(pProgramNode);
 	}
+
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"getAllPrograms "<<phcProgramNodes.size()<<" ? "<<refOutput.size());
 }
 /*************************************************************************/
 Tools::Parser::SourceLocation::SourceID Model::registerSource(const String& strName){

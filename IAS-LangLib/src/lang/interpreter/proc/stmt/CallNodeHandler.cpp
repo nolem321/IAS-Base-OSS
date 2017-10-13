@@ -59,8 +59,8 @@ void CallNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Callback
 
 	TypeList lstSignatureTypes(aResultExprList.pExprList);
 
-	Exe::Program *pProgram = pCtx->getExecStore()->getExecutable(pQualifiedNameNode->getQualifiedName(),
-																lstSignatureTypes);
+	Exe::Program *pProgram = pCtx->getExecStore()->createOrGetExecutable(pQualifiedNameNode->getQualifiedName(),
+																         lstSignatureTypes);
 
 	aResult.pStatement = IAS_DFT_FACTORY<Exe::Stmt::Call>::Create(pProgram,aResultExprList.pExprList);
 

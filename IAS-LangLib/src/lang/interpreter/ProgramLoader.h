@@ -65,13 +65,16 @@ public:
 
 	void loadModel(const String& strObject, Tools::Parser::LexerIStreamWrapper* pWrapper = NULL);
 
-	const ::IAS::Lang::Interpreter::Exe::Program* getExecutable(const String& strProgramName);
+	const ::IAS::Lang::Interpreter::Exe::Program* getExecutable(const String& strProgramName)const;
+	const ::IAS::Lang::Interpreter::Exe::Program* getExecutable(const String& strProgramName, const TypeList& lstTypes)const;
 
 	void findAllMatches(const TypeList& lstTypes, ProgramList& lstOutput);
 
 	::IAS::Lang::Export::Text::SourceStore* getSourceStore();
 
 	const ::IAS::Lang::Model::Model* getModel()const;
+
+	const ::IAS::DM::DataFactory  *getDataFactory()const;
 
 protected:
 	ProgramLoader(::IAS::DM::DataFactory  *pDataFactory,
@@ -93,6 +96,8 @@ protected:
 	static const char    CProgramNameDelimiter;
 
 	StringList lstSourceDirs;
+
+	void compileAll();
 
 	friend class ::IAS::Factory<ProgramLoader>;
 };

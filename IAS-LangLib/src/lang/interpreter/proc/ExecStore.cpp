@@ -47,8 +47,7 @@ namespace Interpreter {
 namespace Proc {
 
 /*************************************************************************/
-ExecStore::ExecStore(const ::IAS::Lang::Model::Model* pModel, ::IAS::DM::DataFactory  *pDataFactory):
-		bInitialized(false){
+ExecStore::ExecStore(const ::IAS::Lang::Model::Model* pModel, ::IAS::DM::DataFactory  *pDataFactory){
 	IAS_TRACER;
 
 	IAS_CHECK_IF_VALID(pModel);
@@ -68,13 +67,10 @@ ExecStore::~ExecStore() throw(){
 	hmExecutables.clear();
 }
 /*************************************************************************/
-Exe::Program *ExecStore::getExecutable(const String& strName,
-									   const TypeList& lstTypes){
+Exe::Program *ExecStore::createOrGetExecutable(const String& strName,
+									           const TypeList& lstTypes){
 	IAS_TRACER;
 	Exe::Program *pResult;
-
-	if(!bInitialized)
-		initialize();
 
 	if(!getExecutableImpl(strName, lstTypes, pResult))
 		IAS_THROW(ItemNotFoundException(String(strName)+createPrintableSignature(lstTypes)));
@@ -82,37 +78,31 @@ Exe::Program *ExecStore::getExecutable(const String& strName,
 	return pResult;
 }
 /*************************************************************************/
-Exe::Program *ExecStore::getExecutable(const String& strName,
-									   const TypeList& lstTypes,
-									   const StringList& lstSearchPath){
-	IAS_TRACER;
-
-	if(!bInitialized)
-		initialize();
-
-	Exe::Program *pResult;
-
-	if(getExecutableImpl(strName, lstTypes, pResult))
-		return pResult;
-
-	for(StringList::const_iterator it = lstSearchPath.begin();
-		it != lstSearchPath.end();
-		it++){
-		//TODO (M) delimiter
-		if(getExecutableImpl((*it)+'.'+strName, lstTypes, pResult))
-			return pResult;
-
-	}
-
-	IAS_THROW(ItemNotFoundException(String(strName)+createPrintableSignature(lstTypes)));
-}
+//Exe::Program *ExecStore::getExecutable(const String& strName,
+//									   const TypeList& lstTypes,
+//									   const StringList& lstSearchPath){
+//	IAS_TRACER;
+//
+//	Exe::Program *pResult;
+//
+//	if(getExecutableImpl(strName, lstTypes, pResult))
+//		return pResult;
+//
+//	for(StringList::const_iterator it = lstSearchPath.begin();
+//		it != lstSearchPath.end();
+//		it++){
+//		//TODO (M) delimiter
+//		if(getExecutableImpl((*it)+'.'+strName, lstTypes, pResult))
+//			return pResult;
+//
+//	}
+//
+//	IAS_THROW(ItemNotFoundException(String(strName)+createPrintableSignature(lstTypes)));
+//}
 /*************************************************************************/
-::IAS::Lang::Interpreter::Exe::Program *ExecStore::getExecutable(const Model::ProgramNode* pProgramNode){
+::IAS::Lang::Interpreter::Exe::Program *ExecStore::createOrGetExecutable(const Model::ProgramNode* pProgramNode){
 
 	IAS_TRACER;
-
-	if(!bInitialized)
-		initialize();
 
 	if(hmExecutables.count(pProgramNode) == 0){
     	buildExecutable(pProgramNode);
@@ -121,14 +111,24 @@ Exe::Program *ExecStore::getExecutable(const String& strName,
 	return hmExecutables[pProgramNode];
 }
 /*************************************************************************/
+const ::IAS::Lang::Interpreter::Exe::Program *ExecStore::getExecutable(const Model::ProgramNode* pProgramNode)const{
+
+	IAS_TRACER;
+
+	if(hmExecutables.count(pProgramNode) == 0)
+		IAS_THROW(ItemNotFoundException(pProgramNode->getQualifiedNameNode()->getQualifiedName()));
+
+	return hmExecutables.at(pProgramNode);
+}
+/*************************************************************************/
 bool ExecStore::getExecutableImpl(const String& strName,
 								  const TypeList& lstTypes,
 								  Exe::Program* &refOutput){
 	IAS_TRACER;
 
-	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Program: "<<strName);
-
     const Model::Model::ProgramList& lstProgramsForName=pModel->getPrograms(strName);
+
+	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Program: "<<strName<<", count: "<<lstProgramsForName.size());
 
     for(Model::Model::ProgramList::const_iterator it = lstProgramsForName.begin();
     	it != lstProgramsForName.end();
@@ -225,6 +225,8 @@ void ExecStore::findAllMatches(const TypeList& lstTypes, ProgramList& lstOutput)
 void ExecStore::buildExecutable(const Model::ProgramNode* pProgramNode){
 	IAS_TRACER;
 
+   	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Building: "<<(pProgramNode->getQualifiedNameNode()->getQualifiedName()));
+
 	try{
 
 		Interpreter::Proc::CallbackSignature::Result aResult;
@@ -280,7 +282,7 @@ Extern::ModuleStore* ExecStore::getExternalModules()const{
 	return ptrModuleStore;
 }
 /*************************************************************************/
-void ExecStore::initialize(){
+void ExecStore::compileAll(){
 
 	IAS_TRACER;
 
@@ -289,15 +291,11 @@ void ExecStore::initialize(){
 	 Model::Model::ProgramList lstPrograms;
 	 pModel->getAllPrograms(lstPrograms);
 
-	 bInitialized = true;
-
     for(Model::Model::ProgramList::const_iterator it = lstPrograms.begin();
-   	it != lstPrograms.end(); it++)
-    	if((*it)->isExternal()){
+   	it != lstPrograms.end(); it++){
 
-    	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Building: "<<((*it)->getQualifiedNameNode()->getQualifiedName()));
-
-   		buildExecutable(*it);
+    	if(hmExecutables.count(*it) == 0)
+    		buildExecutable(*it);
     }
 
 

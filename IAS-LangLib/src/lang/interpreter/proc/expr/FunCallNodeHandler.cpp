@@ -60,7 +60,7 @@ void FunCallNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Callb
 
 	TypeList lstSignatureTypes(aResultExprList.pExprList);
 
-	Exe::Program *pProgram = pCtx->getExecStore()->getExecutable(pQualifiedNameNode->getQualifiedName(),
+	Exe::Program *pProgram = pCtx->getExecStore()->createOrGetExecutable(pQualifiedNameNode->getQualifiedName(),
 																 lstSignatureTypes);
 
 	aResult.pExpr =  Exe::Expr::FunCall::Create(pProgram,aResultExprList.pExprList);

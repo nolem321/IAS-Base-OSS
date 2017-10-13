@@ -82,12 +82,37 @@ void ProgramLoader::loadModel(const String& strObject, Tools::Parser::LexerIStre
 	ptrParser->parse(ptrLexer);
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"END Parsing:"<<strObject);
 
+	compileAll();
 }
 /*************************************************************************/
-const Interpreter::Exe::Program* ProgramLoader::getExecutable(const String& strProgramName){
+const Interpreter::Exe::Program* ProgramLoader::getExecutable(const String& strProgramName)const{
 	IAS_TRACER;
-	TypeList anyTypes;
-	return ptrExecStore->getExecutable(strProgramName,anyTypes);
+
+	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"getExecutable: "<<strProgramName);
+
+	Model::Model::ProgramList lstPrograms(ptrModel->getPrograms(strProgramName));
+
+	if(lstPrograms.size() == 0)
+		IAS_THROW(ItemNotFoundException(strProgramName));
+
+	if(lstPrograms.size() != 1)
+		IAS_THROW(BadUsageException("More than one program with the same name in an external call: " + strProgramName));
+
+	return ptrExecStore->getExecutable(*lstPrograms.begin());
+}
+/*************************************************************************/
+const Interpreter::Exe::Program* ProgramLoader::getExecutable(const String& strProgramName, const TypeList& lstTypes)const{
+	IAS_TRACER;
+
+	if(::IAS::Lang::LogLevel::INSTANCE.isInfo()){
+		IAS_LOG(true,"getExecutable: "<<strProgramName<<", no. of args: "<<lstTypes.size());
+		for(TypeList::const_iterator it = lstTypes.begin(); it != lstTypes.end(); it++)
+			IAS_LOG(true,(*it)->getFullName());
+	}
+
+	ProgramList lstOutput;
+
+	return ptrExecStore->createOrGetExecutable(strProgramName, lstTypes);
 }
 /*************************************************************************/
 void ProgramLoader::findAllMatches(const TypeList& lstTypes, ProgramList& lstOutput){
@@ -104,6 +129,14 @@ const ::IAS::Lang::Model::Model* ProgramLoader::getModel()const{
 ::IAS::Lang::Export::Text::SourceStore* ProgramLoader::getSourceStore(){
 	IAS_TRACER;
 	return ptrSourceStore;
+}
+/*************************************************************************/
+void ProgramLoader::compileAll(){
+	ptrExecStore->compileAll();
+}
+/*************************************************************************/
+const ::IAS::DM::DataFactory *ProgramLoader::getDataFactory()const{
+	return pDataFactory;
 }
 /*************************************************************************/
 }

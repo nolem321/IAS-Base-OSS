@@ -30,9 +30,21 @@ InterpreterProgramException::InterpreterProgramException(DM::DataObject* dmValue
 	if(!dmValue)
 		return;
 
-	if(dmValue->getType()->isDataObjectType())
-		setInfo(dmValue->getType()->getFullName());
-	else
+	if(dmValue->getType()->isDataObjectType()){
+
+		const DM::ComplexType *pComplexType = dmValue->getType()->asComplexType();
+
+		const DM::PropertyList& lstProperties(pComplexType->getProperties());
+
+		StringStream ssInfo;
+
+		for(int iIdx=0; iIdx<lstProperties.getSize(); iIdx++){
+			const DM::Property *pProperty = lstProperties.getProperty(iIdx);
+			if(dmValue->isSet(pProperty) && !pProperty->getType()->isDataObjectType())
+				ssInfo<<(iIdx ? ",":"")<<pProperty->getName()<<" "<<dmValue->getString(pProperty);
+		}
+		setInfo(ssInfo.str());
+	}else
 		setInfo(dmValue->toString());
 
 }

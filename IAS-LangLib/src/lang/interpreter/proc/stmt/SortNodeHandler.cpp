@@ -67,7 +67,7 @@ void SortNodeHandler::call(const Model::Node* pNode,
 	lstSignatureTypes.append(ptrListExpr->getType());
 	lstSignatureTypes.append(ptrListExpr->getType());
 
-	pProgram = pCtx->getExecStore()->getExecutable(pQualifiedNameNode->getQualifiedName(),
+	pProgram = pCtx->getExecStore()->createOrGetExecutable(pQualifiedNameNode->getQualifiedName(),
 																     lstSignatureTypes);
 
 	if(!pProgram->getParameters()->hasResult() ||
