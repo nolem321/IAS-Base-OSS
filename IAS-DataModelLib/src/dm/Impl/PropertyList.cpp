@@ -20,6 +20,7 @@
 
 #include "../../dm/Impl/Property.h"
 #include "../../dm/log/LogLevel.h"
+#include "../Type.h"
 
 namespace IAS {
 namespace DM {
@@ -60,13 +61,14 @@ bool PropertyList::HashMapKeyEq::operator()(const HashMapKey& k1, const HashMapK
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isDetailedInfo(),"getProperty["<<strName<<"]:"<<hmPropertiesByName.count(aKey));
 
 	if(hmPropertiesByName.count(aKey) == 0)
-		IAS_THROW(ItemNotFoundException(String("getProperty:")+=strName));
+		IAS_THROW(ItemNotFoundException("getProperty:" + strName + " in " + pType->getFullName()));
 
 	return hmPropertiesByName.find(aKey)->second;
 }
 
 /*************************************************************************/
-PropertyList::PropertyList(){
+PropertyList::PropertyList(const DM::Type *pType):
+	pType(pType){
 	IAS_TRACER;
 }
 /*************************************************************************/

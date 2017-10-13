@@ -44,10 +44,10 @@ Type(strURI, strName, pBaseType)
 	setIsNSElementsType(strName.compare(DataFactory::RootTypeName) == 0);
 
 	if(pBaseType == NULL) {
-		ptrProperties=ModelAllocator< ::IAS::DM::Impl::PropertyList >::Create();
+		ptrProperties=ModelAllocator< ::IAS::DM::Impl::PropertyList >::Create(this);
 	} else {
 		const DM::ComplexType* pComplexType = pBaseType->asComplexType();
-		ptrProperties=ModelAllocator< ::IAS::DM::Impl::PropertyListWithParent >::Create(&(pComplexType->getProperties()));
+		ptrProperties=ModelAllocator< ::IAS::DM::Impl::PropertyListWithParent >::Create(&(pComplexType->getProperties()), this);
 	}
 
 

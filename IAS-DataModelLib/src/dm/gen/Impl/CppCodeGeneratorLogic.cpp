@@ -84,6 +84,17 @@ void CppCodeGeneratorLogic::setSingleDataObjectFile(bool bValue){
 	this->bSingleDataObjectFile=bValue;
 }
 /*************************************************************************/
+bool CppCodeGeneratorLogic::hasPrefix(const StringList& lstNamespaces, const String strURI){
+	IAS_TRACER;
+
+	for(StringList::const_iterator it = lstNamespaces.begin(); it != lstNamespaces.end(); it++){
+		if(strURI.substr(0,(*it).length()).compare(*it) == 0)
+			return true;
+	}
+
+	return false;
+}
+/*************************************************************************/
 void CppCodeGeneratorLogic::buildNamespacesMap(const StringList& lstNamespaces){
 	IAS_TRACER;
 
@@ -95,13 +106,6 @@ void CppCodeGeneratorLogic::buildNamespacesMap(const StringList& lstNamespaces){
 
 	int iNumTypes = lstTypes.getSize();
 
-
-	HashMapWithStringKey<bool> hmNamespacesToGenerate;
-	for(StringList::const_iterator it=lstNamespaces.begin(); it!=lstNamespaces.end();it++)
-		hmNamespacesToGenerate[*it]=true;
-
-
-
 	for(int iIdx=0; iIdx<iNumTypes; iIdx++){
 		const Type* pType = lstTypes[iIdx];
 
@@ -110,8 +114,10 @@ void CppCodeGeneratorLogic::buildNamespacesMap(const StringList& lstNamespaces){
 		if(DataFactory::RootTypeName.compare(pType->getName())==0)
 			continue;
 
-		if(!hmNamespacesToGenerate.empty() && hmNamespacesToGenerate.count(pType->getURI())==0)
+		if(!lstNamespaces.empty() && !hasPrefix(lstNamespaces,pType->getURI())){
+			IAS_LOG(true, "Skipping: "<<pType->getURI());
 			continue;
+		}
 
 		if(hmNamespaces.count(pType->getURI()) == 0){
 

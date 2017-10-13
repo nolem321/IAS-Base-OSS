@@ -20,12 +20,14 @@
 
 #include "../../dm/Impl/Property.h"
 #include "../../dm/log/LogLevel.h"
+#include "../Type.h"
 
 namespace IAS {
 namespace DM {
 namespace Impl {
 /*************************************************************************/
-PropertyListWithParent::PropertyListWithParent(const ::IAS::DM::PropertyList *pParent){
+PropertyListWithParent::PropertyListWithParent(const ::IAS::DM::PropertyList *pParent, const DM::Type *pType):
+	PropertyList(pType){
 	IAS_TRACER;
 	IAS_CHECK_IF_VALID(pParent);
 	this->pParent=pParent;
@@ -41,8 +43,14 @@ PropertyListWithParent::PropertyListWithParent(const ::IAS::DM::PropertyList *pP
 
 	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"getProperty["<<strName<<"]:"<<hmPropertiesByName.count(aKey));
 
-	if(hmPropertiesByName.count(aKey) == 0)
-		return pParent->getProperty(strName);
+	try{
+
+		if(hmPropertiesByName.count(aKey) == 0)
+			return pParent->getProperty(strName);
+
+	}catch(ItemNotFoundException& e){
+		IAS_THROW(ItemNotFoundException("getProperty:" + strName + " in " + pType->getFullName()));
+	}
 
 	return hmPropertiesByName.find(aKey)->second;
 }

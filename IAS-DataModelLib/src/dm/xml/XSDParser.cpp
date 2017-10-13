@@ -800,7 +800,9 @@ bool XSDParser::verfifyExisting(const ::IAS::DM::Type* pBaseType,
 
 	   if(iExpected != pTypeInfo->lstPropertyInfo.size())
 			IAS_THROW(BadUsageException(strTargetNamespace + "#" + pTypeInfo->strName
-					+ " alread defined with different specification (properties)"));
+					+ " alread defined with different specification (properties), expected:  "
+					+ TypeTools::IntToString(iExpected) + ", got: "
+	   	   	   	    + TypeTools::IntToString(pTypeInfo->lstPropertyInfo.size())));
 	}
 
 	return true;

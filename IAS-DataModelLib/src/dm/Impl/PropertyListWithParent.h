@@ -38,7 +38,7 @@ public:
 
 protected:
 
-	PropertyListWithParent(const ::IAS::DM::PropertyList *pParent);
+	PropertyListWithParent(const ::IAS::DM::PropertyList *pParent, const DM::Type *pType);
 
 	int iParentSize;
 	const ::IAS::DM::PropertyList *pParent;

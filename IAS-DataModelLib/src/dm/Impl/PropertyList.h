@@ -26,6 +26,7 @@
 
 namespace IAS {
 namespace DM {
+class Type;
 namespace Impl {
 
 /*************************************************************************/
@@ -44,7 +45,7 @@ public:
 
 
 protected:
-	PropertyList();
+	PropertyList(const DM::Type *pType);
 
 	struct HashMapKey : public String{
 		HashMapKey(const String& strValue);
@@ -74,6 +75,7 @@ protected:
 
 	PropertiesTab tabProperties;
 
+	const DM::Type *pType;
 	friend class ::IAS::Factory<PropertyList>;
 };
 

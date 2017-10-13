@@ -99,6 +99,8 @@ protected:
 	OutputFile* openFile(const String& strName);
 
 
+	bool hasPrefix(const StringList& lstNamespaces, const String strURI);
+
 private:
 
 	IAS_DFT_FACTORY<Template>::PtrHolder ptrPreamble;
