@@ -29,10 +29,6 @@ const String ProgramParameters::StrCommonArgSpec("hm:");
 /*************************************************************************/
 ProgramParameters::ProgramParameters() throw(){
 	IAS_TRACER;
-
-	ptrXMLHelper = IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(
-			::org::invenireaude::qsystem::DataFactory::GetInstance()->getContaingDataFactory());
-
 }
 /*************************************************************************/
 ProgramParameters::~ProgramParameters() throw(){

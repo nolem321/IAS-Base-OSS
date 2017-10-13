@@ -46,6 +46,8 @@ protected:
 
 	::org::invenireaude::qsystem::Ext::SystemPtr dmSystem;
 
+	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper;
+
 	friend class ::IAS::Factory<CreateParameters>;
 };
 

@@ -27,6 +27,16 @@
 #include <org/invenireaude/qsystem/SessionSettings.h>
 #include <org/invenireaude/qsystem/ContentSettings.h>
 
+#include <org/invenireaude/qsystem/workers/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/io/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/ds/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/cache/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/ec/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/txm/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/logic/DataFactory.h>
+
+#include <lang/model/Model.h>
+
 using namespace ::org::invenireaude::qsystem;
 
 namespace IAS {
@@ -36,6 +46,25 @@ namespace Parameters {
 /*************************************************************************/
 CreateParameters::CreateParameters(int argc, char* argv[]){
 	IAS_TRACER;
+
+	    Lang::Model::Model::RegisterBuildInTypes();
+
+		org::invenireaude::qsystem::workers::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::io::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::txm::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::cache::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::ec::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::logic::DataFactory::GetInstance();
+
+	try{
+
+		ptrXMLHelper = IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(org::invenireaude::qsystem::workers::DataFactory::GetInstance()->getContaingDataFactory());
+
+	}catch(Exception& e){
+		//IAS_LOG(LogLevel::INSTANCE.isError(),e.toString());
+		throw;
+	}
 
 	::IAS::QS::Parameters::ProgramParameters::init(argc,argv,"c:n:m:");
 

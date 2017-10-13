@@ -47,7 +47,6 @@ protected:
 	virtual void printCmdDesc(std::ostream& os) const;
 	virtual void printArgsDesc(std::ostream& os) const;
 
-	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper;
 
 	friend class ::IAS::Factory<ProgramParameters>;
 };

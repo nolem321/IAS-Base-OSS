@@ -17,6 +17,17 @@
  */
 #include "StatusParameters.h"
 
+#include <org/invenireaude/qsystem/workers/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/io/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/ds/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/cache/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/ec/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/txm/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/logic/DataFactory.h>
+
+#include <lang/model/Model.h>
+
+
 #include <commonlib/commonlib.h>
 
 namespace IAS {
@@ -26,6 +37,17 @@ namespace Parameters {
 /*************************************************************************/
 StatusParameters::StatusParameters(int argc, char* argv[]){
 	IAS_TRACER;
+
+    Lang::Model::Model::RegisterBuildInTypes();
+
+		org::invenireaude::qsystem::workers::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::io::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::txm::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::cache::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::ec::DataFactory::GetInstance();
+		org::invenireaude::qsystem::workers::logic::DataFactory::GetInstance();
+
 
 	::IAS::QS::Parameters::ProgramParameters::init(argc,argv,"hs:");
 

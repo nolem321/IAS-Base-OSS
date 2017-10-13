@@ -57,8 +57,9 @@ bool ProcessorParameters::hasInputSpecs()const{
 /*************************************************************************/
 const String& ProcessorParameters::getInputSpecs()const{
 
-	if(!hmIndicators.count('i'))
-		IAS_THROW(ConfigException("Missing -i option."));
+	if(!hmIndicators.count('i')){
+		IAS_THROW(BadUsageException("Missing -i option."));
+	}
 
 	return hmValues.find('i')->second;
 }
@@ -246,10 +247,11 @@ void ProcessorParameters::printArgsDesc(std::ostream& os) const{
 	os<<"\nValid logic names are:\n"<<std::endl;
 	os<<"\t fwd      - Forwarder."<<std::endl;
 	os<<"\t exe      - Execute the specified program(s)."<<std::endl;
+	os<<"\t run      - Execute the specified program passing remaining arguments as parameters."<<std::endl;
 	os<<"\t match    - Execute programs which signature match the input data."<<std::endl;
 	os<<"\t attr     - Execute program selected by the message meta attribute."<<std::endl;
 	os<<"\t extern   - External module."<<std::endl;
-	os<<"\t js       - External module for JavaScript."<<std::endl;
+	os<<"\t js       - External module for JavaScript (experimental !!!)."<<std::endl;
 	os<<"\t grab     - Message extractor."<<std::endl;
 	os<<"\t proxy    - Synchronous proxy."<<std::endl;
 	os<<"\t aproxy   - Asynchronous proxy."<<std::endl;
