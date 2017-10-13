@@ -135,6 +135,13 @@ void URI::parse(){
 
 	char c=ssValue.get();
 
+	if(c == '@'){
+		strUser=strHost;
+		strHost.clear();
+		parseDomain();
+		c=ssValue.get();
+	}
+
 	if(c == ':')
 		parsePort();
 	else{

@@ -34,7 +34,6 @@ Exception::Exception(){
 	if(::IAS::LogLevel::INSTANCE.isStackTrace())
 		appendStackTrace();	
 }
-
 /*************************************************************************/
 Exception::Exception(const String& strInfo){
 	IAS_TRACER;
@@ -44,8 +43,6 @@ Exception::Exception(const String& strInfo){
 
 	setInfo(strInfo);
 }
-
-
 /*************************************************************************/
 Exception::~Exception() throw(){
 	IAS_TRACER;
@@ -63,7 +60,6 @@ void Exception::setInfo(const String& strInfo){
 	IAS_TRACER;
 	this->strInfo=strInfo;
 }
-
 /*************************************************************************/
 const char* Exception::getName(){
 	IAS_TRACER;
@@ -75,7 +71,12 @@ void Exception::appendStackTrace(){
 	IAS_TRACER;
 	
 	StringStream ssStack;	
+#ifdef __GLIBC__
+	IAS::PrintTrace(ssStack);
+#else
 	IAS_MY_STACK().printStack(ssStack);
+#endif
+
 	this->strStackTrace=ssStack.str();
 	
 }
@@ -136,6 +137,9 @@ Exception& Exception::operator<< (void* ptrValue){
 /*************************************************************************/
 const String& Exception::getInfo(){
 	IAS_TRACER;		
+	if(LogLevel::INSTANCE.isInfo())
+			this->strInfo += "\n" + this->strStackTrace;
+
 	return this->strInfo;
 }
 /*************************************************************************/

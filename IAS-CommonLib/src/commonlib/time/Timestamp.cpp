@@ -122,7 +122,7 @@ void Timestamp::setDate( short iYear,  short iMonth,
 }
 /*************************************************************************/
 void Timestamp::setTime( short iHour,  short iMin,
-		 short iSec,  short iUSec) {
+		 short iSec,  int iUSec) {
 	IAS_TRACER;
 
 	struct tm tmpTime;
@@ -140,7 +140,7 @@ void Timestamp::setTime( short iHour,  short iMin,
 }
 /*************************************************************************/
 void Timestamp::setDateTime( short iYear,  short iMonth,  short iDay,
-							 short iHour,  short iMin, short iSec,  short iUSec) {
+							 short iHour,  short iMin, short iSec,  int iUSec) {
 	IAS_TRACER;
 
 	struct tm tmpTime;

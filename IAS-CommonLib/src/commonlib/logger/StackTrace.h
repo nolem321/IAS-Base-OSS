@@ -83,6 +83,10 @@ protected:
 };
 
 
+#ifdef __GLIBC__
+void PrintTrace(std::ostream& os);
+#endif
+
 }
 #endif /*STACKTRACE_H_*/
 

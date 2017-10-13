@@ -44,7 +44,7 @@ int TypeTools::StringToInt(const String& strValue) {
 	ss >> iResult;
 
 	if(!ss.eof())
-		IAS_THROW(BadUsageException("Conversion error: " + strValue));
+		IAS_THROW(BadUsageException("Conversion error: [" + strValue + "]"));
 
 #endif
 

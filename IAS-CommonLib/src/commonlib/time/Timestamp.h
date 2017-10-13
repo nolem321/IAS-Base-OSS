@@ -56,10 +56,10 @@ public:
 	void fromPosixTime(struct tm& aValue);
 
 	void setDate(short iYear, short iMonth, short iDay);
-	void setTime(short iHour, short iMin,   short iSec, short iUSec = 0);
+	void setTime(short iHour, short iMin,   short iSec, int iUSec = 0);
 
 	void setDateTime(short iYear, short iMonth, short iDay,
-					 short iHour, short iMin,   short iSec, short iUSec = 0);
+					 short iHour, short iMin,   short iSec, int iUSec = 0);
 
 	void getDate(short &iYear, short &iMonth, short &iDay)const;
 

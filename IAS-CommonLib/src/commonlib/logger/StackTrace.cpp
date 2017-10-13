@@ -17,6 +17,9 @@
  */
 #include "StackTrace.h"
 
+#ifdef __GLIBC__
+#include <execinfo.h>
+#endif
 
 namespace IAS{
 
@@ -84,5 +87,24 @@ void StackTrace::printStack(std::ostream& os){
 	os<<"\n\t <<<<<>>>>>\n";
  }
 	
+void PrintTrace(std::ostream& os){
+
+  void *array[25];
+  size_t size;
+  char **strings;
+  size_t i;
+
+  size = backtrace (array, 25);
+  strings = backtrace_symbols (array, size);
+
+  os<<"Obtained:<<"<<size<<"stack frames, (DO NOT PANIC !!!, this is IAS stacktrace printed with glibc backtrace features :] )"<<std::endl;
+
+  for (i = 0; i < size; i++)
+     os<<strings[i]<<std::endl;
+
+  free (strings);
+}
+
+
 }/* namespace IAS */
 
