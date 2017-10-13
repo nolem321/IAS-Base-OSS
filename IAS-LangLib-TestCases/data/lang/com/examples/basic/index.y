@@ -53,7 +53,7 @@ BEGIN
    street = "ISSET";
   END;
 
- IF NOT ISSET(input.address [[ "Miodowa2" ]]) THEN
+ IF NOT ISSET(input.address[["Miodowa2"]]) THEN
   CREATE output.address BEGIN
    street = "NOT ISSET";
   END;  
