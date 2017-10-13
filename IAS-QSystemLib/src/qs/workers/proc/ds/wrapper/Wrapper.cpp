@@ -352,7 +352,17 @@ void Wrapper::handleWhereCondition(Lexer *pLexer,
 
 	switch(iComparatorToken) {
 
-		case Lexer::T_EQ    : strSQLText+="  =  "; break;
+		case Lexer::T_EQ    :
+
+			if(bOptional && dm->isSet(pLexer->getXPathValue()) && dm->getDataObject(pLexer->getXPathValue()) == NULL){
+				strSQLText += " IS NULL ";
+				return;
+			}
+
+			strSQLText += "  =  ";
+
+			break;
+
 		case Lexer::T_GT    : strSQLText+=" >  "; break;
 		case Lexer::T_LE    : strSQLText+=" <  "; break;
 		case Lexer::T_GT_EQ : strSQLText+=" >=  "; break;

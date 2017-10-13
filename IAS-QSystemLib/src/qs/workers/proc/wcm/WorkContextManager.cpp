@@ -86,8 +86,8 @@ void WorkContextManager::commit(){
 
 	caches.commit();
 	txm.commit();
-	qs.commit();
 	ds.commit();
+	qs.commit();
 
 }
 /*************************************************************************/
@@ -96,8 +96,8 @@ void WorkContextManager::rollback(){
 
 	caches.rollback();
 	txm.rollback();
-	qs.rollback();
 	ds.rollback();
+	qs.rollback();
 
 }
 /*************************************************************************/

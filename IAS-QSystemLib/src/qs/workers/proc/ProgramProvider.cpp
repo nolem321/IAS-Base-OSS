@@ -31,7 +31,8 @@
 #include <org/invenireaude/qsystem/typeinfo/DataFactory.h>
 #include <lang/model/allmodel.h>
 
-
+#include <org/invenireaude/qsystem/workers/DataFactory.h>
+#include <org/invenireaude/qsystem/workers/Context.h>
 using namespace org::invenireaude::qsystem;
 
 

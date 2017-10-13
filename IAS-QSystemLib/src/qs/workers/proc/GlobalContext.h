@@ -155,6 +155,10 @@ protected:
 
 	::org::invenireaude::qsystem::workers::spec::Ext::SpecificationPtr readParameters(const Parameters* pParameters)const;
 
+	void loadXSD();
+
+	static void InitializeDataFactories();
+
 	friend class Factory<GlobalContext>;
 };
 

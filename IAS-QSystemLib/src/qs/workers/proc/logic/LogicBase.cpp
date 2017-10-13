@@ -66,12 +66,6 @@ LogicBase::LogicBase(const ::org::invenireaude::qsystem::workers::logic::Logic* 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"output:"<<strOutputName);
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"error:"<<strErrorName);
 
-	if(strInputName.empty())
-		pInput=pWorkContextManager->getIOManager()->getDefaultInput();
-	else
-		pInput=pWorkContextManager->getIOManager()->getInput(strInputName);
-
-
 	if(bDM)
 		ptrContext = IAS_DFT_FACTORY<DataModelContext>::Create(this);
 	else
@@ -95,7 +89,7 @@ void LogicBase::compute(){
 void LogicBase::DataModelContext::receive(bool bNoWait){
 	IAS_TRACER;
 	dmContext = workers::DataFactory::GetInstance()->getContextType()->createContext();
-	pLogicBase->pInput->receive(dmContext,dmData, !bNoWait ? IO::Input::CDefaultTimeout : 0);
+	pLogicBase->getInput()->receive(dmContext,dmData, !bNoWait ? IO::Input::CDefaultTimeout : 0);
 }
 /*************************************************************************/
 void LogicBase::DataModelContext::compute(){
@@ -107,7 +101,7 @@ void LogicBase::DataModelContext::compute(){
 void LogicBase::RawContext::receive(bool bNoWait){
 	IAS_TRACER;
 	dmContext = workers::DataFactory::GetInstance()->getContextType()->createContext();
-	pLogicBase->pInput->receive(dmContext,ptrMessage, !bNoWait ? IO::Input::CDefaultTimeout : 0);
+	pLogicBase->getInput()->receive(dmContext,ptrMessage, !bNoWait ? IO::Input::CDefaultTimeout : 0);
 }
 /*************************************************************************/
 void LogicBase::RawContext::compute(){
@@ -152,8 +146,16 @@ void LogicBase::computeRaw(::org::invenireaude::qsystem::workers::Ext::ContextPt
 IO::Input *LogicBase::getInput(){
 	IAS_TRACER;
 
-	if(!pInput)
-		IAS_THROW(BadUsageException("Input was not defined."))
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Input Name: "<<strInputName);
+
+	if(!pInput){
+
+		if(strInputName.empty())
+			pInput=pWorkContextManager->getIOManager()->getDefaultInput();
+		else
+			pInput=pWorkContextManager->getIOManager()->getInput(strInputName);
+
+	}
 
 	return pInput;
 }

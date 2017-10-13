@@ -24,6 +24,13 @@
 #include <dm/datamodel.h>
 
 namespace IAS {
+
+namespace Lang {
+namespace Interpreter{
+class ProgramLoader;
+}
+}
+
 namespace QS {
 namespace Tools {
 
@@ -40,15 +47,22 @@ public:
 
 		public:
 
-		Arguments(const DM::DataObject* dmData, Arguments* pParentArguments = NULL, size_t iIdx = 0);
+		Arguments(const DM::DataObject* dmData, IAS::Lang::Interpreter::ProgramLoader *pProgramLoader=NULL, Arguments* pParentArguments = NULL, size_t iIdx = 0);
 		virtual ~Arguments()throw();
 
 		virtual bool getImpl(const String& strKey, String& strValue);
 		virtual Template::Arguments* createNestedImpl(const String& strKey);
 		virtual size_t getNestedCount(const String& strKey);
 
-		const DM::DataObject* dmData;
-		size_t iIdx;
+		protected:
+
+			IAS::Lang::Interpreter::ProgramLoader *pProgramLoader;
+
+			const DM::DataObject* dmData;
+			size_t iIdx;
+
+			void parseFunctionCall(const String& strValue, String& strFunction, String& strArgument);
+			void callFunction(const String strFunction, const DM::DataObject* dmData, String& strValue);
 	};
 
 	protected:

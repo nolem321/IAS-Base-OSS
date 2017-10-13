@@ -21,6 +21,7 @@
 #include <commonlib/commonlib.h>
 #include <lang/interpreter/exe/Context.h>
 #include <lang/interpreter/exe/exception/InterpreterProgramException.h>
+#include <lang/tools/parser/LexerIStreamWrapper.h>
 
 #include <lang/model/dec/ResultDeclarationNode.h>
 
@@ -29,9 +30,13 @@
 #include <org/invenireaude/qsystem/workers/DataFactory.h>
 
 #include <dm/datamodel.h>
+#include <dm/gen/DataFactory.h>
 
-#include <qs/workers/proc/wcm/WorkContextManager.h>
-#include <qs/workers/proc/GlobalContext.h>
+#include <lang/tools/parser/LexerIStreamFactoryForFiles.h>
+//TODO common include for Lang
+#include <lang/interpreter/ProgramLoader.h>
+#include <lang/model/Model.h>
+#include <lang/interpreter/proc/processor.h>
 
 #include "regexp/RegExpMatchContainer.h"
 
@@ -45,9 +50,27 @@ namespace QS {
 namespace Lang {
 namespace Tools {
 
+const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
+
 /*************************************************************************/
 ApplyTemplate::ApplyTemplate(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
+
+	ptrDataFactory = IAS_DFT_FACTORY<DM::Impl::DataFactory>::Create(::IAS::DM::Gen::DataFactory::GetInstance());
+
+	StringList lstSrcPath;
+	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
+
+	IAS_DFT_FACTORY<IAS::Lang::Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
+	ptrLexerIStreamFactory = IAS_DFT_FACTORY<IAS::Lang::Tools::Parser::LexerIStreamFactoryForFiles>::Create();
+	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
+
+	ptrProgramLoader = IAS_DFT_FACTORY<::IAS::Lang::Interpreter::ProgramLoader>::Create(
+			ptrDataFactory,ptrLexerIStreamFactory.pass());
+
+	for(StringList::const_iterator it=lstParamaters.begin(); it != lstParamaters.end(); it++)
+		ptrProgramLoader->loadModel(*it);
+
 
 }
 /*************************************************************************/
@@ -69,7 +92,7 @@ void ApplyTemplate::executeExternal(Exe::Context *pCtx) const{
 
 		StringStream ssResult;
 
-		QS::Tools::Template::Arguments args(dmArgs);
+		QS::Tools::Template::Arguments args(dmArgs, ptrProgramLoader);
 		ptrTemplate->evaluate(args,ssResult);
 
 		pParameters->setString(String(IAS::Lang::Model::Dec::ResultDeclarationNode::CStrResultVariable),

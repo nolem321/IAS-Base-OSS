@@ -29,6 +29,8 @@ IAS_XSD_FILES+=xsd/qsystem.stats.xsd
 IAS_XSD_FILES+=xsd/qsystem.service.xsd
 IAS_XSD_FILES+=xsd/qsystem.workers.spec.xsd
 
+IAS_XSD_NS=http://www.invenireaude.org/qsystem
+
 SPACE=
 SPACE+=
 IAS_XSD_FILES_COMMA=$(subst $(SPACE),:,${IAS_XSD_FILES})
@@ -37,7 +39,7 @@ dm : ${IAS_XSD_FILES}
 	@rm -rf src/org
 	@rm -rf src/Impl
 	@echo Generating DataModel from: ${IAS_XSD_FILES}
-	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -d src	
+	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -n ${IAS_XSD_NS} -d src	
 	@rm -rf src/src
 
 #########################################################################

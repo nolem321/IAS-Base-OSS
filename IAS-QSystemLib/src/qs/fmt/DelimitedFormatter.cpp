@@ -66,7 +66,7 @@ public:
 
 			int c=is.get();
 
-			if(c == ',' || c == EOF){
+			if(c == ',' ||c == '\n' || c == EOF){
 				bEnd=true;
 			}else{
 				if(c == '\\'){

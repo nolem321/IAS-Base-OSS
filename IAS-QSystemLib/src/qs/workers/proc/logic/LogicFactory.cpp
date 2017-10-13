@@ -27,6 +27,7 @@
 #include "Grabber.h"
 #include "MatchExecute.h"
 #include "ExplicitExecute.h"
+#include "RunExecute.h"
 #include "DaemonExecute.h"
 #include "AttrExecute.h"
 #include "StatsProducer.h"
@@ -40,6 +41,7 @@
 #include <org/invenireaude/qsystem/workers/logic/Grabber.h>
 #include <org/invenireaude/qsystem/workers/logic/MatchExecute.h>
 #include <org/invenireaude/qsystem/workers/logic/ExplicitExecute.h>
+#include <org/invenireaude/qsystem/workers/logic/RunExecute.h>
 #include <org/invenireaude/qsystem/workers/logic/DaemonExecute.h>
 #include <org/invenireaude/qsystem/workers/logic/AttrExecute.h>
 #include <org/invenireaude/qsystem/workers/logic/StatsProducer.h>
@@ -115,6 +117,11 @@ Logic* LogicFactory::createLogic(const ::org::invenireaude::qsystem::workers::lo
 	}else if(workers::logic::DataFactory::GetInstance()->getExplicitExecuteType()->equals(dmLogic->getType())){
 		ptrLogic=IAS_DFT_FACTORY<ExplicitExecute>::Create(
 				workers::logic::DataFactory::GetInstance()->getExplicitExecuteType()->cast(dmLogic),
+				pWorkContextManager);
+
+	}else if(workers::logic::DataFactory::GetInstance()->getRunExecuteType()->equals(dmLogic->getType())){
+		ptrLogic=IAS_DFT_FACTORY<RunExecute>::Create(
+				workers::logic::DataFactory::GetInstance()->getRunExecuteType()->cast(dmLogic),
 				pWorkContextManager);
 
 	}else if(workers::logic::DataFactory::GetInstance()->getAttrExecuteType()->equals(dmLogic->getType())){
@@ -385,6 +392,22 @@ workers::logic::Ext::LogicSpecificationPtr LogicFactory::SpecsToDM(const String&
 			}
 			dmLogic->setParseDM(bDM);
 			ptrResult->setLogics(dmLogic);
+
+		}else if(strAction.compare("run") == 0){
+
+				workers::logic::Ext::RunExecutePtr dmLogic;
+				dmLogic = workers::logic::DataFactory::GetInstance()->getRunExecuteType()->createRunExecute();
+
+				for(StringList::const_iterator it=lstParameters.begin();it!=lstParameters.end();it++)
+					if(it == lstParameters.begin()){
+						dmLogic->setLoad(*it);
+						dmLogic->setRun(*it);
+					}else{
+						dmLogic->setParameters(*it);
+				}
+
+				dmLogic->setParseDM(bDM);
+				ptrResult->setLogics(dmLogic);
 
 		}else if(strAction.compare("match") == 0){
 

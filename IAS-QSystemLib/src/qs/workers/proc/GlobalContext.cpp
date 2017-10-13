@@ -88,40 +88,21 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 	ptrDataFactory(org::invenireaude::qsystem::workers::DataFactory::GetInstance()->getContaingDataFactory()),
 	ptrLogicFactory(IAS_DFT_FACTORY<Logic::LogicFactory>::Create()),
 	bAbort(false),
-	dmSpecification(readParameters(pParameters)){
+	dmSpecification(NULL){
 
 	IAS_TRACER;
 
-	Lang::Model::Model::RegisterBuildInTypes();
+	loadXSD();
 
-	StringList lstXSDFiles;
-	IAS::EnvTools::GetEnvTokenized("IAS_LANG_XSD",lstXSDFiles);
+	dmSpecification = readParameters(pParameters);
 
-	IAS_DFT_FACTORY<DM::XML::XSDHelper>::PtrHolder ptrXSDHelper(
-				IAS_DFT_FACTORY<DM::XML::XSDHelper>::Create(ptrDataFactory));
+	ptrFmtFactory   = IAS_DFT_FACTORY<Fmt::FmtFactory>::Create(ptrDataFactory);
 
-	for(StringList::const_iterator it = lstXSDFiles.begin();
-		it != lstXSDFiles.end();
-		it++){
+	ptrDictionaryStore = IAS_DFT_FACTORY<Dict::DictionaryStore>::Create();
 
-		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Loading: "<<(*it));
+	ptrCacheStore = IAS_DFT_FACTORY<Cache::CacheStore>::Create();
 
-		String strFile(*it);
-
-		if(strFile.length() > 4 && strFile.substr(strFile.length()-4).compare(".xsd") == 0){
-			ptrXSDHelper->defineTypesFromFile(*it);
-		}else{
-			//Keep forever ?
-			SYS::DynamicLibrary* pLibrary=IAS_DFT_FACTORY<SYS::DynamicLibrary>::Create(*it);
-			void (*fun)();
-			fun=(void(*)())pLibrary->getSymbol("ias_dm_init");
-			(*fun)();
-
-		}
-
-	}
-
-	ptrFmtFactory=IAS_DFT_FACTORY<Fmt::FmtFactory>::Create(ptrDataFactory);
+	ptrEventCounterStore = IAS_DFT_FACTORY<EC::EventCounterStore>::Create();
 
 	InstanceFeature< ::IAS::DS::Impl::Environment>::GetInstance()->
 		setFmtFactory(IAS_DFT_FACTORY<Fmt::FmtFactory>::Create(ptrDataFactory));
@@ -129,17 +110,13 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 	if(!dmSpecification || !dmSpecification->isSetInputSpec())
 		IAS_THROW(InternalException("!dmSpecification || !dmSpecification->isSetInput() in GlobalContext()"));
 
-	iMsgTotal=dmSpecification->getInputSpec()->getNumMsgs();
+	if(dmSpecification->isSetInputSpec())
+		iMsgTotal=dmSpecification->getInputSpec()->getNumMsgs();
+
 	iMsgLeft=iMsgTotal;
-
-	ptrDictionaryStore=IAS_DFT_FACTORY<Dict::DictionaryStore>::Create();
-
-	ptrCacheStore=IAS_DFT_FACTORY<Cache::CacheStore>::Create();
 
 	if(dmSpecification->isSetCacheSpec())
 		Cache::CacheFactory::CreateCaches(dmSpecification->getCacheSpec(),ptrCacheStore,this);
-
-	ptrEventCounterStore=IAS_DFT_FACTORY<EC::EventCounterStore>::Create();
 
 	if(dmSpecification->isSetEcSpec())
 		EC::EventCounterFactory::CreateEventCounters(dmSpecification->getEcSpec(),ptrEventCounterStore,this);
@@ -154,6 +131,49 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 /*************************************************************************/
 GlobalContext::~GlobalContext() throw(){
 	IAS_TRACER;
+}
+/*************************************************************************/
+void GlobalContext::InitializeDataFactories(){
+
+	Lang::Model::Model::RegisterBuildInTypes();
+
+	org::invenireaude::qsystem::workers::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::io::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::txm::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::cache::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::ec::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::stats::DataFactory::GetInstance();
+	org::invenireaude::qsystem::workers::logic::DataFactory::GetInstance();
+
+}
+/*************************************************************************/
+void GlobalContext::loadXSD(){
+
+
+	IAS_DFT_FACTORY<DM::XML::XSDHelper>::PtrHolder ptrXSDHelper(
+					IAS_DFT_FACTORY<DM::XML::XSDHelper>::Create(ptrDataFactory));
+
+	StringList lstXSDFiles;
+	IAS::EnvTools::GetEnvTokenized("IAS_LANG_XSD",lstXSDFiles);
+
+	for(StringList::const_iterator it = lstXSDFiles.begin();
+		it != lstXSDFiles.end();
+		it++){
+
+		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Loading: "<<(*it));
+			String strFile(*it);
+			if(strFile.length() > 4 && strFile.substr(strFile.length()-4).compare(".xsd") == 0){
+			ptrXSDHelper->defineTypesFromFile(*it);
+		}else{
+			//Keep forever ?
+			SYS::DynamicLibrary* pLibrary=IAS_DFT_FACTORY<SYS::DynamicLibrary>::Create(*it);
+			void (*fun)();
+			fun=(void(*)())pLibrary->getSymbol("ias_dm_init");
+			(*fun)();
+		}
+	}
+
 }
 /*************************************************************************/
 const ::IAS::DM::DataFactory *GlobalContext::getDataFactory()const{
@@ -257,9 +277,9 @@ spec::Ext::SpecificationPtr GlobalContext::readParameters(const Parameters* pPar
 	}else{
 		dmSpecification = spec::DataFactory::GetInstance()->createSpecification();
 
-		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Setup1: "<<pParameters->getInputSpecs());
-		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Setup2: "<<pParameters->getOutputSpecs());
-		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Setup3: "<<pParameters->getLogicSpecs());
+		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo() && pParameters->hasInputSpecs(),  "Setup Input: "<<pParameters->getInputSpecs());
+		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo() && pParameters->hasOutputSpecs(), "Setup Output: "<<pParameters->getOutputSpecs());
+		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo() && pParameters->hasLogicSpecs(),  "Setup Logic: "<<pParameters->getLogicSpecs());
 
 	}
 
@@ -292,8 +312,13 @@ spec::Ext::SpecificationPtr GlobalContext::readParameters(const Parameters* pPar
 	if(!dmSpecification->isSetOutputSpec())
 		dmSpecification->createOutputSpec();
 
+	if(!dmSpecification->isSetInputSpec())
+		dmSpecification->createInputSpec();
+
+
 	if(!dmSpecification->getInputSpec()->isSetNumMsgs())
 		dmSpecification->getInputSpec()->setNumMsgs(pParameters->getNumMessages());
+
 
 	if(!dmSpecification->getInputSpec()->isSetOffset())
 		dmSpecification->getInputSpec()->setOffset(pParameters->getOffset());
@@ -340,17 +365,9 @@ void GlobalContext::Start(const Parameters* pParameters){
 
 	IAS_TRACER;
 
+	InitializeDataFactories();
 	WCM::Registry::GetInstance();
 	SYS::Signal::GetInstance();
-
-	org::invenireaude::qsystem::workers::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::io::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::ds::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::txm::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::cache::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::ec::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::stats::DataFactory::GetInstance();
-	org::invenireaude::qsystem::workers::logic::DataFactory::GetInstance();
 
 	IAS_DFT_FACTORY<GlobalContext>::PtrHolder ptrGlobalContext;
 	Mode::ControllerFactory::PtrHolder ptrController;

@@ -49,6 +49,16 @@
   		</xsi:extension>
   	</xsi:complexContent>		
   </xsi:complexType>
+
+  <xsi:complexType name="RunExecute">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:ExplicitExecute">
+	    	<xsi:sequence>    		     		 
+  				<xsi:element name="parameters" type="xsi:string"  minOccurs="0" maxOccurs="unbounded"/>
+  			</xsi:sequence>	 	
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>
  
   <xsi:complexType name="MatchExecute">  		 
   	<xsi:complexContent>

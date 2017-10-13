@@ -2,18 +2,24 @@
 <xsi:schema 
  xmlns:xsi="http://www.w3.org/2001/XMLSchema"
  xmlns="http://www.invenireaude.org/qsystem/workers" 
- targetNamespace="http://www.invenireaude.org/qsystem/workers">
+ targetNamespace="http://www.invenireaude.org/qsystem/workers"
+ xmlns:lang="http://www.invenireaude.org/lang/builtin">
  
- 		
+   <xsi:import namespace="http://www.invenireaude.org/lang/builtin"
+   	           schemaLocation="../../IAS-LangLib/xsd/builtin.xsd"/> 
+   				
+   <xsi:complexType name="Exception">
+  		<xsi:complexContent>
+  		   <xsi:extension base="lang:Exception">
+  		   </xsi:extension>   		    
+  		</xsi:complexContent>     
+  </xsi:complexType>
+  		
 	<xsi:complexType name="Attribute">
 		<xsi:attribute name="name"  type="xsi:string" use="required" />	
 		<xsi:attribute name="value" type="xsi:string" use="required" />
 	</xsi:complexType>
 	
-	<xsi:complexType name="Exception">
-		<xsi:attribute name="name"   type="xsi:string" use="required" />	
-		<xsi:attribute name="info"   type="xsi:string" use="required" />
-	</xsi:complexType>
 	
 	<xsi:complexType name="Context">
 	    <xsi:sequence>
@@ -52,6 +58,13 @@
 	     	<xsi:element name="error"           type="xsi:string"    minOccurs="1" maxOccurs="1"/>
 	    </xsi:sequence>	
 	</xsi:complexType>
+
+   <xsi:complexType name="RunParameters">
+	    <xsi:sequence>
+	     	<xsi:element name="args"           type="xsi:string"    minOccurs="1" maxOccurs="unbounded"/>
+	    </xsi:sequence>	
+	</xsi:complexType>
+
 
 	<xsi:simpleType name="ErrorAction">
 		<xsi:restriction base="xsi:string">

@@ -110,6 +110,10 @@ void XMLFormatter::write(const DM::DataObject* dmData,
 			ptrXMLHelper->setEmptyFirstNS(true);
 		else
 			ptrXMLHelper->setEmptyFirstNS(false);
+
+		if (pAttributes->isSet(XMLFormatter::CPrefixElements) && pAttributes->getValue(XMLFormatter::CPrefixElements).compare("Y") == 0)
+			ptrXMLHelper->setPrefixElements(true);
+
 	}
 
 	ptrXMLHelper->save(ostream,ptrDocument);

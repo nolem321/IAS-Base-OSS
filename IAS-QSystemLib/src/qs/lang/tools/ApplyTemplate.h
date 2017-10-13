@@ -20,6 +20,8 @@
 
 #include <lang/interpreter/extern/Statement.h>
 #include <lang/interpreter/exe/Context.h>
+#include <lang/interpreter/ProgramLoader.h>
+#include <dm/Impl/DataFactory.h>
 
 #include <qs/workers/proc/wcm/WorkContextManager.h>
 
@@ -48,6 +50,9 @@ protected:
 	ThreadSpecific<Workers::Proc::WCM::WorkContextManager>::Pointer  pWorkContext;
 
 	String strSpecs;
+
+	IAS_DFT_FACTORY<::IAS::Lang::Interpreter::ProgramLoader>::PtrHolder ptrProgramLoader;
+	IAS_DFT_FACTORY<IAS::DM::Impl::DataFactory>::PtrHolder ptrDataFactory;
 
 	friend class ::IAS::Factory<ApplyTemplate>;
 };
