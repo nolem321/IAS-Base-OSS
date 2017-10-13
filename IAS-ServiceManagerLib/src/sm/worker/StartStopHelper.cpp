@@ -90,6 +90,9 @@ void StartStopHelper::startInstance(const ::org::invenireaude::sm::cfg::Service*
 		ptrProcess->setOutputStream(strLogFilesBase + TypeTools::IntToString(iIdx) + ".out");
 		ptrProcess->setErrorStream(strLogFilesBase + TypeTools::IntToString(iIdx) + ".err");
 		ptrProcess->resetPGid(true);
+
+		lstVariables.push_back(std::pair<String,String>("IAS_DBG_LOGFILE",strLogFilesBase + TypeTools::IntToString(iIdx) + ".log"));
+
 		ptrProcess->setProcessLockFile(ptrProcessLockfile);
 		ptrProcess->updateEnvironment(lstVariables);
 		ptrProcess->start();
