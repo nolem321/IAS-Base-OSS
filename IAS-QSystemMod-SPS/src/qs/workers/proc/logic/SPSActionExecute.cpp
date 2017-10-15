@@ -63,7 +63,12 @@ bool SPSActionExecute::setupProcessCacheEntry(::org::invenireaude::qsystem::work
 
 	SPS::Helper::RetrieveContext(dmContext,strPID,iSeq);
 
-	ptrProcessCacheEntry = InstanceFeature<SPS::ProcessCache>::GetInstance()->getEntry(strPID);
+	try{
+		ptrProcessCacheEntry = InstanceFeature<SPS::ProcessCache>::GetInstance()->getEntry(strPID);
+	}catch(ItemNotFoundException& e){
+		IAS_LOG(IAS::QS::SPS::LogLevel::INSTANCE.isInfo(),"No process found, pid="<<strPID<<", seq="<<iSeq);
+		return false;
+	}
 
 	IAS_LOG(IAS::QS::SPS::LogLevel::INSTANCE.isInfo(),"Found:"<<DM::XML::XMLHelper::Stringify(pWorkContextManager->getGlobalContext()->getDataFactory(),ptrProcessCacheEntry->getProcessInstance()));
 
