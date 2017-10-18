@@ -32,6 +32,9 @@ namespace Fmt {
 using namespace IAS::DM::XML;
 
 /*************************************************************************/
+const String Serializer::CUserHeaderXMLNS("IAS_SOAP_HDR_NS_");
+const String Serializer::CUserHeaderAttributesPrefix("IAS_SOAP_HDR_EL_");
+/*************************************************************************/
 Serializer::Serializer(DM::XML::XMLHelper* pXMLHelper, LibXMLWriter *pWriter, const String& strSOAPNS, QS::API::Attributes *pAttributes):
 		XMLSerializer(pXMLHelper,pWriter),
 		pAttributes(pAttributes),
@@ -70,6 +73,19 @@ void Serializer::write_soap_header(){
 	pWriter->startElementNS("soap","Header","");
 
 	if (pAttributes) {
+
+		for(IAS::QS::API::Attributes::const_iterator it = pAttributes->begin();
+						it != pAttributes->end();
+						it++){
+
+					const String strName(it->first);
+					IAS_LOG(true,strName);
+					if(strName.substr(0,CUserHeaderXMLNS.length()).compare(CUserHeaderXMLNS) == 0){
+						const String strNS(strName.substr(CUserHeaderXMLNS.length()));
+						pWriter->writeAttributeNS("xmlns", strNS, it->second, "");
+					}
+				}
+
 		if (pAttributes->isSet("IAS_SOAP_WSA_TO") || pAttributes->isSet("IAS_SOAP_WSA_ACTION")){
 			pWriter->writeAttributeNS("xmlns","wsa","http://www.w3.org/2005/08/addressing","");
 
@@ -89,6 +105,33 @@ void Serializer::write_soap_header(){
 				pWriter->startElementNS("wsse","Security","");
 				pWriter->writeAttributeNS("xmlns", "wsse", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "");
 				pWriter->endElement();
+		}
+
+		for(IAS::QS::API::Attributes::const_iterator it = pAttributes->begin();
+				it != pAttributes->end();
+				it++){
+
+			const String strName(it->first);
+
+			if(strName.substr(0,CUserHeaderAttributesPrefix.length()).compare(CUserHeaderAttributesPrefix) == 0){
+
+				const String strXMLElementName(strName.substr(CUserHeaderAttributesPrefix.length()));
+
+				String strXMLNS;
+				String strElement;
+
+				TypeTools::ChopArguments(strXMLElementName,strXMLNS,strElement,'_');
+
+				if(strElement.empty()){
+					pWriter->startElement(strXMLElementName);
+				}else{
+					pWriter->startElementNS(strXMLNS,strElement,"");
+				}
+
+				pWriter->writeString(it->second);
+				pWriter->endElement();
+			}
+
 		}
 	}
 

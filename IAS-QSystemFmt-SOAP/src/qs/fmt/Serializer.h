@@ -53,6 +53,9 @@ protected:
 
 	const String& strSOAPNS;
 
+	static const String CUserHeaderAttributesPrefix;
+	static const String CUserHeaderXMLNS;
+
 	friend class Factory<Serializer>;
 };
 
