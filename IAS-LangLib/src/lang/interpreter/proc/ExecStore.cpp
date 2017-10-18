@@ -259,14 +259,19 @@ void ExecStore::registerExecutable(const Model::ProgramNode* pProgramNode,
 const DM::Type* ExecStore::resolveType(const String& strType, const String& strNamespace){
 	IAS_TRACER;
 
+	String strResolvedNamespace;
+
+	if(!pModel->getNamespaceAliasDefinition(strNamespace,strResolvedNamespace))
+		strResolvedNamespace = strNamespace;
+
 	try{
-		return pDataFactory->getType(strNamespace,strType);
+		return pDataFactory->getType(strResolvedNamespace,strType);
 
 	}catch(ItemNotFoundException& e){
 
-		defineType(pModel->getTypeDefinitionNode(strType,strNamespace));
+		defineType(pModel->getTypeDefinitionNode(strType,strResolvedNamespace));
 
-		return pDataFactory->getType(strNamespace,strType);
+		return pDataFactory->getType(strResolvedNamespace,strType);
 	}
 }
 /*************************************************************************/

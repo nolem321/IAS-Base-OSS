@@ -1,4 +1,4 @@
-#Thu Apr 27 18:52:45 CEST 2017
+#Wed Oct 18 17:41:15 CEST 2017
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -313,6 +313,7 @@ FILES+=lang/interpreter/TypeList
 FILES+=lang/log/LogLevel
 FILES+=lang/model/dec/DeclarationBlockFeature
 FILES+=lang/model/dec/DeclarationNode
+FILES+=lang/model/dec/NamespaceDeclarationNode
 FILES+=lang/model/dec/NamespaceNode
 FILES+=lang/model/dec/ParametersNode
 FILES+=lang/model/dec/QualifiedNameNode

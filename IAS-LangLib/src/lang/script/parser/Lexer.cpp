@@ -111,6 +111,7 @@ void Lexer::init(){
 
 	hmKeywords["DEFINE"]=Token::T_DEFINE;
 	hmKeywords["EXTENSION"]=Token::T_EXTENSION;
+	hmKeywords["NAMESPACE"]=Token::T_NAMESPACE;
 
 	hmConstants["TRUE"]=Token::T_BOOLEAN;
 	hmConstants["FALSE"]=Token::T_BOOLEAN;

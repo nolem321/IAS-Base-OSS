@@ -64,17 +64,44 @@ void Model::addTypeDefinition(Dec::TypeDefinitionNode* pTypeDefinitionNode){
 	hmTypes[key]=pTypeDefinitionNode;
 }
 /*************************************************************************/
-const Dec::TypeDefinitionNode* Model::getTypeDefinitionNode(const String& strName,
-														    const String& strNamespace)const{
+void Model::addNamespaceAliasDefinition(Dec::NamespaceDeclarationNode* pNamespaceDeclarationNode){
 	IAS_TRACER;
 
+	const String& strAlias(pNamespaceDeclarationNode->getAlias());
+	const String& strNamespace(pNamespaceDeclarationNode->getNamespace());
 
-	TypeDefinitionListsMap::Key key(strName,strNamespace);
+	if(strAlias.empty() || strNamespace.empty())
+		IAS_THROW(BadUsageException("Namespace nor alias cannot be empty !"));
 
-	if(hmTypes.count(strName,strNamespace) == 0)
-			IAS_THROW(BadUsageException(strNamespace+"#"+strName+" was not found."));
+	if(hmNamespaceDeclarations.count(strAlias) > 0 &&
+		strNamespace.compare(hmNamespaceDeclarations[strAlias]->getNamespace()) != 0)
+			IAS_THROW(BadUsageException("Alias [" + strAlias + "] already defined."));
 
-	return hmTypes.at(key);
+	hmNamespaceDeclarations[strAlias] = pNamespaceDeclarationNode;
+}
+/*************************************************************************/
+bool Model::getNamespaceAliasDefinition(const String& strAlias,
+									        String& strNamespace)const{
+	IAS_TRACER;
+
+	if(hmNamespaceDeclarations.count(strAlias) == 0)
+		return false;
+
+	strNamespace = hmNamespaceDeclarations.at(strAlias)->getNamespace();
+
+	return true;
+}
+/*************************************************************************/
+const Dec::TypeDefinitionNode* Model::getTypeDefinitionNode(const String& strName,
+														       const String& strNamespace)const{
+	IAS_TRACER;
+
+		TypeDefinitionListsMap::Key key(strName,strNamespace);
+
+		if(hmTypes.count(strName,strNamespace) > 0)
+			return hmTypes.at(key);
+
+	IAS_THROW(BadUsageException(strNamespace+"#"+strName+" was not found."));
 }
 /*************************************************************************/
 void Model::addProgram(ProgramNode* pProgramNode) {

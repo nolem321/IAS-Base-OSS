@@ -25,6 +25,7 @@
 
 #include "dec/DeclarationNode.h"
 #include "dec/NamespaceNode.h"
+#include "dec/NamespaceDeclarationNode.h"
 #include "dec/ParametersNode.h"
 #include "dec/QualifiedNameNode.h"
 #include "dec/ResultDeclarationNode.h"

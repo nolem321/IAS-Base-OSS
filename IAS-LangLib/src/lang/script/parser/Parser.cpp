@@ -82,6 +82,11 @@ void Parser::addProgram(Lang::Model::ProgramNode* pProgram){
 	lstPrograms.push_front(pProgram);
 }
 /*************************************************************************/
+void Parser::addNamespaceDeclaration(Lang::Model::Dec::NamespaceDeclarationNode* pNamespaceDeclaration){
+	IAS_TRACER;
+	pModel->addNamespaceAliasDefinition(pNamespaceDeclaration);
+}
+/*************************************************************************/
 void Parser::addTypeDefinition(Lang::Model::Dec::TypeDefinitionNode* pTypeDefinition){
 	IAS_TRACER;
 	getModel()->addTypeDefinition(pTypeDefinition);

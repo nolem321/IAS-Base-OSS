@@ -173,9 +173,10 @@ namespace yy {
   
   ::IAS::Lang::Model::Dec::TypeInfoNode          *pTypeInfo;
   ::IAS::Lang::Model::Dec::TypeDefinitionNode    *pTypeDefinitionNode;
+  ::IAS::Lang::Model::Dec::NamespaceDeclarationNode    *pNamespaceDeclarationNode;
   
 
-#line 179 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 180 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -203,77 +204,78 @@ namespace yy {
         T_END = 262,
         T_DEFINE = 263,
         T_EXTENSION = 264,
-        T_CALL = 265,
-        T_SORT = 266,
-        T_MERGE = 267,
-        T_USING = 268,
-        T_INDEX = 269,
-        T_FOR = 270,
-        T_TO = 271,
-        T_STEP = 272,
-        T_WHILE = 273,
-        T_DO = 274,
-        T_IF = 275,
-        T_THEN = 276,
-        T_ELSE = 277,
-        T_RETURN = 278,
-        T_THROW = 279,
-        T_TRY = 280,
-        T_CATCH = 281,
-        T_WITH = 282,
-        T_AS = 283,
-        T_OF = 284,
-        T_ARRAY = 285,
-        T_RETURNS = 286,
-        T_VAR = 287,
-        T_AND = 288,
-        T_OR = 289,
-        T_NOT = 290,
-        T_OPEN_PAR = 291,
-        T_CLOSE_PAR = 292,
-        T_NEW = 293,
-        T_SIZEOF = 294,
-        T_COPYOF = 295,
-        T_DETACH = 296,
-        T_CREATE = 297,
-        T_DELETE = 298,
-        T_EXTERNAL = 299,
-        T_TYPE = 300,
-        T_TYPENS = 301,
-        T_ISSET = 302,
-        T_ISNULL = 303,
-        T_ISTYPE = 304,
-        T_ISINSTANCE = 305,
-        T_STRLEN = 306,
-        T_OPEN_SQUARE = 307,
-        T_CLOSE_SQUARE = 308,
-        T_DOUBLE_OPEN_SQUARE = 309,
-        T_DOUBLE_CLOSE_SQUARE = 310,
-        T_PLUS = 311,
-        T_MINUS = 312,
-        T_ASTERISK = 313,
-        T_SLASH = 314,
-        T_PERCENT = 315,
-        T_COMMA = 316,
-        T_COLON = 317,
-        T_DOUBLECOLON = 318,
-        T_DOT = 319,
-        T_SEMICOLON = 320,
-        T_EQ = 321,
-        T_GREATER = 322,
-        T_GREATER_EQ = 323,
-        T_LESS = 324,
-        T_LESS_EQ = 325,
-        T_DIFF = 326,
-        T_ASSIGN = 327,
-        T_CONDASSIGN = 328,
-        T_QMARK = 329,
-        T_SYMBOL = 330,
-        T_STRING = 331,
-        T_INTEGER = 332,
-        T_FLOAT = 333,
-        T_BOOLEAN = 334,
-        T_NULL = 335
+        T_NAMESPACE = 265,
+        T_CALL = 266,
+        T_SORT = 267,
+        T_MERGE = 268,
+        T_USING = 269,
+        T_INDEX = 270,
+        T_FOR = 271,
+        T_TO = 272,
+        T_STEP = 273,
+        T_WHILE = 274,
+        T_DO = 275,
+        T_IF = 276,
+        T_THEN = 277,
+        T_ELSE = 278,
+        T_RETURN = 279,
+        T_THROW = 280,
+        T_TRY = 281,
+        T_CATCH = 282,
+        T_WITH = 283,
+        T_AS = 284,
+        T_OF = 285,
+        T_ARRAY = 286,
+        T_RETURNS = 287,
+        T_VAR = 288,
+        T_AND = 289,
+        T_OR = 290,
+        T_NOT = 291,
+        T_OPEN_PAR = 292,
+        T_CLOSE_PAR = 293,
+        T_NEW = 294,
+        T_SIZEOF = 295,
+        T_COPYOF = 296,
+        T_DETACH = 297,
+        T_CREATE = 298,
+        T_DELETE = 299,
+        T_EXTERNAL = 300,
+        T_TYPE = 301,
+        T_TYPENS = 302,
+        T_ISSET = 303,
+        T_ISNULL = 304,
+        T_ISTYPE = 305,
+        T_ISINSTANCE = 306,
+        T_STRLEN = 307,
+        T_OPEN_SQUARE = 308,
+        T_CLOSE_SQUARE = 309,
+        T_DOUBLE_OPEN_SQUARE = 310,
+        T_DOUBLE_CLOSE_SQUARE = 311,
+        T_PLUS = 312,
+        T_MINUS = 313,
+        T_ASTERISK = 314,
+        T_SLASH = 315,
+        T_PERCENT = 316,
+        T_COMMA = 317,
+        T_COLON = 318,
+        T_DOUBLECOLON = 319,
+        T_DOT = 320,
+        T_SEMICOLON = 321,
+        T_EQ = 322,
+        T_GREATER = 323,
+        T_GREATER_EQ = 324,
+        T_LESS = 325,
+        T_LESS_EQ = 326,
+        T_DIFF = 327,
+        T_ASSIGN = 328,
+        T_CONDASSIGN = 329,
+        T_QMARK = 330,
+        T_SYMBOL = 331,
+        T_STRING = 332,
+        T_INTEGER = 333,
+        T_FLOAT = 334,
+        T_BOOLEAN = 335,
+        T_NULL = 336
       };
     };
 
@@ -581,12 +583,12 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 489,     ///< Last index in yytable_.
-      yynnts_ = 53,  ///< Number of nonterminal symbols.
+      yylast_ = 513,     ///< Last index in yytable_.
+      yynnts_ = 54,  ///< Number of nonterminal symbols.
       yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 81  ///< Number of tokens.
+      yyntokens_ = 82  ///< Number of tokens.
     };
 
 
@@ -597,7 +599,7 @@ namespace yy {
 
 
 } // yy
-#line 601 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
+#line 603 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
 
 
 
