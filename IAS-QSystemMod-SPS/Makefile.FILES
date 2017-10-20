@@ -1,4 +1,4 @@
-#Fri Oct 13 14:33:34 CEST 2017
+#Fri Oct 20 19:44:54 CEST 2017
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/qsystem/workers/sps/DataObjects
 FILES+=org/invenireaude/qsystem/workers/sps/DataFactory
@@ -23,6 +23,7 @@ FILES+=qs/workers/proc/logic/sps/ProcessCache
 FILES+=qs/workers/proc/logic/sps/ProcessCacheEntry
 FILES+=qs/workers/proc/logic/sps/ProcessDataStore
 FILES+=qs/workers/proc/logic/sps/ResultHandler
+FILES+=qs/workers/proc/logic/sps/ResultHandlerForIO
 FILES+=qs/workers/proc/logic/SPSScheduler
 FILES+=qs/workers/proc/logic/SPSStartExecute
 FILES+=qs/workers/proc/logic/sps/WrappedStatement

@@ -1,5 +1,5 @@
 /*
- * File: IAS-QSystemLib/src/qs/workers/proc/prog/ResultHandler.cpp
+ * File: IAS-QSystemLib/src/qs/workers/proc/prog/ResultHandlerForIO.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "ResultHandler.h"
+#include "ResultHandlerForIO.h"
 #include<qs/log/LogLevel.h>
 
 #include <lang/interpreter/exe/ProgramContext.h>
@@ -41,17 +41,18 @@ namespace Logic{
 namespace SPS {
 
 /*************************************************************************/
-ResultHandler::ResultHandler(const ::IAS::DM::DataFactory *pDataFactory)throw():
-	DefaultResultHandler(pDataFactory){
+ResultHandlerForIO::ResultHandlerForIO(const ::IAS::DM::DataFactory *pDataFactory,
+										   LogicBase* pLogicBase)throw():
+	Prog::ResultHandlerForIO(pDataFactory, pLogicBase){
 
 	IAS_TRACER;
 }
 /*************************************************************************/
-ResultHandler::~ResultHandler() throw(){
+ResultHandlerForIO::~ResultHandlerForIO() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void ResultHandler::handleException(::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
+void ResultHandlerForIO::handleException(::org::invenireaude::qsystem::workers::Ext::ContextPtr& dmContext,
 									Lang::Interpreter::Exe::ProgramContext *pProgramContext,
 									Lang::Interpreter::Exe::InterpreterProgramException& e){
 	IAS_TRACER;
@@ -60,6 +61,7 @@ void ResultHandler::handleException(::org::invenireaude::qsystem::workers::Ext::
 	if(pProcessCacheEntry)
 		pProcessCacheEntry->failed(e);
 
+	Prog::ResultHandlerForIO::handleException(dmContext, pProgramContext, e);
 }
 /*************************************************************************/
 }

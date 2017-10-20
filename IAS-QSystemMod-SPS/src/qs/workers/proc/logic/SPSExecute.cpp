@@ -30,6 +30,7 @@
 
 #include <org/invenireaude/qsystem/workers/logic/ExeName.h>
 
+#include "sps/ResultHandlerForIO.h"
 #include "sps/ProcessCacheEntry.h"
 #include "sps/ProcessCache.h"
 #include "sps/ResultHandler.h"
@@ -52,7 +53,7 @@ SPSExecute::SPSExecute(const ::org::invenireaude::qsystem::workers::sps::SPSExec
 
 	SPS::ProcessCache::CreateInstanceSafely();
 
-	ptrProgramSet->setResultHandler(IAS_DFT_FACTORY<SPS::ResultHandler>::Create(pWorkContextManager->getGlobalContext()->getDataFactory()));
+	ptrProgramSet->setResultHandler(IAS_DFT_FACTORY<SPS::ResultHandlerForIO>::Create(pWorkContextManager->getGlobalContext()->getDataFactory(), this));
 
 	const workers::logic::Ext::ExeNameList& lstExeNames(dmParameters->getLoadList());
 
