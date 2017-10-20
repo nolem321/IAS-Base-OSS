@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #include "../../dm/xml/LibXMLLexerForFile.h"
 
 #include "../../dm/log/LogLevel.h"
@@ -36,7 +37,7 @@ LibXMLLexerForFile::LibXMLLexerForFile(const String& strFileName){
 	xmlTextReaderPtr pXMLTextReader = xmlReaderForFile(strFileName.c_str(), NULL, 0);
 
 	if(pXMLTextReader == NULL)
-		IAS_THROW(XMLHelperException(String("Cannot open: ")+=strFileName));
+		IAS_THROW(ItemNotFoundException(String("Cannot open: ")+=strFileName));
 
 	setup(pXMLTextReader);
 }
