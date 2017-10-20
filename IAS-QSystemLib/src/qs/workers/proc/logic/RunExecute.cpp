@@ -62,7 +62,7 @@ RunExecute::RunExecute(const ::org::invenireaude::qsystem::workers::logic::RunEx
 	const DM::Default::Ext::StringList& lstParameters(dmParameters->getParametersList());
 
 	for(int iIdx = 0; iIdx < lstParameters.size(); iIdx++)
-		dmRunParameters->setArgs(lstParameters.at(iIdx));
+		dmRunParameters->setArgs(EnvTools::Substitute(lstParameters.at(iIdx)));
 
 	if(!isDM())
 		IAS_LOG(QS::LogLevel::INSTANCE.isError(),"Parsing switch is ignored for the Run Execute Logic.");
