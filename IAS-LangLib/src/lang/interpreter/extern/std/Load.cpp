@@ -21,8 +21,15 @@
 #include <commonlib/commonlib.h>
 #include <lang/interpreter/exe/Context.h>
 #include <lang/model/dec/ResultDeclarationNode.h>
+#include <lang/interpreter/exe/exception/InterpreterProgramException.h>
+#include <lang/interpreter/exe/exception/InterpreterException.h>
+
+#include <org/invenireaude/lang/builtin/Exception.h>
+#include <org/invenireaude/lang/builtin/DataFactory.h>
 
 #include <dm/datamodel.h>
+
+using namespace org::invenireaude::lang;
 
 namespace IAS {
 namespace Lang {
@@ -45,14 +52,26 @@ void Load::executeExternal(Exe::Context *pCtx) const{
 
 	const String strFileName = pParameters->getString("file");
 
-	IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper(
-				IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pCtx->getDataFactory()));
+	try{
 
-	IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strFileName));
+		IAS_DFT_FACTORY<DM::XML::XMLHelper>::PtrHolder ptrXMLHelper(
+					IAS_DFT_FACTORY<DM::XML::XMLHelper>::Create(pCtx->getDataFactory()));
 
-	DM::DataObjectPtr dm = ptrDoc->getRootObject();
+		IAS_DFT_FACTORY<DM::XML::XMLDocument>::PtrHolder ptrDoc(ptrXMLHelper->readFile(strFileName));
+		DM::DataObjectPtr dm = ptrDoc->getRootObject();
 
-	pParameters->setDataObject(Model::Dec::ResultDeclarationNode::CStrResultVariable,dm);
+		pParameters->setDataObject(Model::Dec::ResultDeclarationNode::CStrResultVariable,dm);
+
+	}catch(ItemNotFoundException& e){
+
+		builtin::Ext::ExceptionPtr dmException=builtin::DataFactory::GetInstance()->createException();
+
+		dmException->setName("ItemNotFoundException");
+		dmException->setInfo(strFileName);
+
+		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
+	}
+
 
 }
 /*************************************************************************/
