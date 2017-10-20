@@ -59,7 +59,7 @@ class Parser;
   
   ::IAS::Lang::Model::Dec::TypeInfoNode          *pTypeInfo;
   ::IAS::Lang::Model::Dec::TypeDefinitionNode    *pTypeDefinitionNode;
-  ::IAS::Lang::Model::Dec::NamespaceDeclarationNode    *pNamespaceDeclarationNode;
+  ::IAS::Lang::Model::Dec::NamespaceAliasNode    *pNamespaceAliasNode;
   
 };
 
@@ -90,7 +90,7 @@ using namespace Parser;
 
 %token	T_DEFINE                "DEFINE"
 %token	T_EXTENSION             "EXTENSION"
-%token	T_NAMESPACE             "NAMESPACE"
+%token	T_ALIAS             "ALIAS"
 
 %token	T_CALL                  "CALL"
 
@@ -233,7 +233,7 @@ using namespace Parser;
 %type <pTypeDefinitionNode>     typeDefinitionPropertiesEnclosed
 %type <pTypeDefinitionNode>     typeDefinitionProperties
 %type <pDeclarationNode>        property
-%type <pNamespaceDeclarationNode>  namespaceDeclaration
+%type <pNamespaceAliasNode>     namespaceDeclaration
 /***************************************************************************************/
 
 %destructor { std::cout<<"D:"<<*$$<<"\n"; _SVAL_DELETE($$); } <sval>
@@ -251,7 +251,7 @@ global: program {
 };
 
 global : namespaceDeclaration {
-  myParser.addNamespaceDeclaration($1);
+  myParser.addNamespaceAlias($1);
 }
 
 import : T_IMPORT qname T_SEMICOLON 
@@ -304,9 +304,9 @@ property : T_SYMBOL T_AS T_ARRAY T_OF T_SYMBOL T_COLON T_STRING { $$ = IAS_DFT_F
 																  $$->setIsArray(true); 
 												                  _SVAL_DELETE($1); _SVAL_DELETE($5); _SVAL_DELETE($7);}
 
-namespaceDeclaration : T_NAMESPACE T_STRING T_AS T_STRING T_SEMICOLON 
-				{ $$ = IAS_DFT_FACTORY<Dec::NamespaceDeclarationNode>::Create(*$2,*$4); 
-					_SVAL_DELETE($2); _SVAL_DELETE($4); };	        
+namespaceDeclaration : T_CREATE T_ALIAS T_STRING T_AS T_STRING T_SEMICOLON 
+				{ $$ = IAS_DFT_FACTORY<Dec::NamespaceAliasNode>::Create(*$3,*$5); 
+					_SVAL_DELETE($3); _SVAL_DELETE($5); };	        
            
 program : T_PROGRAM qname parametersListPar statementsListBeginEnd T_SEMICOLON 
 			{ $$ = IAS_DFT_FACTORY<StandardProgramNode>::Create($2,$4,$3); };

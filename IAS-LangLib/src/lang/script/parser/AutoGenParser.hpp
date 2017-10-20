@@ -173,7 +173,7 @@ namespace yy {
   
   ::IAS::Lang::Model::Dec::TypeInfoNode          *pTypeInfo;
   ::IAS::Lang::Model::Dec::TypeDefinitionNode    *pTypeDefinitionNode;
-  ::IAS::Lang::Model::Dec::NamespaceDeclarationNode    *pNamespaceDeclarationNode;
+  ::IAS::Lang::Model::Dec::NamespaceAliasNode    *pNamespaceAliasNode;
   
 
 #line 180 "src/lang/script/parser/AutoGenParser.hpp" // lalr1.cc:377
@@ -204,7 +204,7 @@ namespace yy {
         T_END = 262,
         T_DEFINE = 263,
         T_EXTENSION = 264,
-        T_NAMESPACE = 265,
+        T_ALIAS = 265,
         T_CALL = 266,
         T_SORT = 267,
         T_MERGE = 268,
@@ -583,7 +583,7 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 513,     ///< Last index in yytable_.
+      yylast_ = 514,     ///< Last index in yytable_.
       yynnts_ = 54,  ///< Number of nonterminal symbols.
       yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,

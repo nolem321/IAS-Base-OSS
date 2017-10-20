@@ -64,30 +64,30 @@ void Model::addTypeDefinition(Dec::TypeDefinitionNode* pTypeDefinitionNode){
 	hmTypes[key]=pTypeDefinitionNode;
 }
 /*************************************************************************/
-void Model::addNamespaceAliasDefinition(Dec::NamespaceDeclarationNode* pNamespaceDeclarationNode){
+void Model::addNamespaceAlias(Dec::NamespaceAliasNode* pNamespaceAliasNode){
 	IAS_TRACER;
 
-	const String& strAlias(pNamespaceDeclarationNode->getAlias());
-	const String& strNamespace(pNamespaceDeclarationNode->getNamespace());
+	const String& strAlias(pNamespaceAliasNode->getAlias());
+	const String& strNamespace(pNamespaceAliasNode->getNamespace());
 
 	if(strAlias.empty() || strNamespace.empty())
 		IAS_THROW(BadUsageException("Namespace nor alias cannot be empty !"));
 
-	if(hmNamespaceDeclarations.count(strAlias) > 0 &&
-		strNamespace.compare(hmNamespaceDeclarations[strAlias]->getNamespace()) != 0)
+	if(hmNamespaceAliass.count(strAlias) > 0 &&
+		strNamespace.compare(hmNamespaceAliass[strAlias]->getNamespace()) != 0)
 			IAS_THROW(BadUsageException("Alias [" + strAlias + "] already defined."));
 
-	hmNamespaceDeclarations[strAlias] = pNamespaceDeclarationNode;
+	hmNamespaceAliass[strAlias] = pNamespaceAliasNode;
 }
 /*************************************************************************/
-bool Model::getNamespaceAliasDefinition(const String& strAlias,
-									        String& strNamespace)const{
+bool Model::getNamespaceAlias(const String& strAlias,
+								 String& strNamespace)const{
 	IAS_TRACER;
 
-	if(hmNamespaceDeclarations.count(strAlias) == 0)
+	if(hmNamespaceAliass.count(strAlias) == 0)
 		return false;
 
-	strNamespace = hmNamespaceDeclarations.at(strAlias)->getNamespace();
+	strNamespace = hmNamespaceAliass.at(strAlias)->getNamespace();
 
 	return true;
 }

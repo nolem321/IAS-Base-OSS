@@ -261,7 +261,7 @@ const DM::Type* ExecStore::resolveType(const String& strType, const String& strN
 
 	String strResolvedNamespace;
 
-	if(!pModel->getNamespaceAliasDefinition(strNamespace,strResolvedNamespace))
+	if(!pModel->getNamespaceAlias(strNamespace,strResolvedNamespace))
 		strResolvedNamespace = strNamespace;
 
 	try{

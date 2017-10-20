@@ -46,7 +46,7 @@ public:
 	//Model::SourceLocation getLocation()const;
 
 	void addProgram(Lang::Model::ProgramNode* pProgram);
-	void addNamespaceDeclaration(Lang::Model::Dec::NamespaceDeclarationNode* pNamespaceDeclaration);
+	void addNamespaceAlias(Lang::Model::Dec::NamespaceAliasNode* pNamespaceAlias);
 	void addTypeDefinition(Lang::Model::Dec::TypeDefinitionNode* pTypeDefinition);
 
 	void parse(Lexer *pLexer);

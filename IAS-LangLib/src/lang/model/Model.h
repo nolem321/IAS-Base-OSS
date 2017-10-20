@@ -24,7 +24,7 @@
 #include <list>
 
 #include "dec/TypeDefinitionNode.h"
-#include "dec/NamespaceDeclarationNode.h"
+#include "dec/NamespaceAliasNode.h"
 
 #include <lang/tools/parser/SourceLocation.h>
 
@@ -42,13 +42,13 @@ public:
 	virtual ~Model() throw();
 
 	void addTypeDefinition(Dec::TypeDefinitionNode* pTypeDefinitionNode);
-	void addNamespaceAliasDefinition(Dec::NamespaceDeclarationNode* pNamespaceDeclarationNode);
+	void addNamespaceAlias(Dec::NamespaceAliasNode* pNamespaceAliasNode);
 
 	const Dec::TypeDefinitionNode* getTypeDefinitionNode(const String& strName,
 														 const String& strNamespace)const;
 
-	bool  getNamespaceAliasDefinition(const String& strAlias,
-										 String& strNamespace)const;
+	bool  getNamespaceAlias(const String& strAlias,
+							   String& strNamespace)const;
 
 	void addProgram(ProgramNode* pProgramNode);
 
@@ -66,11 +66,11 @@ protected:
 
 	typedef HashMapWithStringKey<ProgramList>        ProgramListsMap;
 	typedef HashMapStringPairToPointer<Dec::TypeDefinitionNode>    TypeDefinitionListsMap;
-	typedef HashMapStringToPointer<Dec::NamespaceDeclarationNode>  NamespaceDeclarationNodeMap;
+	typedef HashMapStringToPointer<Dec::NamespaceAliasNode>        NamespaceAliasNodeMap;
 
 	ProgramListsMap                              	  hmProgramLists;
 	TypeDefinitionListsMap						 	  hmTypes;
-	NamespaceDeclarationNodeMap					 	  hmNamespaceDeclarations;
+	NamespaceAliasNodeMap					 	      hmNamespaceAliass;
 
 	typedef IAS_DFT_FACTORY<ProgramNode>::PtrHoldersCollection ProgramNodesCollection;
 	ProgramNodesCollection phcProgramNodes;
