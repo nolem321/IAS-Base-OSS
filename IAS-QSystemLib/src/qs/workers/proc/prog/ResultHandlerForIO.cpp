@@ -94,9 +94,9 @@ void ResultHandlerForIO::handleException(::org::invenireaude::qsystem::workers::
 
 		try{
 			pLogic->getError()->send(dmContext,pProgramContext->getParameters()->getDataObject(pProperty));
-		}catch(ItemNotFoundException&){
+		}catch(ItemNotFoundException& e2){
 				IAS_LOG(IAS::QS::LogLevel::INSTANCE.isError(),"No error defined, [ "
-						<<"exception:"<<DM::XML::XMLHelper::Stringify(pDataFactory,e.getValue()));
+						<<"exception:"<<DM::XML::XMLHelper::Stringify(pDataFactory,e.getValue())<<" / "<<e2.toString());
 		}
 
 		return;
