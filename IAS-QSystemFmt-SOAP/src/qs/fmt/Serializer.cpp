@@ -58,12 +58,13 @@ void Serializer::write_soap_envelope(){
 
 	pWriter->startElementNS("soap","Envelope", strSOAPNS);
 
-	for(IAS::QS::API::Attributes::const_iterator it = pAttributes->begin();
+	if(pAttributes)
+		for(IAS::QS::API::Attributes::const_iterator it = pAttributes->begin();
 						it != pAttributes->end();
 						it++){
 
 					const String strName(it->first);
-					IAS_LOG(true,strName);
+
 					if(strName.substr(0,CUserHeaderXMLNS.length()).compare(CUserHeaderXMLNS) == 0){
 						const String strNS(strName.substr(CUserHeaderXMLNS.length()));
 						pWriter->writeAttributeNS("xmlns", strNS, it->second, "");
