@@ -84,14 +84,20 @@ void Message::write(FCGX_Stream* pFCGXStream){
 		FCGX_FPrintF(pFCGXStream, "Status: 302 Found\r\n"
 								   "Location: %s\r\n",ptrAttributes->getValue(strRedirectAttr).c_str());
 
+	const String& strFormat(ptrAttributes->getFormat());
 
-	//FCGX_FPrintF(pRequest->out, "Set-Cookie: yyy=1234567890\r\n");
-	//FCGX_FPrintF(pRequest->out, "Set-Cookie: abc=7512\r\n\r\n");
+	if(strFormat[0] == 'J'){
+		FCGX_FPrintF(pFCGXStream, "Content-Type: application/json\r\n\r\n");
+	}else if(strFormat[0] == 'X'){
+		FCGX_FPrintF(pFCGXStream, "Content-Type: application/xml\r\n\r\n");
+	}else{
 
-
-	//TODO (M) standardize this stuff for Content-Type: (use Attributes values)
-	//FCGX_FPrintF(pFCGXStream, "Content-Type: text/plain \r\n\r\n");
-	FCGX_FPrintF(pFCGXStream, "Content-Type: application/json\r\n\r\n");
+		if(ptrAttributes->isSet("IAS_HTTP_CONTENT_TYPE"))
+			FCGX_FPrintF(pFCGXStream,
+						(String("Content-Type: application/")+ptrAttributes->getValue("IAS_HTTP_CONTENT_TYPE")+"\r\n\r\n").c_str());
+		else
+			FCGX_FPrintF(pFCGXStream, "Content-Type: plain/text\r\n\r\n");
+	}
 
 	while((*ptrContent).good()){
 		(*ptrContent).read(sBuffer, iBufSize);
