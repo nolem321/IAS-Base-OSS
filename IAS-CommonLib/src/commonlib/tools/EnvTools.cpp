@@ -37,6 +37,17 @@ bool EnvTools::GetEnv(const String& strName, String& strValue){
 	return true;
 }
 /*************************************************************************/
+bool EnvTools::GetBooleanEnv(const String& strName){
+	IAS_TRACER;
+
+	const char* sValue = getenv(strName.c_str());
+
+	if(sValue == NULL)
+		return false;
+
+	return *sValue == 'Y' || *sValue == 'y';
+}
+/*************************************************************************/
 String EnvTools::GetEnv(const String& strName){
 	IAS_TRACER;
 	String strValue;

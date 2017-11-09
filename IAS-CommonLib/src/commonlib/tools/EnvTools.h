@@ -30,6 +30,8 @@ class EnvTools {
 public:
 
 	static bool GetEnv(const String& strName, String& strValue);
+	static bool GetBooleanEnv(const String& strName);
+
 	static String GetEnv(const String& strName);
 	static void GetEnvTokenized(const String& strName, StringList& lstValues, char cDelimiter = ':');
 
