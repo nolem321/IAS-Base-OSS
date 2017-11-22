@@ -53,11 +53,18 @@ public:
 				xmlTextReaderLookupNamespace(pXMLTextReader,
 						strURI.empty() ? NULL : (const xmlChar*)(strURI.c_str()));
 
-		if(sValue == NULL)
-		    	IAS_THROW(XMLHelperException(String("NULL value returned from a lookup of: [")+strURI+"]"));
 
-		strOutput=(const char*)sValue;
-		xmlFree(sValue);
+		if(sValue == NULL){
+
+			if(strURI.empty())
+				strOutput="";
+			else
+				IAS_THROW(XMLHelperException(String("NULL value returned from a lookup of: [")+strURI+"]"));
+
+		}else{
+			strOutput=(const char*)sValue;
+			xmlFree(sValue);
+		}
 	};
 
 	inline bool hasAttributes()     const { return xmlTextReaderHasAttributes(pXMLTextReader); };
