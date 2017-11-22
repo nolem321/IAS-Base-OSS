@@ -24,6 +24,8 @@
 #include <codecvt>
 #include <locale>
 
+#include "EnvTools.h"
+
 
 namespace IAS {
 
@@ -378,7 +380,7 @@ String MiscTools::StrToLower(const String& strData){
 
 	IAS_TRACER;
 
-	std::locale aLocale(EnvTools::GetEnv("LANG"));
+	std::locale aLocale(EnvTools::GetEnv("LANG").c_str());
 
 	std::wstring wide = converter.from_bytes(strData.c_str());
 	for (auto &c : wide) c = tolower(c, aLocale);
@@ -390,7 +392,7 @@ String MiscTools::StrToUpper(const String& strData){
 
 	IAS_TRACER;
 
-	std::locale aLocale(EnvTools::GetEnv("LANG"));
+	std::locale aLocale(EnvTools::GetEnv("LANG").c_str());
 
 	std::wstring wide = converter.from_bytes(strData.c_str());
 	for (auto &c : wide) c = toupper(c, aLocale);
