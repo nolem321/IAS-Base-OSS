@@ -21,6 +21,9 @@
 #include "TypeTools.h"
 
 #include <string.h>
+#include <codecvt>
+#include <locale>
+
 
 namespace IAS {
 
@@ -365,22 +368,21 @@ void MiscTools::Base64ToString(const String& strInput, String& strOutput){
 	  }
 
 }
-//TODO C++ methods
+
+static std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+
+
+//TODO: locale
 /*************************************************************************/
 String MiscTools::StrToLower(const String& strData){
 
 	IAS_TRACER;
 
-	const char *s=strData.c_str();
+	std::locale aLocale(EnvTools::GetEnv("LANG"));
 
-	String strResult;
-
-	char c;
-	while( (c=*s++) != 0 ){
-		strResult+=tolower(c);
-	}
-
-	return strResult;
+	std::wstring wide = converter.from_bytes(strData.c_str());
+	for (auto &c : wide) c = tolower(c, aLocale);
+	return String(converter.to_bytes(wide).c_str());
 }
 
 /*************************************************************************/
@@ -388,16 +390,11 @@ String MiscTools::StrToUpper(const String& strData){
 
 	IAS_TRACER;
 
-	const char *s=strData.c_str();
+	std::locale aLocale(EnvTools::GetEnv("LANG"));
 
-	String strResult;
-
-	char c;
-	while( (c=*s++) != 0 ){
-		strResult+=toupper(c);
-	}
-
-	return strResult;
+	std::wstring wide = converter.from_bytes(strData.c_str());
+	for (auto &c : wide) c = toupper(c, aLocale);
+	return String(converter.to_bytes(wide).c_str());
 }
 
 /*************************************************************************/
