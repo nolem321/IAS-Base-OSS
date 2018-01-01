@@ -27,6 +27,7 @@
 
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
+#include <openssl/md5.h>
 
 namespace IAS {
 namespace Net {
@@ -65,6 +66,60 @@ String Tools::ComputeSHA256(const void *pData, size_t iDataLen){
 	 return strResult;
 }
 /***********************************************************************/
+String Tools::ComputeMD5(const String& strValue){
+	 IAS_TRACER;
+
+	 return ComputeMD5(strValue.c_str(), strValue.length());
+}
+/***********************************************************************/
+String Tools::ComputeMD5(const void *pData, size_t iDataLen){
+
+	 IAS_TRACER;
+	 unsigned char hash[MD5_DIGEST_LENGTH];
+
+	 MD5_CTX md5;
+
+	 MD5_Init(&md5);
+	 MD5_Update(&md5, pData, iDataLen);
+	 MD5_Final(hash, &md5);
+
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,MD5_DIGEST_LENGTH,strResult);
+	 return strResult;
+}
+/***********************************************************************/
+String Tools::ComputeSHA1(const String& strValue){
+
+	 IAS_TRACER;
+	 unsigned char hash[SHA_DIGEST_LENGTH];
+
+	 SHA_CTX sha;
+
+	 SHA1_Init(&sha);
+	 SHA1_Update(&sha, strValue.c_str(), strValue.length());
+	 SHA1_Final(hash, &sha);
+
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,SHA_DIGEST_LENGTH,strResult);
+	 return strResult;
+}
+/***********************************************************************/
+String Tools::ComputeSHA1(const void *pData, size_t iDataLen){
+
+	 IAS_TRACER;
+	 unsigned char hash[SHA_DIGEST_LENGTH];
+
+	 SHA_CTX sha;
+
+	 SHA1_Init(&sha);
+	 SHA1_Update(&sha, pData, iDataLen);
+	 SHA1_Final(hash, &sha);
+
+	 String strResult;
+	 MiscTools::BinarytoHex(hash,SHA_DIGEST_LENGTH,strResult);
+	 return strResult;
+}
+/***********************************************************************/
 String Tools::ComputeHmacSHA256(const String& strKey, const void *pData, size_t iDataLen){
 
 	 IAS_TRACER;
@@ -94,7 +149,51 @@ String Tools::ComputeHmacSHA256(const String& strKey, const String& strValue){
 }
 /*************************************************************************/
 
+/***********************************************************************/
+Buffer* Tools::ComputeSignature(const PrivateKey* pKey, const String& strValue){
 
+	 IAS_TRACER;
+
+	 return ComputeSignature(pKey, strValue.c_str(), strValue.length());
+}
+/***********************************************************************/
+Buffer* Tools::ComputeSignature(const PrivateKey* pKey, const void *pData, size_t iDataLen){
+
+
+	size_t iSignatureLen = 0;
+
+
+	EVP_MD_CTX md_ctx;
+	EVP_MD_CTX_init(&md_ctx);
+
+	//SSL API revenge ...
+    EVP_PKEY *pkey = const_cast<EVP_PKEY *>(pKey->getPrivateKey());
+
+    IAS_CHECK_IF_NULL(pkey);
+
+	if(!EVP_DigestSignInit(&md_ctx, NULL, EVP_sha1(), NULL, pkey) ||
+	   !EVP_DigestSignUpdate(&md_ctx, pData, iDataLen))
+		IAS_THROW(InternalException("Openssl error in EVP_DigestSignUpdate or EVP_DigestSignInit"));
+
+	 if (!EVP_DigestSignFinal(&md_ctx, NULL, &iSignatureLen))
+		 IAS_THROW(InternalException("Openssl error in EVP_DigestSignFinal"));
+
+	 if (iSignatureLen != EVP_PKEY_size(pkey))
+		 IAS_THROW(InternalException("Openssl signature length error"));
+
+	 IAS_DFT_FACTORY<Buffer>::PtrHolder ptrBuffer(IAS_DFT_FACTORY<Buffer>::Create(iSignatureLen));
+
+	  if(!EVP_DigestSignFinal(&md_ctx, ptrBuffer->getBuffer<unsigned char>(), &iSignatureLen))
+		  IAS_THROW(InternalException("Openssl error in EVP_DigestSignFinal (2)"));
+
+	  return ptrBuffer.pass();
+}
+/*************************************************************************/
+//String strResult;
+//
+//MiscTools::BinaryToBase64(ptrBuffer->getBuffer<unsigned char>(), iSignatureLen, strResult);
+//
+//return strResult;
 }
 }
 }

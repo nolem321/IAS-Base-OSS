@@ -20,15 +20,43 @@
 #include "CertificateX509.h"
 #include "SSLException.h"
 #include <commonlib/exception/ItemNotFoundException.h>
+#include <commonlib/exception/BadUsageException.h>
+#include <commonlib/tools/Buffer.h>
 
 namespace IAS {
 namespace Net {
 namespace SSL {
 
+class BIOHolder{
+public:
+	BIOHolder(BIO *bio):bio(bio){};
+	~BIOHolder(){
+		BIO_free_all(bio);
+	}
+	operator BIO*(){ return bio; };
+
+protected:
+	BIO *bio;
+};
+
+
 /***********************************************************************/
 CertificateX509::CertificateX509(X509* x509):x509(x509){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(x509);
+}
+/***********************************************************************/
+CertificateX509::CertificateX509(const String& strFileName):x509(NULL){
+	IAS_TRACER;
+
+	BIOHolder bioh(BIO_new(BIO_s_file()));
+
+	if(BIO_read_filename(bioh, strFileName.c_str()) == 0)
+	 IAS_THROW(BadUsageException("Cannot find certificate file: " + strFileName));
+
+	if(! (x509 = PEM_read_bio_X509(bioh,&x509, NULL, NULL)))
+	 IAS_THROW(BadUsageException("Cannot load certificate file: " + strFileName));
+
 }
 /*************************************************************************/
 String CertificateX509::getIssuerName()const{
@@ -110,6 +138,29 @@ String CertificateX509::getSubjectField(int nid)const{
 CertificateX509::~CertificateX509() throw(){
 	IAS_TRACER;
 	X509_free(this->x509);
+}
+/*************************************************************************/
+String CertificateX509::getBase64EncodedContent(){
+
+	IAS_TRACER;
+
+	BIO *bio, *b64;
+	FILE* stream;
+
+	IAS_DFT_FACTORY<Buffer>::PtrHolder ptrBuffer(IAS_DFT_FACTORY<Buffer>::Create(4000));
+
+	stream = fmemopen(ptrBuffer->getBuffer<char>(), 4000, "w");
+
+	b64 = BIO_new(BIO_f_base64());
+	bio = BIO_new_fp(stream, BIO_NOCLOSE);
+	bio = BIO_push(b64, bio);
+	BIO_set_flags(bio, BIO_FLAGS_BASE64_NO_NL);
+	PEM_write_bio_X509(bio, x509);
+	BIO_flush(bio);
+	BIO_free_all(bio);
+	fclose(stream);
+
+	return String(ptrBuffer->getBuffer<char>());
 }
 /*************************************************************************/
 

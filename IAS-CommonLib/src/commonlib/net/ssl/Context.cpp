@@ -19,6 +19,8 @@
 #include "SSLException.h"
 #include <commonlib/tools/EnvTools.h>
 #include <commonlib/exception/BadUsageException.h>
+#include <string.h>
+
 namespace IAS {
 namespace Net {
 namespace SSL {

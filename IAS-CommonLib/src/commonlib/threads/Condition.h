@@ -37,13 +37,13 @@ public:
 	Condition(bool bShared=false);
 	~Condition()throw();
 
-	void signal()           throw(ThreadLockException);
-	void broadcast()        throw(ThreadLockException);
+	void signal();
+	void broadcast();
 
 protected:
 
-	void wait(Mutex& mutex)throw(ThreadLockException);
-	bool wait(Mutex& mutex, unsigned int iTimeoutMS) throw(ThreadLockException);
+	void wait(Mutex& mutex);
+	bool wait(Mutex& mutex, unsigned int iTimeoutMS);
 
 	pthread_cond_t theCond;
 

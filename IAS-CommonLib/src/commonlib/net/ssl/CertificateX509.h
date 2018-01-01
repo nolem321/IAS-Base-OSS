@@ -39,6 +39,8 @@ public:
 		return x509;
 	}
 
+	String getBase64EncodedContent();
+
 	typedef std::map<String,String> NamesMap;
 
 	String getIssuerName()const;
@@ -53,7 +55,9 @@ public:
 	inline String getSubjectLN()const{ return getSubjectField(NID_localityName);};
 
 protected:
+
 	CertificateX509(X509* x509);
+	CertificateX509(const String& strFileName);
 
 	X509 *x509;
 

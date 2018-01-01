@@ -21,6 +21,9 @@
 #include <commonlib/misc/InstanceFeature.h>
 
 #include <openssl/ssl.h>
+#include <commonlib/tools/Buffer.h>
+
+#include "PrivateKey.h"
 
 namespace IAS {
 namespace Net {
@@ -36,9 +39,17 @@ public:
 	static String ComputeSHA256(const String& strValue);
 	static String ComputeSHA256(const void *pData, size_t iDataLen);
 
+	static String ComputeSHA1(const String& strValue);
+	static String ComputeSHA1(const void *pData, size_t iDataLen);
+
 	static String ComputeHmacSHA256(const String& strKey, const String& strValue);
 	static String ComputeHmacSHA256(const String& strKey, const void *pData, size_t iDataLen);
 
+	static String ComputeMD5(const String& strValue);
+	static String ComputeMD5(const void *pData, size_t iDataLen);
+
+	static Buffer* ComputeSignature(const PrivateKey* pKey, const String& strValue);
+	static Buffer* ComputeSignature(const PrivateKey* pKey, const void *pData, size_t iDataLen);
 };
 
 /*************************************************************************/

@@ -21,9 +21,9 @@
 #include "TypeTools.h"
 
 #include <string.h>
-#include <codecvt>
-#include <locale>
 
+#include <locale>
+#include <algorithm>
 #include "EnvTools.h"
 
 
@@ -371,20 +371,36 @@ void MiscTools::Base64ToString(const String& strInput, String& strOutput){
 
 }
 
-static std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+static std::locale aLocale(EnvTools::GetEnv("LANG").c_str());
 
+class LocaleSetter{
+	LocaleSetter(){
+		std::setlocale(LC_CTYPE, aLocale.name().c_str());
+	}
+static LocaleSetter TheLocaleSetter;
+};
 
-//TODO: locale
+LocaleSetter LocaleSetter::TheLocaleSetter;
+
 /*************************************************************************/
 String MiscTools::StrToLower(const String& strData){
 
 	IAS_TRACER;
 
-	std::locale aLocale(EnvTools::GetEnv("LANG").c_str());
+	size_t strLen = strData.size();
 
-	std::wstring wide = converter.from_bytes(strData.c_str());
-	for (auto &c : wide) c = tolower(c, aLocale);
-	return String(converter.to_bytes(wide).c_str());
+	char    result[strLen * 2];
+	wchar_t wide[strLen * 2];
+
+	if(std::mbstowcs(wide, strData.c_str(), strLen+1) == -1)
+		IAS_THROW(BadUsageException("StrToLower: " + strData));
+
+	for (int i = 0; i < strLen; ++i) wide[i] =
+			tolower(wide[i], aLocale);
+
+	std::wcstombs(result, wide, strLen+1);
+
+	return result;
 }
 
 /*************************************************************************/
@@ -392,11 +408,21 @@ String MiscTools::StrToUpper(const String& strData){
 
 	IAS_TRACER;
 
-	std::locale aLocale(EnvTools::GetEnv("LANG").c_str());
+	size_t strLen = strData.size();
 
-	std::wstring wide = converter.from_bytes(strData.c_str());
-	for (auto &c : wide) c = toupper(c, aLocale);
-	return String(converter.to_bytes(wide).c_str());
+	char    result[strLen * 2];
+	wchar_t wide[strLen * 2];
+
+	if(std::mbstowcs(wide, strData.c_str(), strLen+1) == -1)
+		IAS_THROW(BadUsageException("StrToUpper: " + strData));
+
+	for (int i = 0; i < strLen; ++i) wide[i] =
+		toupper(wide[i], aLocale);
+
+	std::wcstombs(result, wide, strLen+1);
+
+	return result;
+
 }
 
 /*************************************************************************/

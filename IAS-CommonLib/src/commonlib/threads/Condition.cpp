@@ -70,7 +70,7 @@ Condition::~Condition() throw(){
 
 }
 /*************************************************************************/
-void Condition::wait(Mutex& mutex) throw(ThreadLockException){
+void Condition::wait(Mutex& mutex){
 	IAS_TRACER;
 
 	int iResult = -1;
@@ -81,7 +81,7 @@ void Condition::wait(Mutex& mutex) throw(ThreadLockException){
 	}
 }
 /*************************************************************************/
-bool Condition::wait(Mutex& mutex, unsigned int iTimeoutMS) throw(ThreadLockException){
+bool Condition::wait(Mutex& mutex, unsigned int iTimeoutMS) {
 	IAS_TRACER;
 
 	int iResult = -1;
@@ -111,7 +111,7 @@ bool Condition::wait(Mutex& mutex, unsigned int iTimeoutMS) throw(ThreadLockExce
 }
 /*************************************************************************/
 
-void Condition::signal() throw(ThreadLockException){
+void Condition::signal() {
 	IAS_TRACER;
 
 #ifdef IAS_FEATURE_THREAD_SAFE
@@ -126,7 +126,7 @@ void Condition::signal() throw(ThreadLockException){
 }
 
 /*************************************************************************/
-void Condition::broadcast() throw(ThreadLockException){
+void Condition::broadcast() {
 	IAS_TRACER;
 
 #ifdef IAS_FEATURE_THREAD_SAFE

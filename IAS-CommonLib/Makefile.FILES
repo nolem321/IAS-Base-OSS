@@ -1,4 +1,4 @@
-#Tue Jun  6 15:14:39 CEST 2017
+#Tue Dec  5 17:53:21 CET 2017
 FILES+=commonlib/configfile/Properties
 FILES+=commonlib/configfile/PropertiesProvider
 FILES+=commonlib/configfile/PropertiesProviderFromFile
@@ -66,6 +66,7 @@ FILES+=commonlib/net/ssl/BlockIO
 FILES+=commonlib/net/ssl/CertificateX509
 FILES+=commonlib/net/ssl/Context
 FILES+=commonlib/net/ssl/Environment
+FILES+=commonlib/net/ssl/PrivateKey
 FILES+=commonlib/net/ssl/SecureLayer
 FILES+=commonlib/net/ssl/SSLException
 FILES+=commonlib/net/ssl/Tools
