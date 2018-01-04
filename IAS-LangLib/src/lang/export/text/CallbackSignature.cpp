@@ -56,7 +56,7 @@ void CallbackSignature::printType(CallbackCtx *pCtx,
 			   const String& strType,
 			   const String& strNamespace){
 
-	aResult.ssOutput<<"<a href=\"#\" ng-click=\"type('"<<strType<<"','"<<strNamespace<<"')\">"
+	aResult.ssOutput<<"<a href=\"/type;type="<<strType<<";ns="<<strNamespace<<"\">"
 				<<strType<<"</a> : <span class='ys-ns'> \""<<strNamespace<<"\"</span>";
 }
 /*************************************************************************/
@@ -65,7 +65,7 @@ void CallbackSignature::printFunCall(CallbackCtx *pCtx,
 				  const String& strFunName,
 				  const String& strArgs){
 
-	aResult.ssOutput<<"<a href=\"#\" ng-click=\"prog('"<<strFunName<<"')\">"
+	aResult.ssOutput<<"<a href=\"/program;name="<<strFunName<<"\">"
 				<<strFunName<<"("<<strArgs<<")</a>";
 
 }
