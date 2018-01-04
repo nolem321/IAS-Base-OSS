@@ -24,6 +24,9 @@
 
 #include <dm/datamodel.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <pthread.h>
 
 namespace IAS {
 namespace Lang {
@@ -37,6 +40,8 @@ GetRandom::GetRandom(const StringList& lstParamaters, const ModuleProxy* pModule
 
 	if(lstParamaters.size())
 		srand(TypeTools::StringToInt(*lstParamaters.begin()));
+	else
+		srand(time(0) + getpid() + (((long)pthread_self() >> 2) & 0xffff));
 }
 /*************************************************************************/
 GetRandom::~GetRandom() throw(){
