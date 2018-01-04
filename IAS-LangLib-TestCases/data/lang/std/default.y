@@ -76,3 +76,9 @@ EXTERNAL "libIASLangLib:Save"();
 
 PROGRAM std::rand() RETURNS Integer
 EXTERNAL "libIASLangLib:GetRandom"();
+
+PROGRAM std::str2lower(VAR strArgument AS String) RETURNS String
+EXTERNAL "libIASLangLib:StrToLower"();
+
+PROGRAM std::str2upper(VAR strArgument AS String) RETURNS String
+EXTERNAL "libIASLangLib:StrToUpper"();
