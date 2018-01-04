@@ -1,4 +1,4 @@
-#Fri Oct 20 11:36:29 CEST 2017
+#Wed Dec  6 07:49:54 CET 2017
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -200,6 +200,8 @@ FILES+=lang/interpreter/extern/std/Base64ToBinary
 FILES+=lang/interpreter/extern/std/BinaryToBase64
 FILES+=lang/interpreter/extern/std/BinaryToHex
 FILES+=lang/interpreter/extern/std/BinaryToHMAC256
+FILES+=lang/interpreter/extern/std/BinaryToMD5
+FILES+=lang/interpreter/extern/std/BinaryToSHA1
 FILES+=lang/interpreter/extern/std/BinaryToSHA256
 FILES+=lang/interpreter/extern/std/DateTimeToString
 FILES+=lang/interpreter/extern/std/ExecuteAdHoc
@@ -221,12 +223,16 @@ FILES+=lang/interpreter/extern/std/HexToBinary
 FILES+=lang/interpreter/extern/std/Load
 FILES+=lang/interpreter/extern/std/ModifyDate
 FILES+=lang/interpreter/extern/std/ModifyTime
+FILES+=lang/interpreter/extern/std/ReadCertificate
 FILES+=lang/interpreter/extern/std/Replace
 FILES+=lang/interpreter/extern/std/Save
+FILES+=lang/interpreter/extern/std/Sign
 FILES+=lang/interpreter/extern/std/StandardModuleProxy
 FILES+=lang/interpreter/extern/std/StrLen
 FILES+=lang/interpreter/extern/std/StrToHMAC256
 FILES+=lang/interpreter/extern/std/StrToLower
+FILES+=lang/interpreter/extern/std/StrToMD5
+FILES+=lang/interpreter/extern/std/StrToSHA1
 FILES+=lang/interpreter/extern/std/StrToSHA256
 FILES+=lang/interpreter/extern/std/StrToUpper
 FILES+=lang/interpreter/extern/std/SubString2

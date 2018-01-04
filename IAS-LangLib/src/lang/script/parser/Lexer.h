@@ -42,7 +42,7 @@ public:
 
 	typedef LexerBase::TokenInfo<TokenType> TokenInfo;
 
-	const TokenInfo& nextToken() throw(ParseErrorException);
+	const TokenInfo& nextToken();
 
 	const ::IAS::Lang::Tools::Parser::LexerLocation* getLocation();
 

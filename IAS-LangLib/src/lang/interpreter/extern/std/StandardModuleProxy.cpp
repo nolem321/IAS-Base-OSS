@@ -45,10 +45,16 @@
 #include "GetHash.h"
 #include "StrToLower.h"
 #include "StrToUpper.h"
+#include "StrToSHA1.h"
 #include "StrToSHA256.h"
+#include "StrToMD5.h"
+#include "BinaryToSHA1.h"
 #include "BinaryToSHA256.h"
+#include "BinaryToMD5.h"
 #include "StrToHMAC256.h"
 #include "BinaryToHMAC256.h"
+#include "ReadCertificate.h"
+#include "Sign.h"
 #include "StrLen.h"
 #include "SysLog.h"
 
@@ -101,10 +107,16 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("GetHash",&(GetHash::Create));
 	registerSymbol("StrToLower",&(StrToLower::Create));
 	registerSymbol("StrToUpper",&(StrToUpper::Create));
+	registerSymbol("StrToSHA1",&(StrToSHA1::Create));
+	registerSymbol("BinaryToSHA1",&(BinaryToSHA1::Create));
 	registerSymbol("StrToSHA256",&(StrToSHA256::Create));
 	registerSymbol("BinaryToSHA256",&(BinaryToSHA256::Create));
+	registerSymbol("StrToMD5",&(StrToMD5::Create));
+	registerSymbol("BinaryToMD5",&(BinaryToMD5::Create));
+	registerSymbol("ReadCertificate",&(ReadCertificate::Create));
 	registerSymbol("StrToHMAC256",&(StrToHMAC256::Create));
 	registerSymbol("BinaryToHMAC256",&(BinaryToHMAC256::Create));
+	registerSymbol("Sign",&(Sign::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
 

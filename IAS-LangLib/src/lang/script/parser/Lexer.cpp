@@ -121,7 +121,7 @@ void Lexer::init(){
 }
 
 /*************************************************************************/
-const Lexer::TokenInfo& Lexer::nextToken() throw(ParseErrorException){
+const Lexer::TokenInfo& Lexer::nextToken(){
 	IAS_TRACER;
 
 	iCurrentState=S_Start;
