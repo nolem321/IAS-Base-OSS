@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/extern/std/ti/GetNamespaces.cpp
+ * File: IAS-QSystemLib/src/qs/lang/dict/SetGlobalValue.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,81 +15,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "GetNamespaces.h"
-
+#include "SetGlobalValue.h"
 #include<qs/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
-
+#include <lang/interpreter/exe/Context.h>
 #include <lang/model/dec/ResultDeclarationNode.h>
 #include <lang/interpreter/exe/exception/InterpreterProgramException.h>
-
-#include <org/invenireaude/qsystem/typeinfo/DataFactory.h>
-#include <org/invenireaude/qsystem/typeinfo/TypeInfo.h>
-#include <org/invenireaude/qsystem/typeinfo/Object.h>
-#include <org/invenireaude/qsystem/typeinfo/SimpleType.h>
-#include <org/invenireaude/qsystem/typeinfo/Property.h>
 
 #include <org/invenireaude/qsystem/workers/Context.h>
 #include <org/invenireaude/qsystem/workers/Exception.h>
 #include <org/invenireaude/qsystem/workers/DataFactory.h>
-#include <set>
+
+#include <dm/datamodel.h>
+
+#include <qs/workers/proc/wcm/WorkContextManager.h>
+#include <qs/workers/proc/GlobalContext.h>
+#include <qs/workers/proc/wcm/storage/Context.h>
+
+
+using namespace ::IAS::Lang::Interpreter;
+using namespace ::org::invenireaude::qsystem;
 
 namespace IAS {
 namespace QS {
 namespace Lang {
-namespace LI {
-
-using namespace org::invenireaude::qsystem;
-using namespace ::IAS::Lang;
-using namespace ::IAS::Lang::Interpreter;
+namespace Storage {
 
 /*************************************************************************/
-GetNamespaces::GetNamespaces(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+SetGlobalValue::SetGlobalValue(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
-GetNamespaces::~GetNamespaces() throw(){
+SetGlobalValue::~SetGlobalValue() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-static void buildInfo(DM::DataObjectList& lstResult, const DM::DataFactory* pDataFactory){
-	IAS_TRACER;
-
-	const DM::TypeList& lstTypes(pDataFactory->getTypes());
-
-	std::set<String> setNamespaces;
-
-	for(int iIdx=0; iIdx<lstTypes.getSize(); iIdx++){
-		String strNS(lstTypes.at(iIdx)->getURI());
-
-		if(strNS.substr(0,3).compare("IAS") != 0)
-			setNamespaces.insert(strNS);
-	}
-
-	for(std::set<String>::const_iterator it=setNamespaces.begin(); it != setNamespaces.end(); it++)
-			lstResult.add(pDataFactory->getDefaultType(DM::Type::TextType)->createDataObject(*it));
-
-
-}
-/*************************************************************************/
-void GetNamespaces::executeExternal(Exe::Context *pCtx) const{
+void SetGlobalValue::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
+	const String strKey         = pParameters->getString("key");
 
 
 	try{
 
-		DM::DataObjectList& lstResult = pParameters->getList(Model::Dec::ResultDeclarationNode::CStrResultVariable);
+		DM::DataObjectPtr dmValue = pParameters->getDataObject("value")->duplicate();
 
-		buildInfo( lstResult, pCtx->getDataFactory());
+		pWorkContext->storage.setGlobalValue(strKey, dmValue);
 
 	}catch(Exception& e){
 
 		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),e.getName()<<":"<<e.getInfo());
 
 		workers::Ext::ExceptionPtr dmException=workers::DataFactory::GetInstance()->createException();
+
 		dmException->setName(e.getName());
 		dmException->setInfo(e.toString());
 
@@ -97,14 +77,16 @@ void GetNamespaces::executeExternal(Exe::Context *pCtx) const{
 
 	}
 
+
 }
 /*************************************************************************/
-Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* SetGlobalValue::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<SetGlobalValue>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
 }
 }
 }
+

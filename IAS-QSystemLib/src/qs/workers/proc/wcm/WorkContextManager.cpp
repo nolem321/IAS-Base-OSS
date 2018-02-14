@@ -45,7 +45,8 @@ namespace WCM {
 /*************************************************************************/
 WorkContextManager::WorkContextManager(GlobalContext *pGlobalContext):
 		pGlobalContext(pGlobalContext),
-		caches(pGlobalContext){
+		caches(pGlobalContext),
+		storage(pGlobalContext){
 	IAS_TRACER;
 
 	ptrIOManager=IAS_DFT_FACTORY<IO::Manager>::Create(this);
@@ -85,6 +86,7 @@ void WorkContextManager::commit(){
 	IAS_TRACER;
 
 	caches.commit();
+	storage.clear();
 	txm.commit();
 	ds.commit();
 	qs.commit();
@@ -95,6 +97,7 @@ void WorkContextManager::rollback(){
 	IAS_TRACER;
 
 	caches.rollback();
+	storage.clear();
 	txm.rollback();
 	ds.rollback();
 	qs.rollback();

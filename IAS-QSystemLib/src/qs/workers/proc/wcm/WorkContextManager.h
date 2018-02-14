@@ -31,6 +31,7 @@
 #include "cache/Context.h"
 #include "io/Context.h"
 #include "ds/Context.h"
+#include "storage/Context.h"
 #include "txm/Context.h"
 
 #include <org/invenireaude/qsystem/workers/io/Parameters.h>
@@ -44,10 +45,9 @@ class GlobalContext;
 
 namespace WCM {
 
-namespace Cache{ class Manager; }
-namespace IO{ class Manager; }
-namespace DS{ class Manager; }
-namespace TXM{ class Manager; }
+namespace IO   { class Manager; }
+namespace DS   { class Manager; }
+namespace TXM  { class Manager; }
 
 
 /*************************************************************************/
@@ -71,7 +71,8 @@ public:
 	WCM::DS::Context    ds;
 	WCM::TXM::Context   txm;
 
-	WCM::Cache::Context caches;
+	WCM::Cache::Context   caches;
+	WCM::Storage::Context storage;
 
 	Proc::IO::IOManager*   getIOManager()const;
 	Proc::DS::DSManager*   getDSManager()const;

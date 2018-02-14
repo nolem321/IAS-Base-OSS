@@ -1,4 +1,4 @@
-#Thu Nov  9 17:54:53 CET 2017
+#Fri Feb  9 09:04:07 CET 2018
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -212,6 +212,11 @@ FILES+=qs/lang/msgs/MessagePreview
 FILES+=qs/lang/msgs/ModuleProxy
 FILES+=qs/lang/msgs/Receive
 FILES+=qs/lang/msgs/Send
+FILES+=qs/lang/storage/GetGlobalValue
+FILES+=qs/lang/storage/GetLocalValue
+FILES+=qs/lang/storage/ModuleProxy
+FILES+=qs/lang/storage/SetGlobalValue
+FILES+=qs/lang/storage/SetLocalValue
 FILES+=qs/lang/tools/ApplyTemplate
 FILES+=qs/lang/tools/ExecuteSystemCmd
 FILES+=qs/lang/tools/ExecuteSystemCmdArray
@@ -311,6 +316,7 @@ FILES+=qs/workers/proc/wcm/ds/Manager
 FILES+=qs/workers/proc/wcm/io/Context
 FILES+=qs/workers/proc/wcm/io/Manager
 FILES+=qs/workers/proc/wcm/Registry
+FILES+=qs/workers/proc/wcm/storage/Context
 FILES+=qs/workers/proc/wcm/txm/Context
 FILES+=qs/workers/proc/wcm/txm/Manager
 FILES+=qs/workers/proc/wcm/WorkContextManager
