@@ -75,9 +75,6 @@ void RegionMemoryManager::allocateSegment(size_t iSegmentSize){
 		}
 	}
 
-	if(iNumSegments*iSegmentSize > 200000000)
-		throw std::bad_alloc();
-
 
 	Segment *pNew = new(pSegmentAllocator->allocate(sizeof(Segment)+iSegmentSize)) Segment(iSegmentSize);
 
