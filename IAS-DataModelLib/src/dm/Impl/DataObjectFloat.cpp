@@ -17,7 +17,7 @@
  */
 #include "../../dm/Impl/DataObjectFloat.h"
 #include <commonlib/commonlib.h>
-
+#include "../../dm/Type.h"
 #include "../../dm/log/LogLevel.h"
 
 namespace IAS {
@@ -77,6 +77,19 @@ void DataObjectFloat::setDataObject(const IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pDataObject);
 	fValue = pDataObject->toFloat();
+}
+/*************************************************************************/
+bool DataObjectFloat::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return fValue == pDataObject->toFloat();
 }
 /*************************************************************************/
 }

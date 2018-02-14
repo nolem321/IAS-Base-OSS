@@ -32,6 +32,8 @@ public:
 
 	virtual void setDataObject(const IAS::DM::DataObject* pDataObject);
 
+	virtual bool    equals(const IAS::DM::DataObject* dmValue)const;
+
 protected:
 	DataObjectAnyType(const Type *pType);
 

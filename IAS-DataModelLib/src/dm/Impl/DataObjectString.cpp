@@ -17,7 +17,7 @@
  */
 #include "../../dm/Impl/DataObjectString.h"
 #include <commonlib/commonlib.h>
-
+#include "../../dm/Type.h"
 #include "../../dm/log/LogLevel.h"
 #include "Type.h"
 
@@ -120,6 +120,19 @@ void DataObjectString::setDataObject(const IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pDataObject);
 	strValue = pDataObject->toString();
+}
+/*************************************************************************/
+bool DataObjectString::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return pDataObject->toString().compare(strValue) == 0;
 }
 /*************************************************************************/
 }

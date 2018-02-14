@@ -41,6 +41,8 @@ public:
 	virtual ::IAS::String toString()const;
 	virtual void toRaw(RawContent* pRawContent)const;
 
+	virtual bool    equals(const IAS::DM::DataObject* dmValue)const;
+
 protected:
 	DataObjectRaw(const Type *pType);
 

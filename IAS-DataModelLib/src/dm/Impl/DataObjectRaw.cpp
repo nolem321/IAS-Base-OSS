@@ -17,7 +17,7 @@
  */
 #include "../../dm/Impl/DataObjectRaw.h"
 #include <commonlib/commonlib.h>
-
+#include "../../dm/Type.h"
 #include "../../dm/log/LogLevel.h"
 
 namespace IAS {
@@ -69,6 +69,19 @@ void DataObjectRaw::setDataObject(const IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pDataObject);
 	setString(pDataObject->toString());
+}
+/*************************************************************************/
+bool DataObjectRaw::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return this->toString().compare(pDataObject->toString()) == 0;
 }
 /*************************************************************************/
 }

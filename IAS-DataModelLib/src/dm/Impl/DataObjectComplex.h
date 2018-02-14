@@ -66,6 +66,8 @@ public:
 	virtual String  getString(const IAS::DM::Property* pProperty) const;
 	virtual void    getRaw(const IAS::DM::Property* pProperty, RawContent* pRawContent)const;
 
+	virtual bool    equals(const IAS::DM::DataObject* dmValue)const;
+
 protected:
 	DataObjectComplex(const Type *pType);
 	void init();

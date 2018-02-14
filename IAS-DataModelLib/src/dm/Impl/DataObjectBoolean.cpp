@@ -83,6 +83,19 @@ void DataObjectBoolean::setDataObject(const IAS::DM::DataObject* pDataObject){
 	bValue = pDataObject->toBoolean();
 }
 /*************************************************************************/
+bool DataObjectBoolean::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return bValue == pDataObject->toBoolean();
+}
+/*************************************************************************/
 }
 }
 }

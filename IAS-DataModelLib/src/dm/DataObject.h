@@ -142,6 +142,8 @@ public:
 	virtual void unset(const String& strXPath)=0;
 	virtual void unset(const Property* pProperty)=0;
 
+	virtual bool equals(const DataObject* dmValue)const=0;
+
 protected:
 	virtual void setParent(DataObject* pParent)=0;
 	virtual void unsetParent()=0;

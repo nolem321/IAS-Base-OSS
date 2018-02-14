@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 #include "../../dm/Impl/DataObjectDate.h"
+#include "../../dm/Type.h"
 #include <commonlib/commonlib.h>
 
 #include "../../dm/log/LogLevel.h"
@@ -81,6 +82,19 @@ void DataObjectDate::setDataObject(const IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pDataObject);
 	tValue = pDataObject->toDate();
+}
+/*************************************************************************/
+bool DataObjectDate::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return tValue == pDataObject->toDate();
 }
 /*************************************************************************/
 }

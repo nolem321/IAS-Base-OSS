@@ -17,7 +17,7 @@
  */
 #include "../../dm/Impl/DataObjectTime.h"
 #include <commonlib/commonlib.h>
-
+#include "../../dm/Type.h"
 #include "../../dm/log/LogLevel.h"
 
 namespace IAS {
@@ -81,6 +81,19 @@ void DataObjectTime::setDataObject(const IAS::DM::DataObject* pDataObject){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pDataObject);
 	tValue = pDataObject->toTime();
+}
+/*************************************************************************/
+bool DataObjectTime::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	return tValue == pDataObject->toTime();
 }
 /*************************************************************************/
 }

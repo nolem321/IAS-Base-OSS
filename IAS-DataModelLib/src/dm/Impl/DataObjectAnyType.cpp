@@ -38,6 +38,10 @@ DataObjectAnyType::~DataObjectAnyType() throw(){
 void DataObjectAnyType::setDataObject(const IAS::DM::DataObject* pDataObject){
 }
 /*************************************************************************/
+bool DataObjectAnyType::equals(const IAS::DM::DataObject* dmValue)const{
+	return false;
+}
+/*************************************************************************/
 }
 }
 }

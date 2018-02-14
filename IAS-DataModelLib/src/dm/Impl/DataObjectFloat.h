@@ -45,6 +45,7 @@ public:
 	virtual int     toInteger()const;
 	virtual Float    toFloat()const;
 
+	virtual bool    equals(const IAS::DM::DataObject* dmValue)const;
 
 protected:
 	DataObjectFloat(const Type *pType);

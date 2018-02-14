@@ -335,6 +335,72 @@ void DataObjectComplex::setDataObject(const IAS::DM::DataObject* pDataObject){
 
 }
 /*************************************************************************/
+bool DataObjectComplex::equals(const IAS::DM::DataObject* pDataObject)const{
+
+	IAS_TRACER;
+
+	if(!pDataObject)
+		return false;
+
+	if(!pDataObject->getType()->equals(pType))
+		return false;
+
+	const ::IAS::DM::ComplexType* pComplexType = pType->asComplexType();
+
+	const DM::PropertyList& lstProperties = pComplexType->getProperties();
+	int iSize = lstProperties.getSize();
+
+	for(int iIdx = 0; iIdx<iSize; iIdx++){
+
+		const IAS::DM::Property* pProperty = lstProperties.getProperty(iIdx);
+		IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),"P:["<<
+					pProperty->getName()<<":"<<
+					pProperty->getType()->getName()<<":"<<
+					pProperty->getType()->getURI()<<"]:");
+
+		if(pProperty->isMulti()){
+
+			const IAS::DM::DataObjectList& lstOriginal = pDataObject->getList(pProperty);
+
+			if(tabDataObjects[iIdx].ptrDataObjectList->size() != lstOriginal.size())
+				return false;
+
+			for(int iListIdx=0; iListIdx<lstOriginal.size(); iListIdx++){
+
+				const IAS::DM::DataObject *pOriginal = lstOriginal.at(iListIdx);
+				const IAS::DM::DataObject *pMine     = tabDataObjects[iIdx].ptrDataObjectList->at(iListIdx);
+
+				if(!pOriginal && pMine)
+					return false;
+
+				if(!pOriginal->equals(pMine))
+					return false;
+			}
+
+		}else{
+
+			if(tabDataObjects[iIdx].bSet != pDataObject->isSet(pProperty))
+				return false;
+
+			if(pDataObject->isSet(pProperty)){
+
+				const IAS::DM::DataObject *pOriginal = pDataObject->getDataObject(pProperty);
+
+				if(!pOriginal && tabDataObjects[iIdx].ptrDataObject)
+					return false;
+
+				if(!pOriginal->equals(tabDataObjects[iIdx].ptrDataObject))
+					return false;
+
+			}/*IF: isSet */
+
+		}/* IF: isMulti*/
+
+	}/* FOR: iIdx */
+
+	return true;
+}
+/*************************************************************************/
 }
 }
 }

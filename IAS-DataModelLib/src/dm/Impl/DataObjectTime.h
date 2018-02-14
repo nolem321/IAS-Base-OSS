@@ -43,6 +43,8 @@ public:
 	virtual IAS::DateTime toDateTime()const;
 	virtual IAS::Time toTime()const;
 
+	virtual bool    equals(const IAS::DM::DataObject* dmValue)const;
+
 protected:
 	DataObjectTime(const Type *pType);
 
