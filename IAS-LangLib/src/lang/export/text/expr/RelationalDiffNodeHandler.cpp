@@ -46,7 +46,7 @@ void RelationalDiffNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx
 	IAS_TYPEID_CHECK(Model::Expr::RelationalDiffNode, pNode);
 	const Model::Expr::RelationalDiffNode *pDiffNode = IAS_DYNAMICCAST_CONST(Model::Expr::RelationalDiffNode, pNode);
 
-	handleBinary(pDiffNode->getLeftExpr(),pDiffNode->getRightExpr(),pCtx,aResult," &lt;&gt; ");
+	handleBinary(pDiffNode->getLeftExpr(),pDiffNode->getRightExpr(),pCtx,aResult," <> ");
 }
 /*************************************************************************/
 }

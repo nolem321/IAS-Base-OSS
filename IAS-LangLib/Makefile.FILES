@@ -1,4 +1,4 @@
-#Wed Dec  6 07:49:54 CET 2017
+#Fri Feb  9 09:04:42 CET 2018
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -134,6 +134,7 @@ FILES+=lang/interpreter/exe/expr/IsSet
 FILES+=lang/interpreter/exe/expr/LogicalBinaryOperFamily
 FILES+=lang/interpreter/exe/expr/LogicalUnaryOperFamily
 FILES+=lang/interpreter/exe/expr/RelationBooleanExpr
+FILES+=lang/interpreter/exe/expr/RelationDataObjectExpr
 FILES+=lang/interpreter/exe/expr/RelationDateExpr
 FILES+=lang/interpreter/exe/expr/RelationDateTimeExpr
 FILES+=lang/interpreter/exe/expr/RelationFamily

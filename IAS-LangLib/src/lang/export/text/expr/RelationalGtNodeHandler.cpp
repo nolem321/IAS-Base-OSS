@@ -46,7 +46,7 @@ void RelationalGtNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, 
 	IAS_TYPEID_CHECK(Model::Expr::RelationalGtNode, pNode);
 	const Model::Expr::RelationalGtNode *pGtNode = IAS_DYNAMICCAST_CONST(Model::Expr::RelationalGtNode, pNode);
 
-	handleBinary(pGtNode->getLeftExpr(),pGtNode->getRightExpr(),pCtx,aResult," &gt; ");
+	handleBinary(pGtNode->getLeftExpr(),pGtNode->getRightExpr(),pCtx,aResult," > ");
 }
 /*************************************************************************/
 }

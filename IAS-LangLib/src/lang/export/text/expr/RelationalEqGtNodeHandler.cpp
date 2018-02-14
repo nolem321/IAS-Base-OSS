@@ -46,7 +46,7 @@ void RelationalEqGtNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx
 	IAS_TYPEID_CHECK(Model::Expr::RelationalEqGtNode, pNode);
 	const Model::Expr::RelationalEqGtNode *pEqGtNode = IAS_DYNAMICCAST_CONST(Model::Expr::RelationalEqGtNode, pNode);
 
-	handleBinary(pEqGtNode->getLeftExpr(),pEqGtNode->getRightExpr(),pCtx,aResult," &gt;= ");
+	handleBinary(pEqGtNode->getLeftExpr(),pEqGtNode->getRightExpr(),pCtx,aResult," >= ");
 }
 /*************************************************************************/
 }

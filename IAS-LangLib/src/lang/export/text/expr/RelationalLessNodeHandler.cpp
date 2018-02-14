@@ -46,7 +46,7 @@ void RelationalLessNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx
 	IAS_TYPEID_CHECK(Model::Expr::RelationalLessNode, pNode);
 	const Model::Expr::RelationalLessNode *pLessNode = IAS_DYNAMICCAST_CONST(Model::Expr::RelationalLessNode, pNode);
 
-	handleBinary(pLessNode->getLeftExpr(),pLessNode->getRightExpr(),pCtx,aResult," &Lt; ");
+	handleBinary(pLessNode->getLeftExpr(),pLessNode->getRightExpr(),pCtx,aResult," < ");
 }
 /*************************************************************************/
 }

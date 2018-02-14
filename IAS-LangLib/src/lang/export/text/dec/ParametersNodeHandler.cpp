@@ -91,7 +91,7 @@ void ParametersNodeHandler::call(const Model::Node* pNode,
 		IAS_CHECK_IF_VALID(pDeclarationResultNode);
 		CallbackRegister::SubCall(pDeclarationResultNode, pCtx, aSubCallResult);
 
-		printKeyword(aResult,"RETURNS");
+		printKeyword(aResult,"RETURNS ");
 
 		printType(pCtx,aResult,pDeclarationResultNode->getType(),pDeclarationResultNode->getNamespace());
 	}

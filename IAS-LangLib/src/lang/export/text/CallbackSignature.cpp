@@ -56,8 +56,7 @@ void CallbackSignature::printType(CallbackCtx *pCtx,
 			   const String& strType,
 			   const String& strNamespace){
 
-	aResult.ssOutput<<"<a href=\"/type;type="<<strType<<";ns="<<strNamespace<<"\">"
-				<<strType<<"</a> : <span class='ys-ns'> \""<<strNamespace<<"\"</span>";
+	aResult.ssOutput<<strType<<": \""<<strNamespace<<"\" ";
 }
 /*************************************************************************/
 void CallbackSignature::printFunCall(CallbackCtx *pCtx,
@@ -65,15 +64,14 @@ void CallbackSignature::printFunCall(CallbackCtx *pCtx,
 				  const String& strFunName,
 				  const String& strArgs){
 
-	aResult.ssOutput<<"<a href=\"/program;name="<<strFunName<<"\">"
-				<<strFunName<<"("<<strArgs<<")</a>";
+	aResult.ssOutput<<strFunName<<"("<<strArgs<<")";
 
 }
 /*************************************************************************/
 void CallbackSignature::printKeyword(CallbackSignature::Result& aResult,
 			   	  	  	  	  	  	  const String& strKeyword){
 
-	aResult.ssOutput<<"<span class='ys-keyword'>"<<strKeyword<<" </span>";
+	aResult.ssOutput<<" "<<strKeyword<<" ";
 }
 /*************************************************************************/
 }

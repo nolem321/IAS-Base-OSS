@@ -24,6 +24,7 @@
 #include "RelationIntegerExpr.h"
 #include "RelationStringExpr.h"
 #include "RelationDateTimeExpr.h"
+#include "RelationDataObjectExpr.h"
 #include "RelationDateExpr.h"
 #include "RelationTimeExpr.h"
 
@@ -55,6 +56,10 @@ BooleanExpr* RelationFamily::Create(const DM::DataFactory* pDataFactory,Expr* pL
 	IAS_DFT_FACTORY<RelationFamily>::PtrHolder ptrExpr;
 
 	switch(iTypeId){
+
+		case DM::Type::DataObjectType:
+			ptrExpr = RelationDataObjectExpr::Create(pLeft,pRight,aTypeInfoProxy);
+		break;
 
 		case DM::Type::TextType:
 			ptrExpr = RelationStringExpr::Create(pLeft,pRight,aTypeInfoProxy);

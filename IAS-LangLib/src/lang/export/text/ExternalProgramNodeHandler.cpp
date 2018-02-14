@@ -67,7 +67,7 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode,
 		return;
 
 	printIndent(pCtx,aResult);
-	printKeyword(aResult,"EXTERNAL");
+	printKeyword(aResult,"EXTERNAL \"");
 	aResult.ssOutput<<pExternalProgramNode->getLibrary();
 	aResult.ssOutput<<":"<<pExternalProgramNode->getModule();
 	aResult.ssOutput<<":"<<pExternalProgramNode->getSymbol();
