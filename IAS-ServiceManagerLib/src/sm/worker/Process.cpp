@@ -20,6 +20,7 @@
 #include <commonlib/commonlib.h>
 #include "sm/mon/ProcessLockFile.h"
 #include <unistd.h>
+#include "signal.h"
 
 namespace IAS {
 namespace SM {
@@ -54,6 +55,7 @@ void Process::startRunnable() {
 		setpgid(0,0);
 		setpgrp();
 	}
+	signal(SIGCHLD, SIG_DFL);
 
 	//TODO close unnecessary descriptors ?
 

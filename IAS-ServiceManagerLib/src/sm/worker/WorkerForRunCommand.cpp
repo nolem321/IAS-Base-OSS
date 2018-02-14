@@ -30,28 +30,28 @@ namespace IAS {
 namespace SM {
 namespace Worker {
 
-/*************************************************************************/
-WorkerForRunCommand::WorkerForRunCommand(const ::IAS::SM::Cfg::Config *pConfig) {
-	IAS_TRACER;
-	this->pConfig = pConfig;
-	ptrStartStopHelper = IAS_DFT_FACTORY<StartStopHelper>::Create(pConfig);
-}
-/*************************************************************************/
-WorkerForRunCommand::~WorkerForRunCommand() throw () {
-	IAS_TRACER;
-}
-/*************************************************************************/
-void WorkerForRunCommand::work(const ::org::invenireaude::sm::cfg::Service* pService) {
-	IAS_TRACER;
-
-	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
-	int iCount = dmResourceGrp->getCount();
-
-	for (int iIdx = 0; iIdx < iCount; iIdx++) {
-		ptrStartStopHelper->startInstance(pService, iIdx);
-	}/* FOR: instances */
-}
-/*************************************************************************/
+///*************************************************************************/
+//WorkerForRunCommand::WorkerForRunCommand(const ::IAS::SM::Cfg::Config *pConfig) {
+//	IAS_TRACER;
+//	this->pConfig = pConfig;
+//	ptrStartStopHelper = IAS_DFT_FACTORY<StartStopHelper>::Create(pConfig);
+//}
+///*************************************************************************/
+//WorkerForRunCommand::~WorkerForRunCommand() throw () {
+//	IAS_TRACER;
+//}
+///*************************************************************************/
+//void WorkerForRunCommand::work(const ::org::invenireaude::sm::cfg::Service* pService) {
+//	IAS_TRACER;
+//
+//	const ResourceGroup* dmResourceGrp = pConfig->getMergedServiceResourceGrps(pService);
+//	int iCount = dmResourceGrp->getCount();
+//
+//	for (int iIdx = 0; iIdx < iCount; iIdx++) {
+//		ptrStartStopHelper->startInstance(pService, iIdx);
+//	}/* FOR: instances */
+//}
+///*************************************************************************/
 
 }
 }

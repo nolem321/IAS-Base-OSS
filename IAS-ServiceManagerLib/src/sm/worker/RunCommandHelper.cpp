@@ -25,6 +25,7 @@
 #include "Process.h"
 #include "StartStopHelper.h"
 #include "WorkerForStop.h"
+#include "signal.h"
 
 using namespace ::org::invenireaude::sm::cfg;
 
@@ -78,6 +79,7 @@ void RunCommandHelper::run(const String& strServiceName) {
 	ptrProcess->updateEnvironment(lstVariables);
 
 	ptrProcess->start();
+	signal(SIGCHLD, SIG_DFL);
 	ptrProcess->wait();
 
 }

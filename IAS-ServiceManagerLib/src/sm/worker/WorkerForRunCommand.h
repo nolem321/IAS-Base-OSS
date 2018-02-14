@@ -35,20 +35,20 @@ class Handler;
 /** The WorkerForRunCommand class.
  *
  */
-class WorkerForRunCommand : public IWorker {
-public:
-
-	virtual ~WorkerForRunCommand() throw();
-
-    void run();
-
-protected:
-	WorkerForRunCommand(const ::org::invenireaude::sm::cfg::Service* pService);
-
-	const ::org::invenireaude::sm::cfg::Service* pService;
-
-	friend class ::IAS::Factory<WorkerForRunCommand>;
-};
+//class WorkerForRunCommand : public IWorker {
+//public:
+//
+//	virtual ~WorkerForRunCommand() throw();
+//
+//    void run();
+//
+//protected:
+//	WorkerForRunCommand(const ::org::invenireaude::sm::cfg::Service* pService);
+//
+//	const ::org::invenireaude::sm::cfg::Service* pService;
+//
+//	friend class ::IAS::Factory<WorkerForRunCommand>;
+//};
 
 /*************************************************************************/
 }
