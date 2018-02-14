@@ -40,7 +40,8 @@ int main(int argc, char* argv[]) {
 		ptrServiceManager->startServices(ptrParameters->getGrpAttrPairList());
 
 		if(ptrParameters->isDisplayOnEnd()){
-			sleep(1);
+			std::cerr<<"Waiting 2 seconds before checking status ..."<<std::endl;
+			sleep(2);
 			ptrServiceManager->printServicesStatus(ptrParameters->getGrpAttrPairList(), ptrParameters->isFailedOnly());
 		}
 
