@@ -3,6 +3,7 @@ IAS-CommonLib
 IAS-DataModelLib
 IAS-DataModelLib-CodeGen
 IAS-LangLib
+IAS-LangMod-SysMon
 IAS-QSystemLib
 IAS-QSystemMod-SQLite
 IAS-QSystemMod-FCGI
