@@ -37,7 +37,7 @@ InputDriver::~InputDriver() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Message* InputDriver::receive(int iTimeWait){
+Message* InputDriver::receive(int iTimeWait, API::Attributes* pSelector){
 	IAS_TRACER;
 
 	return receiveImpl(iTimeWait);

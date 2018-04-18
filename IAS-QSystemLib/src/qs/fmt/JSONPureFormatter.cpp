@@ -27,8 +27,9 @@ namespace IAS {
 namespace QS {
 namespace Fmt {
 
-const String& JSONPureFormatter::CStrAttr("JSONpt");
-
+const String& JSONPureFormatter::CStrTypeAttr("JSONpt");
+const String& JSONPureFormatter::CStrElementAttr("JSONel");
+const String& JSONPureFormatter::CStrNoPure("JSONno");
 /*************************************************************************/
 JSONPureFormatter::JSONPureFormatter(const DM::DataFactory* pDataFactory):pDataFactory(pDataFactory){
 	IAS_TRACER;
@@ -57,24 +58,64 @@ void JSONPureFormatter::read( DM::DataObjectPtr& dmData,
 
 	IAS_CHECK_IF_NULL(pAttributes);
 
+	const DM::Type* pType = NULL;
 
 
-	const String& strTypeURI (pAttributes->getValue(CStrAttr));
+	if(pAttributes && pAttributes->isSet(CStrTypeAttr)){
 
-	String::size_type iIdx = strTypeURI.find('#');
+		String strTypeURI(substitute(pAttributes->getValue(CStrTypeAttr),pAttributes));
 
-	if(iIdx == String::npos)
-		IAS_THROW(BadUsageException("Cannot decode type from: ")<<CStrAttr<<"="<<strTypeURI);
+		String::size_type iIdx = strTypeURI.find('#');
+		if(iIdx == String::npos)
+			IAS_THROW(BadUsageException("Cannot decode type from: ")<<CStrTypeAttr<<"="<<strTypeURI);
 
-	String strTypeNS(strTypeURI.substr(0,iIdx));
-	String strTypeName(strTypeURI.substr(iIdx+1));
+		String strTypeNS(strTypeURI.substr(0,iIdx));
+		String strTypeName(strTypeURI.substr(iIdx+1));
 
-	const DM::Type* pType=pDataFactory->getType(strTypeNS,strTypeName);
+		try{
+			pType = pDataFactory->getType(strTypeNS,strTypeName);
+
+		}catch(...){
+			IAS_LOG(LogLevel::INSTANCE.isInfo(),CStrTypeAttr<<" is useless.");
+			pAttributes->unset(CStrTypeAttr);
+			pAttributes->setValue(CStrNoPure,"Y");
+		}
+
+	}else if(pAttributes && pAttributes->isSet(CStrElementAttr)){
+
+		String strElement(substitute(pAttributes->getValue(CStrElementAttr), pAttributes));
+
+		String::size_type iIdx = strElement.find_last_of('/');
+
+		if(iIdx == String::npos)
+				IAS_THROW(BadUsageException("Cannot decode element type from: ")<<CStrElementAttr<<"="<<strElement);
+
+		String strElementNS(strElement.substr(0,iIdx));
+		String strElementName(strElement.substr(iIdx+1));
+
+		IAS_LOG(true, strElement);
+
+		try{
+			IAS_LOG(true, strElementNS);
+			const DM::ComplexType* pRootType = pDataFactory->getType(strElementNS,DM::DataFactory::RootTypeName)->asComplexType();
+			IAS_LOG(true, strElementName);
+			pType = pRootType->getProperties().getProperty(strElementName)->getType();
+		}catch(...){
+			IAS_LOG(LogLevel::INSTANCE.isInfo(),CStrElementAttr<<" is useless.");
+			pAttributes->unset(CStrElementAttr);
+			pAttributes->setValue(CStrNoPure,"Y");
+		}
+	}
 
 	if(istream.peek() != EOF)
 		dmData=ptrJSONHelper->load(istream,pType);
-	else
-		dmData=pType->createDataObject();
+	else{
+		if(pType)
+			dmData = pType->createDataObject();
+		else{
+			IAS_THROW(BadUsageException("Cannot parse input data"));
+		}
+	}
 
 	tsrParsing.addSample(ts);
 }
@@ -89,16 +130,49 @@ void JSONPureFormatter::write(const DM::DataObject* dmData,
     ts.start();
 
 
-    if(pAttributes)
-    	pAttributes->setValue(CStrAttr,dmData->getType()->getFullName());
+    if(pAttributes && !pAttributes->isSet(CStrElementAttr))
+    	pAttributes->setValue(CStrTypeAttr,dmData->getType()->getFullName());
 
-	ptrJSONHelper->save(ostream,dmData,false);
+	ptrJSONHelper->save(ostream,dmData,!pAttributes || (pAttributes->isSet(CStrNoPure)));
 
 	ostream.flush();
 
 	tsrSerialization.addSample(ts);
 
 
+}
+/*************************************************************************/
+String JSONPureFormatter::substitute(const String& strPattern, const QS::API::Attributes *pAttributes)const{
+	IAS_TRACER;
+
+	StringStream ssResult;
+
+	for(String::const_iterator it=strPattern.begin(); it != strPattern.end(); it++){
+
+		if(*it == '$'){
+
+			if(++it != strPattern.end() && *it == '{'){
+
+				String strName;
+
+				while(++it != strPattern.end() && *it != '}')
+					strName+=(*it);
+
+				if(*it != '}')
+					IAS_THROW(BadUsageException("Missing '}' in environment pattern."))
+
+				ssResult<<pAttributes->getValue(strName);
+
+			}
+
+		}else{
+			ssResult<<*it;
+		}
+
+
+	}
+
+	return ssResult.str();
 }
 /*************************************************************************/
 }

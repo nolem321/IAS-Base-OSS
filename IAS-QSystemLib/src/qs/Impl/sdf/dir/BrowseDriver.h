@@ -36,7 +36,7 @@ class BrowseDriver : public InputBase {
 public:
 
 	virtual ~BrowseDriver() throw();
-	virtual Message* receive(int iTimeWait);
+	virtual Message* receive(int iTimeWait, API::Attributes* pSelector);
 
 protected:
 

@@ -64,6 +64,10 @@ public:
 		return getValue(CA_MID);
 	}
 
+	inline bool isSetMID()const{
+		return isSet(CA_MID);
+	}
+
 	inline void setCID(const String& strValue){
 		setValue(CA_CID,strValue);
 	}

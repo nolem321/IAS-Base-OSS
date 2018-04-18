@@ -25,6 +25,7 @@
 #include "Cleaner.h"
 #include "System.h"
 #include "admin/ActionDispatcher.h"
+#include "lang/model/Model.h"
 
 using namespace ::org::invenireaude::qsystem;
 
@@ -65,6 +66,8 @@ void Administrator::DeleteSystem(const String& strName){
 /*************************************************************************/
 void Administrator::StartDistributor(const String& strName){
 	IAS_TRACER;
+
+	Lang::Model::Model::RegisterBuildInTypes();
 
 	::org::invenireaude::qsystem::workers::Ext::ConnectionPtr dmConnection(
 				API::Environment::BuildConnection("shm",strName));

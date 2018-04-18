@@ -103,7 +103,7 @@ Sync::BlockIOWrapper* BlockIOWrapperFactory::createBlockIOWrapper()const{
 		IAS_DFT_FACTORY<IAS::Net::HTTP::Request>::PtrHolder ptrRequest(IAS_DFT_FACTORY<IAS::Net::HTTP::Request>::Create());
 
 		ptrRequest->setMethod(IAS::Net::HTTP::Request::HM_CONNECT);
-		ptrRequest->setResource(dmConnection->getHost()+":443");
+		ptrRequest->setResource(dmConnection->getHost()+":"+TypeTools::IntToString(dmConnection->getPort()));
 		ptrRequest->setHost(dmConnection->getHost());
 
 		IAS_DFT_FACTORY<IAS::Net::HTTP::HeaderOutputPump>::PtrHolder ptrPumpOut(

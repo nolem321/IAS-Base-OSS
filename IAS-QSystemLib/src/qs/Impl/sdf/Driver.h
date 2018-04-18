@@ -20,6 +20,7 @@
 
 #include <commonlib/commonlib.h>
 
+#include <qs/api/Attributes.h>
 
 namespace IAS {
 namespace QS {
@@ -31,7 +32,7 @@ class InputDriver  {
 public:
 	virtual ~InputDriver(){};
 
-	virtual Message* receive(int iTimeWait)=0;
+	virtual Message* receive(int iTimeWait, API::Attributes* pSelector)=0;
 	virtual unsigned int skip(unsigned int iOffset)=0;
 	virtual unsigned int getNumMessages()=0;
 

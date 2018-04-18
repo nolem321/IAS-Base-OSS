@@ -36,7 +36,7 @@ class InputDriver : public InputBase {
 public:
 
 	virtual ~InputDriver() throw();
-	virtual Message* receive(int iTimeWait);
+	virtual Message* receive(int iTimeWait, API::Attributes* pSelector);
 
 protected:
 

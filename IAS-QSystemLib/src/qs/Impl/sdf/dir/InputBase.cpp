@@ -63,7 +63,7 @@ unsigned int InputBase::skip(unsigned int iOffset){
 	return iResult;
 }
 /*************************************************************************/
-Message* InputBase::receiveImpl(int iTimeWait, bool bRemoveInputFile){
+Message* InputBase::receiveImpl(int iTimeWait, bool bRemoveInputFile, API::Attributes* pSelector){
 
 	IAS_TRACER;
 
@@ -71,9 +71,17 @@ Message* InputBase::receiveImpl(int iTimeWait, bool bRemoveInputFile){
 
 	{
 		Mutex::Locker locker(mutex);
+		String        strMatchName;
+
+		if(pSelector && pSelector->isSetMID()){
+			strMatchName = pSelector->getMID();
+			IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"Matching: "<<strMatchName);
+
+		}
 
 		while(itEntries != dirReader.end() &&
-				(*itEntries)->iType != SYS::FS::DirectoryReader::FT_FILE){
+				((*itEntries)->iType != SYS::FS::DirectoryReader::FT_FILE ||
+				(!strMatchName.empty() && strMatchName.compare((*itEntries)->strFile) != 0))){
 
 			IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"Skipping: "<<(*itEntries)->strFile<<", "<<(*itEntries)->iType<<", "<<SYS::FS::DirectoryReader::FT_FILE);
 

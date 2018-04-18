@@ -48,7 +48,9 @@ public:
 						   std::istream&       istream,
 						   QS::API::Attributes *pAttributes=NULL);
 
-	static const String& CStrAttr;
+	static const String& CStrTypeAttr;
+	static const String& CStrElementAttr;
+	static const String& CStrNoPure;
 
 protected:
 	JSONPureFormatter(const DM::DataFactory* pDataFactory);
@@ -59,6 +61,8 @@ protected:
 
 	TimeSamplesResults tsrParsing;
 	TimeSamplesResults tsrSerialization;
+
+	String substitute(const String& strPattern, const QS::API::Attributes *pAttributes)const;
 
 	friend class Factory<JSONPureFormatter>;
 };

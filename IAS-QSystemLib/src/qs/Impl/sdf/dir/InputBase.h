@@ -52,7 +52,7 @@ protected:
 
 	Mutex mutex;
 
-	Message* receiveImpl(int iTimeWait,bool bRemoveInputFile);
+	Message* receiveImpl(int iTimeWait,bool bRemoveInputFile, API::Attributes* pSelector = 0);
 };
 
 /*************************************************************************/

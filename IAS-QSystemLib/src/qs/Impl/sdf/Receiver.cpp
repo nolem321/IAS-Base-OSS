@@ -55,7 +55,7 @@ API::Message* Receiver::receive(int iTimeWait, API::Attributes* pSelector){
 
 	IAS_TRACER;
 
-	return pDriver->receive(iTimeWait);
+	return pDriver->receive(iTimeWait, pSelector);
 
 }
 

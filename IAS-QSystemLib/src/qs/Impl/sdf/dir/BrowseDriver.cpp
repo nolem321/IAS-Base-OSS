@@ -37,9 +37,9 @@ BrowseDriver::~BrowseDriver() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Message* BrowseDriver::receive(int iTimeWait){
+Message* BrowseDriver::receive(int iTimeWait, API::Attributes* pSelector){
 	IAS_TRACER;
-	return receiveImpl(iTimeWait,false);
+	return receiveImpl(iTimeWait,false,pSelector);
 }
 /*************************************************************************/
 }
