@@ -31,6 +31,7 @@
 #include "./StackTraceContainer.h"
 
 #include <sstream>
+#include <string>
 
 #ifdef __IAS_NO_TRACER__
 #define IAS_TRACER
