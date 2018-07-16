@@ -27,17 +27,17 @@ BEGIN
  
  CREATE input.address BEGIN
    block = 9991;
-   street = "Nowacka";
+   street = "Nowacka9991";
  END;
 
  CREATE input.address BEGIN
    block = 9992;
-   street = "Nowaczkowa";
+   street = "Nowacka9992";
  END;
 
  CREATE input.address BEGIN
    block = 9993;
-   street = "Nowaczkowa1";
+   street = "Nowacka9993";
  END;
    
  VAR a AS AnyType;
@@ -45,7 +45,7 @@ BEGIN
  a = input.address [[ "Miodowa" ]];  
  output.address = COPYOF(a);
  
- a = input.address [[ "Nowaczkowa" ]];  
+ a = input.address [[ "Nowacka9993" ]];  
  output.address = COPYOF(a);
 
  IF ISSET(input.address [[ "Miodowa" ]]) THEN

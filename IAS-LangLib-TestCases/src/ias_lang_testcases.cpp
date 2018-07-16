@@ -100,7 +100,8 @@ int main(int argc, char* argv[]) {
 		//ptrSuite->run(argc == 1 ? "" : argv[1]);
 		//ptrSuite->run("com::examples::basic::condexpr");
 
-		ptrSuite->run("com::examples::basic::index");
+		//ptrSuite->run("com::examples::basic::index");
+		ptrSuite->run();
 
 		ptrSuite->printResults(std::cout);
 
