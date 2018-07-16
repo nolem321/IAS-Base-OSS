@@ -1,5 +1,5 @@
 /*
- * File: IAS-LangLib/src/lang/interpreter/exe/stmt/Detach.cpp
+ * File: IAS-LangLib/src/lang/interpreter/extern/std/Power.cpp
  * 
  * Copyright (C) 2015, Albert Krzymowski
  * 
@@ -15,47 +15,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Detach.h"
+#include "Power.h"
 #include<lang/log/LogLevel.h>
 
 #include <commonlib/commonlib.h>
+#include <lang/interpreter/exe/Context.h>
+#include <lang/model/dec/ResultDeclarationNode.h>
 
-#include "../Context.h"
-#include "xpath/XPathExprFamily.h"
+#include <dm/datamodel.h>
+
+#include <math.h>       /* pow */
 
 namespace IAS {
 namespace Lang {
 namespace Interpreter {
-namespace Exe {
-namespace Expr {
+namespace Extern {
+namespace Std {
 
 /*************************************************************************/
-Detach::Detach(XPath::XPathExprFamily *pXPathExprFamily) :
-		ptrXPathExprFamily(pXPathExprFamily) {
+Power::Power(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Detach::~Detach() throw () {
+Power::~Power() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-void Detach::evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const {
+void Power::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
-	DM::DataObjectPtr dmTmp;
-	ptrXPathExprFamily->evaluate(pCtx,dmTmp);
-	ptrXPathExprFamily->deleteDataObject(pCtx);
-	refResult = dmTmp;
+	DM::DataObject* pParameters = pCtx->getBlockVariables(0);
+
+	const Float x = pParameters->getFloat("x");
+	const Float n = pParameters->getFloat("n");
+
+	pParameters->setFloat(Model::Dec::ResultDeclarationNode::CStrResultVariable,
+						  pow(x,n));
 
 }
 /*************************************************************************/
-void Detach::evaluate(Context *pCtx, IAS::Lang::Interpreter::Exe::Expr::ExprResultSetter& refResult) const {
+Statement* Power::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-
-	DM::DataObjectPtr dmTmp;
-	ptrXPathExprFamily->evaluate(pCtx,dmTmp);
-	ptrXPathExprFamily->deleteDataObject(pCtx);
-	refResult.assign(dmTmp);
+	return IAS_DFT_FACTORY<Power>::Create(lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
