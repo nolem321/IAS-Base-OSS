@@ -125,6 +125,9 @@ class HashMapOfPointers : private HashMap<K , T*, H, P, A >{
 		const_iterator begin() const { return ias_std_unordered_map<K,T*,H, P, A>::begin(); };
 		const_iterator end() const { return ias_std_unordered_map<K,T*,H, P, A>::end(); };
 
+		iterator find(const K& k) { return ias_std_unordered_map<K,T*, H, P, A>::find(k); };
+		const_iterator find(const K& k)const { return ias_std_unordered_map<K,T*, H, P, A>::find(k); };
+
 		int  size() const {
 			return ias_std_unordered_map<K,T*,H, P, A>::size();
 		}

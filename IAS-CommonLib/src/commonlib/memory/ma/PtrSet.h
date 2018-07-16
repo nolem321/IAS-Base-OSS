@@ -50,6 +50,10 @@ public:
 		}
 	};
 
+	bool hasPointer(T* ptr){
+		return setPtrs.count(ptr) > 0;
+	}
+
 	void forget(T* ptr){
 		setPtrs.erase(ptr);
 	}

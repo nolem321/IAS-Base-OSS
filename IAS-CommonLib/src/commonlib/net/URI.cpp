@@ -246,7 +246,9 @@ void URI::parseQuery(){
 			if(c == '%'){
 				char c1=ssValue.get();
 				char c2=ssValue.get();
-				c=MiscTools::HexValue(c1)*16+MiscTools::HexValue(c2);
+				c = MiscTools::HexValue(c1)*16+MiscTools::HexValue(c2);
+			}else if(c == '+'){
+				c = ' ';
 			}
 
 			strName+=c;
@@ -260,7 +262,9 @@ void URI::parseQuery(){
 			if(c == '%'){
 				char c1=ssValue.get();
 				char c2=ssValue.get();
-				c=MiscTools::HexValue(c1)*16+MiscTools::HexValue(c2);
+				c = MiscTools::HexValue(c1)*16+MiscTools::HexValue(c2);
+			}else if(c == '+'){
+				c = ' ';
 			}
 
 			strValue+=c;

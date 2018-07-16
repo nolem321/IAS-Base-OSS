@@ -74,6 +74,30 @@ class HashMapWithStringKey : public ias_std_unordered_map<String, T,_Hash<String
 };
 
 /*************************************************************************************/
+template <class T,
+		  class A =  ::IAS::MemoryManagerFactory< std::pair<const String, T> > >
+class OrderedMapWithStringKey : public std::map<String, T, std::less<String>, A>{
+	public:
+		virtual ~OrderedMapWithStringKey(){}
+
+		const T& at(const String& k) const{
+			typename std::map<String, T, std::less<String>, A>::const_iterator
+				it = std::map<String, T, std::less<String>, A>::find(k);
+			return 	it->second;
+		}
+
+		T at(const String& k){
+			typename std::map<String, T, std::less<String>, A>::const_iterator
+				it = std::map<String, T, std::less<String>, A>::find(k);
+			return 	it->second;
+		}
+
+	protected:
+
+	friend class ::IAS::Factory<OrderedMapWithStringKey>;
+};
+
+/*************************************************************************************/
 
 };/* namespace IAS */
 
