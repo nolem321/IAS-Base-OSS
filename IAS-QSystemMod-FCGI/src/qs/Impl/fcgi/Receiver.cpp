@@ -122,7 +122,7 @@ API::Message* Receiver::receive(int iTimeWait, API::Attributes* pSelector){
 	        String strTmp(*env);
 	        TypeTools::ChopArguments(strTmp,strName,strValue);
 
-	        if(hmEligibleAttributes->isEligible(strName))
+	       if(hmEligibleAttributes->isEligible(strName))
 	        	pAttributes->setValue(strName,strValue);
 
 	        //TODO (M) Faster and nicer
@@ -144,7 +144,21 @@ API::Message* Receiver::receive(int iTimeWait, API::Attributes* pSelector){
     StringStream ssMID;
     ssMID<<"FCGI"<<getSession()->getRequest()->requestId<<"_"<<iCounter++<<"_"<<getpid();
     pAttributes->setMID(ssMID.str());
-	pAttributes->setFormat("JSON");
+
+    try{
+
+    	const String& strContentType(pAttributes->getValue("CONTENT_TYPE"));
+
+    	if(strContentType.substr(0,16).compare("application/json")==0)
+    		pAttributes->setFormat("JSONPure");
+    	else if(strContentType.substr(0,15).compare("application/xml")==0)
+    		pAttributes->setFormat("XML");
+    	else
+    		pAttributes->setFormat("String");
+    }catch(...){
+    	pAttributes->setFormat("String");
+    }
+
 	pAttributes->setReplyTo("_fake_");
 	return ptrMessage.pass();
 }
