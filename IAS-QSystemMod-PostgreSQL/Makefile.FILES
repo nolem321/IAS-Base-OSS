@@ -1,0 +1,16 @@
+#Sat Sep 16 18:16:38 CEST 2017
+FILES+=ds/Impl/PostgreSQL/Connection
+FILES+=ds/Impl/PostgreSQL/exception/PostgreSQLException
+FILES+=ds/Impl/PostgreSQL/Input
+FILES+=ds/Impl/PostgreSQL/log/LogLevel
+FILES+=ds/Impl/PostgreSQL/Output
+FILES+=ds/Impl/PostgreSQL/ResultSetOutput
+FILES+=ds/Impl/PostgreSQL/Session
+FILES+=ds/Impl/PostgreSQL/SessionAutoCommit
+FILES+=ds/Impl/PostgreSQL/SessionTransacted
+FILES+=ds/Impl/PostgreSQL/Statement
+FILES+=ds/Impl/PostgreSQL/StatementDelete
+FILES+=ds/Impl/PostgreSQL/StatementInsert
+FILES+=ds/Impl/PostgreSQL/StatementSelect
+FILES+=ds/Impl/PostgreSQL/StatementUpdate
+FILES+=ds/Impl/PostgreSQL/System
