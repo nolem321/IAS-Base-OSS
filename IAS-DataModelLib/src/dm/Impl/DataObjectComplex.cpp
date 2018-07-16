@@ -213,33 +213,62 @@ const IAS::DM::DataObject* DataObjectComplex::getDataObject(const IAS::DM::Prope
 /*************************************************************************/
 bool  DataObjectComplex::getBoolean(const IAS::DM::Property* pProperty) const{
 	IAS_TRACER;
-	return getDataObject(pProperty)->toBoolean();
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
+
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	return pDataObject->toBoolean();
 }
 /*************************************************************************/
-int   DataObjectComplex::getInteger(const IAS::DM::Property* pProperty) const{
+int  DataObjectComplex::getInteger(const IAS::DM::Property* pProperty) const{
 	IAS_TRACER;
-	return getDataObject(pProperty)->toInteger();
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
+
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	return pDataObject->toInteger();
 }
 /*************************************************************************/
 Float  DataObjectComplex::getFloat(const IAS::DM::Property* pProperty) const{
 	IAS_TRACER;
-	return getDataObject(pProperty)->toFloat();
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
+
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	return pDataObject->toFloat();
 }
 /*************************************************************************/
 IAS::DateTime DataObjectComplex::getDateTime(const IAS::DM::Property* pProperty) const{
 	IAS_TRACER;
-	return getDataObject(pProperty)->toDateTime();
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
+
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	return pDataObject->toDateTime();
 }
 /*************************************************************************/
 String  DataObjectComplex::getString(const IAS::DM::Property* pProperty)const{
 	IAS_TRACER;
-	return getDataObject(pProperty)->toString();
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
+
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	return pDataObject->toString();
 }
 /*************************************************************************/
 void DataObjectComplex::getRaw(const IAS::DM::Property* pProperty, RawContent* pRawContent)const{
 	IAS_TRACER;
+	const DM::DataObject *pDataObject = getDataObject(pProperty);
 
-	getDataObject(pProperty)->toRaw(pRawContent);
+	if(!pDataObject)
+		IAS_THROW(RuntimeException(pProperty->getName()+" is null!"));
+
+	pDataObject->toRaw(pRawContent);
 }
 /*************************************************************************/
 const ::IAS::DM::DataObjectList& DataObjectComplex::getList(const IAS::DM::Property *pProperty) const{

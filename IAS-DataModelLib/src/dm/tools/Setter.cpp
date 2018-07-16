@@ -145,10 +145,14 @@ DM::DataObject* Setter::getParent(DM::DataObject* pCursor, bool bCreateIfNeeded)
 void Setter::setDataObject(DataObjectPtr& dm,DM::DataObject* pDMValue)const{
 	IAS_TRACER;
 
-	if(lstPath.size())
+	if(lstPath.size()){
 		getParent(dm,true)->setDataObject(lstPath.back().pProperty,pDMValue);
-	else
-		dm=pDMValue;
+	}else{
+		if(!dm)
+			dm=pDMValue;
+		else
+			dm->setDataObject(pDMValue);
+	}
 }
 /*************************************************************************/
 void Setter::setString(DataObjectPtr& dm,const String& strValue)const{

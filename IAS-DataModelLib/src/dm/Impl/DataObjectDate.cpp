@@ -74,8 +74,8 @@ void DataObjectDate::setDateTime(const IAS::DateTime& tValue){
 /*************************************************************************/
 void DataObjectDate::setDate(const IAS::Date& tValue){
 	IAS_TRACER;
-	//TODO zero time
 	this->tValue = tValue;
+	this->tValue.setTime(0,0,0,0);
 }
 /*************************************************************************/
 void DataObjectDate::setDataObject(const IAS::DM::DataObject* pDataObject){

@@ -48,7 +48,7 @@ protected:
 	DataObject *pRootObject;
 
 	//TODO hash string map to commons !!
-	typedef HashMapWithStringKey< String > URIMap;
+	typedef OrderedMapWithStringKey< String > URIMap;
 	URIMap hmURI;
 	int iCounter;
 

@@ -68,7 +68,7 @@ void DataObjectTime::setInteger(int iValue){
 /*************************************************************************/
 void DataObjectTime::setDateTime(const IAS::DateTime& tValue){
 	IAS_TRACER;
-	//TODO zero date
+	this->tValue.setDate(0,0,0);
 	this->tValue = tValue;
 }
 /*************************************************************************/

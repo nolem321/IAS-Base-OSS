@@ -56,8 +56,6 @@ XMLSerializer::~XMLSerializer() throw(){
 void XMLSerializer::addURI(const String& strURI){
 	IAS_TRACER;
 
-	IAS_LOG(IAS::DM::LogLevel::INSTANCE.isInfo(),pXMLHelper->isEmptyFirstNS());
-
 	if(hmURI.count(strURI) == 0){
 		char s[10];
 		sprintf(s,"ns%d",iCounter++);
@@ -73,9 +71,12 @@ void XMLSerializer::addURI(const String& strURI){
 const String& XMLSerializer::getURIPrefix(const String& strURI){
 	IAS_TRACER;
 
-	if(hmURI.count(strURI) == 0)
-		IAS_THROW(InternalException(String("Missing: ")+strURI));
-	return hmURI[strURI];
+	URIMap::const_iterator it = hmURI.find(strURI);
+
+	if(it == hmURI.end())
+		IAS_THROW(InternalException(String("Missing URI in xmlns map: ")+strURI));
+
+	return it->second;
 }
 /*************************************************************************/
 void XMLSerializer::listURIs(){
