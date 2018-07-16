@@ -88,6 +88,14 @@
   		</xsi:extension>
   	</xsi:complexContent>		
   </xsi:complexType>   
+
+  <xsi:complexType name="TaskPool">  		 
+  	<xsi:complexContent>
+  		   <xsi:extension base="logic:Execute">
+  		   <xsi:attribute name="queue" type="xsi:string" use="optional"/>	 	
+  		</xsi:extension>
+  	</xsi:complexContent>		
+  </xsi:complexType>   
    
  <xsi:complexType name="SPSExecute">  		 
   	<xsi:complexContent>
@@ -220,7 +228,21 @@
   	</xsi:sequence>
  </xsi:complexType>
  
- 
+ <xsi:complexType name="BackgroundTask">  		
+  	<xsi:sequence>
+
+	  <xsi:element name="id"  type="xsi:string"  minOccurs="1" maxOccurs="1"/>
+
+  	  <xsi:element name="scheduledOn"   type="xsi:dateTime"  minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="startedOn"     type="xsi:dateTime"  minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="completedOn"   type="xsi:dateTime"  minOccurs="0" maxOccurs="1"/>  	 
+
+  	  <xsi:element name="parameters"  type="xsi:anyType"  minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="result"      type="xsi:anyType"  minOccurs="0" maxOccurs="1"/>
+  	  <xsi:element name="exception"   type="xsi:anyType"  minOccurs="0" maxOccurs="1"/>
+  	    	  
+  	</xsi:sequence>
+ </xsi:complexType>
  
  <xsi:element name="logic"   type="logic:Logic" />
  <xsi:element name="logics"  type="logic:LogicSpecification" />

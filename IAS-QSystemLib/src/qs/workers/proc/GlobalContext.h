@@ -53,6 +53,11 @@ namespace Dict{
 class DictionaryStore;
 }
 
+namespace Task{
+class WaitingRoom;
+}
+
+
 class ProgramProvider;
 
 /*************************************************************************/
@@ -109,7 +114,8 @@ public:
 	const ::IAS::DM::DataFactory *getDataFactory()const;
 
 	bool allDone();
-	void abort();
+	void abort(bool bImmediate = false);
+	bool isAborted();
 
 	ProgramProvider* getProgramProvider();
 
@@ -122,6 +128,8 @@ public:
 	Stats::LogicStatsStore*  getLogicStatsStore() const;
 
 	Dict::DictionaryStore*   getDictionaryStore() const;
+
+	Task::WaitingRoom*       getWaitingRoom() const;
 
 	const ::org::invenireaude::qsystem::workers::spec::Specification* getSpecification()const;
 
@@ -149,6 +157,8 @@ protected:
 	IAS_DFT_FACTORY< Stats::PublisherStore >::PtrHolder     ptrStatsPublisherStore;
 
 	IAS_DFT_FACTORY< Dict::DictionaryStore >::PtrHolder     ptrDictionaryStore;
+	IAS_DFT_FACTORY< Task::WaitingRoom >::PtrHolder         ptrWaitingRoom;
+
 	IAS_DFT_FACTORY<Logic::LogicFactory>::PtrHolder         ptrLogicFactory;
 
 	::org::invenireaude::qsystem::workers::spec::Ext::SpecificationPtr dmSpecification;

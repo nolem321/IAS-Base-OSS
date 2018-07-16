@@ -33,6 +33,7 @@
 #include "StatsProducer.h"
 #include "MessagePreview.h"
 #include "DistributionAgent.h"
+#include "TaskPool.h"
 
 #include <org/invenireaude/qsystem/workers/logic/Forwarder.h>
 #include <org/invenireaude/qsystem/workers/logic/Proxy.h>
@@ -47,6 +48,7 @@
 #include <org/invenireaude/qsystem/workers/logic/StatsProducer.h>
 #include <org/invenireaude/qsystem/workers/logic/MessagePreview.h>
 #include <org/invenireaude/qsystem/workers/logic/DistributionAgent.h>
+#include <org/invenireaude/qsystem/workers/logic/TaskPool.h>
 #include <org/invenireaude/qsystem/workers/logic/External.h>
 
 #include <org/invenireaude/qsystem/workers/Connection.h>
@@ -132,6 +134,11 @@ Logic* LogicFactory::createLogic(const ::org::invenireaude::qsystem::workers::lo
 	}else if(workers::logic::DataFactory::GetInstance()->getDaemonExecuteType()->equals(dmLogic->getType())){
 		ptrLogic=IAS_DFT_FACTORY<DaemonExecute>::Create(
 				workers::logic::DataFactory::GetInstance()->getDaemonExecuteType()->cast(dmLogic),
+				pWorkContextManager);
+
+	}else if(workers::logic::DataFactory::GetInstance()->getTaskPoolType()->equals(dmLogic->getType())){
+		ptrLogic=IAS_DFT_FACTORY<TaskPool>::Create(
+				workers::logic::DataFactory::GetInstance()->getTaskPoolType()->cast(dmLogic),
 				pWorkContextManager);
 
 	}else if(workers::logic::DataFactory::GetInstance()->getStatsProducerType()->equals(dmLogic->getType())){

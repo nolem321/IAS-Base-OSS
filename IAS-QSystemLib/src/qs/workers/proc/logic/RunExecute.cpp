@@ -75,8 +75,10 @@ RunExecute::~RunExecute() throw(){
 void RunExecute::receive(bool bNoWait){
 	IAS_TRACER;
 
-	if(bDone)
+	if(bDone){
+		this->pWorkContextManager->getGlobalContext()->abort();
 		IAS_THROW(EndOfDataException());
+	}
 
 	bDone = true;
 }

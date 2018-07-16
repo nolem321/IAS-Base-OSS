@@ -46,7 +46,8 @@ namespace WCM {
 WorkContextManager::WorkContextManager(GlobalContext *pGlobalContext):
 		pGlobalContext(pGlobalContext),
 		caches(pGlobalContext),
-		storage(pGlobalContext){
+		storage(pGlobalContext),
+		task(pGlobalContext){
 	IAS_TRACER;
 
 	ptrIOManager=IAS_DFT_FACTORY<IO::Manager>::Create(this);

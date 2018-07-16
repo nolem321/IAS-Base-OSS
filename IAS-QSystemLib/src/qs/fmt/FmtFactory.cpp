@@ -25,6 +25,7 @@
 #include "JSONPureFormatter.h"
 #include "URLEncodeFormatter.h"
 #include "StringFormatter.h"
+#include "RawFormatter.h"
 #include "TemplateFormatter.h"
 #include "DelimitedFormatter.h"
 
@@ -44,6 +45,7 @@ FmtFactory::FmtFactory(const DM::DataFactory* pDataFactory):pDataFactory(pDataFa
 	hmFormatters["JSONPure"]=IAS_DFT_FACTORY<JSONPureFormatter>::Create(pDataFactory);
 	hmFormatters["URLEnc"]=IAS_DFT_FACTORY<URLEncodeFormatter>::Create(pDataFactory);
 	hmFormatters["String"]=IAS_DFT_FACTORY<StringFormatter>::Create(pDataFactory);
+	hmFormatters["Raw"]=IAS_DFT_FACTORY<RawFormatter>::Create(pDataFactory);
 	hmFormatters["Template"]=IAS_DFT_FACTORY<TemplateFormatter>::Create(pDataFactory);
 	hmFormatters["DEL"]=IAS_DFT_FACTORY<DelimitedFormatter>::Create(pDataFactory);
 }
