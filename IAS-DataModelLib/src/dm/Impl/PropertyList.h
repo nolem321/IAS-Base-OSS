@@ -60,11 +60,11 @@ protected:
 		bool operator()(const HashMapKey& k1, const HashMapKey& k2) const;
 	};
 
-	typedef ias_std_unordered_map<String,
+	typedef ias_std_unordered_map<HashMapKey,
 							   ::IAS::DM::Property*,
 							    HashMapKeyHash,
 							    HashMapKeyEq,
-							    ModelAllocator< ::IAS::DM::Property* >
+							    ModelAllocator< std::pair< const HashMapKey, ::IAS::DM::Property* > >
 	                         >TypesHashMap;
 
 	TypesHashMap hmPropertiesByName;

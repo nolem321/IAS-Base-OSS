@@ -93,9 +93,9 @@ IAS::Allocator* MemoryManager::getAllocatorForTypes() {
 	return pAllocatorForTypes;
 }
 /*************************************************************************/
-void MemoryManager::PrintToStream(std::ostream& os, bool bNewOnly) {
-	//TheInstance->pAllocatorForTypes->printToStream(os,bNewOnly);
-	//TheInstance->pAllocatorForData->printToStream(os,bNewOnly);
+void MemoryManager::PrintToStream(std::ostream& os) {
+	TheInstance->pAllocatorForTypes->printToStream(os);
+	TheInstance->pAllocatorForData->printToStream(os);
 }
 /*************************************************************************/
 void MemoryManager::Create(){

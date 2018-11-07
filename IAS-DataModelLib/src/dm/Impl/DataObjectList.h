@@ -68,8 +68,7 @@ protected:
 
 	DataObjectVector lstDataObject;
 
-	typedef HashMapWithStringKey<::IAS::DM::DataObject*, DataAllocator< ::IAS::DM::DataObjectPtr > >
-		HashMap;
+	typedef HashMapWithStringKey<::IAS::DM::DataObject*> HashMap;
 
 	struct Hash{
 		StringContent strHashXPath;
