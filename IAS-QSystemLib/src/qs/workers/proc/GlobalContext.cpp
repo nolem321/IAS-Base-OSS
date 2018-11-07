@@ -178,6 +178,8 @@ void GlobalContext::loadXSD(){
 		}
 	}
 
+	IAS::DM::Impl::MemoryManager::GetInstance()->PrintToStream(std::cout);
+	IAS::MemoryManager::GetInstance()->printToStream(std::cout);
 }
 /*************************************************************************/
 const ::IAS::DM::DataFactory *GlobalContext::getDataFactory()const{
