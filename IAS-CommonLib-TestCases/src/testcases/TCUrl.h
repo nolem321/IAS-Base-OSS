@@ -41,6 +41,8 @@ private:
 				 unsigned int iPort,
 				 const String& strPath);
 
+	void testUrl2();
+
 	void caseALL();
 
 	friend class ::IAS::Factory<TCUrl>;

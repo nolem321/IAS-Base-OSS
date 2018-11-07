@@ -61,6 +61,16 @@ void TCUrl::testUrl(const String& strUrl,
 		IAS_THROW(InternalException(String("Bad path: [")+strUrl+"], path=["+url.getPath()+"]"));
 
 }
+
+/*************************************************************************/
+void TCUrl::testUrl2(){
+	IAS_TRACER;
+
+	URI url("http://localhost/dane?operacja=tajfun&operation_number=M9947-82697&operation_type=payment&operation_status=completed&operation_amount=29.00&operation_currency=PLN&operation_withdrawal_amount=28.42&operation_commission_amount=-0.58&operation_original_amount=29.00&operation_original_currency=PLN&operation_datetime=2018-06-20+11%3A28%3A48&control=446540153&description=Alerty+o+Kontrahencie&email=anetttta%2Bdotpay%40wp.pl&p_info=Test+User+%28piotr.kasprzyk%40comit.pl%29&p_email=piotr.kasprzyk%40comit.pl&channel=73&signature=dce2a89a943f1cbc1f8d4cef3f2b8fe01c8fd746d25cf42c76ec3025ef9e54c9");
+
+	std::cerr<<url.getValue("email")<<std::endl;
+	std::cerr<<url.getValue("description")<<std::endl;
+}
 /*************************************************************************/
 void TCUrl::caseALL(){
 
@@ -70,7 +80,7 @@ void TCUrl::caseALL(){
 	testUrl("pro://dom/path1/path2","pro","dom",0,"path1/path2");
 	testUrl("pro:///path1/path2","pro","",0,"path1/path2");
 
-
+	testUrl2();
 }
 /*************************************************************************/
 } /* namespace TCT */
