@@ -91,11 +91,11 @@ struct _EqualsTo< ::IAS::String >{
 	}
 };
 
-template <class  K,
+template <class K,
 		   class T,
 		   class H = _Hash<K>,
 		   class P = _EqualsTo<K>,
-		   class A =  IAS_DFT_FACTORY<std::pair<const K, T*> > >
+		   class A =  IAS_DFT_FACTORY< std::pair<const K, T> > >
 class HashMap : public ias_std_unordered_map<K,T,H,P,A> {};
 
 
@@ -103,13 +103,14 @@ class HashMap : public ias_std_unordered_map<K,T,H,P,A> {};
 /** The HashMapOfPointers template.
  */
 
-template <class  K,
+template <class K,
 		   class T,
 		   class H = _Hash<K>,
 		   class P = _EqualsTo<K>,
 		   class A =  IAS_DFT_FACTORY<std::pair<const K, T*> >,
 		   class TA =  IAS_DFT_FACTORY<T> >
-class HashMapOfPointers : private HashMap<K , T*, H, P, A >{
+class HashMapOfPointers : private HashMap<K, T*, H, P, A >{
+
 	public:
 
 		typedef typename ias_std_unordered_map<K,T*,H,P,A>::iterator iterator;

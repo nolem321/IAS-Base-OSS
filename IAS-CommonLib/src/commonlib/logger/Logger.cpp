@@ -172,7 +172,10 @@ void Logger::addEntry(const char* sFun,
 					  const char* sFile,
 				 	  int         iLine,
 				 	  const char* sText){
-	
+
+	StringList lstLines;
+	tokenize(sText,lstLines,'\n');
+
 	LOGGER::LoggerFileLock::Locker locker(_fileLock);
 
 	/* The most important thing in pthreads. When
@@ -183,9 +186,6 @@ void Logger::addEntry(const char* sFun,
 
 	if(!pos->good())
 		pos->clear();
-
-	StringList lstLines;
-	tokenize(sText,lstLines,'\n');
 
 	for(StringList::const_iterator it=lstLines.begin();
 			it != lstLines.end(); it++){

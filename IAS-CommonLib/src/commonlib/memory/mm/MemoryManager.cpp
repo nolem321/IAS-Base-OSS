@@ -64,7 +64,7 @@ void MemoryManager::clearNewFlag() {
 	iNewEntries = 0;
 }
 /*************************************************************************/
-void MemoryManager::addEntry(const char* sFile, const char* sFun, int iLine, unsigned long lPtr) {
+void MemoryManager::addEntry(const char* sFile, const char* sFun, int iLine, unsigned long lPtr, unsigned long iNumBytes) {
 
 	Entry entry;
 
@@ -73,6 +73,7 @@ void MemoryManager::addEntry(const char* sFile, const char* sFun, int iLine, uns
 	entry.iLine = iLine;
 	entry.bNewFlag = true;
 	entry.lPtr = lPtr;
+	entry.iNumBytes = iNumBytes;
 
 	bool bCheck = false;
 	{
@@ -82,6 +83,7 @@ void MemoryManager::addEntry(const char* sFile, const char* sFun, int iLine, uns
 			iTotalEntries++;
 			iCurEntries++;
 			iNewEntries++;
+			this->iNumBytes+=iNumBytes;
 		}
 	}
 
@@ -108,8 +110,13 @@ bool MemoryManager::removeEntry(unsigned long lPtr) {
 		Mutex::Locker locker(theLock);
 		iCount = hmEntries.count(lPtr);
 		if (iCount > 0) {
-			if (hmEntries[lPtr].bNewFlag)
+			Entry& entry(hmEntries[lPtr]);
+
+			if (entry.bNewFlag)
 				iNewEntries--;
+
+			this->iNumBytes-=entry.iNumBytes;
+
 			hmEntries.erase(lPtr);
 			iCurEntries--;
 		}
@@ -137,36 +144,43 @@ long MemoryManager::getNumerOfNew() const {
 }
 /*************************************************************************/
 void MemoryManager::printToStream(std::ostream& os) {
-	printToStream(os,false);
+	printToStream(os,false,false);
 }
 /*************************************************************************/
-void MemoryManager::printToStream(std::ostream& os, bool bNewOnly) {
+void MemoryManager::printToStream(std::ostream& os, bool bNewOnly, bool bStatsOnly) {
 
 	Mutex::Locker locker(theLock);
 
 	os << " >>>  MEMORY USAGE " << std::endl;
 	os << " >>>  Total:     " << iTotalEntries << std::endl;
+	os << " >>>  Bytes:     " << iNumBytes << std::endl;
 	os << " >>>  Current:   " << iCurEntries << "," << hmEntries.size() << std::endl;
 	os << " >>>  New:       " << iNewEntries << std::endl;
 	os << " >>>  Instances: " << iInstances << std::endl;
-	EntryMap::iterator iter;
 
-	for (iter = hmEntries.begin(); iter != hmEntries.end(); iter++) {
+	if(!bStatsOnly){
 
-		Entry& entry = iter->second;
+		EntryMap::iterator iter;
 
-		if (!bNewOnly || entry.bNewFlag) {
-			os << (entry.sFile) << ":" << (entry.sFun) << "(" << entry.iLine << "): ";
-			os << "\t [" << ((void*) entry.lPtr) << "]";
-			os << "(" << ((unsigned int) entry.iTID) << ")";
-			if (entry.bNewFlag)
-				os << " N";
-			os << std::endl;
-		}
 
-	}/* for */
+		for (iter = hmEntries.begin(); iter != hmEntries.end(); iter++) {
 
-	os << std::endl;
+			Entry& entry = iter->second;
+
+			if (!bNewOnly || entry.bNewFlag) {
+				os << (entry.sFile) << ":" << (entry.sFun) << "(" << entry.iLine << "): ";
+				os << "\t [" << ((void*) entry.lPtr) << "]";
+				os << "(" << ((unsigned int) entry.iTID) << ")";
+				if (entry.bNewFlag)
+					os << " N";
+				os << std::endl;
+			}
+
+		}/* for */
+
+		os << std::endl;
+
+	}/* !bStatsOnly */
 
 	os<<"Waits:  "<<tsrMutexWaits<<std::endl;
 
@@ -196,9 +210,9 @@ void* MemoryManager::allocate(size_t iNumBytes) {
 
 		if (!stack.empty()) {
 			const StackTrace::Entry& entry = stack.top();
-			addEntry(entry.sFile, entry.sFun, entry.iLine, (unsigned long) p);
+			addEntry(entry.sFile, entry.sFun, entry.iLine, (unsigned long) p, iNumBytes);
 		} else {
-			addEntry("noline", "nofun", 1, (unsigned long) p);
+			addEntry("noline", "nofun", 1, (unsigned long) p, iNumBytes);
 		}
 
 	}

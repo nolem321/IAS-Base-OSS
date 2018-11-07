@@ -33,6 +33,7 @@ Point2D::Point2D(const Point2D& other){
 Point2D& Point2D::operator=(const Point2D& other){
 	this->fX=other.fX;
 	this->fY=other.fY;
+	return *this;
 }
 
 
