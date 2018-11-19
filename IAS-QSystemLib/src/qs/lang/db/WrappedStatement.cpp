@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/lang/db/WrappedStatement.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,6 +60,8 @@ WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS:
 	StringList::const_iterator it=lstParamaters.begin();
 	strDataSource=*it++;
 	strSpecification=*it++;
+  if(it != lstParamaters.end())
+    strDataSourceIdx=*it++;
 }
 /*************************************************************************/
 WrappedStatement::~WrappedStatement() throw(){
@@ -75,7 +77,13 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 	try{
 
-		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
+    String strDataSourceName(strDataSource);
+
+    if(!strDataSourceIdx.empty())
+      strDataSourceName += "." +  dmInput->getString(strDataSourceIdx);
+
+		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSourceName);
+
 		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer()),pDriver);
 		ptrWrapper->execute(dmInput);
 
