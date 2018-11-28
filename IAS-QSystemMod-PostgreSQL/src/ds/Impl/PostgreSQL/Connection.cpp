@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemMod-PostgreSQL/src/ds/Impl/PostgreSQL/Connection.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,6 +24,10 @@
 #include "System.h"
 #include "log/LogLevel.h"
 
+#include <libpq-fe.h>
+
+
+
 namespace IAS {
 namespace DS {
 namespace Impl {
@@ -32,12 +36,16 @@ namespace PostgreSQL {
 /*************************************************************************/
 Connection::Connection(PostgreSQL::System* pSystem,
 		const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter):
-	dmParameter(dmParameter->duplicateParameter()),
+  Impl::Connection(pSystem, dmParameter),
 	pSystem(pSystem){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pSystem);
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(),dmParameter->getName());
+
+  int lib_ver = PQlibVersion();
+
+	IAS_LOG(LogLevel::INSTANCE.isInfo(),"PQlibVersion:"<<lib_ver);
 
 }
 /*************************************************************************/

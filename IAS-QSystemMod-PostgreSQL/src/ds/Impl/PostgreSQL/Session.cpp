@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemMod-PostgreSQL/src/ds/Impl/PostgreSQL/Session.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@
 #include "log/LogLevel.h"
 #include "Connection.h"
 #include "System.h"
+#include "StatementCall.h"
 #include "StatementInsert.h"
 #include "StatementSelect.h"
 #include "StatementDelete.h"
@@ -38,6 +39,7 @@ namespace PostgreSQL {
 
 /*************************************************************************/
 Session::Session(Connection* pConnection):
+  Impl::Session(pConnection),
 	pConnection(pConnection),
 	conn(0){
 	IAS_TRACER;
@@ -94,7 +96,7 @@ API::StatementInsert*  Session::createInsert(){
 }
 /*************************************************************************/
 API::StatementCall*  Session::createCall(){
-	IAS_THROW(PostgreSQLException("Stored procedures are not available in PostgreSQL."));
+	return IAS_DFT_FACTORY<PostgreSQL::StatementCall>::Create(this);
 }
 /*************************************************************************/
 API::StatementSelect*  Session::createSelect(){

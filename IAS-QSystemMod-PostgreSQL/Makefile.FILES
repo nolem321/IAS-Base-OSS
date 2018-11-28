@@ -1,4 +1,4 @@
-#Sat Sep 16 18:16:38 CEST 2017
+#Mon Nov 26 18:27:21 CET 2018
 FILES+=ds/Impl/PostgreSQL/Connection
 FILES+=ds/Impl/PostgreSQL/exception/PostgreSQLException
 FILES+=ds/Impl/PostgreSQL/Input
@@ -8,7 +8,9 @@ FILES+=ds/Impl/PostgreSQL/ResultSetOutput
 FILES+=ds/Impl/PostgreSQL/Session
 FILES+=ds/Impl/PostgreSQL/SessionAutoCommit
 FILES+=ds/Impl/PostgreSQL/SessionTransacted
+FILES+=ds/Impl/PostgreSQL/SQLTricks
 FILES+=ds/Impl/PostgreSQL/Statement
+FILES+=ds/Impl/PostgreSQL/StatementCall
 FILES+=ds/Impl/PostgreSQL/StatementDelete
 FILES+=ds/Impl/PostgreSQL/StatementInsert
 FILES+=ds/Impl/PostgreSQL/StatementSelect

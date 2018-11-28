@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemMod-PostgreSQL/src/ds/Impl/PostgreSQL/Output.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@
 #include <ds/api/IOutput.h>
 
 #include "Statement.h"
+#include "Input.h"
 
 namespace IAS {
 namespace DS {
@@ -33,12 +34,15 @@ class Session;
  *
  */
 class Output :
+    public Input,
 		public virtual DS::API::IOutput {
 public:
 
 	virtual ~Output() throw();
 
-	virtual void addOutput(DM::Tools::Setter *pSetter);
+	virtual void addOutput(const String& strTag, DM::Tools::Setter *pSetter);
+  virtual void addInputOutput(const String& strTag, DM::Tools::Setter *pSetter);
+	virtual void fetch(DM::DataObjectPtr& dm);
 	virtual void bindOutputs();
 
 protected:
@@ -46,6 +50,11 @@ protected:
 
 	Statement& statement;
 
+	typedef std::vector<DM::Tools::Setter*>     SettersTable;
+	SettersTable						           tabSetters;
+
+  int iCurrentRow;
+  int iNumRows;
 };
 /*************************************************************************/
 }
