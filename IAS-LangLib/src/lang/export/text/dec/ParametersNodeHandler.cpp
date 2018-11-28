@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/export/text/dec/ParametersNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,10 +60,10 @@ void ParametersNodeHandler::call(const Model::Node* pNode,
 
 		if((*itDeclarations)->getVariable().compare("result")){
 
-			if(!bFirst){
+			//if(!bFirst){
 				aResult.ssOutput<<std::endl;
 				printIndent(pCtx,aResult);
-			}
+			//}
 
 			CallbackSignature::Result aSubCallResult;
 			IAS_CHECK_IF_VALID(pDeclarationNode);

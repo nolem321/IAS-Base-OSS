@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/export/text/stmt/AssignmentNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ void AssignmentNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCtx, Ca
 
 	const Model::Expr::ExprNode*     pExprNode = pAssignmentNode->getExpressionNode();
 	const Model::Stmt::LeftSideNode* pLeftSideNode = pAssignmentNode->getLeftSideNode();
-	
+
 	CallbackRegister::SubCall(pLeftSideNode,pCtx,aResult);
 	aResult.ssOutput<<" = ";
 	CallbackRegister::SubCall(pExprNode,pCtx,aResult);
