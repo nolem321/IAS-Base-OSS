@@ -60,7 +60,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-MessagePreview::MessagePreview(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+MessagePreview::MessagePreview(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 }
@@ -200,9 +200,9 @@ void MessagePreview::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* MessagePreview::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* MessagePreview::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<MessagePreview>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<MessagePreview>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

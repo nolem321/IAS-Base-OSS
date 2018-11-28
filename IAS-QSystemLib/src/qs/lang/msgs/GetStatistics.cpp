@@ -46,7 +46,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-GetStatistics::GetStatistics(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+GetStatistics::GetStatistics(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
   if(lstParamaters.size() != 1)
@@ -94,9 +94,9 @@ void GetStatistics::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetStatistics::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* GetStatistics::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetStatistics>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<GetStatistics>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/extern/std/ti/GetNamespaces.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ using namespace ::IAS::Lang;
 using namespace ::IAS::Lang::Interpreter;
 
 /*************************************************************************/
-GetNamespaces::GetNamespaces(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+GetNamespaces::GetNamespaces(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -99,9 +99,9 @@ void GetNamespaces::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* GetNamespaces::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* GetNamespaces::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<GetNamespaces>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<GetNamespaces>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

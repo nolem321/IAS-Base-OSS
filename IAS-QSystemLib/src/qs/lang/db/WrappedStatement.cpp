@@ -53,7 +53,7 @@ namespace DB {
 const String WrappedStatement::C_ENV_VERIFY_SQL("IAS_DS_VERIFY_SQL");
 
 /*************************************************************************/
-WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+WrappedStatement::WrappedStatement(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size() < 2)
@@ -129,9 +129,9 @@ void WrappedStatement::verifySQL(){
   	// DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmParameters.getPointer()),pDriver);
 }
 /*************************************************************************/
-Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* WrappedStatement::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<WrappedStatement>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<WrappedStatement>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
