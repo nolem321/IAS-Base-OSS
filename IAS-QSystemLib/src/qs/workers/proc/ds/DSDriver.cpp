@@ -55,21 +55,22 @@ DSDriver::~DSDriver() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Wrapper::Wrapper* DSDriver::getStatement(const String& strSpecification, ::IAS::DM::DataObject* dm){
+Wrapper::Wrapper* DSDriver::getStatement(const String& strSpecification, ::IAS::DM::DataObject* dm, bool bTestOnly){
 	IAS_TRACER;
 
 
-	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo()||true,"Lookup: "<<(String)strSpecification);
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Lookup: "<<(String)strSpecification);
 
 	if(hmWrappers.count(strSpecification))
 		return hmWrappers[strSpecification];
 
-	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo()||true,"not found, I will create a new one ");
-
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"not found, I will create a new one ");
 
 	IAS_DFT_FACTORY< Wrapper::Wrapper >::PtrHolder ptrWrapper(Wrapper::Wrapper::Create(pSession,strSpecification,pDataFactory,dm));
+  if(bTestOnly)
+    ptrWrapper->setReusable(false);
 
-	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo()||true,"Reusable: "<<ptrWrapper->isReusable());
+	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Reusable: "<<ptrWrapper->isReusable());
 
 	if(ptrWrapper->isReusable()){
 		return hmWrappers[strSpecification]=ptrWrapper.pass();

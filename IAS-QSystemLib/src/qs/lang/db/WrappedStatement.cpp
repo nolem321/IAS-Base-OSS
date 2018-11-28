@@ -78,7 +78,6 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObjectPtr dmInput(pCtx->getBlockVariables(0));
-  IAS_LOG(true,"type:"<<dmInput->getType()->getFullName());
 
 	DM::DataObjectPtr dmResult;
 
@@ -91,7 +90,7 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSourceName);
 
-		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer()),pDriver);
+		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer(), true), pDriver);
 		ptrWrapper->execute(dmInput);
 
 	}catch(DS::API::ConstraintViolationException& e){
@@ -123,14 +122,19 @@ void WrappedStatement::verifySQL(const DM::Type* pType){
     DM::DataObjectPtr dmFakeObject(pType->createDataObject());
     // Remove optionals
     String strSQL2Verify(TypeTools::Replace(strSpecification,"?",""));
-    // Change 'IN' to '=' on the first array element.
+    // Change 'IN' to '=' on the first array element. (regex replace :) )
     strSQL2Verify = TypeTools::Replace(strSQL2Verify," IN "," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"\tIN "," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify," IN\t"," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"\tIN\t"," = ");
     strSQL2Verify = TypeTools::Replace(strSQL2Verify,"[*]","[0]");
 
     try{
   	  DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
-  	  DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSQL2Verify, dmFakeObject.getPointer()),pDriver);
+  	  DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSQL2Verify, dmFakeObject.getPointer(), true),pDriver);
+      pWorkContext->rollback();
     }catch(Exception& e){
+      pWorkContext->rollback();
       IAS_THROW(BadUsageException("SQL preverification failed:"+e.toString()));
     }
 }
