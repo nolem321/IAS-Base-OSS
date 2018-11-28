@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/Impl/shm/Attachment.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,13 +21,14 @@
 #include <qs/api.h>
 
 #include <commonlib/commonlib.h>
-#include <commonlib/memory/mm/SimpleListMemoryManager.h>
-#include <commonlib/memory/mm/PowerOfTwoMemoryManager.h>
 
 #include <qs/Impl/System.h>
 
 #include "org/invenireaude/qsystem/System.h"
 #include <org/invenireaude/qsystem/stats/SystemStats.h>
+
+#include "mm/SimpleListMemoryManager.h"
+#include "mm/PowerOfTwoMemoryManager.h"
 
 using namespace ::org::invenireaude::qsystem;
 
@@ -103,9 +104,9 @@ protected:
 	IAS_DFT_FACTORY< SharedMemoryFile >::PtrHolder            ptrSHMQueueData;
 	IAS_DFT_FACTORY< SharedMemoryFile >::PtrHolder            ptrSHMApplicationData;
 
-	static IAS_DFT_FACTORY< SimpleListMemoryManager >::PtrHolder     TheMMSystemHeap;
-	static IAS_DFT_FACTORY< SimpleListMemoryManager >::PtrHolder     TheMMQueueData;
-	static IAS_DFT_FACTORY< PowerOfTwoMemoryManager >::PtrHolder     TheMMApplicationData;
+	static IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::PtrHolder     TheMMSystemHeap;
+	static IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::PtrHolder     TheMMQueueData;
+	static IAS_DFT_FACTORY< SHM::MM::PowerOfTwoMemoryManager >::PtrHolder     TheMMApplicationData;
 
 
 	IAS_DFT_FACTORY<Admin::ActionDispatcher>::PtrHolder ptrActionDispatcher;

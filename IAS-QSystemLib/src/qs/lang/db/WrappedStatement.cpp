@@ -50,6 +50,8 @@ namespace QS {
 namespace Lang {
 namespace DB {
 
+const String WrappedStatement::C_ENV_VERIFY_SQL("IAS_DS_VERIFY_SQL");
+
 /*************************************************************************/
 WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
@@ -62,6 +64,10 @@ WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS:
 	strSpecification=*it++;
   if(it != lstParamaters.end())
     strDataSourceIdx=*it++;
+
+  if(EnvTools::GetBooleanEnv(C_ENV_VERIFY_SQL))
+    verifySQL();
+
 }
 /*************************************************************************/
 WrappedStatement::~WrappedStatement() throw(){
@@ -72,6 +78,7 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 	IAS_TRACER;
 
 	DM::DataObjectPtr dmInput(pCtx->getBlockVariables(0));
+  IAS_LOG(true,"type:"<<dmInput->getType()->getFullName());
 
 	DM::DataObjectPtr dmResult;
 
@@ -108,6 +115,18 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 		IAS_THROW(::IAS::Lang::Interpreter::Exe::InterpreterProgramException(dmException));
 	}
 
+}
+/*************************************************************************/
+void WrappedStatement::verifySQL(){
+    IAS_TRACER;
+
+    return ;
+    // TODO type of program signature;
+    String strSQL2Verify(TypeTools::Replace(strSpecification,"?",""));
+ 	  // DM::DataObjectPtr dmParameters;
+    // dmParameters = pModuleProxy->getDataFactory()->getType("IAS/Script/T1","RootType")->createDataObject();
+  	// DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
+  	// DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmParameters.getPointer()),pDriver);
 }
 /*************************************************************************/
 Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){

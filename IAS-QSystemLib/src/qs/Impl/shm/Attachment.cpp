@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/Impl/shm/Attachment.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,6 +32,8 @@
 #include <org/invenireaude/qsystem/stats/TopicStats.h>
 #include <org/invenireaude/qsystem/stats/Sample.h>
 #include <org/invenireaude/qsystem/stats/DataFactory.h>
+#include <org/invenireaude/qsystem/stats/MemoryManager.h>
+#include <org/invenireaude/qsystem/stats/MemoryStats.h>
 
 #include "shared/System.h"
 #include "shared/Queue.h"
@@ -50,9 +52,9 @@ namespace QS {
 namespace SHM {
 
 /*************************************************************************/
-IAS_DFT_FACTORY< SimpleListMemoryManager >::PtrHolder  Attachment::TheMMSystemHeap;
-IAS_DFT_FACTORY< SimpleListMemoryManager >::PtrHolder  Attachment::TheMMQueueData;
-IAS_DFT_FACTORY< PowerOfTwoMemoryManager >::PtrHolder  Attachment::TheMMApplicationData;
+IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::PtrHolder  Attachment::TheMMSystemHeap;
+IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::PtrHolder  Attachment::TheMMQueueData;
+IAS_DFT_FACTORY< SHM::MM::PowerOfTwoMemoryManager >::PtrHolder  Attachment::TheMMApplicationData;
 
 /*************************************************************************/
 String Attachment::buildSHMName(const String& strName) {
@@ -96,7 +98,7 @@ Attachment::Attachment(const ::org::invenireaude::qsystem::workers::Connection* 
 
 	ptrSHMSystemHeap = attachSHM(strSHMName+".h",getShared()->shmSystemHeap.pAddress);
 	TheMMSystemHeap=
-			IAS_DFT_FACTORY< SimpleListMemoryManager >::Create(getShared()->shmSystemHeap.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::Create(getShared()->shmSystemHeap.pAddress,
 													   	   	   getShared()->shmSystemHeap.iSize);
 
 
@@ -108,7 +110,7 @@ Attachment::Attachment(const ::org::invenireaude::qsystem::workers::Connection* 
 	ptrSHMQueueData = attachSHM(strSHMName+".q",getShared()->shmQueueData.pAddress);
 
 	TheMMQueueData=
-			IAS_DFT_FACTORY< SimpleListMemoryManager >::Create(getShared()->shmQueueData.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::Create(getShared()->shmQueueData.pAddress,
 					getShared()->shmQueueData.iSize);
 
 
@@ -120,7 +122,7 @@ Attachment::Attachment(const ::org::invenireaude::qsystem::workers::Connection* 
 	ptrSHMApplicationData = attachSHM(strSHMName+".a",getShared()->shmApplicationData.pAddress);
 
 	TheMMApplicationData=
-			IAS_DFT_FACTORY< PowerOfTwoMemoryManager >::Create(getShared()->shmApplicationData.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::PowerOfTwoMemoryManager >::Create(getShared()->shmApplicationData.pAddress,
 					getShared()->shmApplicationData.iSize);
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"**");
@@ -169,7 +171,7 @@ Attachment::Attachment(::org::invenireaude::qsystem::Ext::SystemPtr dmAttachment
 	getShared()->shmSystemHeap.iSize=ptrSHMSystemHeap->getSize();
 
 	TheMMSystemHeap=
-			IAS_DFT_FACTORY< SimpleListMemoryManager >::Create(getShared()->shmSystemHeap.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::Create(getShared()->shmSystemHeap.pAddress,
 													   	   	   getShared()->shmSystemHeap.iSize);
 
 
@@ -183,7 +185,7 @@ Attachment::Attachment(::org::invenireaude::qsystem::Ext::SystemPtr dmAttachment
 	getShared()->shmQueueData.iSize=ptrSHMQueueData->getSize();
 
 	TheMMQueueData=
-			IAS_DFT_FACTORY< SimpleListMemoryManager >::Create(getShared()->shmQueueData.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::SimpleListMemoryManager >::Create(getShared()->shmQueueData.pAddress,
 					getShared()->shmQueueData.iSize);
 
 
@@ -196,7 +198,7 @@ Attachment::Attachment(::org::invenireaude::qsystem::Ext::SystemPtr dmAttachment
 	getShared()->shmApplicationData.iSize=ptrSHMApplicationData->getSize();
 
 	TheMMApplicationData=
-			IAS_DFT_FACTORY< PowerOfTwoMemoryManager >::Create(getShared()->shmApplicationData.pAddress,
+			IAS_DFT_FACTORY< SHM::MM::PowerOfTwoMemoryManager >::Create(getShared()->shmApplicationData.pAddress,
 					getShared()->shmApplicationData.iSize);
 
 
@@ -425,10 +427,12 @@ stats::Ext::SystemStatsPtr Attachment::getStats(bool bReset){
 	stats::Ext::SystemStatsPtr dmAttachment(stats::DataFactory::GetInstance()->createSystemStats());
 
 	dmAttachment->setName(getShared()->sName);
-	//TODO (L) Memory info
-	//TheMMSystemHeap->printToStream(os);
-	//TheMMQueueData->printToStream(os);
-	//TheMMApplicationData->printToStream(os);
+
+  dmAttachment->createMemory();
+
+  dmAttachment->getMemory()->setSystemHeap(TheMMSystemHeap->getStatistics());
+  dmAttachment->getMemory()->setQueueData(TheMMQueueData->getStatistics());
+  dmAttachment->getMemory()->setApplicationData(TheMMApplicationData->getStatistics());
 
 	for(Shared::QueueTable::Iterator it = getQueueTable()->begin(Shared::Queue::QM_Topic);
 			it != getQueueTable()->end(); it++) {

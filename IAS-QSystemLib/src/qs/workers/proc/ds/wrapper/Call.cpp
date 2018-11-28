@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/ds/wrapper/Call.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,6 +41,9 @@ Call::Call(::IAS::DS::API::Session* pSession,
 	IAS_TRACER;
 
 	bool bIsFunction = false;
+  bool bClosePar   = false;
+
+  const IAS::DS::API::SQLTricks* pSQLTricks = pSession->getSQLTricks();
 
 	ptrCall=pSession->createCall();
 
@@ -59,9 +62,7 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 		pLexer->nextToken();
 
-	}else{
-		strSQLText = "CALL ";
-	};
+	}
 
 	pLexer->assetToken(Lexer::T_SYMBOL);
 
@@ -89,6 +90,7 @@ Call::Call(::IAS::DS::API::Session* pSession,
 			pLexer->nextToken();
 		}else{
 			strSQLText+="(";
+      bClosePar = true;
 		}
 
 		pLexer->assetToken(Lexer::T_SYMBOL);
@@ -99,7 +101,7 @@ Call::Call(::IAS::DS::API::Session* pSession,
 		iToken=pLexer->nextToken();
 		SettersTable::Mode iMode;
 
-		switch(iToken){strSQLText+='"';
+		switch(iToken){
 
 			case Lexer::T_ARROW:
 				iMode=SettersTable::M_INPUT;
@@ -117,22 +119,19 @@ Call::Call(::IAS::DS::API::Session* pSession,
 			IAS_THROW(ParseException(String("Expected => / <= / <> , got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
 		}
 
-		String strTag(tabInputSetters.addXPath(strXPath,iMode));
+    String strTag(tabInputSetters.addXPath(strXPath,iMode));
 
-		if(iCount++)
-			strSQLText+=", ";
+    if(!(pSQLTricks->skipFunctionOutputParameters() && iMode == SettersTable::M_OUTPUT)){
 
-		if(bQuote)
-			strSQLText+='"';
+		  if(iCount++)
+			  strSQLText+=", ";
 
-		strSQLText+=strTag;
-
-		if(bQuote)
-			strSQLText+='"';
+  		  strSQLText+=strTag;
+    }
 
 	}
 
-	if(iCount)
+	if(bClosePar)
 		strSQLText += ")";
 
 	iToken=pLexer->nextToken();
@@ -143,7 +142,11 @@ Call::Call(::IAS::DS::API::Session* pSession,
 	if(iToken != Lexer::T_END)
 		IAS_THROW(ParseException(String("Expected end of input, got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
 
-	ptrCall->setSQLText(strSQLText);
+  if(bIsFunction)
+    ptrCall->setSQLText(pSQLTricks->makeFunctionCall(strSQLText));
+  else
+    ptrCall->setSQLText(pSQLTricks->makeProcedureCall(strSQLText));
+
 	ptrCall->prepare();
 
 	tabInputSetters.bindIO(ptrCall);

@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/ds/api/Session.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,6 +29,8 @@ class StatementSelect;
 class StatementDelete;
 class StatementUpdate;
 class StatementCall;
+class SQLTricks;
+
 /*************************************************************************/
 /** The Session class.
  *
@@ -53,7 +55,8 @@ public:
 		SM_XAManaged
 	};
 
-	virtual TransactionMode getMode()const=0;
+	virtual TransactionMode  getMode()const=0;
+  virtual const SQLTricks* getSQLTricks()const=0;
 
 	typedef IAS_DFT_FACTORY<Session>::PtrHolder PtrHolder;
 };

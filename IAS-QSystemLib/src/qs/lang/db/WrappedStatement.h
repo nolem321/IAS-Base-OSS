@@ -51,6 +51,10 @@ protected:
 	String strDataSource;
   String strDataSourceIdx;
 
+  static const String C_ENV_VERIFY_SQL;
+
+  void verifySQL();
+
 	friend class ::IAS::Factory<WrappedStatement>;
 };
 

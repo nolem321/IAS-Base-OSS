@@ -1,4 +1,4 @@
-#Mon Jul 16 09:41:17 CEST 2018
+#Wed Nov 28 00:35:06 CET 2018
 FILES+=ds/api/Environment
 FILES+=ds/api/exception/ConstraintViolationException
 FILES+=ds/api/exception/ParseErrorException
@@ -6,6 +6,7 @@ FILES+=ds/api/exception/RuntimeException
 FILES+=ds/Impl/Connection
 FILES+=ds/Impl/Environment
 FILES+=ds/Impl/Session
+FILES+=ds/Impl/SQLTricks
 FILES+=ds/Impl/System
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/qsystem/DataObjects
@@ -162,6 +163,8 @@ FILES+=qs/Impl/shm/Controller
 FILES+=qs/Impl/shm/Distributor
 FILES+=qs/Impl/shm/Manageable
 FILES+=qs/Impl/shm/Message
+FILES+=qs/Impl/shm/mm/PowerOfTwoMemoryManager
+FILES+=qs/Impl/shm/mm/SimpleListMemoryManager
 FILES+=qs/Impl/shm/Producer
 FILES+=qs/Impl/shm/Publisher
 FILES+=qs/Impl/shm/Receiver
@@ -209,6 +212,7 @@ FILES+=qs/lang/li/GetTypeInfo
 FILES+=qs/lang/li/GetTypes
 FILES+=qs/lang/li/ModuleProxy
 FILES+=qs/lang/msgs/GetNumMessages
+FILES+=qs/lang/msgs/GetStatistics
 FILES+=qs/lang/msgs/MessagePreview
 FILES+=qs/lang/msgs/ModuleProxy
 FILES+=qs/lang/msgs/Receive
