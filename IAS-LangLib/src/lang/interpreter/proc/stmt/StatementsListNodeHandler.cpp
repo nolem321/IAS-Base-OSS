@@ -35,6 +35,8 @@ namespace Interpreter{
 namespace Proc {
 namespace Stmt {
 
+const String StatementsListNodeHandler::C_ENV_NO_SRC_IN_DBG("IAS_LANG_NOSRCDBG");
+
 /*************************************************************************/
 StatementsListNodeHandler::StatementsListNodeHandler(){
 	IAS_TRACER;
@@ -93,8 +95,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 			ptrExeStatementList->addStatement(aSubCallResult.pStatement);
 
-			//TODO (M) conditional ctx->bIncludeSource
-			if(true){
+			if(!EnvTools::GetBooleanEnv(C_ENV_NO_SRC_IN_DBG)){
 				StringStream ssOutput;
 				Printer::CallbackRegister::Call(pStatementNode,ssOutput);
 				aSubCallResult.pStatement->setSource(ssOutput.str());
