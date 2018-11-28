@@ -129,14 +129,15 @@ void WrappedStatement::verifySQL(const DM::Type* pType){
     strSQL2Verify = TypeTools::Replace(strSQL2Verify,"\tIN\t"," = ");
     strSQL2Verify = TypeTools::Replace(strSQL2Verify,"[*]","[0]");
 
+ 	  DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
+
     try{
-  	  DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
   	  DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSQL2Verify, dmFakeObject.getPointer(), true),pDriver);
-      pWorkContext->rollback();
     }catch(Exception& e){
-      pWorkContext->rollback();
       IAS_THROW(BadUsageException("SQL preverification failed:"+e.toString()));
     }
+
+    pDriver->getSession()->rollback();
 }
 /*************************************************************************/
 Extern::Statement* WrappedStatement::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
