@@ -66,7 +66,7 @@ WrappedStatement::WrappedStatement(const DM::Type* pType, const StringList& lstP
     strDataSourceIdx=*it++;
 
   if(EnvTools::GetBooleanEnv(C_ENV_VERIFY_SQL))
-    verifySQL();
+    verifySQL(pType);
 
 }
 /*************************************************************************/
@@ -117,16 +117,22 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-void WrappedStatement::verifySQL(){
+void WrappedStatement::verifySQL(const DM::Type* pType){
     IAS_TRACER;
 
-    return ;
-    // TODO type of program signature;
+    DM::DataObjectPtr dmFakeObject(pType->createDataObject());
+    // Remove optionals
     String strSQL2Verify(TypeTools::Replace(strSpecification,"?",""));
- 	  // DM::DataObjectPtr dmParameters;
-    // dmParameters = pModuleProxy->getDataFactory()->getType("IAS/Script/T1","RootType")->createDataObject();
-  	// DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
-  	// DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmParameters.getPointer()),pDriver);
+    // Change 'IN' to '=' on the first array element.
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify," IN "," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"[*]","[0]");
+
+    try{
+  	  DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
+  	  DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSQL2Verify, dmFakeObject.getPointer()),pDriver);
+    }catch(Exception& e){
+      IAS_THROW(BadUsageException("SQL preverification failed:"+e.toString()));
+    }
 }
 /*************************************************************************/
 Extern::Statement* WrappedStatement::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){

@@ -53,7 +53,7 @@ protected:
 
   static const String C_ENV_VERIFY_SQL;
 
-  void verifySQL();
+  void verifySQL(const DM::Type* pType);
 
 	friend class ::IAS::Factory<WrappedStatement>;
 };
