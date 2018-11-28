@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/extern/std/Power.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Power::Power(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+Power::Power(const DM::Type* pType, const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -54,9 +54,9 @@ void Power::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* Power::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+Statement* Power::Create(const DM::Type* pType, const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Power>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<Power>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

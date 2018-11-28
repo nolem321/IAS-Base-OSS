@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/extern/ModuleProxy.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,10 @@ public:
 	void setup(const DM::DataFactory* pDataFactory);
 
 
-	::IAS::Lang::Interpreter::Extern::Statement *createStatement(const String& strSymbol,
-	 			 	   	   	   	   	   	   	   	                 const StringList& lstParameters);
+	::IAS::Lang::Interpreter::Extern::Statement *createStatement(
+    const DM::Type *pType,
+    const String& strSymbol,
+	 	const StringList& lstParameters);
 
 	void cleanUp();
 
@@ -49,7 +51,7 @@ public:
 protected:
 	ModuleProxy();
 
-	typedef ::IAS::Lang::Interpreter::Extern::Statement* (*StatementFactoryPtr)(const StringList& lstParameters, const ModuleProxy* pModuleProxy);
+	typedef ::IAS::Lang::Interpreter::Extern::Statement* (*StatementFactoryPtr)(const DM::Type* pType, const StringList& lstParameters, const ModuleProxy* pModuleProxy);
 
 private:
 	const DM::DataFactory* pDataFactory;
