@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/proc/ExecStore.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -237,13 +237,17 @@ void ExecStore::buildExecutable(const Model::ProgramNode* pProgramNode){
 		StringStream ssInfo;
 		ssInfo<<"Executable build failed: \n"<<pModel->resolve(e.getSourceLocation().getSourceID())
 				<<":"<<e.getSourceLocation().getLineNumber()<<"\t";
+
+    StringStream ssSourceText;
 		try{
-			Printer::CallbackRegister::Call(e.getNode(),ssInfo);
+			Printer::CallbackRegister::Call(e.getNode(),ssSourceText);
 		}catch(Exception& e){
 			std::cerr<<"Printer is not up to date !!!";
 			e.printToStream(std::cerr);
 		}
-		ssInfo<<"\n";
+
+		ssInfo<<ssSourceText.str().substr(0,120)<<std::endl;
+
 		e.printToStream(ssInfo);
 		IAS_THROW(ProcessorException(ssInfo.str()));
 

@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/printer/CallbackRegister.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,6 +26,7 @@
 #include "StandardProgramNodeHandler.h"
 
 #include "dec/DeclarationNodeHandler.h"
+#include "dec/ResultDeclarationNodeHandler.h"
 #include "dec/ParametersNodeHandler.h"
 #include "dec/QualifiedNameNodeHandler.h"
 #include "dec/TypeDefinitionNodeHandler.h"
@@ -124,6 +125,7 @@ void CallbackRegister::init(){
 	registerCallback<Model::Dec::DeclarationNode>(IAS_DFT_FACTORY<Dec::DeclarationNodeHandler>::Create());
 	registerCallback<Model::Dec::ParametersNode>(IAS_DFT_FACTORY<Dec::ParametersNodeHandler>::Create());
 	registerCallback<Model::Dec::QualifiedNameNode>(IAS_DFT_FACTORY<Dec::QualifiedNameNodeHandler>::Create());
+  registerCallback<Model::Dec::ResultDeclarationNode>(IAS_DFT_FACTORY<Dec::ResultDeclarationNodeHandler>::Create());
 	registerCallback<Model::Dec::TypeDefinitionNode>(IAS_DFT_FACTORY<Dec::TypeDefinitionNodeHandler>::Create());
 
 	registerCallback<Model::Expr::CastNode>(IAS_DFT_FACTORY<Expr::CastNodeHandler>::Create());

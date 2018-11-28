@@ -24,6 +24,9 @@
 #include "CallbackRegister.h"
 #include "ExecStore.h"
 
+#include "exception/ProcessorLinkedException.h"
+
+
 #include <lang/interpreter/exe/dec/Parameters.h>
 #include <lang/interpreter/exe/Program.h>
 #include <lang/interpreter/exe/stmt/Statement.h>
@@ -72,10 +75,14 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode,
 
 	pCtx->getExecStore()->registerExecutable(pExternalProgramNode, pProgram);
 
-	pProgram->setStatement(pModule->createStatement(
+  try{
+	  pProgram->setStatement(pModule->createStatement(
                           pProgram->getParameters()->getType(),
                           pExternalProgramNode->getSymbol(),
 													pExternalProgramNode->getParameters()));
+	}catch(Exception& e){
+			IAS_THROW(ProcessorLinkedException(e, pExternalProgramNode->getSourceLocation(), pExternalProgramNode));
+	}
 
 	pProgram->setSourceAndName(pExternalProgramNode->getQualifiedNameNode()->getQualifiedName(),
 							   pCtx->getExecStore()->getModel()->resolve(pExternalProgramNode->getSourceLocation().getSourceID()));
