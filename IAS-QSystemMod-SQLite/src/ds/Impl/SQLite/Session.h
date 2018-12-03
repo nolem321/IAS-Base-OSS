@@ -42,6 +42,7 @@ public:
 
 	virtual API::StatementInsert*   createInsert();
 	virtual API::StatementCall*     createCall();
+  virtual API::StatementFunCall*  createFunCall();
 	virtual API::StatementSelect*   createSelect();
 	virtual API::StatementDelete*   createDelete();
 	virtual API::StatementUpdate*   createUpdate();

@@ -78,6 +78,10 @@ API::StatementCall*  Session::createCall(){
 	IAS_THROW(SQLiteException("Stored procedures are not available in SQLite."));
 }
 /*************************************************************************/
+API::StatementFunCall*  Session::createFunCall(){
+	IAS_THROW(SQLiteException("Stored procedures are not available in SQLite."));
+}
+/*************************************************************************/
 API::StatementSelect*  Session::createSelect(){
 	return IAS_DFT_FACTORY<SQLite::StatementSelect>::Create(this);
 }
