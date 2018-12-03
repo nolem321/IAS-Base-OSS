@@ -17,3 +17,4 @@ IAS-QSystemMod-DB2
 IAS-QSystemMod-Oracle
 IAS-QSystemMod-WMQ
 IAS-QSystemFmt-MQPCF
+IAS-QSystemMod-PostgreSQL
