@@ -33,6 +33,11 @@ namespace DS {
 namespace Impl {
 namespace PostgreSQL {
 
+
+const String& Connection::CDFmtTime("%H:%M:%S%F%Z");
+const String& Connection::CDFmtDateTime("%Y-%m-%d %H:%M:%S%F%Z");
+const String& Connection::CDFmtDate("%Y-%m-%d");
+
 /*************************************************************************/
 Connection::Connection(PostgreSQL::System* pSystem,
 		const ::org::invenireaude::qsystem::workers::ds::Parameter* dmParameter):

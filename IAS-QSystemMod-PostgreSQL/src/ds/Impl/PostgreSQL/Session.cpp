@@ -22,6 +22,7 @@
 #include "Connection.h"
 #include "System.h"
 #include "StatementCall.h"
+#include "StatementFunCall.h"
 #include "StatementInsert.h"
 #include "StatementSelect.h"
 #include "StatementDelete.h"
@@ -97,6 +98,10 @@ API::StatementInsert*  Session::createInsert(){
 /*************************************************************************/
 API::StatementCall*  Session::createCall(){
 	return IAS_DFT_FACTORY<PostgreSQL::StatementCall>::Create(this);
+}
+/*************************************************************************/
+API::StatementFunCall*  Session::createFunCall(){
+	return IAS_DFT_FACTORY<PostgreSQL::StatementFunCall>::Create(this);
 }
 /*************************************************************************/
 API::StatementSelect*  Session::createSelect(){

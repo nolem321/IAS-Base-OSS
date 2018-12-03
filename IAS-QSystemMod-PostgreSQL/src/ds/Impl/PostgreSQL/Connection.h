@@ -22,10 +22,7 @@
 #include <ds/api/Connection.h>
 #include <ds/Impl/Connection.h>
 
-
-
 #include <org/invenireaude/qsystem/workers/ds/Parameter.h>
-
 
 namespace IAS {
 namespace DS {
@@ -51,6 +48,11 @@ public:
 	inline String getName()const {return dmParameter->getName();}
 
 	const ::org::invenireaude::qsystem::workers::ds::Parameter* getParameter()const{ return dmParameter; }
+
+  static const String& CDFmtTime;
+  static const String& CDFmtDate;
+  static const String& CDFmtDateTime;
+
 
 protected:
 	Connection(PostgreSQL::System* pSystem,

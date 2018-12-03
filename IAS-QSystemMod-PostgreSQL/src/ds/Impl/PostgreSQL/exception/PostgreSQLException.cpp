@@ -81,6 +81,11 @@ void PostgreSQLException::ThrowOnError(const String& strInfo, PGconn  *conn, PGr
 	if(PQresultStatus(res) == PGRES_COMMAND_OK)
 		return;
 
+  char *sConstraint = PQresultErrorField(res, PG_DIAG_CONSTRAINT_NAME);
+
+  if(sConstraint && *sConstraint)
+    IAS_THROW(ConstraintViolationException(sConstraint));
+
 	IAS_THROW(PostgreSQLException(strInfo + ", res="+TypeTools::IntToString(PQresultStatus(res)), conn));
 }
 /*************************************************************************/

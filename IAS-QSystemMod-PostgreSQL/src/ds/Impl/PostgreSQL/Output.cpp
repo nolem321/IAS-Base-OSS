@@ -22,7 +22,7 @@
 #include "Session.h"
 
 #include <qs/fmt/FmtFactory.h>
-
+#include "ValueConverter.h"
 
 namespace IAS {
 namespace DS {
@@ -62,22 +62,7 @@ void Output::fetch(DM::DataObjectPtr& dm){
     if((sValue = PQgetvalue(statement.getPGResult(), iCurrentRow, iIdx)) == NULL) {
 			(*it)->unset(dm);
 		}else{
-
-		  IAS_LOG(LogLevel::INSTANCE.isData(),"Fetch:["<<iIdx<<"]="<<sValue);
-
-		  if((*it)->getTargetTypeEnum() == DM::Type::DataObjectType ||
-		     (*it)->getTargetTypeEnum() == DM::Type::AnyType){
-
-			  DM::DataObjectPtr dmValue;
-			  QS::Fmt::Formatter *pFormatter = statement.getSession()->getFormatter();
-			  StringStream ssValue(sValue);
-			  pFormatter->read(dmValue,ssValue);
-
-			  (*it)->setDataObject(dm,dmValue);
-
-		  }else{
-		  	(*it)->setString(dm,sValue);
-		  }
+      ValueConverter::ConvertFromPostgreSQL(statement, (*it), dm, sValue);
     }
 
     iIdx++;

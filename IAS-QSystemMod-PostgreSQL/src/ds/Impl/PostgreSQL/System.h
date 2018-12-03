@@ -54,8 +54,6 @@ protected:
 
 	System();
 
-  IAS_DFT_FACTORY<SQLTricks>::PtrHolder ptrSQLTricks;
-
 	friend class Factory<System>;
 };
 /*************************************************************************/

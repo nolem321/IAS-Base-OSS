@@ -40,11 +40,11 @@ bool SQLTricks::skipFunctionOutputParameters()const{
 }
 /*************************************************************************/
 String SQLTricks::makeProcedureCall(const String& strSQLText)const{
-  return "SELECT " + strSQLText;
+  return "CALL " + strSQLText;
 }
 /*************************************************************************/
 String SQLTricks::makeFunctionCall(const String& strSQLText)const{
-  return ""+strSQLText;
+  return "SELECT " + strSQLText;
 }
 /*************************************************************************/
 }
