@@ -4,6 +4,7 @@ ARTIFACT_ALT_NAMES+=qsmod_sm.so
 #########################################################################
 DEP_PROJECTS+=IAS-CommonLib
 DEP_PROJECTS+=IAS-DataModelLib
+DEP_PROJECTS+=IAS-LangLib
 DEP_PROJECTS+=IAS-QSystemLib
 DEP_PROJECTS+=IAS-ServiceManagerLib
 #########################################################################
