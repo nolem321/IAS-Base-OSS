@@ -36,9 +36,6 @@ public:
 	virtual ~SQLTricks() throw();
 	virtual bool skipFunctionOutputParameters()const;
 
-  virtual String makeProcedureCall(const String& strSQLText)const;
-  virtual String makeFunctionCall(const String& strSQLText)const;
-
 protected:
 
 	SQLTricks();

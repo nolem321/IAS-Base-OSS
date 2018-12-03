@@ -42,27 +42,25 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	bool bIsFunction = false;
   bool bClosePar   = false;
+  String strFunctionResultXPath;
 
   const IAS::DS::API::SQLTricks* pSQLTricks = pSession->getSQLTricks();
-
-	ptrCall=pSession->createCall();
 
 	Lexer::Token iToken = pLexer->nextToken();
 
 	if(iToken == Lexer::T_INTO){
 
-		bIsFunction = true;
+    bIsFunction = true;
 
-		pLexer->assetNext(Lexer::T_SYMBOL);
-
-		String strXPath(pLexer->getXPathValue());
-		String strTag(tabInputSetters.addXPath(strXPath, SettersTable::M_OUTPUT));
-
-		strSQLText = "BEGIN " + strTag + " := ";
-
+    pLexer->assetNext(Lexer::T_SYMBOL);
+		strFunctionResultXPath = pLexer->getXPathValue();
 		pLexer->nextToken();
 
-	}
+    ptrCall = pSession->createFunCall();
+
+	}else{
+    ptrCall = pSession->createCall();
+  }
 
 	pLexer->assetToken(Lexer::T_SYMBOL);
 
@@ -121,7 +119,7 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
     String strTag(tabInputSetters.addXPath(strXPath,iMode));
 
-    if(!(pSQLTricks->skipFunctionOutputParameters() && iMode == SettersTable::M_OUTPUT)){
+    if(!(pSQLTricks->skipFunctionOutputParameters() && bIsFunction && iMode == SettersTable::M_OUTPUT)){
 
 		  if(iCount++)
 			  strSQLText+=", ";
@@ -136,16 +134,16 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	iToken=pLexer->nextToken();
 
-	if(bIsFunction)
-		strSQLText += "; END;";
-
 	if(iToken != Lexer::T_END)
 		IAS_THROW(ParseException(String("Expected end of input, got:")+TypeTools::IntToString(iToken),pLexer->getLine()));
 
-  if(bIsFunction)
-    ptrCall->setSQLText(pSQLTricks->makeFunctionCall(strSQLText));
-  else
-    ptrCall->setSQLText(pSQLTricks->makeProcedureCall(strSQLText));
+  if(bIsFunction){
+     String strTag(tabInputSetters.addXPath(strFunctionResultXPath, SettersTable::M_OUTPUT));
+     ptrCall->setSQLText(strSQLText);
+  }else{
+    ptrCall->setSQLText("CALL " + strSQLText);
+  }
+
 
 	ptrCall->prepare();
 

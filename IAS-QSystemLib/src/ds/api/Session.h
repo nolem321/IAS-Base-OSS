@@ -29,6 +29,7 @@ class StatementSelect;
 class StatementDelete;
 class StatementUpdate;
 class StatementCall;
+class StatementFunCall;
 class SQLTricks;
 
 /*************************************************************************/
@@ -42,6 +43,7 @@ public:
 
 	virtual StatementInsert*   createInsert()=0;
 	virtual StatementCall*     createCall()=0;
+  virtual StatementFunCall*  createFunCall()=0;
 	virtual StatementSelect*   createSelect()=0;
 	virtual StatementDelete*   createDelete()=0;
 	virtual StatementUpdate*   createUpdate()=0;

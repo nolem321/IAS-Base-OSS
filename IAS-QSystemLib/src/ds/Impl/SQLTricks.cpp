@@ -39,14 +39,6 @@ bool SQLTricks::skipFunctionOutputParameters()const{
 	return false;
 }
 /*************************************************************************/
-String SQLTricks::makeProcedureCall(const String& strSQLText)const{
-  return "CALL " + strSQLText;
-}
-/*************************************************************************/
-String SQLTricks::makeFunctionCall(const String& strSQLText)const{
-  return "" + strSQLText;
-}
-/*************************************************************************/
 
 }
 }

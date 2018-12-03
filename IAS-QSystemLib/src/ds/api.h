@@ -32,7 +32,9 @@
 #include "api/StatementSelect.h"
 #include "api/StatementInsert.h"
 #include "api/StatementCall.h"
+#include "api/StatementFunCall.h"
 #include "api/StatementDelete.h"
 #include "api/StatementUpdate.h"
 
 #endif /* API_H_ */
+

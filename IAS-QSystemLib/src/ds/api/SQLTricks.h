@@ -38,10 +38,7 @@ public:
 	virtual ~SQLTricks() throw(){};
 
 	virtual bool skipFunctionOutputParameters()const=0;
-  virtual String makeProcedureCall(const String& strSQLText)const=0;
-  virtual String makeFunctionCall(const String& strSQLText)const=0;
 
-	typedef IAS_DFT_FACTORY<SQLTricks>::PtrHolder PtrHolder;
 };
 /*************************************************************************/
 }
