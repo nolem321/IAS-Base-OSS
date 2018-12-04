@@ -3,7 +3,6 @@ IAS-CommonLib
 IAS-DataModelLib
 IAS-DataModelLib-CodeGen
 IAS-LangLib
-IAS-LangMod-SysMon
 IAS-QSystemLib
 IAS-QSystemMod-SQLite
 IAS-QSystemMod-FCGI
@@ -12,6 +11,7 @@ IAS-QSystemFmt-SOAP
 IAS-QSystemExe
 IAS-ServiceManagerLib
 IAS-ServiceManagerExe
+IAS-LangMod-SysMon
 IAS-QSystemMod-ServiceManager
 IAS-QSystemMod-DB2
 IAS-QSystemMod-Oracle
