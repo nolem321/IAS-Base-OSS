@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/lang/msgs/MessagePreview.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,7 +41,7 @@
 
 #include <org/invenireaude/qsystem/service/Message.h>
 #include <org/invenireaude/qsystem/service/PreviewMessagesWindow.h>
-#include <org/invenireaude/qsystem/service/PreviewMessagesSelection.h>
+#include <org/invenireaude/qsystem/service/PreviewMessagesSelector.h>
 #include <org/invenireaude/qsystem/service/PreviewMessagesStatus.h>
 #include <org/invenireaude/qsystem/service/PreviewMessages.h>
 #include <org/invenireaude/qsystem/service/DataFactory.h>
@@ -60,7 +60,7 @@ namespace Lang {
 namespace Msgs {
 
 /*************************************************************************/
-MessagePreview::MessagePreview(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+MessagePreview::MessagePreview(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 }
@@ -86,14 +86,14 @@ void MessagePreview::browse(DM::DataObject* pParameters) const {
 		IAS_THROW(BadUsageException(String("Bad request:") + e.toString()));
 	}
 
-	if (!dmPreviewMessages->isSetSelection()
-			|| !dmPreviewMessages->getSelection()->isSetDestination()
-		    || !dmPreviewMessages->getSelection()->isSetConnectionAlias()) {
+	if (!dmPreviewMessages->isSetSelector()
+			|| !dmPreviewMessages->getSelector()->isSetDestination()
+		    || !dmPreviewMessages->getSelector()->isSetConnectionAlias()) {
 		IAS_THROW(BadUsageException("Missing request parameters"));
 	}
 
 	String strURI("registry://");
-	strURI += dmPreviewMessages->getSelection()->getConnectionAlias();
+	strURI += dmPreviewMessages->getSelector()->getConnectionAlias();
 
 	URI uri(strURI);
 
@@ -101,7 +101,7 @@ void MessagePreview::browse(DM::DataObject* pParameters) const {
 	IO::IOFactory::UpdateConnection(uri,dmBrowserParameters->createConnection());
 
 
-	dmBrowserParameters->setDestination(dmPreviewMessages->getSelection()->getDestination());
+	dmBrowserParameters->setDestination(dmPreviewMessages->getSelector()->getDestination());
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Destination: "<<dmBrowserParameters->getDestination());
 
@@ -112,13 +112,13 @@ void MessagePreview::browse(DM::DataObject* pParameters) const {
 	unsigned int iPageSize = C_MaxPage;
 	size_t       iMsgSizeLimit = C_DftMsgSizeLimit;
 
-	if (dmPreviewMessages->getSelection()->isSetMsgSizeLimit())
-		iMsgSizeLimit = dmPreviewMessages->getSelection()->
+	if (dmPreviewMessages->getSelector()->isSetMsgSizeLimit())
+		iMsgSizeLimit = dmPreviewMessages->getSelector()->
 				getMsgSizeLimit();
 
-	if (dmPreviewMessages->getSelection()->isSetWindow()) {
+	if (dmPreviewMessages->getSelector()->isSetWindow()) {
 		const service::PreviewMessagesWindow* pWindow =
-				dmPreviewMessages->getSelection()->getWindow();
+				dmPreviewMessages->getSelector()->getWindow();
 		if (pWindow->isSetPageOffset())
 			iOffset = pWindow->getPageOffset();
 
@@ -200,9 +200,9 @@ void MessagePreview::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* MessagePreview::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+Extern::Statement* MessagePreview::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<MessagePreview>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<MessagePreview>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

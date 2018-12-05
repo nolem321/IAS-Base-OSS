@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemMod-SQLite/src/ds/Impl/SQLite/Session.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,17 +38,13 @@ namespace SQLite {
 
 /*************************************************************************/
 Session::Session(Connection* pConnection):
+  Impl::Session(pConnection),
 	pConnection(pConnection),
 	db(0){
 	IAS_TRACER;
 	IAS_CHECK_IF_NULL(pConnection);
 
 	String strConnection(EnvTools::Substitute(pConnection->getParameter()->getConnection()->getLocation()));
-
-	String strFormatter("JSON");
-
-	if(pConnection->getParameter()->isSetObjectFormatter())
-		strFormatter=pConnection->getParameter()->getObjectFormatter();
 
 	int rc = sqlite3_open(strConnection.c_str(),&db);
 
@@ -61,10 +57,6 @@ Session::Session(Connection* pConnection):
 
 	SQLiteException::ThrowOnError(pConnection->getName(),rc);
 
-
-	IAS_LOG(LogLevel::INSTANCE.isInfo(),"Fmt:["<<strFormatter<<"]");
-
-	pFormatter=pConnection->getSystem()->getFmtFactory()->getFormatter(strFormatter);
 
 }
 /*************************************************************************/
@@ -83,6 +75,10 @@ API::StatementInsert*  Session::createInsert(){
 }
 /*************************************************************************/
 API::StatementCall*  Session::createCall(){
+	IAS_THROW(SQLiteException("Stored procedures are not available in SQLite."));
+}
+/*************************************************************************/
+API::StatementFunCall*  Session::createFunCall(){
 	IAS_THROW(SQLiteException("Stored procedures are not available in SQLite."));
 }
 /*************************************************************************/

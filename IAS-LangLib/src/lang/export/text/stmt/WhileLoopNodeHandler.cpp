@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/export/text/stmt/WhileLoopNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,8 +51,11 @@ void WhileLoopNodeHandler::call(const Model::Node* pNode,
 	const Model::Stmt::StatementNode   *pStatementNode = pWhileLoopNode->getStatementNode();
 
 	printKeyword(aResult,"WHILE");
+  aResult.ssOutput<<" ";
 	CallbackRegister::SubCall(pExprNode,pCtx,aResult);
-	printKeyword(aResult,"DO\n");
+   aResult.ssOutput<<" ";
+	printKeyword(aResult,"DO");
+   aResult.ssOutput<<std::endl;
 	pCtx->iIndent++;
 	CallbackRegister::SubCall(pStatementNode,pCtx,aResult);
 	pCtx->iIndent--;

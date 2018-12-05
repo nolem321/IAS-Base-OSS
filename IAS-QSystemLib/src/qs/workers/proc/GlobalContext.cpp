@@ -1,15 +1,15 @@
 /*
 
  * File: IAS-QSystemLib/src/qs/workers/proc/GlobalContext.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,6 +41,7 @@
 #include "stats/PublisherStore.h"
 
 #include "dict/DictionaryStore.h"
+#include "task/WaitingRoom.h"
 
 #include "mode/ControllerFactory.h"
 #include "mode/Controller.h"
@@ -103,6 +104,9 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 	ptrCacheStore = IAS_DFT_FACTORY<Cache::CacheStore>::Create();
 
 	ptrEventCounterStore = IAS_DFT_FACTORY<EC::EventCounterStore>::Create();
+
+	ptrWaitingRoom = IAS_DFT_FACTORY<Task::WaitingRoom>::Create(this);
+
 
 	InstanceFeature< ::IAS::DS::Impl::Environment>::GetInstance()->
 		setFmtFactory(IAS_DFT_FACTORY<Fmt::FmtFactory>::Create(ptrDataFactory));
@@ -174,6 +178,8 @@ void GlobalContext::loadXSD(){
 		}
 	}
 
+	//IAS::DM::Impl::MemoryManager::GetInstance()->PrintToStream(std::cout);
+	//IAS::MemoryManager::GetInstance()->printToStream(std::cout);
 }
 /*************************************************************************/
 const ::IAS::DM::DataFactory *GlobalContext::getDataFactory()const{
@@ -194,10 +200,18 @@ bool GlobalContext::allDone(){
 	return true;
 }
 /*************************************************************************/
-void GlobalContext::abort(){
+void GlobalContext::abort(bool bImmediate){
 	IAS_TRACER;
 	Mutex::Locker locker(mutex);
     bAbort=true;
+    if(bImmediate)
+    	SYS::Signal::SignalHandler(15);
+}
+/*************************************************************************/
+bool GlobalContext::isAborted(){
+	IAS_TRACER;
+	Mutex::Locker locker(mutex);
+    return bAbort;
 }
 /*************************************************************************/
 void GlobalContext::getProgress(unsigned int& iMsgLeft, unsigned int& iMsgTotal){
@@ -221,6 +235,11 @@ Logic::LogicFactory* GlobalContext::getLogicFactory() const{
 Dict::DictionaryStore* GlobalContext::getDictionaryStore() const{
 	IAS_TRACER;
 	return ptrDictionaryStore;
+}
+/*************************************************************************/
+Task::WaitingRoom*       GlobalContext::getWaitingRoom() const{
+	IAS_TRACER;
+	return ptrWaitingRoom;
 }
 /*************************************************************************/
 Cache::CacheStore* GlobalContext::getCacheStore() const{

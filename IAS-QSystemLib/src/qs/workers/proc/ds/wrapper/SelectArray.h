@@ -71,7 +71,7 @@ protected:
 		typedef ::IAS::MemoryManagerFactory<ResultSetSettersTableWithOffset, StaticCastOperator<ResultSetSettersTableWithOffset> > EntryFactory;
 
 		typedef HashMapStringToPointer<ResultSetSettersTableWithOffset,
-									   ::IAS::MemoryManagerFactory< std::pair<String, ResultSetSettersTableWithOffset*> >,
+									   ::IAS::MemoryManagerFactory< std::pair<const String, ResultSetSettersTableWithOffset*> >,
 										EntryFactory > EntriesMap;
 
 		void bind(::IAS::DS::API::IResultSetOutput* pResultSetOutput);

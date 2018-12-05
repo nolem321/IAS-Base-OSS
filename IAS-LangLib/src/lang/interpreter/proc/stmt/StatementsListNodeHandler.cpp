@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/proc/stmt/StatementsListNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,8 @@ namespace Lang {
 namespace Interpreter{
 namespace Proc {
 namespace Stmt {
+
+const String StatementsListNodeHandler::C_ENV_NO_SRC_IN_DBG("IAS_LANG_NOSRCDBG");
 
 /*************************************************************************/
 StatementsListNodeHandler::StatementsListNodeHandler(){
@@ -93,8 +95,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 			ptrExeStatementList->addStatement(aSubCallResult.pStatement);
 
-			//TODO (M) conditional ctx->bIncludeSource
-			if(true){
+			if(!EnvTools::GetBooleanEnv(C_ENV_NO_SRC_IN_DBG)){
 				StringStream ssOutput;
 				Printer::CallbackRegister::Call(pStatementNode,ssOutput);
 				aSubCallResult.pStatement->setSource(ssOutput.str());
@@ -103,6 +104,8 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 			itStatements++;
 
+    }catch(ProcessorLinkedException& e){
+			throw e;
 		}catch(Exception& e){
 			IAS_THROW(ProcessorLinkedException(e,(*itStatements)->getSourceLocation(),*itStatements));
 		}

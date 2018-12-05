@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemExe/src/ias_qs_change.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,16 +19,20 @@
 #include "parameters/ChangeParameters.h"
 #include "qs/api.h"
 #include "qs/Impl/shm/Administrator.h"
+#include <org/invenireaude/lang/builtin/DataFactory.h>
+
 
 using namespace IAS;
 using namespace QS;
 using namespace API;
 using namespace Parameters;
+using namespace org::invenireaude::lang;
 
 int main(int argc, char* argv[]) {
 	IAS_TRACER;
 	IAS::Logger::GetInstance();
 
+   builtin::DataFactory::GetInstance()->getContaingDataFactory();
 
 	try {
 

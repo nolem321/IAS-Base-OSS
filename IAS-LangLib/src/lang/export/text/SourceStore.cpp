@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/export/json/SourceStore.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,6 +78,13 @@ String SourceStore::exportDeclaration(const ::IAS::Lang::Model::ProgramNode* pPr
     }
 
 	return  hmExportSources[pProgramNode].strDeclaration;
+}
+/*************************************************************************/
+String SourceStore::getExportedNamespace(const String& strNamespace)const{
+  IAS_TRACER;
+  String strResult(strNamespace);
+  pModel->getNamespaceAlias(strNamespace, strResult);
+  return strResult;
 }
 /*************************************************************************/
 void SourceStore::build(const Model::ProgramNode* pProgramNode) {

@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/fmt/TemplateFormatter.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,7 +71,7 @@ void TemplateFormatter::write(const DM::DataObject* dmData,
 
 	const Template* pTemplate(getTemplate(pAttributes, dmData));
 
-	Tools::Template::Arguments args(dmData);
+  Tools::Template::Arguments args(dmData);
 	pTemplate->evaluate(args,ostream);
 
 	tsrSerialization.addSample(ts);
@@ -86,6 +86,11 @@ const Tools::Template* TemplateFormatter::tryTemplate(const String& strName) {
 	if(hmTemplates.count(strName) == 0){
 
 	bool bFound = false;
+
+
+  if(lstTemplateDirectories.size() == 0){
+    IAS_THROW(ItemNotFoundException("No template path, set "+TemplateFormatter::CEnvTemplateDir));
+  }
 
 	for (StringList::const_iterator it = lstTemplateDirectories.begin();
 			!bFound && it != lstTemplateDirectories.end(); it++) {

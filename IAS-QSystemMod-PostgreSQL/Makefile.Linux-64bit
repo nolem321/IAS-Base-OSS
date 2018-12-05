@@ -1,2 +1,2 @@
-INCS+=-I/usr/local/pgsql/include
+CPPFLAGS+=-I/usr/pgsql-11/include
 LNLIBS+=-lpq

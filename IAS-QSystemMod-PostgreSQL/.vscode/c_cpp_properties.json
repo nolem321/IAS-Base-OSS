@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/../IAS-CommonLib/src",
+                "${workspaceFolder}/../IAS-DataModelLib/src",
+                "${workspaceFolder}/../IAS-LangLib/src",
+                "${workspaceFolder}/../IAS-QSystemLib/src",
+                "/usr/pgsql-11/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

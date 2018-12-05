@@ -39,10 +39,12 @@ Angle::Angle(const Angle& other){
 Angle& Angle::operator=(const Angle& other){
 	fWrap=other.fWrap;
 	set(other.fAngle);
+	return *this;
 
 }
 Angle& Angle::operator=(const Float& fAngle){
 	set(fAngle);
+	return *this;
 }
 
 void Angle::set(const Float& fAngle){

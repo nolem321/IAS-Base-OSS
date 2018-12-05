@@ -1,4 +1,4 @@
-#Fri Feb  9 09:04:42 CET 2018
+#Wed Nov 28 19:38:25 CET 2018
 FILES+=Impl/DataFactory
 FILES+=Impl/org/invenireaude/lang/builtin/DataObjects
 FILES+=lang/exception/ParseErrorException
@@ -222,10 +222,13 @@ FILES+=lang/interpreter/extern/std/GetTimeFormated
 FILES+=lang/interpreter/extern/std/GetYear
 FILES+=lang/interpreter/extern/std/HexToBinary
 FILES+=lang/interpreter/extern/std/Load
+FILES+=lang/interpreter/extern/std/Log
 FILES+=lang/interpreter/extern/std/ModifyDate
 FILES+=lang/interpreter/extern/std/ModifyTime
+FILES+=lang/interpreter/extern/std/Power
 FILES+=lang/interpreter/extern/std/ReadCertificate
 FILES+=lang/interpreter/extern/std/Replace
+FILES+=lang/interpreter/extern/std/ReplaceRegExp
 FILES+=lang/interpreter/extern/std/Save
 FILES+=lang/interpreter/extern/std/Sign
 FILES+=lang/interpreter/extern/std/StandardModuleProxy
@@ -400,6 +403,7 @@ FILES+=lang/printer/CallbackSignature
 FILES+=lang/printer/dec/DeclarationNodeHandler
 FILES+=lang/printer/dec/ParametersNodeHandler
 FILES+=lang/printer/dec/QualifiedNameNodeHandler
+FILES+=lang/printer/dec/ResultDeclarationNodeHandler
 FILES+=lang/printer/dec/TypeDefinitionNodeHandler
 FILES+=lang/printer/expr/AdditionNodeHandler
 FILES+=lang/printer/expr/CastNodeHandler

@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/ds/DSDriver.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,7 @@ DSDriver::~DSDriver() throw(){
 	IAS_TRACER;
 }
 /*************************************************************************/
-Wrapper::Wrapper* DSDriver::getStatement(const String& strSpecification, ::IAS::DM::DataObject* dm){
+Wrapper::Wrapper* DSDriver::getStatement(const String& strSpecification, ::IAS::DM::DataObject* dm, bool bTestOnly){
 	IAS_TRACER;
 
 
@@ -66,8 +66,9 @@ Wrapper::Wrapper* DSDriver::getStatement(const String& strSpecification, ::IAS::
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"not found, I will create a new one ");
 
-
 	IAS_DFT_FACTORY< Wrapper::Wrapper >::PtrHolder ptrWrapper(Wrapper::Wrapper::Create(pSession,strSpecification,pDataFactory,dm));
+  if(bTestOnly)
+    ptrWrapper->setReusable(false);
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Reusable: "<<ptrWrapper->isReusable());
 

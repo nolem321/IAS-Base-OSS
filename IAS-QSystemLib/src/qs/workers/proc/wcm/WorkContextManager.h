@@ -33,6 +33,7 @@
 #include "ds/Context.h"
 #include "storage/Context.h"
 #include "txm/Context.h"
+#include "task/Context.h"
 
 #include <org/invenireaude/qsystem/workers/io/Parameters.h>
 
@@ -73,6 +74,7 @@ public:
 
 	WCM::Cache::Context   caches;
 	WCM::Storage::Context storage;
+	WCM::Task::Context    task;
 
 	Proc::IO::IOManager*   getIOManager()const;
 	Proc::DS::DSManager*   getDSManager()const;

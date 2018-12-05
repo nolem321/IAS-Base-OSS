@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/printer/ExternalProgramNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCt
 	CallbackRegister::SubCall(pExternalProgramNode->getParametersNode(),pCtx,os);
 	pCtx->iIndent-=5;
 	printIndent(pCtx,os);
-	os<<"EXTERNAL \""<<pExternalProgramNode->getLibrary();
+	os<<std::endl<<"EXTERNAL \""<<pExternalProgramNode->getLibrary();
 	os<<":"<<pExternalProgramNode->getModule();
 	os<<":"<<pExternalProgramNode->getSymbol();
 	os<<"\"(";
@@ -59,6 +59,7 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode, CallbackCtx *pCt
 	for(StringList::const_iterator it=lstParameters.begin(); it != lstParameters.end(); it++){
 		if(it !=lstParameters.begin())
 			os<<",";
+    os<<std::endl;
 		os<<'"'<<(*it)<<'"';
 	}
 	os<<");\n";

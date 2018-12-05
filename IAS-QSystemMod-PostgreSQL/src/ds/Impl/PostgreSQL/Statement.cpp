@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemMod-PostgreSQL/src/ds/Impl/PostgreSQL/Statement.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,19 +30,28 @@ namespace PostgreSQL {
 /*************************************************************************/
 Statement::Statement(Session* pSession):
 		pSession(pSession),
-		strPQName("IAS_"+TypeTools::IntToString((long)this)){
+		strPQName("IAS_"+TypeTools::IntToString((long)this)),
+    bRemovePrepared(false){
+
 	IAS_TRACER;
 }
 /*************************************************************************/
 Statement::~Statement() throw(){
 	IAS_TRACER;
+
+  if(bRemovePrepared){
+      String strSQL("DEALLOCATE \"" + strPQName +"\";");
+
+      PGResultHolder rh(PQexec(pSession->getConnectionHandle(), strSQL.c_str()));
+
+    if (PQresultStatus(rh) != PGRES_TUPLES_OK)
+		   IAS_LOG(true,"DEALLOCATE "<<PQresultStatus(rh)<<":"<<PQerrorMessage(pSession->getConnectionHandle()));
+  }
 }
 /*************************************************************************/
 Statement::PGResultHolder::PGResultHolder(PGresult *res):res(res){}
 /*************************************************************************/
 Statement::PGResultHolder::~PGResultHolder(){
-
-	IAS_LOG(true,"res = "<<(void*)res);
 
 	if(res)
 		PQclear(res);
@@ -107,13 +116,17 @@ void Statement::prepare(){
 
 	IAS_LOG(LogLevel::INSTANCE.isData(),"Prepare:["<<strSQLText<<"]");
 
+
 	PGResultHolder rh(PQprepare(pSession->getConnectionHandle(),
 						strPQName.c_str(),
 	                    strSQLText.c_str(),
 						0,
 						NULL));
 
+  if (PQresultStatus(rh) != PGRES_TUPLES_OK)
+		 PostgreSQLException::ThrowOnError("PREPARE:" + strSQLText, pSession->getConnectionHandle(), rh);
 
+  bRemovePrepared = true;
 }
 /*************************************************************************/
 }

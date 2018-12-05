@@ -1,61 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsi:schema 
- xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+<xsi:schema
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema"
  targetNamespace="http://www.invenireaude.org/qsystem/workers/ds"
- xmlns="http://www.invenireaude.org/qsystem/workers" 
+ xmlns="http://www.invenireaude.org/qsystem/workers"
  xmlns:ds="http://www.invenireaude.org/qsystem/workers/ds">
- 
-   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers" 
- 	schemaLocation="qsystem.workers.xsd"/> 
- 		
+
+   <xsi:import namespace="http://www.invenireaude.org/qsystem/workers"
+ 	schemaLocation="qsystem.workers.xsd"/>
+
  <xsi:complexType name="Exception">
  	<xsi:complexContent>
  	  <xsi:extension base="Exception">
  	  </xsi:extension>
  	</xsi:complexContent>
- </xsi:complexType> 		
- 
+ </xsi:complexType>
+
   <xsi:complexType name="ConstraintViolationException">
  	<xsi:complexContent>
  	  <xsi:extension base="ds:Exception">
  	  </xsi:extension>
  	</xsi:complexContent>
- </xsi:complexType> 
- 
+ </xsi:complexType>
+
  <xsi:simpleType name="ObjectMode">
  	<xsi:restriction base="xsi:string">
  	  <xsi:enumeration value="CLOB"/>
  	  <xsi:enumeration value="BLOB"/>
  	  <xsi:enumeration value="TEXT"/>
- 	  <xsi:enumeration value="BINARY"/> 	  
+ 	  <xsi:enumeration value="BINARY"/>
  	</xsi:restriction>
- </xsi:simpleType> 
- 
- <xsi:complexType name="Parameter">  		 
+ </xsi:simpleType>
+
+ <xsi:complexType name="Autogenerate">
+  		  <xsi:attribute name="from"     type="xsi:integer"  use="required" />
+        <xsi:attribute name="to"       type="xsi:integer"  use="required" />
+  </xsi:complexType>
+
+
+ <xsi:complexType name="Parameter">
     	<xsi:sequence>
+        <xsi:element name="autogenerate"    type="ds:Autogenerate"  minOccurs="0" maxOccurs="1" />
 	  		<xsi:element name="connection"      type="Connection"  		minOccurs="0" maxOccurs="1"/>
 	  		<xsi:element name="txnMode"         type="TransactionMode"  minOccurs="0" maxOccurs="1" />
   			<xsi:element name="xaResource"      type="xsi:string"   minOccurs="0" maxOccurs="1" />
   			<xsi:element name="objectFormatter" type="xsi:string"   minOccurs="0" maxOccurs="1" />
   			<xsi:element name="objectMode"      type="ds:ObjectMode"  minOccurs="0" maxOccurs="1" />
-  		</xsi:sequence>	 	
-  		   <xsi:attribute name="name"       type="xsi:string"  use="required" />  		   
+  		</xsi:sequence>
+  		   <xsi:attribute name="name"       type="xsi:string"  use="required" />
   </xsi:complexType>
- 
-  <xsi:complexType name="Specification">  		
+
+  <xsi:complexType name="Specification">
   	<xsi:sequence>
   	  <xsi:element name="datasources" type="ds:Parameter" minOccurs="1" maxOccurs="unbounded"/>
   	</xsi:sequence>
   	<xsi:attribute name="default" type="xsi:string" use="optional"/>
  </xsi:complexType>
-    
+
   <xsi:complexType name="Registry">
     <xsi:complexContent>
       <xsi:extension base="Registry">
 	  </xsi:extension>
    </xsi:complexContent>
   </xsi:complexType>
-  
+
  <xsi:element name="datasources"   type="ds:Specification" />
 
 </xsi:schema>

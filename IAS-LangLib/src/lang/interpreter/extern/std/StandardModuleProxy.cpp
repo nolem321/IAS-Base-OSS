@@ -29,6 +29,7 @@
 #include "Find.h"
 #include "Find3.h"
 #include "Replace.h"
+#include "ReplaceRegExp.h"
 #include "GetTime.h"
 #include "GetTimeFormated.h"
 #include "GetLocalTimeFormated.h"
@@ -57,6 +58,9 @@
 #include "Sign.h"
 #include "StrLen.h"
 #include "SysLog.h"
+
+#include "Log.h"
+#include "Power.h"
 
 #include "Base64ToBinary.h"
 #include "BinaryToBase64.h"
@@ -91,6 +95,7 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("Find",&(Find::Create));
 	registerSymbol("Find3",&(Find3::Create));
 	registerSymbol("Replace",&(Replace::Create));
+	registerSymbol("ReplaceRegExp",&(ReplaceRegExp::Create));
 	registerSymbol("GetTime",&(GetTime::Create));
 	registerSymbol("GetTimeFormated",&(GetTimeFormated::Create));
 	registerSymbol("GetLocalTimeFormated",&(GetLocalTimeFormated::Create));
@@ -119,6 +124,9 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("Sign",&(Sign::Create));
 	registerSymbol("StrLen",&(StrLen::Create));
 	registerSymbol("SysLog",&(SysLog::Create));
+
+	registerSymbol("Log",&(Log::Create));
+	registerSymbol("Power",&(Power::Create));
 
 	registerSymbol("BinaryToHex",&(BinaryToHex::Create));
 	registerSymbol("HexToBinary",&(HexToBinary::Create));

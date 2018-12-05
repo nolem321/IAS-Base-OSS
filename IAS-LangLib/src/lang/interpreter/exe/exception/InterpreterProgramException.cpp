@@ -40,7 +40,7 @@ InterpreterProgramException::InterpreterProgramException(DM::DataObject* dmValue
 
 		for(int iIdx=0; iIdx<lstProperties.getSize(); iIdx++){
 			const DM::Property *pProperty = lstProperties.getProperty(iIdx);
-			if(dmValue->isSet(pProperty) && !pProperty->getType()->isDataObjectType())
+			if(!pProperty->getType()->isDataObjectType() && dmValue->isSet(pProperty) && dmValue->getDataObject(pProperty) != NULL)
 				ssInfo<<(iIdx ? ",":"")<<pProperty->getName()<<" "<<dmValue->getString(pProperty);
 		}
 		setInfo(ssInfo.str());

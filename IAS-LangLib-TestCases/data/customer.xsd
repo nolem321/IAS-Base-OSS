@@ -78,6 +78,6 @@
     <xsd:element name="customer" type="akc:Customer"/>
     <xsd:element name="msgNewCustomer" type="akc:Customer"/>
     <xsd:element name="msgTimeInfo" type="akc:TimeInfo"/>
-    
+   
     
 </xsd:schema>

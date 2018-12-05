@@ -44,7 +44,7 @@ public:
 
 	virtual void setAllocatorForData(IAS::Allocator* pAllocator);
 
-	static void PrintToStream(std::ostream& os, bool bNewOnly);
+	static void PrintToStream(std::ostream& os);
 
 	static MemoryManager* GetInstance();
 

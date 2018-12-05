@@ -61,6 +61,7 @@ void Processor::run(){
 			ptrWorker=IAS_DFT_FACTORY<ProcessorWorker>::Create(pGlobalContext,iLogicIdx);
 		}catch(Exception& e){
 			UserMessage(UI::Messages::MSGE_ConfigError)<<e.getName()<<e.getInfo();
+			pGlobalContext->abort(true);
 			return;
 		}
 

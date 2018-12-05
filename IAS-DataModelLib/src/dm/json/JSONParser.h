@@ -122,7 +122,7 @@ protected:
 	};
 
 	typedef STLAllocator<ValuesTable>                            TablesAllocator;
-	typedef STLAllocator< std::pair <const char*,ValuesTable*> > PairsAllocator;
+	typedef STLAllocator< std::pair <const char* const,ValuesTable*> > PairsAllocator;
 
 	struct ValuesMap : public std::map<const char*,ValuesTable*,Comparator,PairsAllocator >{
 		inline ValuesMap(Comparator&c, PairsAllocator& maPairs):

@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/ds/wrapper/Wrapper.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -328,7 +328,10 @@ void Wrapper::handleWhereCondition(Lexer *pLexer,
 
 	if(iComparatorToken == Lexer::T_IN){
 
-		if(dm->getList(_array_xpath(pLexer->getXPathValue())).size() == 0){
+	  bReusable=false;
+
+		if(!dm->isSet(_array_xpath(pLexer->getXPathValue())) ||
+       dm->getList(_array_xpath(pLexer->getXPathValue())).size() == 0){
 			strSQLText += bOptional ? "1=1" : "0=1";
 			return;
 		}

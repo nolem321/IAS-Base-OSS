@@ -48,7 +48,7 @@ class Buffer{
 		operator T*(){ return getBuffer<T>(); }
 
 		template<typename T>
-		Buffer& operator =(const T& v){ *(getBuffer<T>())=v;  }
+		Buffer& operator =(const T& v){ *(getBuffer<T>())=v;  return *this;}
 
 	protected:
 		void  *pData;

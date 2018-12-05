@@ -35,10 +35,11 @@ namespace IAS {
  */
 
 template <class T,
-	      class A =  ::IAS::MemoryManagerFactory< String >,
+	      class A =  IAS_DFT_FACTORY<std::pair<const String, T*> >,
 	      class TA =  IAS_DFT_FACTORY<T> >
 class HashMapStringToPointer : public ::IAS::HashMapOfPointers<String,T,_Hash<String>, _EqualsTo<String>, A, TA>{
-	public:
+
+public:
 
 		virtual ~HashMapStringToPointer(){}
 

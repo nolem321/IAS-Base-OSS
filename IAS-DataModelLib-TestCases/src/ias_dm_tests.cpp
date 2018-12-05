@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
 	}
 	std::cout<<"Ending\n";
 	std::cout<<"DM:\n";
-	IAS::DM::Impl::MemoryManager::PrintToStream(std::cout, false);
+	IAS::DM::Impl::MemoryManager::PrintToStream(std::cout);
 	std::cout << "ALL:\n";
 	//IAS::MemoryManager::GetInstance()->printToStream(std::cout);
 	std::cout << "Tracer:\n";

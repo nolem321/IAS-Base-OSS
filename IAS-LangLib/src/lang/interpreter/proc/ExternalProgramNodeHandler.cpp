@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/proc/ExternalProgramNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +23,9 @@
 
 #include "CallbackRegister.h"
 #include "ExecStore.h"
+
+#include "exception/ProcessorLinkedException.h"
+
 
 #include <lang/interpreter/exe/dec/Parameters.h>
 #include <lang/interpreter/exe/Program.h>
@@ -72,8 +75,14 @@ void ExternalProgramNodeHandler::call(const Model::Node* pNode,
 
 	pCtx->getExecStore()->registerExecutable(pExternalProgramNode, pProgram);
 
-	pProgram->setStatement(pModule->createStatement(pExternalProgramNode->getSymbol(),
+  try{
+	  pProgram->setStatement(pModule->createStatement(
+                          pProgram->getParameters()->getType(),
+                          pExternalProgramNode->getSymbol(),
 													pExternalProgramNode->getParameters()));
+	}catch(Exception& e){
+			IAS_THROW(ProcessorLinkedException(e, pExternalProgramNode->getSourceLocation(), pExternalProgramNode));
+	}
 
 	pProgram->setSourceAndName(pExternalProgramNode->getQualifiedNameNode()->getQualifiedName(),
 							   pCtx->getExecStore()->getModel()->resolve(pExternalProgramNode->getSourceLocation().getSourceID()));

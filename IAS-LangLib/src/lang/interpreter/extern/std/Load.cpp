@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/extern/std/Load.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ namespace Extern {
 namespace Std {
 
 /*************************************************************************/
-Load::Load(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+Load::Load(const DM::Type* pType, const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 }
 /*************************************************************************/
@@ -75,9 +75,9 @@ void Load::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Statement* Load::Create(const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
+Statement* Load::Create(const DM::Type* pType, const StringList& lstParamaters, const ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<Load>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<Load>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }

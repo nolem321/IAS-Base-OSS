@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/logic/DaemonExecute.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,10 +45,11 @@ namespace Logic {
 /*************************************************************************/
 DaemonExecute::DaemonExecute(const ::org::invenireaude::qsystem::workers::logic::DaemonExecute* dmParameters,
 					 	 	 WCM::WorkContextManager* pWorkContextManager):
-	Execute(dmParameters, pWorkContextManager),
-	iWakupIntervalMS(1000),
-	iBatchSize(1){
+	Execute(dmParameters, pWorkContextManager){
 	IAS_TRACER;
+
+	unsigned int iWakupIntervalMS = 1000;
+	unsigned int iBatchSize = 1;
 
 	const workers::logic::Ext::ExeNameList& lstExeNames(dmParameters->getLoadList());
 
@@ -69,6 +70,14 @@ DaemonExecute::DaemonExecute(const ::org::invenireaude::qsystem::workers::logic:
 
 	if(!isDM())
 		IAS_LOG(QS::LogLevel::INSTANCE.isError(),"Parsing switch is ignored for the Daemon Execute Logic.");
+
+	dmDaemonControl = workers::DataFactory::GetInstance()->getDaemonControlType()->createDaemonControl();
+
+ 	dmDaemonControl->setActive(true);
+	dmDaemonControl->setDefaultInterval(iWakupIntervalMS);
+	dmDaemonControl->setNextInterval(iWakupIntervalMS);
+	dmDaemonControl->setBatchSize(iBatchSize);
+
 }
 /*************************************************************************/
 DaemonExecute::~DaemonExecute() throw(){
@@ -79,22 +88,14 @@ void DaemonExecute::receive(bool bNoWait){
 	IAS_TRACER;
 
 	if(!bNoWait){
-		IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"Sleeping:"<<iNextInterval);
+		IAS_LOG(QS::LogLevel::INSTANCE.isInfo(),"Sleeping:"<<dmDaemonControl->getNextInterval());
 		Thread::Cancellation ca(true);
-		usleep(1000*(iNextInterval));
+		usleep(1000*(dmDaemonControl->getNextInterval()));
 	}
 }
 /*************************************************************************/
 void DaemonExecute::compute(){
 	IAS_TRACER;
-
-	workers::Ext::DaemonControlPtr dmDaemonControl;
-	dmDaemonControl = workers::DataFactory::GetInstance()->getDaemonControlType()->createDaemonControl();
-
-	dmDaemonControl->setActive(true);
-	dmDaemonControl->setDefaultInterval(iWakupIntervalMS);
-	dmDaemonControl->setNextInterval(iWakupIntervalMS);
-	dmDaemonControl->setBatchSize(iBatchSize);
 
 	TimeSample tsStart(true);
 

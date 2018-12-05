@@ -50,7 +50,8 @@ public:
 	void addEntry(const char*   sFile,
 			      const char*   sFun,
 			      int           iLine,
-			      unsigned long lPtr);
+			      unsigned long lPtr,
+				  unsigned long iNumBytes);
 	
 	bool removeEntry(unsigned long lPtr);
 	
@@ -58,7 +59,7 @@ public:
 
 	virtual void printToStream(std::ostream& os);
 
-	void printToStream(std::ostream& os, bool bNewOnly);
+	void printToStream(std::ostream& os, bool bNewOnly, bool bStatsOnly = false);
 	
 	/** clears the "new" flag - use after allocating globals for example. */
 	void clearNewFlag();
@@ -92,7 +93,8 @@ public:
 		int        iLine;
 		bool       bNewFlag;
 		int        iTID;
-		unsigned long lPtr;		
+		unsigned long lPtr;
+		unsigned long iNumBytes;
 	};
 	
 	typedef std::map<unsigned long, Entry> EntryMap;
@@ -104,10 +106,12 @@ public:
 	EntryMap 				hmEntries;
 	SharableInstancesMap	hmSharableInstances;
 
-	long iTotalEntries;
-	long iCurEntries;
-	long iNewEntries;
-	long iInstances;
+	unsigned long iTotalEntries;
+	unsigned long iCurEntries;
+	unsigned long iNewEntries;
+	unsigned long iInstances;
+	unsigned long iNumBytes;
+
 	Mutex theLock;
 
 	friend class IAS::Factory<MemoryManager>;

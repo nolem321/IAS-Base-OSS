@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/../IAS-CommonLib/src",
+                "${workspaceFolder}/../IAS-DataModelLib/src",
+                "${workspaceFolder}/../IAS-LangLib/src",
+                "${workspaceFolder}/../IAS-QSystemLib/src"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

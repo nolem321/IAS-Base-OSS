@@ -37,8 +37,7 @@ namespace IAS {
  * Holdes the pointer in the std::vector object and deletes them on cleanup.
  */
 
-//class _Alloc =  ::IAS::MemoryManagerAllocator< std::pair<const _HashMapKey, T*> >
-template <class T, class TA = IAS_DFT_FACTORY<T> >
+template <class T, class TA = IAS_DFT_FACTORY<T*> >
 class PtrVector : private ::std::vector<T*, TA >{
 	public:
 

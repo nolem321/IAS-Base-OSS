@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/export/text/stmt/StatementsListNodeHandler.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,7 +53,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 
 	printKeyword(aResult,"BEGIN");
-	aResult.ssOutput<<"\n";
+  aResult.ssOutput<<std::endl;
 	pCtx->iIndent++;
 	int iNumDeclarations=pStatementsListNode->getDeclarationsList().size();
 	{
@@ -66,7 +66,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 			printIndent(pCtx,aResult);
 			CallbackRegister::SubCall(pDeclarationNode,pCtx,aResult);
-			aResult.ssOutput<<";\n";
+			aResult.ssOutput<<";"<<std::endl;
 			it++;
 		}
 
@@ -74,7 +74,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 	}
 
 	if(iNumDeclarations){
-		aResult.ssOutput<<"\n";
+		aResult.ssOutput<<std::endl;
 	}
 
 	{
@@ -88,7 +88,7 @@ void StatementsListNodeHandler::call(const Model::Node* pNode,
 
 			printIndent(pCtx,aResult);
 			CallbackRegister::SubCall(pStatementNode,pCtx,aResult);
-			aResult.ssOutput<<";\n";
+			aResult.ssOutput<<";"<<std::endl;
 			it++;
 		}
 

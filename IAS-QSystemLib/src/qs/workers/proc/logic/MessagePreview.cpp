@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/logic/MessagePreview.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@
 
 #include <org/invenireaude/qsystem/service/Message.h>
 #include <org/invenireaude/qsystem/service/PreviewMessagesWindow.h>
-#include <org/invenireaude/qsystem/service/PreviewMessagesSelection.h>
+#include <org/invenireaude/qsystem/service/PreviewMessagesSelector.h>
 #include <org/invenireaude/qsystem/service/PreviewMessagesStatus.h>
 #include <org/invenireaude/qsystem/service/PreviewMessages.h>
 #include <org/invenireaude/qsystem/service/DataFactory.h>
@@ -83,12 +83,12 @@ void MessagePreview::computeDM(::org::invenireaude::qsystem::workers::Ext::Conte
 		IAS_THROW(RollbackMeException(String("Bad request:")+e.toString()));
 	}
 
-	if(!dmPreviewMessages->isSetSelection() ||
-		!dmPreviewMessages->getSelection()->isSetDestination()){
+	if(!dmPreviewMessages->isSetSelector() ||
+		!dmPreviewMessages->getSelector()->isSetDestination()){
 		IAS_THROW(RollbackMeException("Missing request parameters"));
 	}
 
-	dmBrowserParameters->setDestination(dmPreviewMessages->getSelection()->getDestination());
+	dmBrowserParameters->setDestination(dmPreviewMessages->getSelector()->getDestination());
 
 	IAS_LOG(IAS::QS::LogLevel::INSTANCE.isInfo(),"Destination: "<<dmBrowserParameters->getDestination());
 
@@ -98,9 +98,9 @@ void MessagePreview::computeDM(::org::invenireaude::qsystem::workers::Ext::Conte
 	unsigned int iOffset=0;
 	unsigned int iPageSize=C_MaxPage;
 
-	if(dmPreviewMessages->getSelection()->isSetWindow()){
+	if(dmPreviewMessages->getSelector()->isSetWindow()){
 
-		const service::PreviewMessagesWindow* pWindow=dmPreviewMessages->getSelection()->getWindow();
+		const service::PreviewMessagesWindow* pWindow=dmPreviewMessages->getSelector()->getWindow();
 
 		if(pWindow->isSetPageOffset())
 			iOffset=pWindow->getPageOffset();

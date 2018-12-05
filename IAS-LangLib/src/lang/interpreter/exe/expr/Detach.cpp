@@ -45,18 +45,17 @@ void Detach::evaluate(Context *pCtx, DM::DataObjectPtr& refResult) const {
 	DM::DataObjectPtr dmTmp;
 	ptrXPathExprFamily->evaluate(pCtx,dmTmp);
 	ptrXPathExprFamily->deleteDataObject(pCtx);
-	if(dmTmp)
-		refResult = dmTmp->duplicate();
-	else
-		refResult = NULL;
+	refResult = dmTmp;
+
 }
 /*************************************************************************/
 void Detach::evaluate(Context *pCtx, IAS::Lang::Interpreter::Exe::Expr::ExprResultSetter& refResult) const {
 	IAS_TRACER;
 
-	ExprResultSetter aDetachResultSetter(refResult);
-	ptrXPathExprFamily->evaluate(pCtx,aDetachResultSetter);
+	DM::DataObjectPtr dmTmp;
+	ptrXPathExprFamily->evaluate(pCtx,dmTmp);
 	ptrXPathExprFamily->deleteDataObject(pCtx);
+	refResult.assign(dmTmp);
 }
 /*************************************************************************/
 }

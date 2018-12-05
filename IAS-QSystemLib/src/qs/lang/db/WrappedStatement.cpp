@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/lang/db/WrappedStatement.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,8 +50,10 @@ namespace QS {
 namespace Lang {
 namespace DB {
 
+const String WrappedStatement::C_ENV_VERIFY_SQL("IAS_DS_VERIFY_SQL");
+
 /*************************************************************************/
-WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+WrappedStatement::WrappedStatement(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	if(lstParamaters.size() < 2)
@@ -60,6 +62,12 @@ WrappedStatement::WrappedStatement(const StringList& lstParamaters, const ::IAS:
 	StringList::const_iterator it=lstParamaters.begin();
 	strDataSource=*it++;
 	strSpecification=*it++;
+  if(it != lstParamaters.end())
+    strDataSourceIdx=*it++;
+
+  if(EnvTools::GetBooleanEnv(C_ENV_VERIFY_SQL))
+    verifySQL(pType);
+
 }
 /*************************************************************************/
 WrappedStatement::~WrappedStatement() throw(){
@@ -75,8 +83,14 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 	try{
 
-		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
-		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer()),pDriver);
+    String strDataSourceName(strDataSource);
+
+    if(!strDataSourceIdx.empty())
+      strDataSourceName += "." +  dmInput->getString(strDataSourceIdx);
+
+		DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSourceName);
+
+		DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSpecification,dmInput.getPointer(), true), pDriver);
 		ptrWrapper->execute(dmInput);
 
 	}catch(DS::API::ConstraintViolationException& e){
@@ -102,9 +116,33 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 
 }
 /*************************************************************************/
-Extern::Statement* WrappedStatement::Create(const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
+void WrappedStatement::verifySQL(const DM::Type* pType){
+    IAS_TRACER;
+
+    DM::DataObjectPtr dmFakeObject(pType->createDataObject());
+    // Remove optionals
+    String strSQL2Verify(TypeTools::Replace(strSpecification,"?",""));
+    // Change 'IN' to '=' on the first array element. (regex replace :) )
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify," IN "," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"\tIN "," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify," IN\t"," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"\tIN\t"," = ");
+    strSQL2Verify = TypeTools::Replace(strSQL2Verify,"[*]","[0]");
+
+ 	  DSDriver *pDriver     = pWorkContext->getDSManager()->getDSDriver(strDataSource);
+
+    try{
+  	  DSDriver::WrapperHolder ptrWrapper(pDriver->getStatement(strSQL2Verify, dmFakeObject.getPointer(), true),pDriver);
+    }catch(Exception& e){
+      IAS_THROW(BadUsageException("SQL preverification failed:"+e.toString()));
+    }
+
+    pDriver->getSession()->rollback();
+}
+/*************************************************************************/
+Extern::Statement* WrappedStatement::Create(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
-	return IAS_DFT_FACTORY<WrappedStatement>::Create(lstParamaters, pModuleProxy);
+	return IAS_DFT_FACTORY<WrappedStatement>::Create(pType, lstParamaters, pModuleProxy);
 }
 /*************************************************************************/
 }
