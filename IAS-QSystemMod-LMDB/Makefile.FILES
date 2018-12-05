@@ -1,0 +1,16 @@
+#Wed Dec  5 16:58:58 CET 2018
+FILES+=ds/Impl/LMDB/Connection
+FILES+=ds/Impl/LMDB/exception/LMDBException
+FILES+=ds/Impl/LMDB/Input
+FILES+=ds/Impl/LMDB/log/LogLevel
+FILES+=ds/Impl/LMDB/Output
+FILES+=ds/Impl/LMDB/ResultSetOutput
+FILES+=ds/Impl/LMDB/Session
+FILES+=ds/Impl/LMDB/SessionAutoCommit
+FILES+=ds/Impl/LMDB/SessionTransacted
+FILES+=ds/Impl/LMDB/Statement
+FILES+=ds/Impl/LMDB/StatementDelete
+FILES+=ds/Impl/LMDB/StatementInsert
+FILES+=ds/Impl/LMDB/StatementSelect
+FILES+=ds/Impl/LMDB/StatementUpdate
+FILES+=ds/Impl/LMDB/System
