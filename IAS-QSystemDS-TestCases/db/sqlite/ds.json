@@ -1,0 +1,12 @@
+{
+   "datasources" : {
+      "name"       : "db",
+         "connection" : {
+          	"protocol" : "sqlite",
+       	  	"user"     : "",
+       	  	"password" : "",
+       	  	"location" : "/tmp/test.db"	       	
+       		}
+       	}
+}       	
+ 

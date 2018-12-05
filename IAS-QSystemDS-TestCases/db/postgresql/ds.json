@@ -1,0 +1,10 @@
+{
+   "datasources" : {
+      "name"       : "db",
+         "connection" : {
+          	"protocol" : "postgresql",
+       	  	"location" : "test"
+       		}
+       	}
+}
+

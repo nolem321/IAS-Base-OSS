@@ -1,0 +1,9 @@
+{
+   "id" : "102",
+   "lastname" : "New",
+   "age" : 35,
+   "wakeup" : "02:03:45",
+   "birthDate" : "1999-01-02",
+   "updated" : "2015-06-07T05:30:55",
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

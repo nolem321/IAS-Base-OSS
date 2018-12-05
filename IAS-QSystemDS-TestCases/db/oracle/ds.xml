@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:specification 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns0="http://www.invenireaude.org/qsystem/workers/ds"
+  xsi:type="ns0:Specification" 
+  xsi:schemaLocation="http://www.invenireaude.org/qsystem/workers/ds 
+   ../../../../IAS-QSystemLib/xsd/qsystem.workers.ds.xsd"
+  >
+
+   <datasources name="db">
+       <connection>
+         <protocol>oracle</protocol>
+          <user>iadev</user>
+          <password>password</password>
+       </connection>
+   </datasources>
+   
+   
+</ns0:specification>

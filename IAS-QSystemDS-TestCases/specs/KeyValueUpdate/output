@@ -1,0 +1,17 @@
+{
+   "id" : "10",
+   "lastname" : "Oldman",
+   "age" : 71,
+   "wakeup" : "05:30:55",
+   "birthDate" : "1999-01-02",
+   "updated" : "2015-06-07T05:30:55",
+   "address" : [ {
+      "street" : "Fresh fruits",
+      "block" : 12
+   } ,{
+      "street" : "Old potatoes",
+      "block" : 21,
+   "_dmType" : "http://www.examples.org/akcf#Address"
+   }],
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

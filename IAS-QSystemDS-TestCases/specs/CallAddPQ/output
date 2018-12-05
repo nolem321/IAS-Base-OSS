@@ -1,0 +1,18 @@
+{
+   "id" : "1",
+   "firstname" : "Johny",
+   "middlename" : "Koval",
+   "lastname" : "Kowalski",
+   "age" : 1,
+   "age1" : 22,
+   "address" : [ {
+      "street" : "Eastwoods",
+      "block" : 123
+   } ,{
+      "street" : "Westwoods",
+      "block" : 321,
+      "country" : "Canada",
+   "_dmType" : "http://www.examples.org/akcf#Address"
+   }],
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

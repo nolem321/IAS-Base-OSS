@@ -1,0 +1,12 @@
+{
+   "datasources" : {
+      "name"       : "db",
+         "connection" : {
+          	"protocol" : "lmdb",
+       	  	"user"     : "",
+       	  	"password" : "",
+       	  	"location" : "/tmp/test.lmdb"
+       		}
+       	}
+}
+

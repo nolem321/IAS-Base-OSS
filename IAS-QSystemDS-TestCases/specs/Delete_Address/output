@@ -1,0 +1,8 @@
+{
+   "id" : "2",
+   "firstname" : "Walter",
+   "middlename" : "Junior",
+   "lastname" : "Smith",
+   "age" : 14,
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

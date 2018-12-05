@@ -1,0 +1,10 @@
+All_Customers
+CallAddPQ
+CallFun
+Delete_Address
+Fetch_Customer
+Fetch_Customer_Paging
+Fetch_Customer_XML
+Insert_Customer
+SelectAndUpdate
+Update_Optional

@@ -1,0 +1,14 @@
+{
+   "id" : "2",
+   "firstname" : "Walter",
+   "middlename" : "Junior",
+   "lastname" : "Novacek",
+   "age" : 71,
+   "address" : [ {
+      "street" : "Sunset",
+      "block" : 1009,
+      "country" : "USA",
+   "_dmType" : "http://www.examples.org/akcf#Address"
+   }],
+"_dmType" : "http://www.examples.org/akc#Customer"
+}

@@ -1,0 +1,169 @@
+{
+   "customers" : [ {
+      "id" : "10",
+      "lastname" : "Novacek",
+      "age" : 71,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 12
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 21,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "11",
+      "lastname" : "Novacek",
+      "age" : 72,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 15
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 23,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "12",
+      "lastname" : "Novacek",
+      "age" : 73,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 18
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 25,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "13",
+      "lastname" : "Novacek",
+      "age" : 74,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 21
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 27,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "14",
+      "lastname" : "Novacek",
+      "age" : 75,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 24
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 29,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "15",
+      "lastname" : "Novacek",
+      "age" : 76,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 27
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 31,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "16",
+      "lastname" : "Novacek",
+      "age" : 77,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 30
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 33,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "17",
+      "lastname" : "Novacek",
+      "age" : 78,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 33
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 35,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "18",
+      "lastname" : "Novacek",
+      "age" : 79,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 36
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 37,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "19",
+      "lastname" : "Novacek",
+      "age" : 80,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 39
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 39,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   } ,{
+      "id" : "20",
+      "lastname" : "Novacek",
+      "age" : 81,
+      "wakeup" : "05:30:55",
+      "birthDate" : "1999-01-02",
+      "updated" : "2015-06-07T05:30:55",
+      "address" : [ {
+         "street" : "Fresh fruits",
+         "block" : 42
+      } ,{
+         "street" : "Old potatoes",
+         "block" : 41,
+      "_dmType" : "http://www.examples.org/akcf#Address"
+      }]
+   }],
+"_dmType" : "http://www.examples.org/akc#GetCustomerList"
+}

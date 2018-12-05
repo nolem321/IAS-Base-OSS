@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<txm:txms 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:txm="http://www.invenireaude.org/qsystem/workers/txm"
+  xsi:type="txm:Specification" 
+  xsi:schemaLocation="http://www.invenireaude.org/qsystem/workers/txm 
+   ../../../../IAS-QSystemLib/xsd/qsystem.workers.txm.xsd"
+  >
+
+   <transactionManagers name="MQXA">
+      <connection>
+         <protocol>mqm</protocol>
+         <host>Y</host>
+      </connection>
+   </transactionManagers>
+   
+</txm:txms>
