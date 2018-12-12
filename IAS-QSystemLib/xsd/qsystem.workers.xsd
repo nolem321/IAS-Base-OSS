@@ -29,6 +29,9 @@
 	        <xsi:element name="CID" type="xsi:string" minOccurs="0" maxOccurs="1"/>
 	        <xsi:element name="FMT" type="xsi:string" minOccurs="0" maxOccurs="1"/>
 
+	        <xsi:element name="typeNS"    type="xsi:string" minOccurs="0" maxOccurs="1"/>
+	        <xsi:element name="typeNS"    type="xsi:string" minOccurs="0" maxOccurs="1"/>
+
 	        <xsi:element name="REPLY_TO"    type="xsi:string" minOccurs="0" maxOccurs="1"/>
 	        <xsi:element name="PERSISTANCE" type="xsi:integer" minOccurs="0" maxOccurs="1"/>
 	        <xsi:element name="EXPIRATION"  type="xsi:integer" minOccurs="0" maxOccurs="1"/>
