@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/extern/std/StandardModuleProxy.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,6 +28,7 @@
 #include "SubString3.h"
 #include "Find.h"
 #include "Find3.h"
+#include "PartOfString.h"
 #include "Replace.h"
 #include "ReplaceRegExp.h"
 #include "GetTime.h"
@@ -93,7 +94,8 @@ void StandardModuleProxy::setupImpl(){
 	registerSymbol("SubString2",&(SubString2::Create));
 	registerSymbol("SubString3",&(SubString3::Create));
 	registerSymbol("Find",&(Find::Create));
-	registerSymbol("Find3",&(Find3::Create));
+  registerSymbol("Find3",&(Find3::Create));
+  registerSymbol("PartOfString",&(PartOfString::Create));
 	registerSymbol("Replace",&(Replace::Create));
 	registerSymbol("ReplaceRegExp",&(ReplaceRegExp::Create));
 	registerSymbol("GetTime",&(GetTime::Create));
