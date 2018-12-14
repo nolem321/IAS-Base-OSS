@@ -27,9 +27,9 @@ namespace IAS {
 namespace QS {
 namespace Fmt {
 
-const String& JSONPureFormatter::CStrTypeAttr("JSONpt");
-const String& JSONPureFormatter::CStrElementAttr("JSONel");
-const String& JSONPureFormatter::CStrNoPure("JSONno");
+const String& JSONPureFormatter::CStrTypeAttr(".JSONpt");
+const String& JSONPureFormatter::CStrElementAttr(".JSONel");
+const String& JSONPureFormatter::CStrNoPure(".JSONno");
 /*************************************************************************/
 JSONPureFormatter::JSONPureFormatter(const DM::DataFactory* pDataFactory):pDataFactory(pDataFactory){
 	IAS_TRACER;

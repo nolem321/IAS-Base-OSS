@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/Impl/net/pump/http/InputMsgPump.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@
 
 #include <qs/Impl/net/Message.h>
 #include <unistd.h>
+
 namespace IAS {
 namespace QS {
 namespace Net {
@@ -29,13 +30,17 @@ class MessageIDGenerator{
 public:
 	MessageIDGenerator():iSequence(0){
 		StringStream ssTmp;
-		ssTmp<<"NET"<<getpid()%10000<<"T"<<((long)(Timestamp(true))%100000);
+    char hostname[17];
+    bzero(hostname,17);
+    gethostname(hostname,16);
+
+		ssTmp<<"N"<<hostname<<getpid()%1000<<"T"<<((long)(Timestamp(true))%10000)<<"S";
 		strPrefix=ssTmp.str();
 	}
 
 	String getNextMID(){
 		StringStream ssTmp;
-		ssTmp<<strPrefix<<"S"<<iSequence;
+		ssTmp<<strPrefix<<iSequence;
 		return ssTmp.str();
 	}
 
