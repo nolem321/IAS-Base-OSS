@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/logic/LogicBase.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@
 
 #include <qs/workers/proc/wcm/WorkContextManager.h>
 
+#include <qs/ui/Messages.h>
 
 using namespace ::org::invenireaude::qsystem;
 
@@ -119,6 +120,8 @@ void LogicBase::computeRaw(::org::invenireaude::qsystem::workers::Ext::ContextPt
 	DM::DataObjectPtr dm(dmRouting);
 	computeDM(dmContext,dm);
 
+ try{
+
 	if(dmRouting->isSetValid() && dmRouting->getValid()){
 
 		if(dmRouting->isSetTarget()){
@@ -140,6 +143,12 @@ void LogicBase::computeRaw(::org::invenireaude::qsystem::workers::Ext::ContextPt
 		}
 
 	}
+
+ }catch(Exception& e){
+   UserMessage(UI::Messages::MSGE_Communication)<<e.getName()<<e.getInfo();
+   IAS_LOG(LogLevel::INSTANCE.isError(), "Cannot send to routing targets:"<<e.getInfo());
+   IAS_THROW(RollbackMeException(e.getInfo()));
+ }
 
 }
 /*************************************************************************/

@@ -72,6 +72,8 @@
 #include "ProgramProvider.h"
 #include "wcm/Registry.h"
 
+#include "wcm/WorkContextManager.h"
+
 //TODO eclipse complains about __INT_MAX__
 #ifndef __INT_MAX__
 #define __INT_MAX__ 99999999
@@ -96,6 +98,10 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 	loadXSD();
 
 	dmSpecification = readParameters(pParameters);
+
+// We may need this when initialization touches DBs (eg. sql verification)
+	ptrWorkContext=IAS_DFT_FACTORY<WCM::WorkContextManager>::Create(this);
+  pWorkContextShared=ptrWorkContext;
 
 	ptrFmtFactory   = IAS_DFT_FACTORY<Fmt::FmtFactory>::Create(ptrDataFactory);
 
@@ -135,6 +141,7 @@ GlobalContext::GlobalContext(const Parameters* pParameters):
 /*************************************************************************/
 GlobalContext::~GlobalContext() throw(){
 	IAS_TRACER;
+  pWorkContextShared = 0;
 }
 /*************************************************************************/
 void GlobalContext::InitializeDataFactories(){

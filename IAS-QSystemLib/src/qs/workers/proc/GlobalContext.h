@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/GlobalContext.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,6 +57,9 @@ namespace Task{
 class WaitingRoom;
 }
 
+namespace WCM{
+class WorkContextManager;
+}
 
 class ProgramProvider;
 
@@ -161,8 +164,10 @@ protected:
 
 	IAS_DFT_FACTORY<Logic::LogicFactory>::PtrHolder         ptrLogicFactory;
 
-	::org::invenireaude::qsystem::workers::spec::Ext::SpecificationPtr dmSpecification;
+  IAS_DFT_FACTORY<WCM::WorkContextManager>::PtrHolder ptrWorkContext;
+	ThreadSpecific<WCM::WorkContextManager>::Pointer pWorkContextShared;
 
+	::org::invenireaude::qsystem::workers::spec::Ext::SpecificationPtr dmSpecification;
 	::org::invenireaude::qsystem::workers::spec::Ext::SpecificationPtr readParameters(const Parameters* pParameters)const;
 
 	void loadXSD();

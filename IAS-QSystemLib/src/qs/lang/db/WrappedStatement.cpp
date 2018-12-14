@@ -119,6 +119,12 @@ void WrappedStatement::executeExternal(Exe::Context *pCtx) const{
 void WrappedStatement::verifySQL(const DM::Type* pType){
     IAS_TRACER;
 
+    if(!pWorkContext) {
+        std::cout<<"WARNING ! This statement will not be verfied: "<<std::endl<<strSpecification<<std::endl;
+        return;
+    }
+
+
     DM::DataObjectPtr dmFakeObject(pType->createDataObject());
     // Remove optionals
     String strSQL2Verify(TypeTools::Replace(strSpecification,"?",""));
