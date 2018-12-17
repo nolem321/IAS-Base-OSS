@@ -45,7 +45,7 @@ Statement::~Statement() throw(){
       PGResultHolder rh(PQexec(pSession->getConnectionHandle(), strSQL.c_str()));
 
     if (PQresultStatus(rh) != PGRES_TUPLES_OK)
-		   IAS_LOG(true,"DEALLOCATE "<<PQresultStatus(rh)<<":"<<PQerrorMessage(pSession->getConnectionHandle()));
+		   IAS_LOG(LogLevel::INSTANCE.isInfo(),"DEALLOCATE "<<PQresultStatus(rh)<<":"<<PQerrorMessage(pSession->getConnectionHandle()));
   }
 }
 /*************************************************************************/
@@ -107,7 +107,7 @@ void Statement::setSQLText(const String& strSQLText){
 
 	this->strSQLText = ssSQLText.str();
 
-	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo() || true,"setSQL2:[" << this->strSQLText << "]");
+	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"setSQL2:[" << this->strSQLText << "]");
 
 }
 /*************************************************************************/

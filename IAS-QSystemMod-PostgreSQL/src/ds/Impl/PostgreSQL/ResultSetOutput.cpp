@@ -63,7 +63,7 @@ bool ResultSetOutput::next(){
 void ResultSetOutput::fetch(int iIdx, DM::DataObjectPtr& dm){
 	IAS_TRACER;
 
-	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo()||true,"fetching: "<<tabOptional.size()<<" iCurrentIdx: "<<iCurrentRow<<", iNumRows: "<<iNumRows);
+	IAS_LOG(LogLevel::INSTANCE.isDetailedInfo(),"fetching: "<<tabOptional.size()<<" iCurrentIdx: "<<iCurrentRow<<", iNumRows: "<<iNumRows);
 
 	if(iCurrentRow > iNumRows)
 		IAS_THROW(PostgreSQLException("Fetch when no data found."));
