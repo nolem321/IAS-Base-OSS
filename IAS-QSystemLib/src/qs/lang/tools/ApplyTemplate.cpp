@@ -50,20 +50,15 @@ namespace QS {
 namespace Lang {
 namespace Tools {
 
-const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
-
 /*************************************************************************/
 ApplyTemplate::ApplyTemplate(const DM::Type* pType, const StringList& lstParamaters, const ::IAS::Lang::Interpreter::Extern::ModuleProxy* pModuleProxy){
 	IAS_TRACER;
 
 	ptrDataFactory = IAS_DFT_FACTORY<DM::Impl::DataFactory>::Create(::IAS::DM::Gen::DataFactory::GetInstance());
 
-	StringList lstSrcPath;
-	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
 
 	IAS_DFT_FACTORY<IAS::Lang::Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
 	ptrLexerIStreamFactory = IAS_DFT_FACTORY<IAS::Lang::Tools::Parser::LexerIStreamFactoryForFiles>::Create();
-	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
 
 	ptrProgramLoader = IAS_DFT_FACTORY<::IAS::Lang::Interpreter::ProgramLoader>::Create(
 			ptrDataFactory,ptrLexerIStreamFactory.pass());
