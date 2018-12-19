@@ -5,6 +5,9 @@ ARTIFACT=IASLangLib
 DEP_PROJECTS+=IAS-CommonLib
 DEP_PROJECTS+=IAS-DataModelLib
 #########################################################################
+LANG_FILES+=default.y
+LANG_FILES+=adhoc.y
+#########################################################################
 include Makefile.FILES
 #########################################################################
 include ../IAS-BuilderTools/Makefile
@@ -43,6 +46,6 @@ dm : ${IAS_XSD_FILES}
 	@rm -rf src/org
 	@rm -rf src/Impl
 	@echo Generating DataModel from: ${IAS_XSD_FILES}
-	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -d src	
+	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -d src
 	@rm -rf src/src
 

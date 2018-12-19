@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/tools/helper/QuickExecution.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,8 +33,6 @@ namespace Tools {
 namespace Helper {
 
 const String CEnv_LANG_XSD="IAS_LANG_XSD";
-const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
-
 
 /*************************************************************************/
 
@@ -63,13 +61,9 @@ QuickExecution::QuickExecution():
 
 	}
 
-	StringList lstSrcPath;
-	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
-
 	IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
 
 	ptrLexerIStreamFactory = IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::Create();
-	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
 
 	ptrLoader = IAS_DFT_FACTORY<Interpreter::ProgramLoader>::Create(ptrDataFactory,
 																	ptrLexerIStreamFactory.pass());
