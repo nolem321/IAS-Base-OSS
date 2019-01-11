@@ -411,13 +411,12 @@ static stats::Ext::SamplePtr TSR2Sample(const TimeSamplesResults& tsr){
 
 	stats::Ext::SamplePtr dmSample(stats::DataFactory::GetInstance()->createSample());
 
-	dmSample->setMin(tsr.iMin);
-	dmSample->setMax(tsr.iMax);
-	dmSample->setAvg(tsr.iNumSamples ? tsr.iTotal / tsr.iNumSamples : 0);
-	dmSample->setTotal(tsr.iTotal);
+	dmSample->setMin(tsr.iMin/1000 + tsr.iNumSamples ? 1 : 0);
+	dmSample->setMax(tsr.iMax/1000 + tsr.iNumSamples ? 1 : 0);
+	dmSample->setAvg(tsr.iNumSamples ? tsr.iTotal/1000 / tsr.iNumSamples + 1: 0);
+	dmSample->setTotal(tsr.iTotal/1000 + tsr.iNumSamples ? 1 : 0);
 	dmSample->setNum(tsr.iNumSamples);
 
-	//TODO sprawdzic czy nie ma takich samych DataobjectPtr.forget(). jakie tu byly gdzie indziej.
 	return dmSample;
 }
 /*************************************************************************/

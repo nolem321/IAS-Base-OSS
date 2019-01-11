@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib-TestCases/src/testcases/TCProgramPrinting.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,8 +32,6 @@ using namespace Lang::Model;
 
 namespace TCT{
 
-//TODO (M) standarize !!!
-const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
 
 /*************************************************************************/
 TCProgramPrinting::TCProgramPrinting(TestSuite* pTestSuite,
@@ -42,12 +40,9 @@ TCProgramPrinting::TCProgramPrinting(TestSuite* pTestSuite,
 	strProgramName(strProgramName){
 	IAS_TRACER;
 	ptrModel = IAS_DFT_FACTORY<Lang::Model::Model>::Create();
-	StringList lstSrcPath;
-	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
 
 	IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
 	ptrLexerIStreamFactory = IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::Create();
-	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
 
 	ptrLexer=IAS_DFT_FACTORY<Script::Parser::Lexer>::Create<Tools::Parser::LexerIStreamFactory*,
 															Tools::Parser::ISourceLocationStore*>(
@@ -98,7 +93,7 @@ String TCProgramPrinting::getOutputFileName() {
 
 /*************************************************************************/
 void TCProgramPrinting::caseOne(){
-	
+
 	IAS_LOG(IAS::LogLevel::INSTANCE.isInfo(),"Printing:"<<strProgramName);
 
 

@@ -1,5 +1,5 @@
 CCPP=g++
-CCPPDEPSCMD=g++ -MM -MG 
+CCPPDEPSCMD=g++ -MM -MG
 #
 # Use += here since global settings are already set.
 CPPFLAGS+= -D__IAS_NO_TRACER__ -m64 -fPIC -g -O3 -std=c++11 -Wdeprecated
@@ -18,10 +18,10 @@ endif
 TARGET=$(addprefix out/lib/, $(TARGETFILE))
 
 
-$(TARGET) : $(CPPOBJS) 
+$(TARGET) : $(CPPOBJS)
 	@echo Creating project artifact: $(TARGET)
 	@g++ $(LNFLAGS) -shared -o $@ $^ -lpthread $(LNLIBS)
-	
+
 #Executable creator
 
 $(CPPEXES) : out/bin/% : $(CPPOBJSNONEXE) out/obj/%.o
@@ -30,7 +30,7 @@ $(CPPEXES) : out/bin/% : $(CPPOBJSNONEXE) out/obj/%.o
 
 # the third line creates the dependence files
 
-$(CPPOBJS): out/obj/%.o: src/%.cpp 
+$(CPPOBJS): out/obj/%.o: src/%.cpp
 	@echo "Compiling: " $<
 	@$(CCPP) -c $(CPPFLAGS) $< -o $@
 	@$(CCPPDEPSCMD) -MT $@ $(CPPFLAGS) $< >> $(@:%.o=%.depend)

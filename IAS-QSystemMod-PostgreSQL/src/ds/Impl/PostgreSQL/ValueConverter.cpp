@@ -37,6 +37,7 @@ void ValueConverter::ConvertToPostgreSQL(Statement& statement,
 
   IAS_TRACER;
 
+ // TODO a bit more object oriented design please ...
 
 	DM::DataObjectPtr dmValue(pSetter->getValue(dm));
   DM::Type::Types iTypeEnum = pSetter->getTargetTypeEnum();

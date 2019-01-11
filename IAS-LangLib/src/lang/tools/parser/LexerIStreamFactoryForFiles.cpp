@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/tools/parser/LexerIStreamFactoryForFiles.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,12 +26,23 @@ namespace Lang {
 namespace Tools {
 namespace Parser {
 
+const String LexerIStreamFactoryForFiles::CDefaultLangDirectory(String(__IAS_DEST_DIR)+"/lang");
+const String LexerIStreamFactoryForFiles::CDefaultLangCurrentDir(".");
+const String LexerIStreamFactoryForFiles::CEnv_SRC_DIRS("IAS_LANG_SRC_DIRS");
 /*************************************************************************/
 LexerIStreamFactoryForFiles::LexerIStreamFactoryForFiles(){
 	IAS_TRACER;
 
-	StringList lstSrcPath; //TODO (L) Reload default
-	setSearchPath(lstSourcePath);
+
+  EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, this->lstSourcePath);
+
+  if(this->lstSourcePath.size() == 0)
+    this->lstSourcePath.push_back(CDefaultLangCurrentDir);
+
+	this->lstSourcePath.push_back(CDefaultLangDirectory);
+
+  IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Default script directory:"<<CDefaultLangDirectory);
+
 }
 /*************************************************************************/
 LexerIStreamFactoryForFiles::~LexerIStreamFactoryForFiles() throw(){
@@ -91,17 +102,15 @@ LexerIStreamWrapper* LexerIStreamFactoryForFiles::createLexerIStream(const Strin
 	return LexerFileIStreamWrapper::Create(findAndOpenFile(strObjectName));
 }
 /*************************************************************************/
-void LexerIStreamFactoryForFiles::setSearchPath(const StringList& lstSourcePath){
+void LexerIStreamFactoryForFiles::setSearchPath(const StringList& lstSourcePath, bool bReplace){
 	IAS_TRACER;
 
 	IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isInfo(),"Setting: "<<lstSourcePath.size());
 
-	if(lstSourcePath.size() > 0)
-		this->lstSourcePath=lstSourcePath;
-	else{
-		this->lstSourcePath.clear();
-		this->lstSourcePath.push_back("data/lang");
-	}
+  if(bReplace)
+    this->lstSourcePath.clear();
+
+  this->lstSourcePath.insert(this->lstSourcePath.begin(), lstSourcePath.begin(), lstSourcePath.end() );
 
 }
 /*************************************************************************/

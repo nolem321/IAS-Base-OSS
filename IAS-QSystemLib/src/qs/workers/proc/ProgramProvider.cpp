@@ -43,21 +43,15 @@ namespace QS {
 namespace Workers {
 namespace Proc {
 
-//TODO (M) standarize !!!
-const String CEnv_LANG_XSD="IAS_LANG_XSD";
-const String CEnv_SRC_DIRS="IAS_LANG_SRC_DIRS";
 
 /*************************************************************************/
 ProgramProvider::ProgramProvider(::IAS::DM::DataFactory *pDataFactory):
 	pDataFactory(pDataFactory){
 	IAS_TRACER;
 
-	StringList lstSrcPath;
-	IAS::EnvTools::GetEnvTokenized(CEnv_SRC_DIRS, lstSrcPath);
 
 	IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::PtrHolder ptrLexerIStreamFactory;
 	ptrLexerIStreamFactory = IAS_DFT_FACTORY<Tools::Parser::LexerIStreamFactoryForFiles>::Create();
-	ptrLexerIStreamFactory->setSearchPath(lstSrcPath);
 
 	ptrLoader = IAS_DFT_FACTORY<Interpreter::ProgramLoader>::Create(pDataFactory,ptrLexerIStreamFactory.pass());
 

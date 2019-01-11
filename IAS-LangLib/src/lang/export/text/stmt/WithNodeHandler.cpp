@@ -63,6 +63,7 @@ void WithNodeHandler::call(const Model::Node* pNode,
 	printKeyword(aResult,"DO");
   aResult.ssOutput<<std::endl;
 	pCtx->iIndent++;
+	printIndent(pCtx,aResult);
 	CallbackRegister::SubCall(pStatementNode,pCtx,aResult);
 	pCtx->iIndent--;
 

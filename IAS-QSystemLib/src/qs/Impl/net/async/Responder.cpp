@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/Impl/net/async/Responder.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,16 +43,21 @@ Responder::~Responder() throw(){
 /*************************************************************************/
 bool Responder::respond(API::Message* pMessage, const API::Destination& refDestination){
 
+
+  // TODO (H) prefix this id with starttime&pid
 	Conversation::Key key = TypeTools::StringToInt(refDestination.getName().substr(21));
 
 	IAS_LOG(LogLevel::INSTANCE.isInfo(), "RKEY: "<<key);
 
-	Engine::AutoResume ptrConversation(getSession()->getEngine()->getAvailableForWriting(key));
+  try{
 
-	//TODO (M) typeid check and static ?
-	Message* pNetMessage=dynamic_cast<Message*>(pMessage);
-
-	ptrConversation->putMessage(pNetMessage);
+  	Engine::AutoResume ptrConversation(getSession()->getEngine()->getAvailableForWriting(key));
+	  Message* pNetMessage=dynamic_cast<Message*>(pMessage);
+	  ptrConversation->putMessage(pNetMessage);
+  }catch(Exception& e){
+    IAS_LOG(LogLevel::INSTANCE.isError(),"Possible connection lost, no one to write to: "<<key);
+    throw;
+  }
 
 	return true;
 }

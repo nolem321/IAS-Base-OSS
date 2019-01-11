@@ -5,6 +5,15 @@ DEP_PROJECTS+=IAS-CommonLib
 DEP_PROJECTS+=IAS-DataModelLib
 DEP_PROJECTS+=IAS-LangLib
 #########################################################################
+LANG_FILES+=cache.y
+LANG_FILES+=dict.y
+LANG_FILES+=execute.y
+LANG_FILES+=fmt.y
+LANG_FILES+=qs.y
+LANG_FILES+=storage.y
+LANG_FILES+=template.y
+LANG_FILES+=typeinfo.y
+#########################################################################
 include Makefile.FILES
 #########################################################################
 include ../IAS-BuilderTools/Makefile
@@ -39,7 +48,7 @@ dm : ${IAS_XSD_FILES}
 	@rm -rf src/org
 	@rm -rf src/Impl
 	@echo Generating DataModel from: ${IAS_XSD_FILES}
-	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -n ${IAS_XSD_NS} -d src	
+	@../IAS-DataModelLib-CodeGen/out/bin/ias_dm_codegen -s -x ${IAS_XSD_FILES_COMMA} -n ${IAS_XSD_NS} -d src
 	@rm -rf src/src
 
 #########################################################################
