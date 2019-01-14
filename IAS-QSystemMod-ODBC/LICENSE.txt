@@ -1,199 +1,202 @@
 
-INVENIRE AUDE LICENSE
----------------------------
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-LICENSE AGREEMENT: TERMS AND CONDITIONS OF USE
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
+   1. Definitions.
 
-IMPORTANT - READ CAREFULY: This Software License Agreement (the "Agreement") is a legal
-agreement between you (either as an individual or as an authorized representative of an
-entity, hereafter "Licensee", ”You”, ”Your”) and Invenire Aude Limited (the “Licensor”)
-pursuant to which the Licensor is willing to license You the materials accompanying this
-Agreement or made available for download (the "Licensed Materials" as defined below) on
-the terms and conditions set forth herein.
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-By clicking on the "accept" button, downloading, installing or otherwise using the
-Licensed Materials, You agree to be bound by the terms of this Agreement and if doing so
-on behalf of an entity, You represent that You are authorized to bind the entity to the
-terms and conditions of this Agreement.
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-If You do not agree to be bound by the terms of this Agreement, do not download, install
-or use the Licensed Materials.
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-1. DEFINITIONS. 
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
 
-For purposes of this Agreement, the following definitions shall apply:
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
 
-"Source Format" shall mean all or any portion of human readable form, including but not
-limited to software code, documentation, and configuration files.
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
 
-"Binary Format" shall mean all or any portion of machine-readable and executable code,
-including but not limited to compiled code, generated documentation, and conversions to
-other media types.
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
 
-"Licensed Materials" shall include all materials subject to this Agreement downloaded by
-or otherwise supplied to Licensee; including Software in Binary Format derived by
-Licensee, or in behalf of Licensee, from such materials.
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
 
-"Confidential Information" shall mean and include the Licensed Materials in Source
-Format that are identified as confidential and all Licensed Materials in Binary Format
-unless derivable from non-confidential Licensed Materials in Source Format; Materials
-prepared by Licensee which are copies of the Confidential Information or from which the
-substance of the Confidential Information can be inferred or otherwise understood.
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
 
-"Licensee Modifications" shall mean all or any modifications to the Licensed Materials
-made by or on behalf of Licensee.
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
 
-"Derivative Works" shall mean any work, whether in Source Format or Binary Format, that
-is based on (or derived from) the Licensed Materials and for which the editorial
-revisions, annotations, elaborations, or other modifications represent, as a whole, an
-original work of authorship. For the purposes of this Agreement, Derivative Works shall
-not include works that remain separable from, or merely link (or bind by name) to the
-interfaces of, the Licensed Materials in Binary Format thereof.
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
 
-"End User" shall mean the third party, an individual or other legal entity, that is
-using, accessing or otherwise operating the Derivative Works created by You.
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
 
-“Production Server” shall mean each server or server unit the Licensed Materials are
-installed on for a purpose other than: archiving, learning, testing or modifying of the
-Licensed Materials.
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
 
-“Non-Production Server” shall mean each server or server unit the Licensed Materials are
-installed on solely for a purpose of archiving, learning, testing or modifying of the
-Licensed Materials.
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
 
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
 
-2. LICENSE GRANT. 
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
 
-This license grants You, and You hereby accept, a non-exclusive and non-transferable
-license to install, use, copy, modify and prepare Derivative Works of the Licensed
-Materials including software programs in both Source Format and Binary Format under the
-following therms and conditions:
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
 
- (a) The Licensed Materials may be used solely on the specified quantity of
-     licensed Production Server(s);
- (b) The Licensed Materials may be used on additional Non-Production Servers
-     for development and archiving purposes;	  
- (c) You may use the Licensed Materials solely for Your own internal use;
- (d) The Licensed Materials may be used on computers owned or leased by You on
-     Your premises;
- (e) You may copy the Licensed Materials solely to the extent necessary to exercise
-     the foregoing license provided that:
-     (i) You must reproduce all copyright notices and other proprietary notices on
-		 any copies of the Licensed Materials and You must not remove
-		 or alter those notices; 
-	 (ii) all copies of the Licensed Materials shall be subject to
-	      the terms of this Agreement;	   
-     (iii) You may not otherwise copy or allow copies of the Software to be made.
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
 
-4. MODIFICATIONS.  By creating the Derivative Works, You agree to the following restrictions:
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
 
-   (a) You must retain, in any Derivative Works that You create, all copyright, patent
-       or trademark notices from the Licensed Materials;
-   (b) You must cause the Derivative Works that You create, to carry a prominent
-       Attribution Notice to inform recipients that You have modified the Licensed
-       Materials;  
-   (c) Derivative Works may only be used on computers with a legally licensed copy of
-       Licensed Materials installed;
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
 
-5. OWNERSHIP OF DERIVATIVE WORKS.
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
 
-You retain all title, copyright, and other proprietary interests in Derivative Works of
-the Software that are developed by You in accordance with this Agreement.
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
 
-Licensor acknowledges and agrees that You are under no obligation to deliver Licensee
-Modifications. However, Licensor has a freedom to use such modifications when created
-independently by Licensor.
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
 
-If You choose to make Licensee Modifications available to Licensor, without imposing a
-separate written license agreement, then You hereby grant the following license: a
-non-exclusive, royalty-free perpetual license to install, use, modify, prepare
-Derivative Works, incorporate into other computer software, distribute, and sublicense
-such modifications.
+   END OF TERMS AND CONDITIONS
 
-6. DISTRIBUTION OF DERIVATIVE WORKS.
+   APPENDIX: How to apply the Apache License to your work.
 
-You may distribute the Derivative Works provided that:
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
 
- (a) The End Users are in possession of a separate valid license for the Licensed Materials;
- (b) Distributors and the End Users are required to agree to terms and conditions that
-     protect the Derivative Works as much as this Agreement.
- (c) You may agree to accept warranty, indemnity, or other liability obligations and/or
-     rights consistent with this Agreement. However, in accepting such obligations, You
-     may act only on Your own behalf and on Your sole responsibility.
+   Copyright [yyyy] [name of copyright owner]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-7. RESTRICTIONS. 
+       http://www.apache.org/licenses/LICENSE-2.0
 
-Except as otherwise expressly permitted in this Agreement, You are not allowed to:
-
- (a) modify or create any Derivative Works of the Licensed Materials;
- (b) manipulate or alter the components that make up the Licensed Materials in any way; 
- (c) sell, rent, lease, sublicense, or otherwise transfer rights to the Licensed Materials. 
-
-8. LICENSE FEE. 
-
-In consideration of the rights granted hereunder, You agree to pay Licensor the
-appropriate license fee when You agree to this Agreement by clicking the “I Agree”
-button below.
-
-9. OWNERSHIP.
-
-The Licensed Materials are licensed and not sold. The software in Binary Format and
-Source Format is a proprietary product and is protected by copyright and other
-intellectual property laws. You acquire only the right to use Licensed Materials and do
-not acquire any rights, express or implied, in the Licensed Materials other than those
-specified in this Agreement. Licensor shall at all times retain all rights, title,
-interest, including intellectual property rights, in Licensed Materials.
-
-10. CONFIDENTIALLITY.
-Licensee agrees:
-
- (a) to use the Confidential Information only as necessary to exercise its rights or
-     fulfill its obligations under this Agreement;
- (b) to implement reasonable procedures to prohibit the disclosure, unauthorized
-      duplication, misuse or removal of Confidential Information; and
- (c) not to disclose Confidential Information to employees not having a need to know or
-     to any third party (except that Licensee may, in appropriate circumstances and
-     subject to a nondisclosure agreement with terms and conditions at least as
-     protective as these terms, disclose Confidential Information to Licensee's
-     contractors)
-
-Licensee shall at all times protect the Confidential Information with at least the same
-standard of care as it exercises to protect its own confidential information of like
-importance, but in no event less than reasonable care.
-
-11. INDEMNIFICATION
-
-You will defend Licensor against any and all claims made by an unaffiliated third party
-and pay the amount of any resulting adverse final judgment (or settlement to which
-Licensor consents) that arises or results from the use or distribution of Your products
-that incorporate any portion of the Licensed Materials or the Derivative Work, but only
-if and to the extent such claims are not attributable solely to the Licensed Materials.
-
-12. DISCLAIMER OF WARRANTY.
-
-THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EITHER
-EXPRESSED OR IMPLIED INCLUDING WITHOUT LIMITATION THE WARRANTIES THAT IT IS FREE OF
-DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK
-AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU. SHOULD THE SOFTWARE PROVE
-DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR, OR CORRECTION.
-
-13. LIMITATION OF LIABILITY.
-
-IN NO EVENT SHALL THE AUTHOR, COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY REDISTRIBUTE
-THE SOFTWARE BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL,
-OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE
-(INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA, DATA BEING RENDERED INACCURATE, LOSS OF
-BUSINESS PROFITS, LOSS OF BUSINESS INFORMATION, BUSINESS INTERRUPTIONS, LOSS SUSTAINED
-BY YOU OR THIRD PARTIES, OR A FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER
-SOFTWARE) EVEN IF THE AUTHOR, COPYRIGHT HOLDER, OR OTHER PARTY HAS BEEN ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGES.
-
-14. TERMINATION.
-
-VIOLATION OR NON-ACCEPTANCE OF ANY OF THE ABOVE LICENSE CONDITIONS IMMEDIATELY AND
-UNCONDITIONALLY TERMINATES YOUR LICENSE.
-
----------------------------------------------------------------------------------------------
-END OF TERMS AND CONDITIONS
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.

@@ -1,6 +1,6 @@
 #########################################################################
-ARTIFACT=IASQSystemMod-DB2
-ARTIFACT_ALT_NAMES+=dsmod_db2.so
+ARTIFACT=IASQSystemMod-ODBC
+ARTIFACT_ALT_NAMES+=dsmod_odbc.so
 #########################################################################
 DEP_PROJECTS+=IAS-CommonLib
 DEP_PROJECTS+=IAS-DataModelLib

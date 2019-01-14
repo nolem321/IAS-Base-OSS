@@ -1,2 +1,2 @@
-CPPFLAGS+= -I${DB2_HOME}/include
-LNFLAGS+= -L${DB2_HOME}/lib -ldb2
+CPPFLAGS+= -I/usr/include
+LNFLAGS+= -lodbc
