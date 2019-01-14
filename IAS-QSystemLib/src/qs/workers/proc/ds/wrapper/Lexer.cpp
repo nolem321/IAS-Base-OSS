@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/ds/wrapper/Lexer.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -97,6 +97,7 @@ Lexer::PrintableSymbolMap::PrintableSymbolMap(){
 	(*this)[T_LE]     = " < ";
 	(*this)[T_GT_EQ]  = " >= ";
 	(*this)[T_LE_EQ]  = " <= ";
+  (*this)[T_PMATCH]  = " @@ ";
 
 	(*this)[T_LIKE]   = "LIKE";
 	(*this)[T_IN]     = "IN";
@@ -162,6 +163,7 @@ Lexer::Token Lexer::nextToken(){
 	   case '=': sCur++; handleEQ();      break;
 	   case '<': sCur++; handleLt();      break;
 	   case '>': sCur++; handleGt();      break;
+     case '@': sCur++; handleAt();      break;
 
 	   case '(':  sCur++; iToken = T_OPENPAR; break;
 	   case ')':  sCur++; iToken = T_CLOSEPAR; break;
@@ -268,6 +270,20 @@ void Lexer::handleGt() {
 		if(*sCur)
 		sCur++;
 		iToken=T_GT;
+	}
+
+}
+/*************************************************************************/
+void Lexer::handleAt() {
+	IAS_TRACER;
+
+	if(*sCur=='@') {
+		iToken=T_PMATCH;
+		sCur++;
+	} else {
+
+		IAS_THROW(ParseException("Parse error [single @] at: ", iLine));
+
 	}
 
 }

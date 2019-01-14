@@ -372,6 +372,8 @@ void Wrapper::handleWhereCondition(Lexer *pLexer,
 		case Lexer::T_LE_EQ : strSQLText+=" <=  "; break;
 		case Lexer::T_DIFF  : strSQLText+=" <>  "; break;
 		case Lexer::T_LIKE  : strSQLText+=" LIKE  "; break;
+    case Lexer::T_PMATCH  : strSQLText+=" @@  "; break;
+
 		case Lexer::T_IN    :{
 
 					strSQLText+=" IN ( ";

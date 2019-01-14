@@ -129,7 +129,7 @@ void LogicBase::computeRaw(::org::invenireaude::qsystem::workers::Ext::ContextPt
 				send(dmContext,*pMessage->getContent());
 
 			(*pMessage->getContent()).clear();
-			(*pMessage->getContent()).seekg(0);;
+			(*pMessage->getContent()).seekg(0);
 		}
 
 		const DM::Default::Ext::StringList& lstTargets(dmRouting->getTargetsList());

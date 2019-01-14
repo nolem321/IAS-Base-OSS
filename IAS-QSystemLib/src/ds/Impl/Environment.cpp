@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/ds/Impl/Environment.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,7 +58,7 @@ API::Connection* Environment::connect(const ::org::invenireaude::qsystem::worker
 		try{
 			hmSystems[strProtocol]=(*(getFactory(strProtocol)))();
 		}catch(Exception& e){
-			IAS_THROW(BadUsageException(String("Unknown protocol or dynamic load problem: ")+strProtocol+", connection="+dmParameter->getName()));
+			IAS_THROW(BadUsageException(String("Unknown protocol or dynamic load problem: ")+strProtocol+", connection="+dmParameter->getName()+" "+e.getInfo()));
 		}
 
 	}

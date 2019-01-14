@@ -1,14 +1,14 @@
 /*
  * File: IAS-QSystemLib/src/qs/workers/proc/ds/wrapper/Lexer.h
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,6 +78,7 @@ public:
 		T_LIKE    = 76,
 		T_IN      = 77,
 		T_FOR     = 77,
+    T_PMATCH  = 78,
 
 		T_END     = 99
 	};
@@ -118,6 +119,7 @@ protected:
 	void handleEQ();
 	void handleLt();
 	void handleGt();
+  void handleAt();
 
 	struct SymbolMap : HashMapWithStringKey<Token>,
 		InstanceFeature<SymbolMap>{
