@@ -1,14 +1,14 @@
 /*
  * File: IAS-DataModelLib/src/dm/Impl/DataObjectRaw.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,30 +37,57 @@ DataObjectRaw::~DataObjectRaw() throw(){
 }
 /*************************************************************************/
 ::IAS::String DataObjectRaw::toString()const{
-	//TODO Base64
-	return String(ptrRawContentValue->getBuffer<const char>(),ptrRawContentValue->getSize());
+
+  IAS_TRACER;
+
+  String strResult;
+
+  if(ptrRawContentValue->getSize())
+	  MiscTools::BinaryToBase64(
+            ptrRawContentValue->getBuffer<const unsigned char>(),
+            ptrRawContentValue->getSize(),
+            strResult);
+
+  return strResult;
 }
 /*************************************************************************/
 void DataObjectRaw::setString(const ::IAS::String& strValue){
 	IAS_TRACER;
-	//TODO Base64
-	ptrRawContentValue->reserve(strValue.length());
-	strncpy(ptrRawContentValue->getBuffer<char>(),strValue.c_str(),strValue.length());
+
+  if(strValue.length() == 0){
+    ptrRawContentValue->resize(0);
+    return;
+  }
+
+  ptrRawContentValue->reserve(strValue.length());
+  size_t iDataLen;
+
+  MiscTools::Base64ToBinary(strValue,
+            ptrRawContentValue->getBuffer<unsigned char>(),
+            ptrRawContentValue->getSize(),
+            iDataLen);
+
+  ptrRawContentValue->resize(iDataLen);
 }
 /*************************************************************************/
 void DataObjectRaw::toRaw( RawContent* pRawContent)const{
 	IAS_TRACER;
-	//TODO Base64
-	pRawContent->reserve(ptrRawContentValue->getSize());
-	memcpy(pRawContent->getBuffer<void>(),
+
+  pRawContent->reserve(ptrRawContentValue->getSize());
+
+  if(ptrRawContentValue->getSize())
+	  memcpy(pRawContent->getBuffer<void>(),
 			ptrRawContentValue->getBuffer<void>(),
 			ptrRawContentValue->getSize());
 }
 /*************************************************************************/
 void DataObjectRaw::setRaw(const RawContent* pRawContent){
 	IAS_TRACER;
-	ptrRawContentValue->reserve(pRawContent->getSize());
-	memcpy(ptrRawContentValue->getBuffer<void>(),
+
+  ptrRawContentValue->reserve(pRawContent->getSize());
+
+  if(pRawContent->getSize())
+	  memcpy(ptrRawContentValue->getBuffer<void>(),
 			pRawContent->getBuffer<void>(),
 			pRawContent->getSize());
 }

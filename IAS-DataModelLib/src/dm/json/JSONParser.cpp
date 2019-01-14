@@ -1,14 +1,14 @@
 /*
  * File: IAS-DataModelLib/src/dm/json/JSONParser.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,6 +33,7 @@ namespace DM {
 namespace JSON {
 
 const char *JSONParser::C_TypeAttr("_dmType");
+const String& JSONParser::C_Null("null");
 
 /*************************************************************************/
 JSONParser::JSONParser(JSONHelper* pJSONHelper, JSONLexer *pJSONLexer):
@@ -195,8 +196,15 @@ DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeH
 
 	if(node.getType() == Node::T_Value){
 
-		if(pTypeHint && !pTypeHint->isDataObjectType())
-			return pTypeHint->createDataObject(node.getValue());
+		if(pTypeHint && !pTypeHint->isDataObjectType()){
+
+      const char* sValue = node.getValue();
+
+      if(C_Null.compare(sValue) == 0)
+        return NULL;
+
+    	return pTypeHint->createDataObject(sValue);
+    }
 
 		IAS_THROW(JSONHelperException("No hint or data object type given for a simple type."));
 	}
@@ -217,7 +225,12 @@ DM::DataObject* JSONParser::buildObject(const Node& node, const DM::Type* pTypeH
 			if(it == node.getMap()->end())
 			IAS_THROW(JSONHelperException("No type hint for a simple type[1]."+pTypeHint->getFullName()));
 
-			return pTypeHint->createDataObject(it->second->getFirst().getValue());
+      const char* sValue = it->second->getFirst().getValue();
+
+      if(C_Null.compare(sValue) == 0)
+        return NULL;
+
+			return pTypeHint->createDataObject(sValue);
 		} else {
 			return pTypeHint->createDataObject();
 		}
