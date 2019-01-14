@@ -1,14 +1,14 @@
 /*
  * File: IAS-LangLib/src/lang/interpreter/exe/expr/xpath/XPathAccessor.cpp
- * 
+ *
  * Copyright (C) 2015, Albert Krzymowski
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -325,6 +325,10 @@ bool XPathAccessor::isSet(DM::DataObject* pParent, Context *pCtx)const{
 				return false;
 
 			pResult = pResult->getDataObject((*it)->getProperty());
+
+      if(pResult == NULL)
+        return false;
+
 		}
 		it++;
 	}
@@ -366,9 +370,16 @@ bool XPathAccessor::isNull(DM::DataObject* pParent, Context *pCtx)const{
 		IAS_LOG(::IAS::Lang::LogLevel::INSTANCE.isDetailedInfo(),(*it)->getName());
 
 		if ((*it)->isMulti()) {
-			int iIdx = (*it)->getMultiExpr()->evaluateInt(pCtx);
 			DM::DataObjectList& lstValues = pResult->getList((*it)->getProperty());
-			pResult = lstValues.at(iIdx);
+
+  	if((*it)->isHashReference()){
+				DM::DataObjectPtr ptrIndex;
+				(*it)->getMultiExpr()->evaluate(pCtx, ptrIndex);
+				pResult = lstValues.at(ptrIndex);
+			}else
+				pResult = lstValues.at((*it)->getMultiExpr()->evaluateInt(pCtx));
+
+
 		} else {
 
 			if(! pResult->isSet((*it)->getProperty()))
