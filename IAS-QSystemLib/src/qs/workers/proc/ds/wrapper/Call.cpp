@@ -131,6 +131,8 @@ Call::Call(::IAS::DS::API::Session* pSession,
 
 	if(bClosePar)
 		strSQLText += ")";
+  else
+  	strSQLText += "()";
 
 	iToken=pLexer->nextToken();
 

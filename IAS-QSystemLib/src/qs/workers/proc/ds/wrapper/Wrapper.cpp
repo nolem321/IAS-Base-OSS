@@ -172,7 +172,7 @@ void Wrapper::SettersTable::bindIO(::IAS::DS::API::IOutput* pIOutput){
 
 	for(int iIdx=0;iIdx<tabTags.size();iIdx++){
 
-		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isDetailedInfo(),"tag: "<<tabTags[iIdx]<<" "<<tabSetters[iIdx]->getXPath()<<" "<<iIdx<<" / "<<tabTags.size());
+		IAS_LOG(IAS::QS::LogLevel::INSTANCE.isDetailedInfo(),"tag: "<<tabTags[iIdx]<<" "<<tabSetters[iIdx]->getXPath()<<" "<<tabModes[iIdx]<<iIdx<<" / "<<tabTags.size());
 
 		switch(tabModes[iIdx]){
 
